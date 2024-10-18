@@ -1,5 +1,7 @@
 package net.warphan.iss_magicfromtheeast;
 
+import net.warphan.iss_magicfromtheeast.registries.CreativeTabRegistries;
+import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,9 +35,11 @@ public class ISS_MagicFromTheEast {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        ItemRegistries.register(modEventBus);
+        CreativeTabRegistries.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
