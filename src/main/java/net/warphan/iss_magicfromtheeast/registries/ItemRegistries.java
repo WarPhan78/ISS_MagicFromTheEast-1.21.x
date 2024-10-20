@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
+import net.warphan.iss_magicfromtheeast.item.weapons.MFTEStaffTier;
 
 public class ItemRegistries {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ISS_MagicFromTheEast.MOD_ID);
@@ -33,7 +34,7 @@ public class ItemRegistries {
 
 
     public static final DeferredHolder<Item, Item> TAIJI_SWORD = ITEMS.register("taiji_sword",
-            () -> new StaffItem(ItemPropertiesHelper.equipment(1).attributes(ExtendedSwordItem.createAttributes(StaffTier.ARTIFICER))));
+            () -> new StaffItem(ItemPropertiesHelper.equipment(1).attributes(ExtendedSwordItem.createAttributes(MFTEStaffTier.TAIJI_SWORD))));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
