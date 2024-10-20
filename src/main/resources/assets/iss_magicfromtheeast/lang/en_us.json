@@ -1,9 +1,23 @@
 {
+  "attribute.iss_magicfromtheeast.symmetry_spell_power": "Symmetry Spell Power",
+  "attribute.iss_magicfromtheeast.spirit_spell_power": "Spirit Spell Power",
+  "attribute.iss_magicfromtheeast.dune_spell_power": "Dune Spell Power",
+  "attribute.iss_magicfromtheeast.symmetry_spell_resist": "Symmetry Spell Resist",
+  "attribute.iss_magicfromtheeast.spirit_spell_resist": "Spirit Spell Resist",
+  "attribute.iss_magicfromtheeast.dune_spell_resist": "Dune Spell Resist",
+  "school.iss_magicfromtheeast.symmetry": "Symmetry",
+  "school.iss_magicfromtheeast.spirit": "Spirit",
+  "school.iss_magicfromtheeast.dune": "Dune",
+
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
   "item.iss_magicfromtheeast.jade": "Jade",
   "item.iss_magicfromtheeast.bottle_of_souls": "Bottle Of Souls",
   "item.iss_magicfromtheeast.arcane_relics": "Arcane Relics",
   "item.iss_magicfromtheeast.taiji_sword": "Taiji Sword",
+  "item.iss_magicfromtheeast.taoist_hat": "Taoist Hat",
+  "item.iss_magicfromtheeast.taoist_robes": "Taoist Robes",
+  "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
+  "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
   "block.examplemod.example_block": "Example Block",
   "item.examplemod.example_item": "Example Item"
 }

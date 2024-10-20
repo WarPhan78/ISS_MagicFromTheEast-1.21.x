@@ -1,11 +1,10 @@
 package net.warphan.iss_magicfromtheeast;
 
-import net.warphan.iss_magicfromtheeast.registries.CreativeTabRegistries;
-import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.warphan.iss_magicfromtheeast.registries.*;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-
 import com.mojang.logging.LogUtils;
-
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,6 +23,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 public class ISS_MagicFromTheEast {
     public static final String MOD_ID = "iss_magicfromtheeast";
     private static final Logger LOGGER = LogUtils.getLogger();
+
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public ISS_MagicFromTheEast(IEventBus modEventBus, ModContainer modContainer) {
@@ -37,6 +37,9 @@ public class ISS_MagicFromTheEast {
 
         ItemRegistries.register(modEventBus);
         CreativeTabRegistries.register(modEventBus);
+        MFTESchoolRegistries.register(modEventBus);
+        MFTEAttributeRegistries.register(modEventBus);
+        MFTESoundRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -65,5 +68,9 @@ public class ISS_MagicFromTheEast {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
         }
+    }
+
+    public static ResourceLocation id(@NotNull String path) {
+        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, path);
     }
 }

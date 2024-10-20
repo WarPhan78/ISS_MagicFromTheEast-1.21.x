@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,8 +12,6 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-
-import java.util.function.Supplier;
 
 @EventBusSubscriber (modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CreativeTabRegistries {
@@ -32,6 +29,10 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.JADE.get());
                 entries.accept(ItemRegistries.BOTTLE_OF_SOULS.get());
                 entries.accept(ItemRegistries.ARCANE_RELICS.get());
+                entries.accept(ItemRegistries.TAOIST_HAT.get());
+                entries.accept(ItemRegistries.TAOIST_ROBES.get());
+                entries.accept(ItemRegistries.TAOIST_LEGGINGS.get());
+                entries.accept(ItemRegistries.TAOIST_BOOTS.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());

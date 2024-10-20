@@ -1,0 +1,17 @@
+{
+  "cast.generic.symmetry": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/symmetry_cast"
+    ]
+  },
+  "cast.generic.spirit": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/spirit_cast"
+    ]
+  },
+  "cast.generic.dune": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/dune_cast"
+    ]
+  }
+}
