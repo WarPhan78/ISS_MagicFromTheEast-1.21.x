@@ -40,6 +40,7 @@ public class ISS_MagicFromTheEast {
         MFTESchoolRegistries.register(modEventBus);
         MFTEAttributeRegistries.register(modEventBus);
         MFTESoundRegistries.register(modEventBus);
+        MFTESpellRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
