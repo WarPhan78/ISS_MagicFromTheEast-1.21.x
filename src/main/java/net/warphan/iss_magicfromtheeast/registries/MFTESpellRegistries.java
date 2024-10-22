@@ -5,7 +5,7 @@ import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.spells.symmetry.ThrowUpSpell;
+import net.warphan.iss_magicfromtheeast.spells.symmetry.*;
 
 import java.util.function.Supplier;
 
@@ -21,8 +21,15 @@ public class MFTESpellRegistries {
     }
 
     //SYMMETRY SPELLS
-    public static final Supplier<AbstractSpell> THROW_UP_SPELL = registerSpell(new ThrowUpSpell() {
-    });
+    public static final Supplier<AbstractSpell> THROW_UP_SPELL = registerSpell(new ThrowUpSpell());
+    public static final Supplier<AbstractSpell> FORCE_SWORD = registerSpell(new ForceSword());
+    public static final Supplier<AbstractSpell> QIGONG_CONTROLLING = registerSpell(new QigongControlling());
+    public static final Supplier<AbstractSpell> BAGUA_ARRAY_CIRCLE = registerSpell(new BaguaArrayCircle());
+    public static final Supplier<AbstractSpell> DRAGON_GLIDE = registerSpell(new DragonGlide());
+    public static final Supplier<AbstractSpell> JADE_JUDGEMENT = registerSpell(new JadeJudgement());
+    public static final Supplier<AbstractSpell> JIANGSHI_INVOKE = registerSpell(new JiangshiInvoke());
+    public static final Supplier<AbstractSpell> JADE_SENTINEL = registerSpell(new JadeSentinel());
+    public static final Supplier<AbstractSpell> UNDERWORLD_AID = registerSpell(new UnderworldAid());
 
     //SPIRIT SPELLS
 
