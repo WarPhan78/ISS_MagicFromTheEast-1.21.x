@@ -9,7 +9,7 @@ import net.warphan.iss_magicfromtheeast.spells.symmetry.*;
 
 import java.util.function.Supplier;
 
-public class MFTESpellRegistries {
+public class MFTESpellRegistries extends SpellRegistry {
     public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SpellRegistry.SPELL_REGISTRY_KEY, ISS_MagicFromTheEast.MOD_ID);
 
     public static void register(IEventBus eventBus) {
