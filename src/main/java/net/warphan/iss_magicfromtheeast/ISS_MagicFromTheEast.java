@@ -1,6 +1,8 @@
 package net.warphan.iss_magicfromtheeast;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
+import net.warphan.iss_magicfromtheeast.entity.spells.force_sword.SummonedSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -42,7 +44,7 @@ public class ISS_MagicFromTheEast {
         MFTESoundRegistries.register(modEventBus);
         MFTESpellRegistries.register(modEventBus);
         MFTEEntityRegistries.register(modEventBus);
-        MFTEMobEffectRegistries.register(modEventBus);
+        MFTEEffectRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -66,10 +68,10 @@ public class ISS_MagicFromTheEast {
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            EntityRenderers.register(MFTEEntityRegistries.FORCE_SWORD.get(), SummonedSwordRenderer::new);
         }
     }
 
