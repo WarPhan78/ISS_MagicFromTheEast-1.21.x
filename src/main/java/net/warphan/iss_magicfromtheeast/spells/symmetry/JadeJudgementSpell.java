@@ -10,21 +10,20 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class JiangshiInvoke extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jiangshi_invoke");
+public class JadeJudgementSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_judgement");
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.RARE)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
-            .setMaxLevel(7)
-            .setCooldownSeconds(150)
+            .setMaxLevel(6)
+            .setCooldownSeconds(40)
             .build();
-
-    public JiangshiInvoke() {
-        this.manaCostPerLevel = 10;
-        this.baseSpellPower = 7;
+    public JadeJudgementSpell() {
+        this.manaCostPerLevel = 15;
+        this.baseSpellPower = 10;
         this.spellPowerPerLevel = 4;
-        this.castTime = 30;
-        this.baseManaCost = 30;
+        this.castTime = 40;
+        this.baseManaCost = 85;
     }
 
     @Override
@@ -41,5 +40,4 @@ public class JiangshiInvoke extends AbstractSpell {
     public ResourceLocation getSpellResource() {
         return spellId;
     }
-
 }

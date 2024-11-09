@@ -10,21 +10,21 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class JadeSentinel extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel");
+public class QigongControllingSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "qigong_controlling");
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.EPIC)
+            .setMinRarity(SpellRarity.UNCOMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
-            .setMaxLevel(5)
-            .setCooldownSeconds(240)
+            .setMaxLevel(10)
+            .setCooldownSeconds(20)
             .build();
 
-    public JadeSentinel() {
-        this.manaCostPerLevel = 25;
-        this.baseSpellPower = 20;
-        this.spellPowerPerLevel = 5;
-        this.castTime = 30;
-        this.baseManaCost = 100;
+    public QigongControllingSpell() {
+        this.manaCostPerLevel = 5;
+        this.baseSpellPower = 8;
+        this.spellPowerPerLevel = 2;
+        this.castTime = 100;
+        this.baseManaCost = 40;
     }
 
     @Override

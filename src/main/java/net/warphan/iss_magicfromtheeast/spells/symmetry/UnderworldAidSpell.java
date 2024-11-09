@@ -10,7 +10,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class UnderworldAid extends AbstractSpell {
+public class UnderworldAidSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "underworld_aid");
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.EPIC)
@@ -19,7 +19,7 @@ public class UnderworldAid extends AbstractSpell {
             .setCooldownSeconds(120)
             .build();
 
-    public UnderworldAid() {
+    public UnderworldAidSpell() {
         this.manaCostPerLevel = 20;
         this.baseSpellPower = 16;
         this.spellPowerPerLevel = 4;

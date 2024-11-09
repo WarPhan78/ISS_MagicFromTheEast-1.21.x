@@ -10,21 +10,21 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class DragonGlide extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "dragon_glide");
+public class JiangshiInvokeSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jiangshi_invoke");
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.COMMON)
+            .setMinRarity(SpellRarity.RARE)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
-            .setMaxLevel(10)
-            .setCooldownSeconds(4)
+            .setMaxLevel(7)
+            .setCooldownSeconds(150)
             .build();
 
-    public DragonGlide() {
-        this.manaCostPerLevel = 4;
-        this.baseSpellPower = 4;
-        this.spellPowerPerLevel = 1;
+    public JiangshiInvokeSpell() {
+        this.manaCostPerLevel = 10;
+        this.baseSpellPower = 7;
+        this.spellPowerPerLevel = 4;
         this.castTime = 30;
-        this.baseManaCost = 16;
+        this.baseManaCost = 30;
     }
 
     @Override
@@ -41,4 +41,5 @@ public class DragonGlide extends AbstractSpell {
     public ResourceLocation getSpellResource() {
         return spellId;
     }
+
 }

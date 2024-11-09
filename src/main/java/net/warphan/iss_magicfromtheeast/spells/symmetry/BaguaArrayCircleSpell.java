@@ -10,7 +10,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class BaguaArrayCircle extends AbstractSpell {
+public class BaguaArrayCircleSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bagua_array_circle");
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.UNCOMMON)
@@ -19,7 +19,7 @@ public class BaguaArrayCircle extends AbstractSpell {
             .setCooldownSeconds(35)
             .build();
 
-    public BaguaArrayCircle() {
+    public BaguaArrayCircleSpell() {
         this.manaCostPerLevel = 10;
         this.baseSpellPower = 2;
         this.spellPowerPerLevel = 1;

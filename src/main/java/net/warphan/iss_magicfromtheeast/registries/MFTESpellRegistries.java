@@ -22,14 +22,14 @@ public class MFTESpellRegistries extends SpellRegistry {
 
     //SYMMETRY SPELLS
     public static final Supplier<AbstractSpell> THROW_UP_SPELL = registerSpell(new ThrowUpSpell());
-    public static final Supplier<AbstractSpell> FORCE_SWORD = registerSpell(new ForceSword());
-    public static final Supplier<AbstractSpell> QIGONG_CONTROLLING = registerSpell(new QigongControlling());
-    public static final Supplier<AbstractSpell> BAGUA_ARRAY_CIRCLE = registerSpell(new BaguaArrayCircle());
-    public static final Supplier<AbstractSpell> DRAGON_GLIDE = registerSpell(new DragonGlide());
-    public static final Supplier<AbstractSpell> JADE_JUDGEMENT = registerSpell(new JadeJudgement());
-    public static final Supplier<AbstractSpell> JIANGSHI_INVOKE = registerSpell(new JiangshiInvoke());
-    public static final Supplier<AbstractSpell> JADE_SENTINEL = registerSpell(new JadeSentinel());
-    public static final Supplier<AbstractSpell> UNDERWORLD_AID = registerSpell(new UnderworldAid());
+    public static final Supplier<AbstractSpell> FORCE_SWORD_SPELL = registerSpell(new ForceSwordSpell());
+    public static final Supplier<AbstractSpell> QIGONG_CONTROLLING_SPELL = registerSpell(new QigongControllingSpell());
+    public static final Supplier<AbstractSpell> BAGUA_ARRAY_CIRCLE_SPELL = registerSpell(new BaguaArrayCircleSpell());
+    public static final Supplier<AbstractSpell> DRAGON_GLIDE_SPELL = registerSpell(new DragonGlideSpell());
+    public static final Supplier<AbstractSpell> JADE_JUDGEMENT_SPELL = registerSpell(new JadeJudgementSpell());
+    public static final Supplier<AbstractSpell> JIANGSHI_INVOKE_SPELL = registerSpell(new JiangshiInvokeSpell());
+    public static final Supplier<AbstractSpell> JADE_SENTINEL_SPELL = registerSpell(new JadeSentinelSpell());
+    public static final Supplier<AbstractSpell> UNDERWORLD_AID_SPELL = registerSpell(new UnderworldAidSpell());
 
     //SPIRIT SPELLS
 

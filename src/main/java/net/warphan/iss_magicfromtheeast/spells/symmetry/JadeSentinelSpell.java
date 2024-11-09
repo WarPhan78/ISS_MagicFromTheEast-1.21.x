@@ -10,21 +10,21 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 @AutoSpellConfig
-public class ForceSword extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "force_sword");
+public class JadeSentinelSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel");
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.UNCOMMON)
+            .setMinRarity(SpellRarity.EPIC)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(5)
-            .setCooldownSeconds(30)
+            .setCooldownSeconds(240)
             .build();
 
-    public ForceSword() {
-        this.manaCostPerLevel = 5;
-        this.baseSpellPower = 6;
-        this.spellPowerPerLevel = 2;
-        this.castTime = 20;
-        this.baseManaCost = 70;
+    public JadeSentinelSpell() {
+        this.manaCostPerLevel = 25;
+        this.baseSpellPower = 20;
+        this.spellPowerPerLevel = 5;
+        this.castTime = 30;
+        this.baseManaCost = 100;
     }
 
     @Override
