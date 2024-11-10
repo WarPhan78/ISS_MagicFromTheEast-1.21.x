@@ -14,7 +14,7 @@ public class SummonedSwordRenderer extends GeoEntityRenderer<SummonedSword> {
 
     public SummonedSwordRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SummonedSwordModel());
-        this.shadowRadius = 0.4f;
+        this.shadowRadius = 0.2f;
     }
 
     @Override

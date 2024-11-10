@@ -3,23 +3,29 @@ package net.warphan.iss_magicfromtheeast.entity.spells.force_sword;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
+import io.redspace.ironsspellbooks.entity.mobs.goals.GenericCopyOwnerTargetGoal;
+import io.redspace.ironsspellbooks.entity.mobs.goals.GenericFollowOwnerGoal;
+import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtByTargetGoal;
+import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtTargetGoal;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -27,16 +33,19 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.UUID;
 
-public class SummonedSword extends Mob implements IMagicSummon, GeoEntity {
-    public SummonedSword(EntityType<? extends Mob> pEntityType, Level pLevel) {
+public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEntity {
+    public SummonedSword(EntityType<? extends SummonedSword> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.setNoGravity(true);
         xpReward = 0;
     }
 
     public SummonedSword(Level pLevel, LivingEntity owner) {
         this(MFTEEntityRegistries.FORCE_SWORD.get(), pLevel);
+        this.moveControl = new FlyingMoveControl(this, 10, true);
         setSummoner(owner);
     }
 
@@ -46,16 +55,23 @@ public class SummonedSword extends Mob implements IMagicSummon, GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.5f, true));
+        this.goalSelector.addGoal(3, new GenericFollowOwnerGoal(this, this::getSummoner, 5f, 5, 3, true, 10));
+
+        this.targetSelector.addGoal(1, new GenericOwnerHurtByTargetGoal(this, this::getSummoner));
+        this.targetSelector.addGoal(2, new GenericOwnerHurtTargetGoal(this, this::getSummoner));
+        this.targetSelector.addGoal(3, new GenericCopyOwnerTargetGoal(this, this::getSummoner));
     }
 
     public static AttributeSupplier prepareAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7D)
-                .add(Attributes.STEP_HEIGHT, 1)
+        return PathfinderMob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 15.0D)
+                .add(Attributes.MOVEMENT_SPEED, 2.0D)
+                .add(Attributes.FLYING_SPEED, 3.0D)
+                .add(Attributes.JUMP_STRENGTH, 1.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.FOLLOW_RANGE, 15.0D)
+                .add(Attributes.FOLLOW_RANGE, 10.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 20.0D)
                 .build();
     }
 
@@ -63,11 +79,6 @@ public class SummonedSword extends Mob implements IMagicSummon, GeoEntity {
     public void tick() {
         spawnParticles();
         super.tick();
-    }
-
-    @Override
-    public float maxUpStep() {
-        return 1f;
     }
 
     @Override
@@ -97,6 +108,11 @@ public class SummonedSword extends Mob implements IMagicSummon, GeoEntity {
         return super.hurt(pSource,pAmount);
     }
 
+    @Override
+    public boolean doHurtTarget(Entity pEntity) {
+        return Utils.doMeleeAttack(this, pEntity, MFTESpellRegistries.FORCE_SWORD_SPELL.get().getDamageSource(this, getSummoner()));
+    }
+
     @Nullable
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.AMETHYST_CLUSTER_BREAK;
@@ -104,14 +120,14 @@ public class SummonedSword extends Mob implements IMagicSummon, GeoEntity {
 
     public void spawnParticles() {
         if (level.isClientSide) {
-            if (Utils.random.nextFloat() < .25f) {
-                float radius = .75f;
+            if (Utils.random.nextFloat() < .10f) {
+                float radius = .30f;
                 Vec3 vec = new Vec3(
                         random.nextFloat() * 2 * radius - radius,
                         random.nextFloat() * 2 * radius - radius,
                         random.nextFloat() * 2 * radius - radius
                 );
-                level.addParticle(ParticleTypes.SCRAPE, this.getX() + vec.x, this.getY() + vec.y + 1, this.getZ() + vec.z, vec.x * .01f, .08 + vec.y * .01f, vec.z * .01f);
+                level.addParticle(ParticleTypes.SCRAPE, this.getX() + vec.x, this.getY() + vec.y + 0.3, this.getZ() + vec.z, vec.x * .01f, .08 + vec.y * .01f, vec.z * .01f);
             }
         }
     }

@@ -20,7 +20,7 @@ public class MFTEEntityRegistries extends EntityRegistry {
 
     public  static final DeferredHolder<EntityType<?>, EntityType<SummonedSword>> FORCE_SWORD =
             MFTE_ENTITIES.register("summoned_sword", () -> EntityType.Builder.<SummonedSword>of(SummonedSword::new, MobCategory.MISC)
-                    .sized(1f, 1f)
+                    .sized(1.3f, 0.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_sword").toString()));
 }

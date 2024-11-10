@@ -5,7 +5,7 @@
 			"loop": true,
 			"animation_length": 0.5,
 			"bones": {
-				"forcesword": {
+				"summoned_sword": {
 					"position": {
 						"0.0": {
 							"vector": [0, 1, 0]
