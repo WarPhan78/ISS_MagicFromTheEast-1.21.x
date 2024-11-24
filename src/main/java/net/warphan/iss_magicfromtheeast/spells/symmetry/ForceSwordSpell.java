@@ -7,7 +7,6 @@ import io.redspace.ironsspellbooks.config.ServerConfigs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -44,7 +43,6 @@ public class ForceSwordSpell extends AbstractSpell {
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.hp", getSwordHealth(spellLevel, null)),
                 Component.translatable("ui.irons_spellbooks.damage", getSwordDamage(spellLevel, null))
         );
     }
@@ -66,14 +64,12 @@ public class ForceSwordSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        int summonTime = 20 * 60 *10;
+        int summonTime = 20 * 60 * 5;
 
         SummonedSword sword = new SummonedSword(world, entity);
         sword.setPos(entity.position());
 
         sword.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getSwordDamage(spellLevel, entity));
-        sword.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getSwordHealth(spellLevel, entity));
-        sword.setHealth(sword.getMaxHealth());
 
         sword.removeEffectNoUpdate(MFTEEffectRegistries.SUMMON_SWORD_TIMER);
         sword.forceAddEffect(new MobEffectInstance(MFTEEffectRegistries.SUMMON_SWORD_TIMER, summonTime, 0, false, false, false), null);
@@ -85,10 +81,6 @@ public class ForceSwordSpell extends AbstractSpell {
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
 
-    private float getSwordHealth(int spellLevel, LivingEntity caster) {
-        return 15 + spellLevel * 5;
-    }
-
     private float getSwordDamage(int spellLevel, LivingEntity caster) {
         return getSpellPower(spellLevel, caster);
     }
@@ -96,14 +88,5 @@ public class ForceSwordSpell extends AbstractSpell {
     private void setAttributes(PathfinderMob sword, float power) {
         int maxPower = baseSpellPower + (ServerConfigs.getSpellConfig(this).maxLevel() - 1) * spellPowerPerLevel;
         float quality = power / (float) maxPower;
-
-        float minSpeed = .7f;
-        float maxSpeed = .21f;
-
-        float minJump = .4f;
-        float maxJump = 1.2f;
-
-        sword.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(Mth.lerp(quality, minSpeed, maxSpeed));
-        sword.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(Mth.lerp(quality, minJump, maxJump));
     }
 }

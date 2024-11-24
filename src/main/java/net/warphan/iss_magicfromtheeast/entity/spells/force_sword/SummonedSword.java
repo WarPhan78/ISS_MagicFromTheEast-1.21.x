@@ -2,25 +2,24 @@ package net.warphan.iss_magicfromtheeast.entity.spells.force_sword;
 
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
-import io.redspace.ironsspellbooks.entity.mobs.goals.GenericCopyOwnerTargetGoal;
-import io.redspace.ironsspellbooks.entity.mobs.goals.GenericFollowOwnerGoal;
-import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtByTargetGoal;
-import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtTargetGoal;
+import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
@@ -30,10 +29,10 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
 import java.util.UUID;
 
 public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEntity {
@@ -45,7 +44,7 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
 
     public SummonedSword(Level pLevel, LivingEntity owner) {
         this(MFTEEntityRegistries.FORCE_SWORD.get(), pLevel);
-        this.moveControl = new FlyingMoveControl(this, 10, true);
+        this.moveControl = new FlyingMoveControl(this, 4, true);
         setSummoner(owner);
     }
 
@@ -55,22 +54,15 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.5f, true));
-        this.goalSelector.addGoal(3, new GenericFollowOwnerGoal(this, this::getSummoner, 5f, 5, 3, true, 10));
-
-        this.targetSelector.addGoal(1, new GenericOwnerHurtByTargetGoal(this, this::getSummoner));
-        this.targetSelector.addGoal(2, new GenericOwnerHurtTargetGoal(this, this::getSummoner));
-        this.targetSelector.addGoal(3, new GenericCopyOwnerTargetGoal(this, this::getSummoner));
+        this.goalSelector.addGoal(1, new GenericFollowOwnerGoal(this, this::getSummoner, .8f, 5, 2, true, 15));
     }
 
     public static AttributeSupplier prepareAttributes() {
         return PathfinderMob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 2.0D)
-                .add(Attributes.FLYING_SPEED, 3.0D)
-                .add(Attributes.JUMP_STRENGTH, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8D)
+                .add(Attributes.FLYING_SPEED, 0.8D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.FOLLOW_RANGE, 10.0D)
+                .add(Attributes.FOLLOW_RANGE, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 20.0D)
                 .build();
     }
@@ -88,12 +80,6 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     @Override
-    protected SoundEvent getDeathSound() {
-        super.getDeathSound();
-        return SoundEvents.ITEM_BREAK;
-    }
-
-    @Override
     public void onUnSummon() {
         if (!level.isClientSide) {
             MagicManager.spawnParticles(level, ParticleTypes.GLOW, getX(), getY(), getZ(), 25, .4, .8, .4, .03, false);
@@ -102,33 +88,20 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (shouldIgnoreDamage(pSource))
-            return false;
-        return super.hurt(pSource,pAmount);
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if (this.isVehicle()) {
+            return super.mobInteract(pPlayer, pHand);
+        }
+        if (pPlayer == getSummoner()) {
+            this.doPlayerRide(pPlayer);
+        }
+        return InteractionResult.sidedSuccess((this.level.isClientSide));
     }
-
-    @Override
-    public boolean doHurtTarget(Entity pEntity) {
-        return Utils.doMeleeAttack(this, pEntity, MFTESpellRegistries.FORCE_SWORD_SPELL.get().getDamageSource(this, getSummoner()));
-    }
-
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.AMETHYST_CLUSTER_BREAK;
-    }
-
-    public void spawnParticles() {
-        if (level.isClientSide) {
-            if (Utils.random.nextFloat() < .10f) {
-                float radius = .30f;
-                Vec3 vec = new Vec3(
-                        random.nextFloat() * 2 * radius - radius,
-                        random.nextFloat() * 2 * radius - radius,
-                        random.nextFloat() * 2 * radius - radius
-                );
-                level.addParticle(ParticleTypes.SCRAPE, this.getX() + vec.x, this.getY() + vec.y + 0.3, this.getZ() + vec.z, vec.x * .01f, .08 + vec.y * .01f, vec.z * .01f);
-            }
+    protected void doPlayerRide(Player pPlayer) {
+        if (!this.level.isClientSide) {
+            pPlayer.setYRot(this.getYRot());
+            pPlayer.setXRot(this.getXRot());
+            pPlayer.startRiding(this);
         }
     }
 
@@ -145,9 +118,37 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     @Override
-    public void die(DamageSource pDamageSource) {
-        this.onDeathHelper();
-        super.die(pDamageSource);
+    public boolean shouldRiderSit() {
+        return false;
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY))
+            return false;
+        return super.hurt(pSource,pAmount);
+    }
+
+    public boolean dealDamage(LivingEntity target) {
+        if (target != getSummoner())
+            if (DamageSources.applyDamage(target, 0, MFTESpellRegistries.FORCE_SWORD_SPELL.get().getDamageSource(this, getSummoner()))) {
+                return true;
+            }
+        return false;
+    }
+
+    public void spawnParticles() {
+        if (level.isClientSide) {
+            if (Utils.random.nextFloat() < .10f) {
+                float radius = .30f;
+                Vec3 vec = new Vec3(
+                        random.nextFloat() * 2 * radius - radius,
+                        random.nextFloat() * 2 * radius - radius,
+                        random.nextFloat() * 2 * radius - radius
+                );
+                level.addParticle(ParticleTypes.SCRAPE, this.getX() + vec.x, this.getY() + vec.y + 0.3, this.getZ() + vec.z, vec.x * .01f, .08 + vec.y * .01f, vec.z * .01f);
+            }
+        }
     }
 
     @Override
@@ -169,25 +170,57 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     @Override
-    public boolean isPushable() {
-        return false;
-    }
-
-    @Override
-    public boolean isPushedByFluid() {
-        return false;
-    }
-
-    @Override
     public boolean isOnFire() {
         return false;
     }
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean isPushable() {
         return false;
     }
 
+    @Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Mob) {
+            return (Mob) entity;
+        } else {
+            entity = this.getFirstPassenger();
+            if (entity instanceof Player) {
+                return (Player) entity;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void tickRidden(Player player, Vec3 p_275242_) {
+        super.tickRidden(player, p_275242_);
+        this.yRotO = this.getYRot();
+        this.setYRot(player.getYRot());
+        this.setXRot(player.getXRot());
+        this.setRot(this.getYRot(), this.getXRot());
+        this.yBodyRot = this.yRotO;
+        this.yHeadRot = this.getYRot();
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player player, Vec3 p_275506_) {
+        float f = player.xxa * 0.5F;
+        float f1 = player.zza;
+        if (f1 <= 0.0F) {
+            f1 *= 0.25F;
+        }
+        return new Vec3(f, 0.0D, f1);
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player p_278336_) {
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+    }
+
+    //ANIMATION
     private final RawAnimation swordidle = RawAnimation.begin().thenPlay("animation.force_sword.idle");
 
     private PlayState predicate(AnimationState event) {
@@ -206,4 +239,5 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
 }
