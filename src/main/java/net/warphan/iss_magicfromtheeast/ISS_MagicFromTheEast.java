@@ -1,9 +1,11 @@
 package net.warphan.iss_magicfromtheeast;
 
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.warphan.iss_magicfromtheeast.entity.spells.force_sword.SummonedSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.*;
+import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
@@ -19,6 +21,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+import java.util.function.Consumer;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ISS_MagicFromTheEast.MOD_ID)
@@ -60,10 +64,14 @@ public class ISS_MagicFromTheEast {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
+    static void registerKeyBindings(Consumer<KeyMapping> registrar) {
+        KeyMappings.registerKeybinds(registrar);
+    }
+
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

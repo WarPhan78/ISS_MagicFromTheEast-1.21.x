@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
+import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -44,7 +45,7 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
 
     public SummonedSword(Level pLevel, LivingEntity owner) {
         this(MFTEEntityRegistries.FORCE_SWORD.get(), pLevel);
-        this.moveControl = new FlyingMoveControl(this, 4, true);
+        this.moveControl = new FlyingMoveControl(this, 6, true);
         setSummoner(owner);
     }
 
@@ -70,6 +71,9 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     @Override
     public void tick() {
         spawnParticles();
+        if (this.isImmobile() && this.isVehicle()){
+            this.getGravity();
+        };
         super.tick();
     }
 
@@ -206,13 +210,17 @@ public class SummonedSword extends PathfinderMob implements IMagicSummon, GeoEnt
     }
 
     @Override
-    protected Vec3 getRiddenInput(Player player, Vec3 p_275506_) {
+    protected Vec3 getRiddenInput(Player player, Vec3 move) {
         float f = player.xxa * 0.5F;
         float f1 = player.zza;
         if (f1 <= 0.0F) {
             f1 *= 0.25F;
         }
-        return new Vec3(f, 0.0D, f1);
+        float f2 = player.yya;
+        f1 = f1 > 0? f1 : 0;
+        if (KeyMappings.FLIGHT_ASCENT_KEY.isDown()) f2 = 0.5F;
+        else if (KeyMappings.FLIGHT_DESCENT_KEY.isDown()) f2 = -0.5F;
+        return new Vec3(f, f2, f1);
     }
 
     @Override
