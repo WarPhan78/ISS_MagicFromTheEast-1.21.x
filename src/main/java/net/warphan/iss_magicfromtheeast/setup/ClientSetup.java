@@ -5,6 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.force_sword.SummonedSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 
@@ -13,5 +14,6 @@ public class ClientSetup {
     @SubscribeEvent
     public static void rendererRegister(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(MFTEEntityRegistries.FORCE_SWORD.get(), SummonedSwordRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.BAGUA_CIRCLE.get(), BaguaCircleRenderer::new);
     }
 }

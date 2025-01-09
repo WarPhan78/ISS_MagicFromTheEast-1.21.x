@@ -1,0 +1,24 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.bagua_circle",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bagua_circle",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-24, 1, -24], "size": [48, 0, 48], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

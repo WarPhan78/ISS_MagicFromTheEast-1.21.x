@@ -9,6 +9,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.force_sword.SummonedSword;
 
 public class MFTEEntityRegistries extends EntityRegistry {
@@ -23,4 +24,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(1.3f, 0.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_sword").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<BaguaCircle>> BAGUA_CIRCLE =
+            MFTE_ENTITIES.register("bagua_circle", () -> EntityType.Builder.<BaguaCircle>of(BaguaCircle::new, MobCategory.MISC)
+                    .sized(10f, 0.5f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bagua_circle").toString()));
 }
