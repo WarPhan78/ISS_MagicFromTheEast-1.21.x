@@ -32,7 +32,7 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bagua_circle").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<JadeLoong>> JADE_LOONG =
             MFTE_ENTITIES.register("jade_loong",() -> EntityType.Builder.<JadeLoong>of(JadeLoong::new, MobCategory.MISC)
-                    .sized(1f, 1f)
+                    .sized(1.5f, 1f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_loong").toString()));
 }
