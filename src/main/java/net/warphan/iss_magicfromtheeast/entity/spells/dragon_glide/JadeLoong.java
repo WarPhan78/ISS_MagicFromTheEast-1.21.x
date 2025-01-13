@@ -8,8 +8,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
@@ -67,6 +70,27 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
             discard();
             if (!level.isClientSide) {
                 impactParticles(getX(), this.getBoundingBox().getCenter().y,getZ());
+            }
+        }
+    }
+
+    @Override
+    public boolean canHitEntity(Entity pTarget) {
+        return super.canHitEntity(pTarget);
+    }
+
+    @Override
+    public void handleHitDetection() {
+        Vec3 vec3 = this.getDeltaMovement();
+        Vec3 pos = this.position();
+        Vec3 vec32 = pos.add(vec3);
+        HitResult hitResult = level.clip(new ClipContext(pos, vec32, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+        if (hitResult.getType() != HitResult.Type.MISS) {
+            onHit(hitResult);
+        } else {
+            var entities = level.getEntities(this, this.getBoundingBox().inflate(0.25f), this::canHitEntity);
+            for (Entity entity : entities) {
+                onHit(new EntityHitResult(entity, this.getBoundingBox().getCenter().add(entity.getBoundingBox().getCenter()).scale(0.5f)));
             }
         }
     }
