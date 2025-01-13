@@ -7,18 +7,22 @@ import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
+import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 
 import java.util.List;
+import java.util.Optional;
 
 @AutoSpellConfig
 public class BaguaArrayCircleSpell extends AbstractSpell {
@@ -42,10 +46,10 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
 
     public BaguaArrayCircleSpell() {
         this.manaCostPerLevel = 10;
-        this.baseSpellPower = 2;
+        this.baseSpellPower = 1;
         this.spellPowerPerLevel = 1;
         this.castTime = 20;
-        this.baseManaCost = 60;
+        this.baseManaCost = 70;
     }
 
     @Override
@@ -61,6 +65,16 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
     @Override
     public ResourceLocation getSpellResource() {
         return spellId;
+    }
+
+    @Override
+    public Optional<SoundEvent> getCastStartSound() {
+        return Optional.of(MFTESoundRegistries.SYMMETRY_CAST.get());
+    }
+
+    @Override
+    public Optional<SoundEvent> getCastFinishSound() {
+        return Optional.of(SoundRegistry.HOLY_CAST.get());
     }
 
     @Override
@@ -103,7 +117,7 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
     }
 
     private float getDamage(int spellLevel, LivingEntity caster) {
-        return getSpellPower(spellLevel, caster) *.5f;
+        return getSpellPower(spellLevel, caster) * .5f;
     }
     private float getRadius(int spellLevel, LivingEntity caster) {
         return 5;

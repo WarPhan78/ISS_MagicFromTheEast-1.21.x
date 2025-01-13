@@ -5,7 +5,6 @@ import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
 import io.redspace.ironsspellbooks.entity.spells.AoeEntity;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -70,16 +69,10 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
     public float getParticleCount() {
         return 0;
     }
+
     @Override
     public Optional<ParticleOptions> getParticle() {
         return Optional.empty();
-    }
-
-    @Override
-    public void recreateFromPacket(ClientboundAddEntityPacket pPacket) {
-        super.recreateFromPacket(pPacket);
-        this.xRotO = this.getXRot();
-        this.yRotO = this.getYRot();
     }
 
     @Override

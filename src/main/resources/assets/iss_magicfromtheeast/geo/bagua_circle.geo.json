@@ -12,10 +12,31 @@
 			},
 			"bones": [
 				{
-					"name": "bagua_circle",
+					"name": "bagua",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "circle1",
+					"parent": "bagua",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 1, -8], "size": [16, 0, 16], "uv": [-10, 33]}
+					]
+				},
+				{
+					"name": "circle2",
+					"parent": "bagua",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-24, 1, -24], "size": [48, 0, 48], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "circle3",
+					"parent": "bagua",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-24, 1, -24], "size": [48, 0, 48], "pivot": [0, -9, 0], "rotation": [0, 180, 0], "uv": [97, 0]}
 					]
 				}
 			]

@@ -24,6 +24,6 @@ public class BaguaCircleRenderer extends GeoEntityRenderer<BaguaCircle> {
 
     @Override
     public RenderType getRenderType(BaguaCircle animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(texture);
+        return RenderType.energySwirl(texture, 0, 0);
     }
 }
