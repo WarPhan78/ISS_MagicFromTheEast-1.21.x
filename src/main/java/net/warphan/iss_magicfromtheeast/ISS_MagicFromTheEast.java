@@ -1,9 +1,7 @@
 package net.warphan.iss_magicfromtheeast;
 
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
-import net.warphan.iss_magicfromtheeast.entity.spells.force_sword.SummonedSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import org.jetbrains.annotations.NotNull;
@@ -79,7 +77,6 @@ public class ISS_MagicFromTheEast {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(MFTEEntityRegistries.FORCE_SWORD.get(), SummonedSwordRenderer::new);
         }
     }
 

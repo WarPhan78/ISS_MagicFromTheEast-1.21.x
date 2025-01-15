@@ -34,7 +34,7 @@ public class DragonGlideSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(10)
-            .setCooldownSeconds(3)
+            .setCooldownSeconds(8)
             .build();
 
     public DragonGlideSpell() {
@@ -42,7 +42,7 @@ public class DragonGlideSpell extends AbstractSpell {
         this.baseSpellPower = 2;
         this.spellPowerPerLevel = 2;
         this.castTime = 20;
-        this.baseManaCost = 14;
+        this.baseManaCost = 34;
     }
 
     @Override
