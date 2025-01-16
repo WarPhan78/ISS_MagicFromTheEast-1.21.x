@@ -24,6 +24,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     public static final Supplier<AbstractSpell> THROW_UP_SPELL = registerSpell(new ThrowUpSpell());
     //public static final Supplier<AbstractSpell> FORCE_SWORD_SPELL = registerSpell(new ForceSwordSpell());
     public static final Supplier<AbstractSpell> QIGONG_CONTROLLING_SPELL = registerSpell(new QigongControllingSpell());
+    public static final Supplier<AbstractSpell> SWORD_DANCE_SPELL = registerSpell(new SwordDanceSpell());
     public static final Supplier<AbstractSpell> BAGUA_ARRAY_CIRCLE_SPELL = registerSpell(new BaguaArrayCircleSpell());
     public static final Supplier<AbstractSpell> DRAGON_GLIDE_SPELL = registerSpell(new DragonGlideSpell());
     public static final Supplier<AbstractSpell> JADE_JUDGEMENT_SPELL = registerSpell(new JadeJudgementSpell());

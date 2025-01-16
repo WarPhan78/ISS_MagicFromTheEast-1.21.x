@@ -10,7 +10,7 @@
   "school.iss_magicfromtheeast.dune": "Dune",
 
   "spell.iss_magicfromtheeast.throw_up": "Throw Up",
-  "spell.iss_magicfromtheeast.force_sword": "Force Sword",
+  "spell.iss_magicfromtheeast.sword_dance": "Sword Dance",
   "spell.iss_magicfromtheeast.qigong_controlling": "Qigong Controlling",
   "spell.iss_magicfromtheeast.bagua_array_circle": "Bagua Array Circle",
   "spell.iss_magicfromtheeast.dragon_glide": "Dragon Glide",
@@ -30,8 +30,9 @@
   "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
 
-  "entity.iss_magicfromtheeast.summoned_sword": "Force Sword",
+  "entity.iss_magicfromtheeast.jade_loong": "Jade Loong",
   "entity.iss_magicfromtheeast.bagua_circle": "Bagua Circle",
+  "entity.iss_magicfromtheeast.jade_dao": "Jade Dao",
 
   "block.examplemod.example_block": "Example Block",
   "item.examplemod.example_item": "Example Item"

@@ -11,6 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
+import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 
 public class MFTEEntityRegistries extends EntityRegistry {
     private static final DeferredRegister<EntityType<?>> MFTE_ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ISS_MagicFromTheEast.MOD_ID);
@@ -29,4 +30,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(1.5f, 1f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_loong").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<JadeDao>> JADE_DAO =
+            MFTE_ENTITIES.register("jade_dao", () -> EntityType.Builder.<JadeDao>of(JadeDao::new, MobCategory.MISC)
+                    .sized(0.8f, 4f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_dao").toString()));
 }
