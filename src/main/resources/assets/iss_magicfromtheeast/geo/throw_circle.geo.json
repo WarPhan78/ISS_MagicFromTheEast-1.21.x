@@ -1,0 +1,35 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.throw_circle",
+				"texture_width": 32,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "throw_circle",
+					"pivot": [0, 1, 0],
+					"cubes": [
+						{
+							"origin": [-7, 1, -7],
+							"size": [14, 0, 14],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [14, 0]},
+								"east": {"uv": [0, 0], "uv_size": [14, 0]},
+								"south": {"uv": [0, 0], "uv_size": [14, 0]},
+								"west": {"uv": [0, 0], "uv_size": [14, 0]},
+								"up": {"uv": [0, 0], "uv_size": [14, 14]},
+								"down": {"uv": [0, 28], "uv_size": [14, -14]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

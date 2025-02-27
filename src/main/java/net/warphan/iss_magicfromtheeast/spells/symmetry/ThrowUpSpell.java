@@ -5,37 +5,54 @@ import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
+import io.redspace.ironsspellbooks.effect.AirborneEffect;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+
+import java.util.List;
 
 @AutoSpellConfig
 public class ThrowUpSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_up");
 
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.strength", String.format("%s%%", (int) (getStrength(spellLevel, caster) * 100 / getStrength(1, null)))),
+                Component.translatable("ui.irons_spellbooks.impact_damage", Utils.stringTruncation(AirborneEffect.getDamageFromLevel(spellLevel), 1))
+        );
+    }
+
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
-            .setMaxLevel(10)
-            .setCooldownSeconds(10)
+            .setMaxLevel(6)
+            .setCooldownSeconds(20)
             .build();
 
     public ThrowUpSpell() {
-        this.manaCostPerLevel = 5;
-        this.baseSpellPower = 6;
+        this.manaCostPerLevel = 10;
+        this.baseSpellPower = 5;
         this.spellPowerPerLevel = 3;
-        this.castTime = 20;
+        this.castTime = 0;
         this.baseManaCost = 10;
     }
 
     @Override
     public CastType getCastType() {
-        return CastType.LONG;
+        return CastType.INSTANT;
     }
 
     @Override
@@ -54,18 +71,41 @@ public class ThrowUpSpell extends AbstractSpell {
     }
 
     @Override
-    public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        if (playerMagicData.getAdditionalCastData() instanceof TargetEntityCastData targetData) {
-            var targetEntity = targetData.getTarget((ServerLevel) world);
-            if (targetEntity != null) {
-                targetEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 100, getAmplifier(spellLevel, entity)));
+    public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        Vec3 spawn = null;
+        ThrowCircleEntity throwCircle = new ThrowCircleEntity(level);
+        if (playerMagicData.getAdditionalCastData() instanceof TargetEntityCastData castTargeting) {
+            spawn = castTargeting.getTargetPosition((ServerLevel) level);
+            throwCircle.setTarget(castTargeting.getTarget((ServerLevel) level));
+        }
+        if (spawn == null) {
+            HitResult raycast = Utils.raycastForEntity(level, entity, 48, true);
+            spawn = ((EntityHitResult) raycast).getEntity().position();
+        }
+
+        float strength = getStrength(spellLevel, entity);
+
+        throwCircle.setOwner(throwCircle);
+        throwCircle.moveTo(spawn);
+        throwCircle.strength = strength;
+        throwCircle.amplifier = spellLevel - 1;
+        level.addFreshEntity(throwCircle);
+        throwCircle.tick();
+
+        if (playerMagicData.getAdditionalCastData() instanceof TargetEntityCastData castTargeting) {
+            var target = castTargeting.getTarget((ServerLevel) level);
+            float kickup = (float) target.getBoundingBox().getBottomCenter().distanceToSqr(Utils.getTargetBlock(level, target, ClipContext.Fluid.NONE, 0.5f).getLocation());
+            kickup = Mth.clamp(1 / (kickup + 1) - .01f, -.95f, .1f);
+            if (kickup > 0) {
+                target.setDeltaMovement(target.getDeltaMovement().subtract(target.position().scale(kickup * ((float)(1 + spellLevel) / 2) * .15f)));
+                target.resetFallDistance();
+                target.hurtMarked = true;
             }
         }
-        super.onCast(world, spellLevel, entity, castSource, playerMagicData);
+        super.onCast(level, spellLevel, entity, castSource, playerMagicData);
     }
 
-    public int getAmplifier(int spellLevel, LivingEntity caster) {
-        return (int) (spellLevel - 1);
+    public float getStrength(int spellLevel, LivingEntity caster) {
+        return getSpellPower(spellLevel, caster) * 0.2f;
     }
-
 }

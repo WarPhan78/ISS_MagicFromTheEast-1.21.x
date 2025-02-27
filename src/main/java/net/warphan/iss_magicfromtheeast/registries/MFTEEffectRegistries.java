@@ -17,5 +17,5 @@ public class MFTEEffectRegistries extends MobEffectRegistry {
         MFTE_MOB_EFFECT_DEFERRED_REGISTER.register(eventBus);
     }
 
-    public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_SWORD_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_sword_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
+    public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_SENTINEL_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_sentinel_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
 }

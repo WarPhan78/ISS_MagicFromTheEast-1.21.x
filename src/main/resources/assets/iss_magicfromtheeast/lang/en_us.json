@@ -33,6 +33,9 @@
   "entity.iss_magicfromtheeast.jade_loong": "Jade Loong",
   "entity.iss_magicfromtheeast.bagua_circle": "Bagua Circle",
   "entity.iss_magicfromtheeast.jade_dao": "Jade Dao",
+  "entity.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
+
+  "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer",
 
   "block.examplemod.example_block": "Example Block",
   "item.examplemod.example_item": "Example Item"

@@ -9,9 +9,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel.JadeSentinel;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
+import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 
 public class MFTEEntityRegistries extends EntityRegistry {
     private static final DeferredRegister<EntityType<?>> MFTE_ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ISS_MagicFromTheEast.MOD_ID);
@@ -35,4 +37,14 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(0.8f, 4f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_dao").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<JadeSentinel>> JADE_SENTINEL =
+            MFTE_ENTITIES.register("jade_sentinel", () -> EntityType.Builder.<JadeSentinel>of(JadeSentinel::new, MobCategory.MONSTER)
+                    .sized(3f, 10f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<ThrowCircleEntity>> THROW_CIRCLE_ENTITY =
+            MFTE_ENTITIES.register("throw_circle", () -> EntityType.Builder.<ThrowCircleEntity>of(ThrowCircleEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 0.0f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_circle").toString()));
 }
