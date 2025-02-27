@@ -13,5 +13,10 @@
     "sounds": [
       "iss_magicfromtheeast:generic/dune_cast"
     ]
+  },
+  "cast.generic.sproing": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/sproing"
+    ]
   }
 }

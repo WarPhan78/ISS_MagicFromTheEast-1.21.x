@@ -19,6 +19,7 @@ public class MFTESoundRegistries extends SoundRegistry {
     public static DeferredHolder<SoundEvent, SoundEvent> SYMMETRY_CAST = registerSoundEvent("cast.generic.symmetry");
     public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_CAST = registerSoundEvent("cast.generic.spirit");
     public static DeferredHolder<SoundEvent, SoundEvent> DUNE_CAST = registerSoundEvent("cast.generic.dune");
+    public static DeferredHolder<SoundEvent, SoundEvent> SPROING = registerSoundEvent("cast.generic.sproing");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
         return MFTESOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name)));
