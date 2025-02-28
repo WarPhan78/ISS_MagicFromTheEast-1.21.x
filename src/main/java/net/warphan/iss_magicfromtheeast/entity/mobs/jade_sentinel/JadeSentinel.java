@@ -114,6 +114,11 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
     protected LookControl createLookControl() {
         return new LookControl(this) {
             @Override
+            protected float rotateTowards(float pFrom, float pTo, float pMaxDelta) {
+                return super.rotateTowards(pFrom, pTo, pMaxDelta * 2.5f);
+            }
+
+            @Override
             protected boolean resetXRotOnTick() {
                 return getTarget() == null;
             }
@@ -268,7 +273,16 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         return PlayState.CONTINUE;
     }
 
-    //Death animation will be fixed soon
+    private PlayState movePredicate(software.bernie.geckolib.animation.AnimationState event) {
+        if (!this.walkAnimation.isMoving() || isAnimating())
+            return PlayState.STOP;
+        if (this.walkAnimation.isMoving() && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+            event.getController().setAnimation(JADE_MOVE);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    //Death animation will be fixed in the future.
     private PlayState deadPredicate(software.bernie.geckolib.animation.AnimationState event) {
         if (this.isAlive())
             return PlayState.STOP;
@@ -280,20 +294,22 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
 
     private final RawAnimation JADE_RISE = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_rise");
     private final RawAnimation JADE_IDLE = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_idle");
-    private final RawAnimation JADE_MOVESTART = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_movestart");
+    //private final RawAnimation JADE_MOVESTART = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_movestart");
     private final RawAnimation JADE_MOVE = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_move");
-    private final RawAnimation JADE_MOVEND = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_movend");
+    //private final RawAnimation JADE_MOVEND = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_movend");
     private final RawAnimation JADE_DEFEATED = RawAnimation.begin().thenPlay("animation.jade_sentinel.jade_defeated");
 
-    private final AnimationController<JadeSentinel> riseController = new AnimationController<>(this, "jade_sentinel_rise_controller", 0, this::risePredicate);
-    private final AnimationController<JadeSentinel> idleController = new AnimationController<>(this, "jade_sentinel_idle_controller", 0, this::idlePredicate);
-    private final AnimationController<JadeSentinel> deadController = new AnimationController<>(this, "jade_sentinel_dead_controller", 0, this::deadPredicate);
+    private final AnimationController<JadeSentinel> riseController = new AnimationController<>(this, "js_rise_controller", 0, this::risePredicate);
+    private final AnimationController<JadeSentinel> idleController = new AnimationController<>(this, "js_idle_controller", 0, this::idlePredicate);
+    private final AnimationController<JadeSentinel> deadController = new AnimationController<>(this, "js_dead_controller", 0, this::deadPredicate);
+    private final AnimationController<JadeSentinel> moveController = new AnimationController<>(this, "js_move_controller", 0, this::movePredicate);
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(riseController);
         controllerRegistrar.add(idleController);
         controllerRegistrar.add(deadController);
+        controllerRegistrar.add(moveController);
     }
 
     @Override

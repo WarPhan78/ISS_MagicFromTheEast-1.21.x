@@ -42,10 +42,12 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
 
     @Override
     public void applyEffect(LivingEntity target) {
-        DamageSources.applyDamage(target, getDamage(), MFTESpellRegistries.BAGUA_ARRAY_CIRCLE_SPELL.get().getDamageSource(this, getOwner()));
-        DamageSources.ignoreNextKnockback(target);
-        if (getOwner() instanceof LivingEntity owner) {
-            owner.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 3));
+        if (target != getOwner()) {
+            DamageSources.applyDamage(target, getDamage(), MFTESpellRegistries.BAGUA_ARRAY_CIRCLE_SPELL.get().getDamageSource(this, getOwner()));
+            DamageSources.ignoreNextKnockback(target);
+        }
+        else if (target == getOwner()) {
+            target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 3));
         }
     }
 
