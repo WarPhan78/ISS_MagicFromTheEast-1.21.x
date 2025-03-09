@@ -1,20 +1,26 @@
 package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
 
 import io.redspace.ironsspellbooks.IronsSpellbooks;
+import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.capabilities.magic.SyncedSpellData;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
 import io.redspace.ironsspellbooks.entity.mobs.IAnimatedAttacker;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
+import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.AbstractSpellCastingMob;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
@@ -31,10 +37,12 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -45,17 +53,17 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSummon {
+public class JadeSentinel extends AbstractSpellCastingMob implements GeoEntity, IMagicSummon, IAnimatedAttacker {
     private static final EntityDataAccessor<Boolean> DATA_IS_RISING = SynchedEntityData.defineId(JadeSentinel.class, EntityDataSerializers.BOOLEAN);
 
     public enum AttackAnim {
         JADE_STOMP(60, "animation.jade_sentinel.jade_stomp", 35),
         DAO_STAB(40, "animation.jade_sentinel.dao_stab", 20),
-        DAO_SWEEP(40, "animation.jade_sentinel.dao_sweep", 21, 22, 23, 24, 25),
-        DAO_CHARGE(80, "animation.jade_sentinel.dao_charge", 10, 20, 30, 40, 50, 60, 70, 71, 72, 73, 74);
+        DAO_SWEEP(40, "animation.jade_sentinel.dao_sweep", 23);
+        //DAO_CHARGE(80, "animation.jade_sentinel.dao_charge", 10, 20, 30, 40, 50, 60, 70, 71, 72, 73, 74);
 
-        AttackAnim(int tickLength, String animID, int... attackTimestamps) {
-            this.data = new AttackAnimationData(tickLength, animID, attackTimestamps);
+        AttackAnim(int lengthInTicks, String animationID, int... attackTimestamps) {
+            this.data = new AttackAnimationData(lengthInTicks, animationID, attackTimestamps);
         }
 
         public final AttackAnimationData data;
@@ -82,9 +90,12 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+
+        this.goalSelector.addGoal(1, new JadeSentinelAttackGoal(this, 1f, 0, 0, 12.0f));
+
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new PatrolNearLocationGoal(this, 48, 0.5f));
+        this.goalSelector.addGoal(5, new PatrolNearLocationGoal(this, 48, 0.0f));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 5.0f));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Mob.class, 8.0f));
 
@@ -98,10 +109,10 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 200.0)
                 .add(Attributes.ATTACK_DAMAGE, 15.0)
-                .add(Attributes.STEP_HEIGHT, 3)
+                .add(Attributes.STEP_HEIGHT, 1)
                 .add(Attributes.ARMOR, 10.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.5)
+                .add(Attributes.MOVEMENT_SPEED, 0.16)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
                 .add(Attributes.ATTACK_KNOCKBACK, 4.0);
     }
@@ -162,7 +173,7 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
     }
 
     @Override
-    public  void tick() {
+    public void tick() {
         if (isAnimatingRise()) {
             if (--raiseAnimTime < 0) {
                 entityData.set(DATA_IS_RISING, false);
@@ -174,6 +185,25 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         }
     }
 
+    //Sounds
+    @Override
+    public void playAmbientSound() {
+        this.playSound(getAmbientSound(), 2, Mth.randomBetweenInclusive(getRandom(), 5, 10) * .1f);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return MFTESoundRegistries.JADE_SENTINEL_AMBIENT.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return MFTESoundRegistries.JADE_SENTINEL_HURT.get();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pState) {
+        this.playSound(MFTESoundRegistries.JADE_SENTINEL_STEP.get(), .25f, 1f);
+    }
+
+    //Summoning
     @Override
     public LivingEntity getSummoner() {
         return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
@@ -191,6 +221,7 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         return super.isAlliedTo(pEntity) || this.isAlliedHelper(pEntity);
     }
 
+    //Hurt, Die and Damage
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(pSource))) {
@@ -277,7 +308,7 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         if (!this.walkAnimation.isMoving() || isAnimating())
             return PlayState.STOP;
         if (this.walkAnimation.isMoving() && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-            event.getController().setAnimation(JADE_MOVE);
+            event.getController().setAnimationSpeed(1.2).setAnimation(JADE_MOVE);
         }
         return PlayState.CONTINUE;
     }
@@ -303,6 +334,29 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
     private final AnimationController<JadeSentinel> idleController = new AnimationController<>(this, "js_idle_controller", 0, this::idlePredicate);
     private final AnimationController<JadeSentinel> deadController = new AnimationController<>(this, "js_dead_controller", 0, this::deadPredicate);
     private final AnimationController<JadeSentinel> moveController = new AnimationController<>(this, "js_move_controller", 0, this::movePredicate);
+    private final AnimationController<JadeSentinel> combatController = new AnimationController<>(this, "js_combat_controller", 0, this::combatPredicate);
+    RawAnimation animationToPlay = null;
+
+    @Override
+    public void playAnimation(String animationID) {
+        try {
+            var attackAnim = AttackAnim.valueOf(animationID);
+            animationToPlay = RawAnimation.begin().thenPlay(attackAnim.data.animationId);
+        } catch (Exception ignore) {
+            IronsSpellbooks.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);
+        }
+    }
+
+    private PlayState combatPredicate(AnimationState<JadeSentinel> animationEvent) {
+        var controller = animationEvent.getController();
+
+        if (this.animationToPlay != null) {
+            controller.forceAnimationReset();
+            controller.setAnimation(animationToPlay);
+            animationToPlay = null;
+        }
+        return PlayState.CONTINUE;
+    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
@@ -310,6 +364,8 @@ public class JadeSentinel extends PathfinderMob implements GeoEntity, IMagicSumm
         controllerRegistrar.add(idleController);
         controllerRegistrar.add(deadController);
         controllerRegistrar.add(moveController);
+        controllerRegistrar.add(combatController);
+        super.registerControllers(controllerRegistrar);
     }
 
     @Override

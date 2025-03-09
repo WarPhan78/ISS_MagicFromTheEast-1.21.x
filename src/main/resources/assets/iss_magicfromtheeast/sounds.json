@@ -18,5 +18,45 @@
     "sounds": [
       "iss_magicfromtheeast:generic/sproing"
     ]
+  },
+  "cast.generic.loong": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/loong_cast"
+    ]
+  },
+  "sentinel.generic.ambient": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_ambient"
+    ]
+  },
+  "sentinel.generic.step": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_step"
+    ]
+  },
+  "sentinel.generic.hurt": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_hurt"
+    ]
+  },
+  "sentinel.generic.stab": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_stab"
+    ]
+  },
+  "sentinel.generic.sweep": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_sweep"
+    ]
+  },
+  "sentinel.generic.stomp": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_stomp"
+    ]
+  },
+  "sentinel.generic.charge": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_charge"
+    ]
   }
 }

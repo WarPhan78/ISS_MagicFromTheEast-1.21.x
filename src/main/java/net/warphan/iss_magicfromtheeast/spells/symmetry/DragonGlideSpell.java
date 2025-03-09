@@ -66,7 +66,7 @@ public class DragonGlideSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastFinishSound() {
-        return Optional.of(SoundEvents.ENDER_DRAGON_GROWL);
+        return Optional.of(MFTESoundRegistries.LOONG_CAST.get());
     }
 
     @Override

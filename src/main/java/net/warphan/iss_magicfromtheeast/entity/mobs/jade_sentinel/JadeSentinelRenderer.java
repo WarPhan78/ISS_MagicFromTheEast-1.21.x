@@ -20,7 +20,7 @@ public class JadeSentinelRenderer extends GeoEntityRenderer<JadeSentinel> {
 
     public JadeSentinelRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new JadeSentinelModel());
-        this.shadowRadius = 3f;
+        this.shadowRadius = 2f;
     }
 
     @Override
