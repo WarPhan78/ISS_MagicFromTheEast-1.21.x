@@ -21,6 +21,6 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_LOONG.get(), JadeLoongRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_DAO.get(), JadeDaoRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
-        event.registerEntityRenderer(MFTEEntityRegistries.PULL_PUSH_FIELD.get(), NoopRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
     }
 }

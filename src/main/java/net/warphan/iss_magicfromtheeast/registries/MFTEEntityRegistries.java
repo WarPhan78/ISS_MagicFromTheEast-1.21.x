@@ -48,9 +48,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(0.5f, 0.0f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_circle").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<PullPushField>> PULL_PUSH_FIELD =
-            MFTE_ENTITIES.register("pull_push_field", () -> EntityType.Builder.<PullPushField>of(PullPushField::new, MobCategory.MISC)
+    public static final DeferredHolder<EntityType<?>, EntityType<PullPushField>> PULL_FIELD =
+            MFTE_ENTITIES.register("pull_field", () -> EntityType.Builder.<PullPushField>of(PullPushField::new, MobCategory.MISC)
                     .sized(1f, 1f)
                     .clientTrackingRange(64)
-                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "pull_push_field").toString()));
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "pull_field").toString()));
 }

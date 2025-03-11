@@ -22,6 +22,7 @@ public class MFTESoundRegistries extends SoundRegistry {
     public static DeferredHolder<SoundEvent, SoundEvent> SPROING = registerSoundEvent("cast.generic.sproing");
     public static DeferredHolder<SoundEvent, SoundEvent> LOONG_CAST = registerSoundEvent("cast.generic.loong");
     public static DeferredHolder<SoundEvent, SoundEvent> FORCE_PULLING = registerSoundEvent("cast.generic.force_pulling");
+    public static DeferredHolder<SoundEvent, SoundEvent> PUSH_BURST = registerSoundEvent("cast.generic.push_burst");
 
     //JADE SENTINEL
     public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_AMBIENT = registerSoundEvent("sentinel.generic.ambient");

@@ -2,20 +2,17 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
-import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
 import io.redspace.ironsspellbooks.spells.EntityCastData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullPushField;
@@ -81,7 +78,10 @@ public class QigongControllingSpell extends AbstractSpell {
             PullPushField pullPushField = new PullPushField(world, entity);
             pullPushField.damage = getDamage(spellLevel, entity);
             pullPushField.pushForce = getPushForce(spellLevel, entity);
+            pullPushField.castTime = castTime * (float)entity.getAttributeValue(AttributeRegistry.CAST_TIME_REDUCTION);
             pullPushField.setPos(entity.position().add(0, entity.getEyeHeight() * .7, 0));
+            pullPushField.setDealDamageActive();
+            pullPushField.tick();
             world.addFreshEntity(pullPushField);
 
             playerMagicData.setAdditionalCastData(new EntityCastData(pullPushField));
@@ -90,11 +90,11 @@ public class QigongControllingSpell extends AbstractSpell {
     }
 
     public float getDamage(int spellLevel, LivingEntity caster) {
-        return getSpellPower(spellLevel, caster) * 0.5f;
+        return getSpellPower(spellLevel, caster);
     }
 
     public float getPushForce(int spellLevel, LivingEntity caster) {
-        return getSpellPower(spellLevel, caster);
+        return getSpellPower(spellLevel, caster) / 2;
     }
 
     @Override
