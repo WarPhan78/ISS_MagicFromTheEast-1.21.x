@@ -23,7 +23,7 @@ public class CreativeTabRegistries {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EQUIPMENT_TAB = TABS.register("magic_from_the_east", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + ISS_MagicFromTheEast.MOD_ID + ".magic_from_the_east"))
-            .icon(() -> new ItemStack(ItemRegistries.TAIJI_SWORD.get()))
+            .icon(() -> new ItemStack(ItemRegistries.JADE.get()))
             .displayItems((enabledFeatures, entries) -> {
                 entries.accept(ItemRegistries.TAIJI_SWORD.get());
                 entries.accept(ItemRegistries.JADE.get());
@@ -33,6 +33,10 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.TAOIST_ROBES.get());
                 entries.accept(ItemRegistries.TAOIST_LEGGINGS.get());
                 entries.accept(ItemRegistries.TAOIST_BOOTS.get());
+
+                entries.accept(ItemRegistries.SYMMETRY_RUNE.get());
+                entries.accept(ItemRegistries.SPIRIT_RUNE.get());
+                entries.accept(ItemRegistries.DUNE_RUNE.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());

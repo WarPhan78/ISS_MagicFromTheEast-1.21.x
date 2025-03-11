@@ -10,7 +10,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
-import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 
 public class JadeSentinelAttackGoal extends WarlockAttackGoal {
     final JadeSentinel sentinel;

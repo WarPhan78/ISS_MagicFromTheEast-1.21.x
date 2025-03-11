@@ -15,15 +15,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class ThrowCircleEntity extends AoeEntity implements AntiMagicSusceptible, GeoEntity {
+public class ThrowCircleEntity extends AoeEntity implements AntiMagicSusceptible {
     //public static final int TRIGGER_TIME = 20;
     public float strength;
     public int amplifier;
@@ -87,16 +83,4 @@ public class ThrowCircleEntity extends AoeEntity implements AntiMagicSusceptible
     public void onAntiMagic(MagicData magicData) {
         discard();
     }
-
-    //ANIMATION (CURRENTLY NOT USE)
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    public AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 }

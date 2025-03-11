@@ -47,7 +47,7 @@ public class JadeSentinelSpell extends AbstractSpell {
         this.baseSpellPower = 20;
         this.spellPowerPerLevel = 5;
         this.castTime = 120;
-        this.baseManaCost = 300;
+        this.baseManaCost = 500;
     }
 
     @Override

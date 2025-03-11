@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "iss_magicfromtheeast:item/spirit_rune"
+  }
+}

@@ -22,6 +22,14 @@ public class ItemRegistries {
     public static final DeferredHolder<Item, Item> ARCANE_RELICS = ITEMS.register("arcane_relics",
             () -> new Item(new Item.Properties()));
 
+    //Rune and Orbs
+    public static final DeferredHolder<Item, Item> SYMMETRY_RUNE = ITEMS.register("symmetry_rune",
+            () -> new Item(ItemPropertiesHelper.material()));
+    public static final DeferredHolder<Item, Item> SPIRIT_RUNE = ITEMS.register("spirit_rune",
+            () -> new Item(ItemPropertiesHelper.material()));
+    public static final DeferredHolder<Item, Item> DUNE_RUNE = ITEMS.register("dune_rune",
+            () -> new Item(ItemPropertiesHelper.material()));
+
     //Taoist Set
     public static final DeferredHolder<Item, Item> TAOIST_HAT = ITEMS.register("taoist_hat",
             () -> new TaoistArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(37))));

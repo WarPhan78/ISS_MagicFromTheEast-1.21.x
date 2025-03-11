@@ -24,6 +24,11 @@
       "iss_magicfromtheeast:generic/loong_cast"
     ]
   },
+  "cast.generic.force_pulling": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/force_pulling"
+    ]
+  },
   "sentinel.generic.ambient": {
     "sounds": [
       "iss_magicfromtheeast:jade_sentinel/jade_sentinel_ambient"

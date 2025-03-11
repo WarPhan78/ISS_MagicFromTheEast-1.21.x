@@ -24,11 +24,17 @@
   "item.iss_magicfromtheeast.jade": "Jade",
   "item.iss_magicfromtheeast.bottle_of_souls": "Bottle Of Souls",
   "item.iss_magicfromtheeast.arcane_relics": "Arcane Relics",
+
   "item.iss_magicfromtheeast.taiji_sword": "Taiji Sword",
+
   "item.iss_magicfromtheeast.taoist_hat": "Taoist Hat",
   "item.iss_magicfromtheeast.taoist_robes": "Taoist Robes",
   "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
+
+  "item.iss_magicfromtheeast.symmetry_rune": "Symmetry Rune",
+  "item.iss_magicfromtheeast.spirit_rune": "Spirit Rune",
+  "item.iss_magicfromtheeast.dune_rune": "Dune Rune",
 
   "entity.iss_magicfromtheeast.jade_loong": "Jade Loong",
   "entity.iss_magicfromtheeast.bagua_circle": "Bagua Circle",
