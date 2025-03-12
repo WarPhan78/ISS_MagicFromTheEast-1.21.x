@@ -34,6 +34,11 @@
       "iss_magicfromtheeast:generic/push_burst"
     ]
   },
+  "cast.generic.jade_sword_impact": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/jade_sword_impact"
+    ]
+  },
   "sentinel.generic.ambient": {
     "sounds": [
       "iss_magicfromtheeast:jade_sentinel/jade_sentinel_ambient"
@@ -62,11 +67,6 @@
   "sentinel.generic.stomp": {
     "sounds": [
       "iss_magicfromtheeast:jade_sentinel/jade_sentinel_stomp"
-    ]
-  },
-  "sentinel.generic.charge": {
-    "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_charge"
     ]
   }
 }

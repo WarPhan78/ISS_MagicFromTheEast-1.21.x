@@ -14,6 +14,7 @@ import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullPushField;
+import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
 import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 
 public class MFTEEntityRegistries extends EntityRegistry {
@@ -53,4 +54,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(1f, 1f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "pull_field").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<JadeSword>> JADE_SWORD =
+            MFTE_ENTITIES.register("jade_sword", () -> EntityType.Builder.<JadeSword>of(JadeSword::new, MobCategory.MISC)
+                    .sized(0.3f, 1f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sword").toString()));
 }

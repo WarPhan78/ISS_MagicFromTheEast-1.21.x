@@ -26,9 +26,9 @@ public class PullPushField extends AbstractConeProjectile {
 
     @Override
     public void tick() {
-        if (tickCount < (castTime - 12)) {
+        if (tickCount < (castTime - 30)) {
             this.dealDamageActive = true;
-        } else if (tickCount > (castTime - 12)) {
+        } else if (tickCount == (castTime - 15)) {
             this.dealDamageActive = true;
             this.playSound(MFTESoundRegistries.PUSH_BURST.get());
         } else if (tickCount > castTime) {
@@ -38,23 +38,23 @@ public class PullPushField extends AbstractConeProjectile {
     }
 
     @Override
-    public void spawnParticles() {
-    }
+    public void spawnParticles() {}
 
     @Override
     protected void onHitEntity(EntityHitResult entityHitResult) {
         var owner = getOwner();
         var entity = entityHitResult.getEntity();
         if (owner != null && !DamageSources.isFriendlyFireBetween(owner, entity)) {
-            if (tickCount < (castTime - 12)) {
+            if (tickCount < (castTime - 30)) {
                 Vec3 pullIn = owner.position().subtract(entity.position().add(0, 0, 0));
                 pullIn = pullIn.normalize().scale(-0.08);
                 entity.setDeltaMovement(entity.getDeltaMovement().subtract(pullIn));
-            } else if (tickCount > (castTime - 12)) {
+            } else if (tickCount == (castTime - 15)) {
                 Vec3 pushOut = owner.position().subtract(entity.position().add(0, 0, 0));
                 pushOut = pushOut.normalize().scale(pushForce);
                 entity.setDeltaMovement(entity.getDeltaMovement().subtract(pushOut));
                 DamageSources.applyDamage(entity, damage, MFTESpellRegistries.QIGONG_CONTROLLING_SPELL.get().getDamageSource(this, owner));
+                //Sometimes push targets a bit earlier. However, it will make the spell work with cast time reduction stuffs.
             }
         }
     }

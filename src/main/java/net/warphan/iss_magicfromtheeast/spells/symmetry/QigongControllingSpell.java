@@ -41,11 +41,11 @@ public class QigongControllingSpell extends AbstractSpell {
             .build();
 
     public QigongControllingSpell() {
-        this.manaCostPerLevel = 5;
+        this.manaCostPerLevel = 1;
         this.baseSpellPower = 1;
         this.spellPowerPerLevel = 1;
         this.castTime = 100;
-        this.baseManaCost = 5;
+        this.baseManaCost = 0;
     }
 
     @Override
@@ -78,15 +78,18 @@ public class QigongControllingSpell extends AbstractSpell {
             PullPushField pullPushField = new PullPushField(world, entity);
             pullPushField.damage = getDamage(spellLevel, entity);
             pullPushField.pushForce = getPushForce(spellLevel, entity);
-            pullPushField.castTime = castTime * (float)entity.getAttributeValue(AttributeRegistry.CAST_TIME_REDUCTION);
+
+            //tickCount will scale with player castTime
+            pullPushField.castTime = castTime * (float) entity.getAttributeValue(AttributeRegistry.CAST_TIME_REDUCTION);
+
             pullPushField.setPos(entity.position().add(0, entity.getEyeHeight() * .7, 0));
             pullPushField.setDealDamageActive();
             pullPushField.tick();
             world.addFreshEntity(pullPushField);
 
             playerMagicData.setAdditionalCastData(new EntityCastData(pullPushField));
+            super.onCast(world, spellLevel, entity, castSource, playerMagicData);
         }
-        super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
 
     public float getDamage(int spellLevel, LivingEntity caster) {
