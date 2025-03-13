@@ -48,7 +48,7 @@ public class JadeJudgementSpell extends AbstractSpell {
         this.baseSpellPower = 20;
         this.spellPowerPerLevel = 4;
         this.castTime = 40;
-        this.baseManaCost = 85;
+        this.baseManaCost = 65;
     }
 
     @Override

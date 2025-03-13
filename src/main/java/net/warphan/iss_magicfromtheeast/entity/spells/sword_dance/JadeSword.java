@@ -1,6 +1,6 @@
 package net.warphan.iss_magicfromtheeast.entity.spells.sword_dance;
 
-import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
@@ -8,7 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,20 +31,25 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
+
+    private int hitPerTicks;
+    private int waitTimer = -1;
+    private LivingEntity owner;
+
     public JadeSword(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setNoGravity(true);
     }
 
-    public JadeSword(Level level, LivingEntity owner, float damage) {
+    public JadeSword(Level level, LivingEntity owner) {
         this(MFTEEntityRegistries.JADE_SWORD.get(), level);
-        setOwner(owner);
+        this.setOwner(owner);
+        this.owner = owner;
         this.setDamage(damage);
     }
-
-    private int hitPerTicks;
 
     @Override
     public void trailParticles() {
@@ -51,8 +58,8 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
     }
 
     public void impactParticles(double x, double y, double z) {
-        MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, x, y, z, 8, .6, .6, .6, 0.2, true);
-        MagicManager.spawnParticles(level, ParticleTypes.GLOW, x, y, z, 5, .4, .4, .4, 0.3, true);
+        MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, x, y, z, 5, .6, .6, .6, 0.2, true);
+        MagicManager.spawnParticles(level, ParticleTypes.GLOW, x, y, z, 3, .4, .4, .4, 0.3, true);
     }
 
     @Override
@@ -64,9 +71,40 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
     public void tick() {
         super.tick();
         hitPerTicks = 0;
+        if (waitTimer > 0) {
+            waitTimer--;
+            if (waitTimer <= 110) {
+                Vec3 stop = new Vec3(0, 0, 0);
+                this.setDeltaMovement(stop);
+                if (waitTimer <= 100 && waitTimer > 10) {
+                    LivingEntity target;
+                    target = owner.getLastHurtMob();
+                    if (target != null && !target.isDeadOrDying()) {
+                        Vec3 attack = target.position().subtract(this.position());
+                        this.setDeltaMovement(getDeltaMovement().add(attack.multiply(1, 0, 1).normalize().scale(2)));
+                    }
+                }
+                else if (waitTimer == 5) {
+                    this.doBreaking();
+                }
+                else if (waitTimer == 0) {
+                    this.discard();
+                }
+            }
+        }
+    }
+
+    public void setWaitTimer(int timerDeath) {
+        this.waitTimer = timerDeath;
     }
 
     protected void onHitBlock(BlockHitResult bResult) {}
+
+    private void doBreaking() {
+        var center = this.position();
+        MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, center.x, center.y, center.z, 10, .8, .8, .8, 0.2, true);
+        level.playSound(null, BlockPos.containing(position()), SoundEvents.ITEM_BREAK, SoundSource.NEUTRAL, 2f, .5f);
+    }
 
     @Override
     public void onHitEntity(EntityHitResult entityHitResult) {
@@ -77,6 +115,9 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
             if (hitResult.getType() != HitResult.Type.MISS && !EventHooks.onProjectileImpact(this, hitResult)) {
                 onHit(hitResult);
             }
+        }
+        if (this.tickCount > 10) {
+            entity.invulnerableTime = 0;
         }
     }
 
@@ -89,8 +130,10 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
                 lastHitBlock = blockPos;
                 this.discard();
             } else if (result.getType() == HitResult.Type.ENTITY) {
-                level.playSound(null, BlockPos.containing(position()),MFTESoundRegistries.JADE_SWORD_IMPACT.get(), SoundSource.NEUTRAL, 1.8f, .5f);
-                this.discard();
+                level.playSound(null, BlockPos.containing(position()),MFTESoundRegistries.JADE_SWORD_IMPACT.get(), SoundSource.NEUTRAL, 0.2f, 1f);
+                if (this.tickCount > 10 && result.getType() == HitResult.Type.ENTITY) {
+                    this.discard();
+                }
             }
         }
         super.onHit(result);
@@ -99,6 +142,10 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
     @Override
     public Optional<Holder<SoundEvent>> getImpactSound() {
         return Optional.empty();
+    }
+
+    public void onAntiMagic(MagicData pMagicData) {
+
     }
 
     @Override

@@ -8,11 +8,12 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
+import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
@@ -23,22 +24,25 @@ public class SwordDanceSpell extends AbstractSpell {
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
-        return List.of(Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation(getAmplifierForLevel(spellLevel, caster), 1)));
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation((getSpellPower(spellLevel, caster)), 1)),
+                Component.translatable("ui.irons_spellbooks.projectile_count", Utils.stringTruncation(getSwordCount(spellLevel, caster), 1))
+                );
     }
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.COMMON)
+            .setMinRarity(SpellRarity.UNCOMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(8)
-            .setCooldownSeconds(60)
+            .setCooldownSeconds(30)
             .build();
 
     public SwordDanceSpell() {
-        this.manaCostPerLevel = 5;
+        this.manaCostPerLevel = 10;
         this.baseSpellPower = 3;
-        this.spellPowerPerLevel = 1;
+        this.spellPowerPerLevel = 0;
         this.castTime = 0;
-        this.baseManaCost = 20;
+        this.baseManaCost = 30;
     }
 
     @Override
@@ -58,12 +62,31 @@ public class SwordDanceSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SWORD_DANCE_EFFECT, (int) (getSpellPower(spellLevel, entity) * 60), getAmplifierForLevel(spellLevel, entity), false, false, true));
+        int swordCount = getSwordCount(spellLevel, entity);
+        int offset = 360 / swordCount;
+        Vec3 center = entity.getEyePosition().add(0, - 0.75f, 0);
+
+        for (int i = 0; i < swordCount; i++) {
+
+            Vec3 motion = new Vec3(0, 0, 1.0);
+            motion = motion.xRot(Mth.DEG_TO_RAD);
+            motion = motion.yRot(offset * i * Mth.DEG_TO_RAD);
+
+            JadeSword jadeSword = new JadeSword(level, entity);
+            jadeSword.setDamage(getSpellPower((spellLevel), entity));
+            jadeSword.setWaitTimer(120);
+            jadeSword.getSpeed();
+            jadeSword.setDeltaMovement(motion);
+
+            jadeSword.moveTo(center.x, center.y, center.z);
+            level.addFreshEntity(jadeSword);
+        }
+
         super.onCast(level, spellLevel, entity, castSource, playerMagicData);
     }
 
-    private int getAmplifierForLevel(int spellLevel, LivingEntity caster) {
-        return spellLevel + (int) (getEntityPowerMultiplier(caster) * 0 + 3);
+    private int getSwordCount(int spellLevel, LivingEntity entity) {
+        return spellLevel + 2;
     }
 
     @Override

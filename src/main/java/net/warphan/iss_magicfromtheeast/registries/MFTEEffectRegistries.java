@@ -18,4 +18,5 @@ public class MFTEEffectRegistries extends MobEffectRegistry {
     }
 
     public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_SENTINEL_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_sentinel_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
+    //public static final DeferredHolder<MobEffect, MobEffect> SWORD_DANCE_EFFECT = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("sword_dance_effect", () -> new SwordDanceEffect(MobEffectCategory.BENEFICIAL, 0xbea925));
 }

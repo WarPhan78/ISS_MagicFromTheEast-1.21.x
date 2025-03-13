@@ -36,7 +36,7 @@ public class ThrowUpSpell extends AbstractSpell {
     }
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.UNCOMMON)
+            .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(6)
             .setCooldownSeconds(15)

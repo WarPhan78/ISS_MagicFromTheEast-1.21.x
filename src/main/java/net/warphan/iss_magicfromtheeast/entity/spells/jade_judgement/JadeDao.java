@@ -112,7 +112,7 @@ public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
             return;
         if (!canHitEntity(target) || targets.contains(target))
             return;
-        boolean flag = DamageSources.applyDamage(target, getDamage() / 4 * 3, MFTESpellRegistries.JADE_JUDGEMENT_SPELL.get().getDamageSource(this, getOwner()));
+        boolean flag = DamageSources.applyDamage(target, getDamage() / 4 * 1, MFTESpellRegistries.JADE_JUDGEMENT_SPELL.get().getDamageSource(this, getOwner()));
         if (flag) {
             targets.add(target);
             target.invulnerableTime = 0;

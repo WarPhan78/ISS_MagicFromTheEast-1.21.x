@@ -13,7 +13,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 public class JiangshiInvokeSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jiangshi_invoke");
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.RARE)
+            .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(7)
             .setCooldownSeconds(150)

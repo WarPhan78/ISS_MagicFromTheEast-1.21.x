@@ -13,7 +13,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 public class UnderworldAidSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "underworld_aid");
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.EPIC)
+            .setMinRarity(SpellRarity.RARE)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(4)
             .setCooldownSeconds(120)

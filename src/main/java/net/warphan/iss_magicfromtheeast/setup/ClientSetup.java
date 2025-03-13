@@ -10,6 +10,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel.JadeSentinelRe
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDaoRenderer;
+import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 
 @EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -22,5 +23,6 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_DAO.get(), JadeDaoRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
     }
 }
