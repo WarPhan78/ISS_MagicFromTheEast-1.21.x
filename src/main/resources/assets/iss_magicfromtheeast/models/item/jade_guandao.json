@@ -2,16 +2,16 @@
   "parent": "minecraft:item/handheld",
   "loader": "neoforge:separate_transforms",
   "base": {
-    "parent": "iss_magicfromtheeast:item/taiji_sword_model",
+    "parent": "iss_magicfromtheeast:item/jade_guandao_model",
     "textures": {
-      "layer0": "iss_magicfromtheeast:item/taiji_sword"
+      "layer0": "iss_magicfromtheeast:item/jade_guandao"
     }
   },
   "perspectives": {
     "gui": {
       "parent": "minecraft:item/handheld",
       "textures": {
-        "layer0": "iss_magicfromtheeast:item/taiji_sword_ui"
+        "layer0": "iss_magicfromtheeast:item/jade_guandao_ui"
       }
     }
   }

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFQ",
+    "FJQ",
+    "FQQ"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "J": {
+      "item": "iss_magicfromtheeast:jade"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:yin_yang_core",
+    "count": 1
+  }
+}

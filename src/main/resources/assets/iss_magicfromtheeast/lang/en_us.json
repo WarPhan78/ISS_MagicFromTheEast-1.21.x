@@ -5,27 +5,43 @@
   "attribute.iss_magicfromtheeast.symmetry_spell_resist": "Symmetry Spell Resist",
   "attribute.iss_magicfromtheeast.spirit_spell_resist": "Spirit Spell Resist",
   "attribute.iss_magicfromtheeast.dune_spell_resist": "Dune Spell Resist",
+
   "school.iss_magicfromtheeast.symmetry": "Symmetry",
   "school.iss_magicfromtheeast.spirit": "Spirit",
   "school.iss_magicfromtheeast.dune": "Dune",
 
   "spell.iss_magicfromtheeast.throw_up": "Launch",
+  "spell.iss_magicfromtheeast.throw_up.guide": "Launch chosen target into the sky",
   "spell.iss_magicfromtheeast.sword_dance": "Sword Dance",
+  "spell.iss_magicfromtheeast.sword_dance.guide": "Summoning magical swords around the caster, the swords will fly toward last hurt target and stab them",
   "spell.iss_magicfromtheeast.qigong_controlling": "Qigong Controlling",
+  "spell.iss_magicfromtheeast.qigong_controlling.guide": "Control the force of yin and yang, pulling in targets when casting and push them out with powerful force when the cast is nearly end",
   "spell.iss_magicfromtheeast.bagua_array_circle": "Bagua Array Circle",
+  "spell.iss_magicfromtheeast.bagua_array_circle.guide": "Summon a Bagua Circle at designated are, continually deal damage to anything that step on it except the owner, give 80% damage resistance buff instead",
   "spell.iss_magicfromtheeast.dragon_glide": "Dragon Glide",
+  "spell.iss_magicfromtheeast.dragon_glide.guide": "Cast a unstoppable force dragon ahead the caster, deal damage to anything on its path, can break magic shield with a chance",
   "spell.iss_magicfromtheeast.jade_judgement": "Jade Judgement",
+  "spell.iss_magicfromtheeast.jade_judgement.guide": "Calling down an giant Jade Dao, deal a massive area of damage on impact to the ground",
   "spell.iss_magicfromtheeast.jiangshi_invoke": "Jiangshi Invoke",
+  "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 Jiangshi to aid in your battle",
   "spell.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
+  "spell.iss_magicfromtheeast.jade_sentinel.guide": "Summon a powerful Jade Sentinel, protecting you in 3 minute. He will not follow you however",
   "spell.iss_magicfromtheeast.underworld_aid": "Underworld Aid",
+  "spell.iss_magicfromtheeast.underworld_aid.guide": "Call help from the Underground, summon 4 Impermanent. The Impermanent will chase down the target",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
   "item.iss_magicfromtheeast.jade": "Jade",
   "item.iss_magicfromtheeast.bottle_of_souls": "Bottle Of Souls",
   "item.iss_magicfromtheeast.arcane_relics": "Arcane Relics",
+  "item.iss_magicfromtheeast.red_string": "Red String",
+  "item.iss_magicfromtheeast.copper_coins": "Copper Coins",
+  "item.iss_magicfromtheeast.yin_yang_core": "Yin Yang Core",
+
+  "item.iss_magicfromtheeast.refined_jade_ingot": "Refined Jade Ingot",
 
   "item.iss_magicfromtheeast.taiji_sword": "Taiji Sword",
+  "item.iss_magicfromtheeast.jade_guandao": "Jade Guandao",
 
   "item.iss_magicfromtheeast.taoist_hat": "Taoist Hat",
   "item.iss_magicfromtheeast.taoist_robes": "Taoist Robes",
@@ -42,8 +58,5 @@
   "entity.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
   "entity.iss_magicfromtheeast.jade_sword": "Jade Sword",
 
-  "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer",
-
-  "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item"
+  "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer"
 }

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " RJ",
+    "GSJ",
+    "SG "
+  ],
+  "key": {
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade_guandao",
+    "count": 1
+  }
+}

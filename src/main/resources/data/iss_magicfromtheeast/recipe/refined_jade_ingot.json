@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "iss_magicfromtheeast:refined_jade_ingot"
+  }
+}

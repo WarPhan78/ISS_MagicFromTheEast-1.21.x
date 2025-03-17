@@ -14,8 +14,8 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 public class JadeSentinelAttackGoal extends WarlockAttackGoal {
     final JadeSentinel sentinel;
 
-    public JadeSentinelAttackGoal(JadeSentinel jadeSentinel, double pSpeedModifier, int minAttackInterval, int maxAttackInterval, float meleeRange) {
-        super(jadeSentinel, pSpeedModifier, minAttackInterval, maxAttackInterval, meleeRange);
+    public JadeSentinelAttackGoal(JadeSentinel jadeSentinel, double pSpeedModifier, int minAttackInterval, int maxAttackInterval) {
+        super(jadeSentinel, pSpeedModifier, minAttackInterval, maxAttackInterval);
         sentinel = jadeSentinel;
         nextAttack = calculateNextAttack(0);
         this.wantsToMelee = true;
@@ -29,7 +29,7 @@ public class JadeSentinelAttackGoal extends WarlockAttackGoal {
     int meleeAnimTimer = -1;
     public JadeSentinel.AttackAnim currentAttack;
     public JadeSentinel.AttackAnim nextAttack;
-    int damage;
+    float meleeRange = 12.0f;
 
     @Override
     protected void handleAttackLogic(double distanceSquared) {
@@ -81,7 +81,7 @@ public class JadeSentinelAttackGoal extends WarlockAttackGoal {
                 doMeleeAction();
             } else if (meleeAnimTimer == 0) {
                 nextAttack = calculateNextAttack(distance);
-                resetAttackTimer(distanceSquared);
+                resetMeleeAttackInterval(distanceSquared);
                 meleeAnimTimer = -1;
             }
         }

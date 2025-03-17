@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  I",
+    "GI ",
+    "SYG"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "Y": {
+      "item": "iss_magicfromtheeast:yin_yang_core"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:taiji_sword",
+    "count": 1
+  }
+}

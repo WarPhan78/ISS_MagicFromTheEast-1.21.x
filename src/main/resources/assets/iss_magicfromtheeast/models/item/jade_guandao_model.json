@@ -1,0 +1,106 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "jade_guandao",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "iss_magicfromtheeast:item/jade_guandao",
+		"particle": "iss_magicfromtheeast:item/jade_guandao"
+	},
+	"elements": [
+		{
+			"from": [7.5, -15, 7.5],
+			"to": [8.5, -11, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, -15, 6.5]},
+			"faces": {
+				"north": {"uv": [6, 6.5, 6.5, 8.5], "texture": "#0"},
+				"east": {"uv": [6.5, 6.5, 7, 8.5], "texture": "#0"},
+				"south": {"uv": [7, 6.5, 7.5, 8.5], "texture": "#0"},
+				"west": {"uv": [7.5, 6.5, 8, 8.5], "texture": "#0"},
+				"up": {"uv": [8.5, 0.5, 8, 0], "texture": "#0"},
+				"down": {"uv": [8.5, 0.5, 8, 1], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, 19, 5.5],
+			"to": [9, 19, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 18, 6.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 0], "texture": "#0"},
+				"east": {"uv": [0, 0, 2.5, 0], "texture": "#0"},
+				"south": {"uv": [0, 0, 1, 0], "texture": "#0"},
+				"west": {"uv": [0, 0, 2.5, 0], "texture": "#0"},
+				"up": {"uv": [5, 9, 4, 6.5], "texture": "#0"},
+				"down": {"uv": [6, 6.5, 5, 9], "texture": "#0"}
+			}
+		},
+		{
+			"from": [8, 19, 4.5],
+			"to": [8, 32, 12.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 20, 7.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"east": {"uv": [0, 0, 4, 6.5], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"west": {"uv": [4, 0, 8, 6.5], "texture": "#0"},
+				"up": {"uv": [0, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 0, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7.5, -11, 7.5],
+			"to": [8.5, 4, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 0, 7.5]},
+			"faces": {
+				"north": {"uv": [0, 6.5, 0.5, 14], "texture": "#0"},
+				"east": {"uv": [0.5, 6.5, 1, 14], "texture": "#0"},
+				"south": {"uv": [1, 6.5, 1.5, 14], "texture": "#0"},
+				"west": {"uv": [1.5, 6.5, 2, 14], "texture": "#0"},
+				"up": {"uv": [8.5, 1.5, 8, 1], "texture": "#0"},
+				"down": {"uv": [8.5, 1.5, 8, 2], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7.5, 4, 7.5],
+			"to": [8.5, 19, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 15, 7.5]},
+			"faces": {
+				"north": {"uv": [2, 6.5, 2.5, 14], "texture": "#0"},
+				"east": {"uv": [2.5, 6.5, 3, 14], "texture": "#0"},
+				"south": {"uv": [3, 6.5, 3.5, 14], "texture": "#0"},
+				"west": {"uv": [3.5, 6.5, 4, 14], "texture": "#0"},
+				"up": {"uv": [8.5, 2.5, 8, 2], "texture": "#0"},
+				"down": {"uv": [8.5, 2.5, 8, 3], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [-0.5, 10, 1.5]
+		},
+		"thirdperson_lefthand": {
+			"translation": [-0.5, 10, 1.5]
+		},
+		"ground": {
+			"rotation": [-45, 0, 0],
+			"translation": [0, 6, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [-90, 45.5, 90],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"fixed": {
+			"rotation": [-88.58, -44.95, -88.98],
+			"translation": [0, 0, -0.25],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "jade_guandao",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4]
+		}
+	]
+}
