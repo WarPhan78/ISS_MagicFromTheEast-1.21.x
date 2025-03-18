@@ -28,6 +28,10 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.TAIJI_SWORD.get());
                 entries.accept(ItemRegistries.JADE_GUANDAO.get());
 
+                entries.accept(ItemRegistries.BAGUA_MIRROR.get());
+                entries.accept(ItemRegistries.COINS_SWORD.get());
+
+                entries.accept(ItemRegistries.RAW_JADE.get());
                 entries.accept(ItemRegistries.JADE.get());
                 entries.accept(ItemRegistries.BOTTLE_OF_SOULS.get());
                 entries.accept(ItemRegistries.ARCANE_RELICS.get());
@@ -45,6 +49,13 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(ItemRegistries.SPIRIT_RUNE.get());
                 entries.accept(ItemRegistries.DUNE_RUNE.get());
+                entries.accept(ItemRegistries.SYMMETRY_UPGRADE_ORB.get());
+
+                entries.accept(ItemRegistries.JADE_ORE_ITEM.get());
+                entries.accept(ItemRegistries.JADE_ORE_DEEPSLATE_ITEM.get());
+                entries.accept(ItemRegistries.JADE_BLOCK_ITEM.get());
+                entries.accept(ItemRegistries.RAW_JADE_BLOCK_ITEM.get());
+                entries.accept(ItemRegistries.REFINED_JADE_BLOCK_ITEM.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());

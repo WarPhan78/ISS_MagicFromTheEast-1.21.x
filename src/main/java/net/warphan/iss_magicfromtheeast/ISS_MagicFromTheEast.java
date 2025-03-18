@@ -40,6 +40,7 @@ public class ISS_MagicFromTheEast {
         NeoForge.EVENT_BUS.register(this);
 
         ItemRegistries.register(modEventBus);
+        BlockRegistries.register(modEventBus);
         CreativeTabRegistries.register(modEventBus);
         MFTESchoolRegistries.register(modEventBus);
         MFTEAttributeRegistries.register(modEventBus);

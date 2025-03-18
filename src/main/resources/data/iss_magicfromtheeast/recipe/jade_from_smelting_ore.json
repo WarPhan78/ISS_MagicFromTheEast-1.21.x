@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 5.0,
+  "ingredient": {
+    "item": "iss_magicfromtheeast:jade_ore"
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade"
+  }
+}

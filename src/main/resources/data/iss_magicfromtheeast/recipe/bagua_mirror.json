@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DQX",
+    "LYK",
+    "ZCG"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:lily_pad"
+    },
+    "Q": {
+      "item": "irons_spellbooks:divine_pearl"
+    },
+    "X": {
+      "item": "minecraft:breeze_rod"
+    },
+    "L": {
+      "item": "minecraft:blaze_rod"
+    },
+    "K": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "Z": {
+      "item": "irons_spellbooks:lightning_bottle"
+    },
+    "C": {
+      "item": "minecraft:poisonous_potato"
+    },
+    "G": {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    "Y": {
+      "item": "iss_magicfromtheeast:yin_yang_core"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:bagua_mirror",
+    "count": 1
+  }
+}

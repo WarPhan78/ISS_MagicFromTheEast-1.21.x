@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MRC",
+    "RCR",
+    "CRM"
+  ],
+  "key": {
+    "M": {
+      "item": "irons_spellbooks:arcane_essence"
+    },
+    "R": {
+      "item": "iss_magicfromtheeast:red_string"
+    },
+    "C": {
+      "item": "iss_magicfromtheeast:copper_coins"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:coins_sword",
+    "count": 1
+  }
+}

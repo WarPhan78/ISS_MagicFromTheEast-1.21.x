@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "iss_magicfromtheeast:jade_ore",
+    "iss_magicfromtheeast:deepslate_jade_ore",
+    "iss_magicfromtheeast:raw_jade_block",
+    "iss_magicfromtheeast:jade_block",
+    "iss_magicfromtheeast:refined_jade_block"
+  ]
+}
