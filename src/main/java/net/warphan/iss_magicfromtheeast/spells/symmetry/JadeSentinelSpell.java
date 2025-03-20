@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -72,6 +73,14 @@ public class JadeSentinelSpell extends AbstractSpell {
     @Override
     public ResourceLocation getSpellResource() {
         return spellId;
+    }
+
+    @Override
+    public boolean checkPreCastConditions(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData) {
+        if (entity.isHolding(ItemRegistry.SCROLL.get())) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.entity.armor;
 
-import io.redspace.ironsspellbooks.IronsSpellbooks;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
 import net.minecraft.resources.ResourceLocation;

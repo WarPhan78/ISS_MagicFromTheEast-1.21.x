@@ -7,7 +7,6 @@ import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import io.redspace.ironsspellbooks.item.weapons.*;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
-import io.redspace.ironsspellbooks.registries.UpgradeOrbTypeRegistry;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.*;
@@ -17,6 +16,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.compat.MFTECurios;
+import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
 import net.warphan.iss_magicfromtheeast.item.curios.MFTECuriosBaseItem;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEExtendedWeaponTier;
@@ -83,6 +83,9 @@ public class ItemRegistries {
     public static final DeferredHolder<Item, Item> TAOIST_BOOTS = ITEMS.register("taoist_boots",
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
+    //Armor
+    public static final DeferredHolder<Item, Item> JIANGSHI_HAT = ITEMS.register("jiangshi_hat",
+            () -> new JiangshiHatItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).rarity(Rarity.UNCOMMON).durability(ArmorItem.Type.HELMET.getDurability(24))));
     //Staff
     public static final DeferredHolder<Item, Item> TAIJI_SWORD = ITEMS.register("taiji_sword",
             () -> new StaffItem(ItemPropertiesHelper.equipment(1).attributes(ExtendedSwordItem.createAttributes(MFTEStaffTier.TAIJI_SWORD))));

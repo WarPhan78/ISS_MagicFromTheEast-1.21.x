@@ -25,9 +25,9 @@
   "spell.iss_magicfromtheeast.jiangshi_invoke": "Jiangshi Invoke",
   "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 Jiangshi to aid in your battle",
   "spell.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
-  "spell.iss_magicfromtheeast.jade_sentinel.guide": "Summon a powerful Jade Sentinel, protecting you in 3 minute. However, he will not follow you",
+  "spell.iss_magicfromtheeast.jade_sentinel.guide": "Cannot be cast by scroll. Summon a powerful Jade Sentinel, protecting you in 3 minute. However, he will not follow you",
   "spell.iss_magicfromtheeast.underworld_aid": "Underworld Aid",
-  "spell.iss_magicfromtheeast.underworld_aid.guide": "Call help from the Underground, summon 4 Impermanent. The Impermanent will chase down the target",
+  "spell.iss_magicfromtheeast.underworld_aid.guide": "(Currently unable to use) Call help from the Underground, summon 4 Impermanent. The Impermanent will chase down the target",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -52,6 +52,8 @@
   "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
 
+  "item.iss_magicfromtheeast.jiangshi_hat": "Jiangshi Hat",
+
   "item.iss_magicfromtheeast.symmetry_rune": "Symmetry Rune",
   "item.iss_magicfromtheeast.spirit_rune": "Spirit Rune",
   "item.iss_magicfromtheeast.dune_rune": "Dune Rune",
@@ -68,8 +70,10 @@
   "entity.iss_magicfromtheeast.jade_dao": "Jade Dao",
   "entity.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
   "entity.iss_magicfromtheeast.jade_sword": "Jade Sword",
+  "entity.iss_magicfromtheeast.summoned_jiangshi": "Summoned Jiangshi",
 
   "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer",
+  "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however"
 }

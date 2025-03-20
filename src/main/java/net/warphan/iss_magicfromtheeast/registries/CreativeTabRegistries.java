@@ -46,6 +46,8 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.TAOIST_LEGGINGS.get());
                 entries.accept(ItemRegistries.TAOIST_BOOTS.get());
 
+                entries.accept(ItemRegistries.JIANGSHI_HAT.get());
+
                 entries.accept(ItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(ItemRegistries.SPIRIT_RUNE.get());
                 entries.accept(ItemRegistries.DUNE_RUNE.get());
