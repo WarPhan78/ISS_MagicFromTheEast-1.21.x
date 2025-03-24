@@ -5,10 +5,11 @@ license="All Rights Reserved"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 modId="iss_magicfromtheeast" #mandatory
-version="1.0.0" #mandatory
+version="1.0.1" #mandatory
 displayName="ISS:MagicFromTheEast" #mandatory
 authors="WarPhan" #optional
-credits="Thanks Iron431 and Lab3 for creating the main mod." #optional
+credits="Thanks Iron431 and Lab3 for creating the main mod. And for our contributors: Amadhe" #optional
+contributors="Thanks for our contributors: Amadhe"
 description='''Add new schools, spells and related features which inspired from Eastern culture to ISS.'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

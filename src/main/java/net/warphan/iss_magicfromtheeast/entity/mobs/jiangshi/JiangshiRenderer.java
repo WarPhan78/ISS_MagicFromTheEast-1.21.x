@@ -25,7 +25,7 @@ public class JiangshiRenderer extends HumanoidRenderer<SummonedJiangshi> {
 
     @Override
     public void render(SummonedJiangshi jiangshi, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        if (jiangshi.isAnimatingRise())
+        if (jiangshi.isAnimatingRise() || jiangshi.walkAnimation.isMoving())
             super.render(jiangshi, entityYaw, partialTick, poseStack, bufferSource, packedLight);
         else
             vanillaRenderer.render(jiangshi, entityYaw, partialTick, poseStack, bufferSource, packedLight);

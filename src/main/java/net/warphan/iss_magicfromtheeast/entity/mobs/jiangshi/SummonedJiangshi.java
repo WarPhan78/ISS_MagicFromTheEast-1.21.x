@@ -60,14 +60,14 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
 
     protected LivingEntity cachedSummoner;
     protected UUID summonerUUID;
-    private int riseAnimTime = 80;
+    private int riseAnimTime = 45;
 
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2f, true));
         this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.5f));
-        this.goalSelector.addGoal(7, new GenericFollowOwnerGoal(this, this::getSummoner, 0.9f, 15, 5, false, 30));
+        this.goalSelector.addGoal(7, new GenericFollowOwnerGoal(this, this::getSummoner, 0.6f, 15, 5, false, 30));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8d));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0f, 1.0f));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0f));
@@ -84,7 +84,8 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.ARMOR, 4.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.5)
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(Attributes.STEP_HEIGHT, 4)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.8);
     }
 
@@ -226,8 +227,12 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "rise", 0, this::risePredicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "hop", 0, this::movePredicate));
     }
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    private final RawAnimation animation = RawAnimation.begin().thenPlay("jiangshi_rise");
+    private final RawAnimation animationHop = RawAnimation.begin().thenPlay("j_hop");
 
     @Override
     public double getTick(Object o) {
@@ -238,8 +243,16 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-            String animation = new String[]{"rise_from_ground_01", "rise_from_ground_02", "rise_from_ground_03", "rise_from_ground_04"}[random.nextIntBetweenInclusive(0, 3)];
-            event.getController().setAnimation(RawAnimation.begin().thenPlay(animation));
+            event.getController().setAnimation(animation);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private PlayState movePredicate(software.bernie.geckolib.animation.AnimationState event) {
+        if (!this.walkAnimation.isMoving() || isAnimatingRise())
+            return PlayState.STOP;
+        if (this.walkAnimation.isMoving() && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+            event.getController().setAnimation(animationHop);
         }
         return PlayState.CONTINUE;
     }

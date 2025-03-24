@@ -1,6 +1,5 @@
-package net.warphan.iss_magicfromtheeast.mftedamage;
+package net.warphan.iss_magicfromtheeast.damage;
 
-import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -9,7 +8,7 @@ import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
-public class MFTEDamageTypes extends ISSDamageTypes {
+public class MFTEDamageTypes {
     public static ResourceKey<DamageType> register(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
     }

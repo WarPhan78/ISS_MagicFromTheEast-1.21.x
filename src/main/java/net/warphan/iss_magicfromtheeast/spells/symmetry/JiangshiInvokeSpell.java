@@ -6,6 +6,8 @@ import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -22,11 +24,21 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
+import java.util.List;
 import java.util.Optional;
 
 @AutoSpellConfig
 public class JiangshiInvokeSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jiangshi_invoke");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.hp", getJiangshiHealth(spellLevel, null)),
+                Component.translatableEscape("ui.irons_spellbooks.damage", getJiangshiDamage(spellLevel, null))
+        );
+    }
+
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
@@ -73,10 +85,14 @@ public class JiangshiInvokeSpell extends AbstractSpell {
         float radius = 1.5f + .185f * 2;
         for (int i = 0; i < 2; i++) {
             SummonedJiangshi jiangshi = new SummonedJiangshi(world, entity, true);
+
             jiangshi.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getJiangshiDamage(spellLevel, entity));
             jiangshi.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getJiangshiHealth(spellLevel, entity));
+            jiangshi.setHealth(jiangshi.getMaxHealth());
+
             jiangshi.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(jiangshi.getOnPos()), MobSpawnType.MOB_SUMMONED, null);
             jiangshi.addEffect(new MobEffectInstance(MFTEEffectRegistries.SUMMON_JIANGSHI_TIMER, summonTime, 0, false, false, false));
+
             var yrot = 6.281f / 2 * i + entity.getYRot() * Mth.DEG_TO_RAD;
             Vec3 spawn = Utils.moveToRelativeGroundLevel(world, entity.getEyePosition().add(new Vec3(radius * Mth.cos(yrot), 0, radius * Mth.sin(yrot))), 10);
             jiangshi.setPos(spawn.x, spawn.y, spawn.z);

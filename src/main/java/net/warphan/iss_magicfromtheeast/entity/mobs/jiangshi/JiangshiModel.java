@@ -9,7 +9,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class JiangshiModel extends GeoModel<SummonedJiangshi> {
     public static final ResourceLocation modelResource = new ResourceLocation(IronsSpellbooks.MODID, "geo/abstract_casting_mob.geo.json");
     public static final ResourceLocation textureResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jiangshi.png");
-    public static final ResourceLocation animationResource = new ResourceLocation(IronsSpellbooks.MODID, "animations/casting_animations.json");
+    public static final ResourceLocation animationResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "animations/jiangshi.animation.json");
 
     protected TransformStack transformStack = new TransformStack();
 
