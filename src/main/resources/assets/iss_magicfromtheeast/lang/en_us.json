@@ -26,8 +26,8 @@
   "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 fast and furious Jiangshi to aid in your battle",
   "spell.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
   "spell.iss_magicfromtheeast.jade_sentinel.guide": "Cannot be cast from scroll. Summon a powerful Jade Sentinel, protecting you in 3 minute. However, he will not follow you",
-  "spell.iss_magicfromtheeast.underworld_aid": "Underworld Aid",
-  "spell.iss_magicfromtheeast.underworld_aid.guide": "(Currently unable to use) Call help from the Underground, summon 4 Impermanent. The Impermanent will chase down the target",
+  "spell.iss_magicfromtheeast.underworld_aid": "Impermanence's Verdict",
+  "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -71,9 +71,27 @@
   "entity.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
   "entity.iss_magicfromtheeast.jade_sword": "Jade Sword",
   "entity.iss_magicfromtheeast.summoned_jiangshi": "Summoned Jiangshi",
+  "entity.iss_magicfromtheeast.impermanence": "Verdict Circle",
 
   "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer",
+  "effect.iss_magicfromtheeast.summon_sentinel_timer.description": "Duration of Jade Sentinel's protection before he go back to the Celestial ",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
+  "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
 
-  "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however"
+  "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
+
+  "ui.iss_magicfromtheeast.lost_health_damage_bonus": "%d%% Target Lost Health",
+
+  "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
+  "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",
+  "death.attack.dune_magic": "%1$s was corroded by %2$s's dune magic",
+
+  "death.attack.iss_magicfromtheeast.sword_dance": "%1$s was pierced by %2$s force swords",
+  "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s couldn't resist to %2$s's push force",
+  "death.attack.iss_magicfromtheeast.bagua_array_circle": "%1$s couldn't get out of %2$s's bagua circle",
+  "death.attack.iss_magicfromtheeast.dragon_glide": "%1$s was killed by %2$s's force dragon",
+  "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s was split into half by %2$s's jade sao",
+  "death.attack.iss_magicfromtheeast.jiangshi_invoke": "%1$s was teared by %2$s's jiangshi",
+  "death.attack.iss_magicfromtheeast.jade_sentinel": "%1$s was overwhelmed by %2$s jade sentinel",
+  "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s couldn't escape from %2$s's impermanence friends"
 }

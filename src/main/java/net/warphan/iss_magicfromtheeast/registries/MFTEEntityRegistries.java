@@ -13,6 +13,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel.JadeSentinel;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
+import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullPushField;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
@@ -65,4 +66,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(.6f, 1.8f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_jiangshi").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<VerdictCircle>> VERDICT_CIRCLE =
+            MFTE_ENTITIES.register("impermanence", () -> EntityType.Builder.<VerdictCircle>of(VerdictCircle::new,MobCategory.MISC)
+                    .sized(7f, 0.5f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "impermanence").toString()));
 }

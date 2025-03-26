@@ -10,6 +10,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel.JadeSentinelRe
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
+import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDaoRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSwordRenderer;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
@@ -26,5 +27,6 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), JiangshiRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.VERDICT_CIRCLE.get(), VerdictCircleRender::new);
     }
 }
