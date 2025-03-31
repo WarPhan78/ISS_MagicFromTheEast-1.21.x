@@ -1,0 +1,97 @@
+{
+  "attribute.iss_magicfromtheeast.symmetry_spell_power": "两仪法术强度",
+  "attribute.iss_magicfromtheeast.spirit_spell_power": "魂灵法术强度",
+  "attribute.iss_magicfromtheeast.dune_spell_power": "沙丘法术强度",
+  "attribute.iss_magicfromtheeast.symmetry_spell_resist": "两仪法术抗性",
+  "attribute.iss_magicfromtheeast.spirit_spell_resist": "魂灵法术抗性",
+  "attribute.iss_magicfromtheeast.dune_spell_resist": "沙丘法术抗性",
+
+  "school.iss_magicfromtheeast.symmetry": "两仪",
+  "school.iss_magicfromtheeast.spirit": "魂灵",
+  "school.iss_magicfromtheeast.dune": "沙丘",
+
+  "spell.iss_magicfromtheeast.throw_up": "上抛",
+  "spell.iss_magicfromtheeast.throw_up.guide": "将选定目标抛掷到天上。",
+  "spell.iss_magicfromtheeast.sword_dance": "剑舞",
+  "spell.iss_magicfromtheeast.sword_dance.guide": "在施法者周围召唤魔法剑，剑会飞向最后一个受伤的目标并刺伤他们。",
+  "spell.iss_magicfromtheeast.qigong_controlling": "气功",
+  "spell.iss_magicfromtheeast.qigong_controlling.guide": "操控阴阳之力，吸引目标并将其推出。",
+  "spell.iss_magicfromtheeast.bagua_array_circle": "八卦阵",
+  "spell.iss_magicfromtheeast.bagua_array_circle.guide": "召唤一个八卦阵，对除自己以外的人造成伤害，自身获得80%伤害抗性。",
+  "spell.iss_magicfromtheeast.dragon_glide": "玉龙滑翔",
+  "spell.iss_magicfromtheeast.dragon_glide.guide": "在前方召唤一条玉龙，对路径上的敌人造成伤害。",
+  "spell.iss_magicfromtheeast.jade_judgement": "玉石审判",
+  "spell.iss_magicfromtheeast.jade_judgement.guide": "召唤一把大玉石刀，造成大面积范围伤害。",
+  "spell.iss_magicfromtheeast.jiangshi_invoke": "召唤僵尸",
+  "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "召唤2个速度与激情的中式僵尸来协助你的战斗。",
+  "spell.iss_magicfromtheeast.jade_sentinel": "玉石哨兵",
+  "spell.iss_magicfromtheeast.jade_sentinel.guide": "召唤强大的玉石哨兵。在3分钟内保护你，但是它不会跟随你。",
+  "spell.iss_magicfromtheeast.underworld_aid": "无常的判决",
+  "spell.iss_magicfromtheeast.underworld_aid.guide": "召唤四个无常，对圆圈内的目标进行裁决，施加减速、失明、黑暗效果，并对其造成伤害，持续4秒。伤害将根据目标损失的生命值进行调整（最大伤害40点）",
+
+  "itemGroup.iss_magicfromtheeast.magic_from_the_east": "来自东土的法术",
+
+  "item.iss_magicfromtheeast.jade": "玉石",
+  "item.iss_magicfromtheeast.raw_jade": "粗玉石",
+  "item.iss_magicfromtheeast.bottle_of_souls": "魂瓶",
+  "item.iss_magicfromtheeast.arcane_relics": "奥术遗物",
+  "item.iss_magicfromtheeast.red_string": "红绳",
+  "item.iss_magicfromtheeast.copper_coins": "铜钱",
+  "item.iss_magicfromtheeast.yin_yang_core": "阴阳核心",
+
+  "item.iss_magicfromtheeast.refined_jade_ingot": "精制玉石锭",
+
+  "item.iss_magicfromtheeast.taiji_sword": "太极剑",
+  "item.iss_magicfromtheeast.jade_guandao": "玉石关刀",
+
+  "item.iss_magicfromtheeast.bagua_mirror": "八卦镜",
+  "item.iss_magicfromtheeast.coins_sword": "金钱剑",
+
+  "item.iss_magicfromtheeast.taoist_hat": "道士帽子",
+  "item.iss_magicfromtheeast.taoist_robes": "道士法袍",
+  "item.iss_magicfromtheeast.taoist_leggings": "道士护腿",
+  "item.iss_magicfromtheeast.taoist_boots": "道士靴子",
+
+  "item.iss_magicfromtheeast.jiangshi_hat": "僵尸帽子",
+
+  "item.iss_magicfromtheeast.symmetry_rune": "两仪符文",
+  "item.iss_magicfromtheeast.spirit_rune": "魂灵符文",
+  "item.iss_magicfromtheeast.dune_rune": "沙丘符文",
+  "item.iss_magicfromtheeast.symmetry_upgrade_orb": "两仪升级法球",
+
+  "block.iss_magicfromtheeast.jade_ore": "玉石矿石",
+  "block.iss_magicfromtheeast.deepslate_jade_ore": "深板岩玉石矿石",
+  "block.iss_magicfromtheeast.raw_jade_block": "粗玉石块",
+  "block.iss_magicfromtheeast.jade_block": "玉石块",
+  "block.iss_magicfromtheeast.refined_jade_block": "精制玉石锭块",
+
+  "entity.iss_magicfromtheeast.jade_loong": "玉龙",
+  "entity.iss_magicfromtheeast.bagua_circle": "八卦阵",
+  "entity.iss_magicfromtheeast.jade_dao": "玉石刀",
+  "entity.iss_magicfromtheeast.jade_sentinel": "玉石哨兵",
+  "entity.iss_magicfromtheeast.jade_sword": "玉石剑",
+  "entity.iss_magicfromtheeast.summoned_jiangshi": "召唤出的僵尸",
+  "entity.iss_magicfromtheeast.impermanence": "判决圈",
+
+  "effect.iss_magicfromtheeast.summon_sentinel_timer": "玉石哨兵倒计时",
+  "effect.iss_magicfromtheeast.summon_sentinel_timer.description": "玉石哨兵在返回天界之前的保护持续时间。",
+  "effect.iss_magicfromtheeast.summon_jiangshi_timer": "僵尸倒计时",
+  "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "显示召唤物的剩余持续时间及其数量。",
+
+  "item.iss_magicfromtheeast.raw_jade.guide": "在熔炉中能非常快速地烧炼，但对于高炉来说它太脆弱了。",
+
+  "ui.iss_magicfromtheeast.lost_health_damage_bonus": "目标损失生命值：%d%%",
+
+  "death.attack.symmetry_magic": "%1$s的身体内部被%2$s的两仪法术摧毁。",
+  "death.attack.spirit_magic": "%1$s的灵魂被%2$s的魂灵法术焚烧了。",
+  "death.attack.dune_magic": "%1$s被%2$s的沙丘法术腐蚀了。",
+
+  "death.attack.iss_magicfromtheeast.sword_dance": "%1$s被%2$s的玉石剑斩切了。",
+  "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s无法抗拒%2$s的推力。",
+  "death.attack.iss_magicfromtheeast.bagua_array_circle": "%1$s无法离开%2$s的八卦阵。",
+  "death.attack.iss_magicfromtheeast.dragon_glide": "%1$s被%2$s的玉龙冲击了。",
+  "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s被%2$s的玉石刀一分为二了。",
+  "death.attack.iss_magicfromtheeast.jiangshi_invoke": "%1$s被%2$s召唤出的僵尸撕裂了。",
+  "death.attack.iss_magicfromtheeast.jade_sentinel": "%1$s被%2$s召唤出的翡翠哨兵压倒了。",
+  "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s没能逃出%2$s的黑白无常朋友的手掌心。"
+}
