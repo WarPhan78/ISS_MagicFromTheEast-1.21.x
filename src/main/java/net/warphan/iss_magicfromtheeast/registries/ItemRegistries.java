@@ -4,6 +4,7 @@ import io.redspace.ironsspellbooks.api.item.weapons.ExtendedSwordItem;
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import io.redspace.ironsspellbooks.item.weapons.*;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
@@ -16,7 +17,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.compat.MFTECurios;
+import net.warphan.iss_magicfromtheeast.item.RitualOrihonSpellbookItem;
 import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
+import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
 import net.warphan.iss_magicfromtheeast.item.curios.MFTECuriosBaseItem;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEExtendedWeaponTier;
@@ -27,7 +30,12 @@ import java.util.function.Supplier;
 public class ItemRegistries {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ISS_MagicFromTheEast.MOD_ID);
 
-    //Stuff
+    //Magic Stuffs
+    public static final DeferredHolder<Item, Item> TAIJI_SWORD = ITEMS.register("taiji_sword",
+            () -> new StaffItem(ItemPropertiesHelper.equipment(1).attributes(ExtendedSwordItem.createAttributes(MFTEStaffTier.TAIJI_SWORD))));
+    public static final DeferredHolder<Item, Item> RITUAL_ORIHON = ITEMS.register("ritual_orihon", RitualOrihonSpellbookItem::new);
+
+    //Stuffs
     public static final DeferredHolder<Item, Item> JADE = ITEMS.register("jade",
             () -> new Item(ItemPropertiesHelper.material()));
     public static final DeferredHolder<Item, Item> BOTTLE_OF_SOULS = ITEMS.register("bottle_of_souls",
@@ -51,14 +59,16 @@ public class ItemRegistries {
             () -> new MagicSwordItem(MFTEExtendedWeaponTier.JADE_GUANDAO, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.JADE_GUANDAO)), SpellDataRegistryHolder.of(new SpellDataRegistryHolder(MFTESpellRegistries.SWORD_DANCE_SPELL, 8))));
 
     // Curios
-    public static final Supplier<MFTECuriosBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror", () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+    public static final Supplier<MFTECuriosBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror",
+            () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
             new AttributeContainer(MFTEAttributeRegistries.SYMMETRY_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.FIRE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ICE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.NATURE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.LIGHTNING_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.HOLY_SPELL_POWER, 0.03, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
-    public static final Supplier<MFTECuriosBaseItem> COINS_SWORD = ITEMS.register("coins_sword", () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+    public static final Supplier<MFTECuriosBaseItem> COINS_SWORD = ITEMS.register("coins_sword",
+            () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
             new AttributeContainer(AttributeRegistry.BLOOD_MAGIC_RESIST, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ENDER_MAGIC_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ELDRITCH_MAGIC_RESIST, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
@@ -83,12 +93,19 @@ public class ItemRegistries {
     public static final DeferredHolder<Item, Item> TAOIST_BOOTS = ITEMS.register("taoist_boots",
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
+    //Onmyoji Set
+    public static final DeferredHolder<Item, Item> ONMYOJI_HAT = ITEMS.register("onmyoji_hat",
+            () -> new OnmyojiArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(37))));
+    public static final DeferredHolder<Item, Item> ONMYOJI_ROBES = ITEMS.register("onmyoji_robes",
+            () -> new OnmyojiArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
+    public static final DeferredHolder<Item, Item> ONMYOJI_LEGGINGS = ITEMS.register("onmyoji_leggings",
+            () -> new OnmyojiArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
+    public static final DeferredHolder<Item, Item> ONMYOJI_GETA = ITEMS.register("onmyoji_geta",
+            () -> new OnmyojiArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
+
     //Armor
     public static final DeferredHolder<Item, Item> JIANGSHI_HAT = ITEMS.register("jiangshi_hat",
             () -> new JiangshiHatItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).rarity(Rarity.UNCOMMON).durability(ArmorItem.Type.HELMET.getDurability(24))));
-    //Staff
-    public static final DeferredHolder<Item, Item> TAIJI_SWORD = ITEMS.register("taiji_sword",
-            () -> new StaffItem(ItemPropertiesHelper.equipment(1).attributes(ExtendedSwordItem.createAttributes(MFTEStaffTier.TAIJI_SWORD))));
 
     //Block Items
     public static final DeferredHolder<Item, Item> JADE_ORE_ITEM = ITEMS.register("jade_ore",

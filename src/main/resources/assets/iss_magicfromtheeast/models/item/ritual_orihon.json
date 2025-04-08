@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "iss_magicfromtheeast:item/ritual_orihon_model",
+    "textures": {
+      "layer0": "iss_magicfromtheeast:item/ritual_orihon"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "iss_magicfromtheeast:item/ritual_orihon_gui"
+      }
+    },
+    "fixed": {
+      "parent": "iss_magicfromtheeast:item/ritual_orihon_model"
+    },
+    "head": {
+      "parent": "iss_magicfromtheeast:item/ritual_orihon_lectern"
+    }
+  }
+}

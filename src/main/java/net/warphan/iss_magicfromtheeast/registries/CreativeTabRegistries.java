@@ -26,6 +26,8 @@ public class CreativeTabRegistries {
             .icon(() -> new ItemStack(ItemRegistries.YIN_YANG_CORE.get()))
             .displayItems((enabledFeatures, entries) -> {
                 entries.accept(ItemRegistries.TAIJI_SWORD.get());
+                entries.accept(ItemRegistries.RITUAL_ORIHON.get());
+
                 entries.accept(ItemRegistries.JADE_GUANDAO.get());
 
                 entries.accept(ItemRegistries.BAGUA_MIRROR.get());
@@ -45,6 +47,11 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.TAOIST_ROBES.get());
                 entries.accept(ItemRegistries.TAOIST_LEGGINGS.get());
                 entries.accept(ItemRegistries.TAOIST_BOOTS.get());
+
+                entries.accept(ItemRegistries.ONMYOJI_HAT.get());
+                entries.accept(ItemRegistries.ONMYOJI_ROBES.get());
+                entries.accept(ItemRegistries.ONMYOJI_LEGGINGS.get());
+                entries.accept(ItemRegistries.ONMYOJI_GETA.get());
 
                 entries.accept(ItemRegistries.JIANGSHI_HAT.get());
 

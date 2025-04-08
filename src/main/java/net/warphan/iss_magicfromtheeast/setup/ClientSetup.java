@@ -1,5 +1,6 @@
 package net.warphan.iss_magicfromtheeast.setup;
 
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,7 +14,9 @@ import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRend
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDaoRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSwordRenderer;
+import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
@@ -28,5 +31,7 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.VERDICT_CIRCLE.get(), VerdictCircleRender::new);
+
+        CuriosRendererRegistry.register(ItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
     }
 }

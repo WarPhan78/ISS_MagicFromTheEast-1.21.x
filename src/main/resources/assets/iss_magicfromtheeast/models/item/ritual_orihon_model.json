@@ -1,0 +1,51 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "iss_magicfromtheeast:item/ritual_orihon",
+		"particle": "iss_magicfromtheeast:item/ritual_orihon"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 4.5],
+			"to": [9, 10, 11.5],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [2.5, 5, 5, 10], "texture": "#0"},
+				"east": {"uv": [0, 0, 3.5, 5], "texture": "#0"},
+				"south": {"uv": [0, 5, 2.5, 10], "texture": "#0"},
+				"west": {"uv": [3.5, 0, 7, 5], "texture": "#0"},
+				"up": {"uv": [8.5, 7.5, 5, 5], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [10.5, 0, 7, 2.5], "rotation": 270, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 0.5, -1],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 0.5, -1],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"firstperson_righthand": {
+			"rotation": [-30, 60, 0],
+			"translation": [0, 6, -2]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-30, 60, 0],
+			"translation": [0, 6, -2]
+		},
+		"ground": {
+			"translation": [0, 4, 0],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"gui": {
+			"translation": [0, 3.5, 0]
+		},
+		"fixed": {
+			"translation": [0, 0, -0.75]
+		}
+	}
+}

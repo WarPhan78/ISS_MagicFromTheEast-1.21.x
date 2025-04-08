@@ -34,7 +34,7 @@ public class SwordDanceSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.UNCOMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(8)
-            .setCooldownSeconds(30)
+            .setCooldownSeconds(90)
             .build();
 
     public SwordDanceSpell() {

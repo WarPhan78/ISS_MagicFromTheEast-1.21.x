@@ -40,12 +40,12 @@ public class JadeSentinelSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.EPIC)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(5)
-            .setCooldownSeconds(240)
+            .setCooldownSeconds(300)
             .build();
 
     public JadeSentinelSpell() {
-        this.manaCostPerLevel = 100;
-        this.baseSpellPower = 20;
+        this.manaCostPerLevel = 125;
+        this.baseSpellPower = 10;
         this.spellPowerPerLevel = 5;
         this.castTime = 120;
         this.baseManaCost = 500;
