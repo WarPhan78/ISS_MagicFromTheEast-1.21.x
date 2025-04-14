@@ -1,0 +1,9 @@
+{
+  "amount": 0.05,
+  "attribute": "iss_magicfromtheeast:spirit_spell_power",
+  "containerItem": {
+    "count": 1,
+    "id": "iss_magicfromtheeast:spirit_upgrade_orb"
+  },
+  "operation": "add_multiplied_base"
+}

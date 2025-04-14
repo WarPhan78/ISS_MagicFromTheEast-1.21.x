@@ -29,6 +29,9 @@
   "spell.iss_magicfromtheeast.underworld_aid": "Impermanence's Verdict",
   "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
 
+  "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
+  "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul fire bullets at chose targets, burning their souls on hit",
+
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
   "item.iss_magicfromtheeast.jade": "Jade",
@@ -48,6 +51,8 @@
 
   "item.iss_magicfromtheeast.bagua_mirror": "Bagua Mirror",
   "item.iss_magicfromtheeast.coins_sword": "Coins Sword",
+  "item.iss_magicfromtheeast.soulward_ring": "Soulward Ring",
+  "item.iss_magicfromtheeast.soulward_ring.desc": "Grants soulburn immunity",
 
   "item.iss_magicfromtheeast.taoist_hat": "Taoist Hat",
   "item.iss_magicfromtheeast.taoist_robes": "Taoist Robes",
@@ -65,6 +70,7 @@
   "item.iss_magicfromtheeast.spirit_rune": "Spirit Rune",
   "item.iss_magicfromtheeast.dune_rune": "Dune Rune",
   "item.iss_magicfromtheeast.symmetry_upgrade_orb": "Symmetry Upgrade Orb",
+  "item.iss_magicfromtheeast.spirit_upgrade_orb": "Spirit Upgrade Orb",
 
   "block.iss_magicfromtheeast.jade_ore": "Jade Ore",
   "block.iss_magicfromtheeast.deepslate_jade_ore": "Deepslate Jade Ore",
@@ -84,6 +90,8 @@
   "effect.iss_magicfromtheeast.summon_sentinel_timer.description": "Duration of Jade Sentinel's protection before he go back to the Celestial ",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
+  "effect.iss_magicfromtheeast.soulburn": "Soulburn",
+  "effect.iss_magicfromtheeast.soulburn.description": "Burning living entity souls",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 

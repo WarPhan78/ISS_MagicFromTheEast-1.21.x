@@ -8,4 +8,5 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 public class MFTEUpgradeOrbTypeRegistries{
 
     public static ResourceKey<UpgradeOrbType> SYMMETRY_SPELL_POWER = ResourceKey.create(UpgradeOrbTypeRegistry.UPGRADE_ORB_REGISTRY_KEY, ISS_MagicFromTheEast.id("symmetry_power"));
+    public static ResourceKey<UpgradeOrbType> SPIRIT_SPELL_POWER = ResourceKey.create(UpgradeOrbTypeRegistry.UPGRADE_ORB_REGISTRY_KEY, ISS_MagicFromTheEast.id("spirit_power"));
 }

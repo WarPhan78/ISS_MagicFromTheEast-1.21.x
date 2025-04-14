@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 public class MFTEExtendedWeaponTier implements Tier, IronsWeaponTier {
 
     public static MFTEExtendedWeaponTier JADE_GUANDAO = new MFTEExtendedWeaponTier(2031, 10, -2.5f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.JADE.get()), new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 1, AttributeModifier.Operation.ADD_VALUE));
+    public static MFTEExtendedWeaponTier SOUL_BREAKER = new MFTEExtendedWeaponTier(1561, 4, -2.5f, 10, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.BOTTLE_OF_SOULS.get()));
 
     int uses;
     float damage;

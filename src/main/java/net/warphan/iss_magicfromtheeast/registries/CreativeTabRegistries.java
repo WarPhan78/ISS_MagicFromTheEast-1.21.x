@@ -32,6 +32,7 @@ public class CreativeTabRegistries {
 
                 entries.accept(ItemRegistries.BAGUA_MIRROR.get());
                 entries.accept(ItemRegistries.COINS_SWORD.get());
+                entries.accept(ItemRegistries.SOULWARD_RING.get());
 
                 entries.accept(ItemRegistries.RAW_JADE.get());
                 entries.accept(ItemRegistries.JADE.get());
@@ -59,6 +60,7 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.SPIRIT_RUNE.get());
                 entries.accept(ItemRegistries.DUNE_RUNE.get());
                 entries.accept(ItemRegistries.SYMMETRY_UPGRADE_ORB.get());
+                entries.accept(ItemRegistries.SPIRIT_UPGRADE_ORB.get());
 
                 entries.accept(ItemRegistries.JADE_ORE_ITEM.get());
                 entries.accept(ItemRegistries.JADE_ORE_DEEPSLATE_ITEM.get());

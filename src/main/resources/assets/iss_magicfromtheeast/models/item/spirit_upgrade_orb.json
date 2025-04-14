@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "irons_spellbooks:item/upgrade_orb_base",
+    "layer1": "iss_magicfromtheeast:item/upgrade_orb_spirit"
+  }
+}

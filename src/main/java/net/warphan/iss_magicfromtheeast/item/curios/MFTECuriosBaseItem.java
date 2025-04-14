@@ -2,7 +2,6 @@ package net.warphan.iss_magicfromtheeast.item.curios;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import io.redspace.ironsspellbooks.compat.Curios;
 import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -55,9 +54,5 @@ public class MFTECuriosBaseItem extends Item implements ICurioItem {
             return builder.build();
         };
         return this;
-    }
-
-    public MFTECuriosBaseItem withSpellbookAttributes(AttributeContainer... attributes) {
-        return withAttributes(Curios.SPELLBOOK_SLOT, attributes);
     }
 }

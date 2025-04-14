@@ -5,6 +5,7 @@ import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.spells.spirit.SoulCatalystSpell;
 import net.warphan.iss_magicfromtheeast.spells.symmetry.*;
 
 import java.util.function.Supplier;
@@ -33,6 +34,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     public static final Supplier<AbstractSpell> UNDERWORLD_AID_SPELL = registerSpell(new UnderworldAidSpell());
 
     //SPIRIT SPELLS
+    public static final Supplier<AbstractSpell> SOUL_CATALYST_SPELL = registerSpell(new SoulCatalystSpell());
 
 
     //DUNE SPELLS

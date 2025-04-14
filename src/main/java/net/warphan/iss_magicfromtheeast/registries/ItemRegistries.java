@@ -6,6 +6,8 @@ import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
+import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
+import io.redspace.ironsspellbooks.item.curios.SimpleDescriptiveCurio;
 import io.redspace.ironsspellbooks.item.weapons.*;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
@@ -22,6 +24,7 @@ import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
 import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
 import net.warphan.iss_magicfromtheeast.item.curios.MFTECuriosBaseItem;
+import net.warphan.iss_magicfromtheeast.item.curios.SoulwardRing;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEExtendedWeaponTier;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEStaffTier;
 
@@ -72,6 +75,7 @@ public class ItemRegistries {
             new AttributeContainer(AttributeRegistry.BLOOD_MAGIC_RESIST, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ENDER_MAGIC_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ELDRITCH_MAGIC_RESIST, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
+    public static final Supplier<CurioBaseItem> SOULWARD_RING = ITEMS.register("soulward_ring", SoulwardRing::new);
 
     //Rune and Orbs
     public static final DeferredHolder<Item, Item> SYMMETRY_RUNE = ITEMS.register("symmetry_rune",
@@ -82,6 +86,8 @@ public class ItemRegistries {
             () -> new Item(ItemPropertiesHelper.material()));
     public static final DeferredHolder<Item, Item> SYMMETRY_UPGRADE_ORB = ITEMS.register("symmetry_upgrade_orb",
             () -> new UpgradeOrbItem(ItemPropertiesHelper.material().rarity(Rarity.UNCOMMON).component(ComponentRegistry.UPGRADE_ORB_TYPE, MFTEUpgradeOrbTypeRegistries.SYMMETRY_SPELL_POWER)));
+    public static final DeferredHolder<Item, Item> SPIRIT_UPGRADE_ORB = ITEMS.register("spirit_upgrade_orb",
+            () -> new UpgradeOrbItem(ItemPropertiesHelper.material().rarity(Rarity.UNCOMMON).component(ComponentRegistry.UPGRADE_ORB_TYPE, MFTEUpgradeOrbTypeRegistries.SPIRIT_SPELL_POWER)));
 
     //Taoist Set
     public static final DeferredHolder<Item, Item> TAOIST_HAT = ITEMS.register("taoist_hat",
