@@ -33,5 +33,7 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.VERDICT_CIRCLE.get(), VerdictCircleRender::new);
 
         CuriosRendererRegistry.register(ItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
+
+        CuriosRendererRegistry.register(ItemRegistries.BAGUA_MIRROR.get(), MFTEBeltCurioRenderer::new);
     }
 }
