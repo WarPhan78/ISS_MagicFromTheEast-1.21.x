@@ -2,9 +2,9 @@
   "attribute.iss_magicfromtheeast.symmetry_spell_power": "Symmetry Spell Power",
   "attribute.iss_magicfromtheeast.spirit_spell_power": "Spirit Spell Power",
   "attribute.iss_magicfromtheeast.dune_spell_power": "Dune Spell Power",
-  "attribute.iss_magicfromtheeast.symmetry_spell_resist": "Symmetry Spell Resist",
-  "attribute.iss_magicfromtheeast.spirit_spell_resist": "Spirit Spell Resist",
-  "attribute.iss_magicfromtheeast.dune_spell_resist": "Dune Spell Resist",
+  "attribute.iss_magicfromtheeast.symmetry_magic_resist": "Symmetry Spell Resist",
+  "attribute.iss_magicfromtheeast.spirit_magic_resist": "Spirit Spell Resist",
+  "attribute.iss_magicfromtheeast.dune_magic_resist": "Dune Spell Resist",
 
   "school.iss_magicfromtheeast.symmetry": "Symmetry",
   "school.iss_magicfromtheeast.spirit": "Spirit",
@@ -24,13 +24,14 @@
   "spell.iss_magicfromtheeast.jade_judgement.guide": "Calling down an giant Jade Dao, deal a massive area of damage on impact to the ground",
   "spell.iss_magicfromtheeast.jiangshi_invoke": "Jiangshi Invoke",
   "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 fast and furious Jiangshi to aid in your battle",
-  "spell.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
-  "spell.iss_magicfromtheeast.jade_sentinel.guide": "Cannot be cast from scroll. Summon a powerful Jade Sentinel, protecting you in 3 minute. However, he will not follow you",
   "spell.iss_magicfromtheeast.underworld_aid": "Impermanence's Verdict",
   "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
 
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
-  "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul fire bullets at chose targets, burning their souls on hit",
+  "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
+  "spell.iss_magicfromtheeast.soul_burst": "Soul Burst",
+  "spell.iss_magicfromtheeast.soul_burst.guide": "Release a soul fire explosion at the caster position, damage and burns enemy's souls caught inside",
+  "spell.iss_magicfromtheeast.spirit_challenging": "Spirit Challenging",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -41,18 +42,25 @@
   "item.iss_magicfromtheeast.red_string": "Red String",
   "item.iss_magicfromtheeast.copper_coins": "Copper Coins",
   "item.iss_magicfromtheeast.yin_yang_core": "Yin Yang Core",
+  "item.iss_magicfromtheeast.red_shaft": "Red Shaft",
 
   "item.iss_magicfromtheeast.refined_jade_ingot": "Refined Jade Ingot",
+  "item.iss_magicfromtheeast.crystallized_soul": "Crystallized Soul",
 
   "item.iss_magicfromtheeast.taiji_sword": "Taiji Sword",
   "item.iss_magicfromtheeast.ritual_orihon": "Ritual Orihon",
 
   "item.iss_magicfromtheeast.jade_guandao": "Jade Guandao",
+  "item.iss_magicfromtheeast.soul_breaker": "Soul Breaker",
+  "item.iss_magicfromtheeast.soul_breaker.description": "Deal 5 extra magic damage on hit",
+  "item.iss_magicfromtheeast.muramasa": "Muramasa",
 
   "item.iss_magicfromtheeast.bagua_mirror": "Bagua Mirror",
   "item.iss_magicfromtheeast.coins_sword": "Coins Sword",
   "item.iss_magicfromtheeast.soulward_ring": "Soulward Ring",
   "item.iss_magicfromtheeast.soulward_ring.desc": "Grants soulburn immunity",
+  "item.iss_magicfromtheeast.rusted_coins_sword": "Rusted Coins Sword",
+  "item.iss_magicfromtheeast.jade_pendant": "Jade Pendant",
 
   "item.iss_magicfromtheeast.taoist_hat": "Taoist Hat",
   "item.iss_magicfromtheeast.taoist_robes": "Taoist Robes",
@@ -81,13 +89,12 @@
   "entity.iss_magicfromtheeast.jade_loong": "Jade Loong",
   "entity.iss_magicfromtheeast.bagua_circle": "Bagua Circle",
   "entity.iss_magicfromtheeast.jade_dao": "Jade Dao",
-  "entity.iss_magicfromtheeast.jade_sentinel": "Jade Sentinel",
   "entity.iss_magicfromtheeast.jade_sword": "Jade Sword",
   "entity.iss_magicfromtheeast.summoned_jiangshi": "Summoned Jiangshi",
   "entity.iss_magicfromtheeast.impermanence": "Verdict Circle",
+  "entity.iss_magicfromtheeast.soul_skull": "Soul Skull Projectile",
+  "entity.iss_magicfromtheeast.challenged_soul": "Challenged Soul",
 
-  "effect.iss_magicfromtheeast.summon_sentinel_timer": "Jade Sentinel Timer",
-  "effect.iss_magicfromtheeast.summon_sentinel_timer.description": "Duration of Jade Sentinel's protection before he go back to the Celestial ",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.iss_magicfromtheeast.soulburn": "Soulburn",
@@ -107,6 +114,10 @@
   "death.attack.iss_magicfromtheeast.dragon_glide": "%1$s was killed by %2$s's force dragon",
   "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s was split into half by %2$s's jade sao",
   "death.attack.iss_magicfromtheeast.jiangshi_invoke": "%1$s was teared by %2$s's jiangshi",
-  "death.attack.iss_magicfromtheeast.jade_sentinel": "%1$s was overwhelmed by %2$s jade sentinel",
-  "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s couldn't escape from %2$s's impermanence friends"
+  "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s couldn't escape from %2$s's impermanence friends",
+
+  "death.attack.iss_magicfromtheeast.soul_catalyst": "%2$s's soul skulls has burned %1$s's soul into dust",
+  "death.attack.iss_magicfromtheeast:soul_burst": "%1$s's soul was burned into dust while get inside in %2$s's soul explosion",
+
+  "fluid_type.iss_magicfromtheeast.soul": "Soul"
 }

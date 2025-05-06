@@ -9,10 +9,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel.JadeSentinel;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
+import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
+import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullProjectile;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullPushField;
@@ -41,11 +42,11 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(0.8f, 4f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_dao").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<JadeSentinel>> JADE_SENTINEL =
-            MFTE_ENTITIES.register("jade_sentinel", () -> EntityType.Builder.<JadeSentinel>of(JadeSentinel::new, MobCategory.MONSTER)
-                    .sized(4f, 12f)
-                    .clientTrackingRange(64)
-                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel").toString()));
+//    public static final DeferredHolder<EntityType<?>, EntityType<JadeSentinel>> JADE_SENTINEL =
+//            MFTE_ENTITIES.register("jade_sentinel", () -> EntityType.Builder.<JadeSentinel>of(JadeSentinel::new, MobCategory.MONSTER)
+//                    .sized(4f, 12f)
+//                    .clientTrackingRange(64)
+//                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowCircleEntity>> THROW_CIRCLE_ENTITY =
             MFTE_ENTITIES.register("throw_circle", () -> EntityType.Builder.<ThrowCircleEntity>of(ThrowCircleEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.0f)
@@ -71,4 +72,14 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(7f, 0.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "impermanence").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SoulSkullProjectile>> SOUL_SKULL =
+            MFTE_ENTITIES.register("soul_skull", () -> EntityType.Builder.<SoulSkullProjectile>of(SoulSkullProjectile::new, MobCategory.MISC)
+                    .sized(.4f, .4f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_skull").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<ChallengedSoul>> CHALLENGING_SOUL =
+            MFTE_ENTITIES.register("challenged_soul", () -> EntityType.Builder.<ChallengedSoul>of(ChallengedSoul::new, MobCategory.MISC)
+                    .sized(.6f, 1.8f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "challenged_soul").toString()));
 }
