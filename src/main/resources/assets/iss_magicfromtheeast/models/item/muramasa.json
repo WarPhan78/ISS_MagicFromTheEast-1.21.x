@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "iss_magicfromtheeast:item/muramasa_model",
+    "textures": {
+      "layer0": "iss_magicfromtheeast:item/muramasa"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "iss_magicfromtheeast:item/muramasa_ui"
+      }
+    }
+  }
+}

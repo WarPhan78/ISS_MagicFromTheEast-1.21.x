@@ -1,0 +1,14 @@
+{
+  "type": "irons_spellbooks:alchemist_cauldron_fill",
+  "fluid": {
+    "amount": 250,
+    "id": "iss_magicfromtheeast:soul"
+  },
+  "input": {
+    "item": "iss_magicfromtheeast:bottle_of_souls"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:glass_bottle"
+  }
+}

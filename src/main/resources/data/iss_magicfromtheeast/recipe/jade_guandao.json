@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " RJ",
+    " JJ",
     "GSJ",
-    "SG "
+    "RG "
   ],
   "key": {
     "J": {
@@ -13,10 +13,10 @@
       "tag": "c:ingots/gold"
     },
     "R": {
-      "item": "minecraft:red_dye"
+      "item": "iss_magicfromtheeast:jade"
     },
     "S": {
-      "item": "minecraft:stick"
+      "item": "iss_magicfromtheeast:red_shaft"
     }
   },
   "result": {

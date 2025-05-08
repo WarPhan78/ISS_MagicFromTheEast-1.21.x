@@ -1,6 +1,8 @@
 package net.warphan.iss_magicfromtheeast.events;
 
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import io.redspace.ironsspellbooks.registries.BlockRegistry;
+import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -8,6 +10,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -15,8 +18,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
+import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 
@@ -60,5 +68,71 @@ public class MFTEServerEvent {
     }
     // NOTE: Fix the problem with Soul Fire on Soul Sand
 
+    @SubscribeEvent
+    public static void weaponBreakingSoul(LivingDamageEvent.Post event) {
+        var damageSource = event.getSource();
+        var target = event.getEntity();
+        if (damageSource.getEntity() instanceof LivingEntity attacker && (damageSource.getDirectEntity() == attacker || damageSource.getDirectEntity() instanceof AbstractArrow) && !(damageSource instanceof SpellDamageSource)) {
+            var hand = attacker.getUsedItemHand();
+            var attackItem = attacker.getItemInHand(hand);
+            if (attackItem.is(ItemRegistries.SOUL_BREAKER)) {
+                target.hurt(target.damageSources().magic(), 5);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void ignoreKnockBackSoul(LivingKnockBackEvent event) {
+        var entity = event.getEntity();
+        if (entity instanceof ChallengedSoul || entity instanceof BoneHandsEntity) {
+            event.setCanceled(true);
+        }
+    }
+
+    //Soul Challenging Events
+    @SubscribeEvent
+    public static void linkedSoulChallengingEvent(EntityTickEvent.Pre event) {
+        var entity = event.getEntity();
+        if (entity instanceof ChallengedSoul challengedSoul) {
+            var soulOwner = challengedSoul.getSummoner();
+            float linkingRange = 10.0f;
+            if (!challengedSoul.level.isClientSide) {
+                float distance = challengedSoul.distanceTo(soulOwner);
+                if (distance > linkingRange) {
+                    challengedSoul.onUnSummon();
+                    soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
+                    soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void soulOwnerHurtEvent(LivingDamageEvent.Post event) {
+        var entity = event.getEntity();
+        if (entity instanceof ChallengedSoul challengedSoul1) {
+            var soulOwner = challengedSoul1.getSummoner();
+            var damageOnSoul = event.getOriginalDamage();
+            var damageAmount = damageOnSoul * challengedSoul1.bonusPercent;
+            if (damageOnSoul <= challengedSoul1.getHealth()) {
+                soulOwner.hurt(soulOwner.damageSources().magic(), damageAmount);
+            } else if (damageOnSoul > challengedSoul1.getHealth()) {
+                soulOwner.hurt(soulOwner.damageSources().magic(), challengedSoul1.getHealth() * challengedSoul1.bonusPercent);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onSoulCrushedEvent(LivingDeathEvent event) {
+        var entity = event.getEntity();
+        if (!entity.level.isClientSide) {
+            if (entity instanceof ChallengedSoul challengedSoul) {
+                var soulOwner = challengedSoul.getSummoner();
+                soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
+                soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
+            }
+        }
+    }
     //@SubscribeEvent
 }

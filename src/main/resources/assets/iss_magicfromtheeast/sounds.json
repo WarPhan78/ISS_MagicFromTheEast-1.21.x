@@ -39,34 +39,24 @@
       "iss_magicfromtheeast:generic/jade_sword_impact"
     ]
   },
-  "sentinel.generic.ambient": {
+  "cast.generic.soul_cast": {
     "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_ambient"
+      "iss_magicfromtheeast:generic/soul_cast"
     ]
   },
-  "sentinel.generic.step": {
+  "cast.generic.bone_ambient": {
     "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_step"
+      "iss_magicfromtheeast:generic/bone_ambient"
     ]
   },
-  "sentinel.generic.hurt": {
+  "cast.generic.bone_hit": {
     "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_hurt"
+      "iss_magicfromtheeast:generic/bone_hit"
     ]
   },
-  "sentinel.generic.stab": {
+  "cast.generic.bone_slam": {
     "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_stab"
-    ]
-  },
-  "sentinel.generic.sweep": {
-    "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_sweep"
-    ]
-  },
-  "sentinel.generic.stomp": {
-    "sounds": [
-      "iss_magicfromtheeast:jade_sentinel/jade_sentinel_stomp"
+      "iss_magicfromtheeast:generic/bone_slam"
     ]
   }
 }

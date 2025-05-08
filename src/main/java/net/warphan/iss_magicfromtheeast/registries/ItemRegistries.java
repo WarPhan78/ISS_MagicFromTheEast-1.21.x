@@ -4,14 +4,14 @@ import io.redspace.ironsspellbooks.api.item.weapons.ExtendedSwordItem;
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
-import io.redspace.ironsspellbooks.item.SpellBook;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
-import io.redspace.ironsspellbooks.item.curios.SimpleDescriptiveCurio;
 import io.redspace.ironsspellbooks.item.weapons.*;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.minecraft.core.registries.Registries;
@@ -23,10 +23,13 @@ import net.warphan.iss_magicfromtheeast.item.RitualOrihonSpellbookItem;
 import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
 import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
-import net.warphan.iss_magicfromtheeast.item.curios.MFTECuriosBaseItem;
+import net.warphan.iss_magicfromtheeast.item.curios.RustedCoinsSword;
 import net.warphan.iss_magicfromtheeast.item.curios.SoulwardRing;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEExtendedWeaponTier;
 import net.warphan.iss_magicfromtheeast.item.weapons.MFTEStaffTier;
+import net.warphan.iss_magicfromtheeast.item.weapons.MuramasaItem;
+import net.warphan.iss_magicfromtheeast.item.weapons.SoulBreakerItem;
+import net.warphan.iss_magicfromtheeast.setup.BloodfulRarity;
 
 import java.util.function.Supplier;
 
@@ -51,31 +54,49 @@ public class ItemRegistries {
             () -> new Item(ItemPropertiesHelper.material()));
     public static final DeferredHolder<Item, Item> YIN_YANG_CORE = ITEMS.register("yin_yang_core",
             () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.UNCOMMON)));
+    public static final DeferredHolder<Item, Item> RED_SHAFT = ITEMS.register("red_shaft",
+            () -> new Item(ItemPropertiesHelper.material()));
 
     public static final DeferredHolder<Item, Item> RAW_JADE = ITEMS.register("raw_jade",
             () -> new Item(ItemPropertiesHelper.material()));
     public static final DeferredHolder<Item,Item> REFINED_JADE_INGOT = ITEMS.register("refined_jade_ingot",
             () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE)));
+    public static final DeferredHolder<Item, Item> CRYSTALLIZED_SOUL = ITEMS.register("crystallized_soul",
+            () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE)));
 
     //Weapons
     public static final DeferredHolder<Item, Item> JADE_GUANDAO = ITEMS.register("jade_guandao",
-            () -> new MagicSwordItem(MFTEExtendedWeaponTier.JADE_GUANDAO, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.JADE_GUANDAO)), SpellDataRegistryHolder.of(new SpellDataRegistryHolder(MFTESpellRegistries.SWORD_DANCE_SPELL, 8))));
+            () -> new MagicSwordItem(MFTEExtendedWeaponTier.JADE_GUANDAO, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.JADE_GUANDAO)), SpellDataRegistryHolder.of(
+                    new SpellDataRegistryHolder(MFTESpellRegistries.SWORD_DANCE_SPELL, 8))));
+    public static final DeferredHolder<Item, Item> SOUL_BREAKER = ITEMS.register("soul_breaker",
+            () -> new SoulBreakerItem(MFTEExtendedWeaponTier.SOUL_BREAKER, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_BREAKER))));
+    public static final DeferredHolder<Item, Item> MURAMASA = ITEMS.register("muramasa",
+            () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(BloodfulRarity.BLOODFUL_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
+                    new SpellDataRegistryHolder(SpellRegistry.BLOOD_SLASH_SPELL, 5))));
 
     // Curios
-    public static final Supplier<MFTECuriosBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror",
-            () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+    public static final Supplier<CurioBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror",
+            () -> new CurioBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
             new AttributeContainer(MFTEAttributeRegistries.SYMMETRY_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.FIRE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ICE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.NATURE_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.LIGHTNING_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.HOLY_SPELL_POWER, 0.03, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
-    public static final Supplier<MFTECuriosBaseItem> COINS_SWORD = ITEMS.register("coins_sword",
-            () -> new MFTECuriosBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+    public static final Supplier<CurioBaseItem> COINS_SWORD = ITEMS.register("coins_sword",
+            () -> new CurioBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
             new AttributeContainer(AttributeRegistry.BLOOD_MAGIC_RESIST, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ENDER_MAGIC_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             new AttributeContainer(AttributeRegistry.ELDRITCH_MAGIC_RESIST, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
     public static final Supplier<CurioBaseItem> SOULWARD_RING = ITEMS.register("soulward_ring", SoulwardRing::new);
+    public static final Supplier<CurioBaseItem> JADE_PENDANT = ITEMS.register("jade_pendant",
+            () -> new CurioBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+            new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+            new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 2, AttributeModifier.Operation.ADD_VALUE),
+            new AttributeContainer(Attributes.KNOCKBACK_RESISTANCE, 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
+    public static final Supplier<CurioBaseItem> RUSTED_COINS_SWORD = ITEMS.register("rusted_coins_sword",
+            () -> new RustedCoinsSword(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
 
     //Rune and Orbs
     public static final DeferredHolder<Item, Item> SYMMETRY_RUNE = ITEMS.register("symmetry_rune",

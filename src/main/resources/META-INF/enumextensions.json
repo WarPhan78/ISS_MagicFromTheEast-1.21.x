@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "ISS_MAGICFROMTHEEAST_RARITY_BLOODFUL",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "net/warphan/iss_magicfromtheeast/setup/BloodfulRarity",
+        "field": "BLOODFUL_RARITY_PROXY"
+      }
+    }
+  ]
+}

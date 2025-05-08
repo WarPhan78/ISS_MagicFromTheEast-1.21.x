@@ -30,8 +30,11 @@
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
   "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
   "spell.iss_magicfromtheeast.soul_burst": "Soul Burst",
-  "spell.iss_magicfromtheeast.soul_burst.guide": "Release a soul fire explosion at the caster position, damage and burns enemy's souls caught inside",
+  "spell.iss_magicfromtheeast.soul_burst.guide": "Release a soul fire explosion at the caster position, damaging and burning souls of targets caught inside",
   "spell.iss_magicfromtheeast.spirit_challenging": "Spirit Challenging",
+  "spell.iss_magicfromtheeast.spirit_challenging.guide": "Extracting a part of target soul and then start the challenging. The soul can be attacked and an amount of the damage it took will be transfer to its owner. If the soul get destroyed or the owner try to run out of the challenging zone, they will get a debuff for some second",
+  "spell.iss_magicfromtheeast.bone_hands": "Bone Hands",
+  "spell.iss_magicfromtheeast.bone_hands.guide": "Summon Spirit Bone Hands from the ground, the hands will slam your targets if they are in range, deal damage with a bonus of 5% of the target current health",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -94,6 +97,7 @@
   "entity.iss_magicfromtheeast.impermanence": "Verdict Circle",
   "entity.iss_magicfromtheeast.soul_skull": "Soul Skull Projectile",
   "entity.iss_magicfromtheeast.challenged_soul": "Challenged Soul",
+  "entity.iss_magicfromtheeast.bone_hand": "Spirit Bone Hand",
 
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
@@ -103,6 +107,7 @@
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 
   "ui.iss_magicfromtheeast.lost_health_damage_bonus": "%d%% Target Lost Health",
+  "ui.iss_magicfromtheeast.hand_attack_range": "%d Block Hand Reach",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",

@@ -1,11 +1,19 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"jade_dao_animations": {
+		"prepare": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 1.5,
 			"bones": {
 				"bone": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 720, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					},
 					"position": {
 						"0.0": {
 							"vector": [0, 0, 0]
@@ -25,10 +33,13 @@
 					},
 					"scale": {
 						"0.0": {
-							"vector": [3, 3, 3]
+							"vector": [0.3, 0.3, 0.3]
+						},
+						"0.75": {
+							"vector": [1.5, 1.5, 1.5]
 						},
 						"1.5": {
-							"vector": [3, 3, 3]
+							"vector": [1.5, 1.5, 1.5]
 						}
 					}
 				}

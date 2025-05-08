@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "iss_magicfromtheeast:item/soul_breaker_model",
+    "textures": {
+      "layer0": "iss_magicfromtheeast:item/soul_breaker"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "iss_magicfromtheeast:item/soul_breaker_ui"
+      }
+    }
+  }
+}

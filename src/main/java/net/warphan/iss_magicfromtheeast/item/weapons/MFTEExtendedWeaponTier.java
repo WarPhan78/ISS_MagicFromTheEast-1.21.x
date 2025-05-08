@@ -1,8 +1,10 @@
 package net.warphan.iss_magicfromtheeast.item.weapons;
 
 
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import io.redspace.ironsspellbooks.item.weapons.IronsWeaponTier;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -16,8 +18,9 @@ import java.util.function.Supplier;
 
 public class MFTEExtendedWeaponTier implements Tier, IronsWeaponTier {
 
-    public static MFTEExtendedWeaponTier JADE_GUANDAO = new MFTEExtendedWeaponTier(2031, 10, -2.5f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.JADE.get()), new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 1, AttributeModifier.Operation.ADD_VALUE));
-    public static MFTEExtendedWeaponTier SOUL_BREAKER = new MFTEExtendedWeaponTier(1561, 4, -2.5f, 10, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.BOTTLE_OF_SOULS.get()));
+    public static MFTEExtendedWeaponTier JADE_GUANDAO = new MFTEExtendedWeaponTier(2031, 10, -2.5f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.REFINED_JADE_INGOT.get()), new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 1, AttributeModifier.Operation.ADD_VALUE));
+    public static MFTEExtendedWeaponTier SOUL_BREAKER = new MFTEExtendedWeaponTier(1561, 3, -3.0f, 10, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistries.CRYSTALLIZED_SOUL.get()), new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+    public static MFTEExtendedWeaponTier MURAMASA = new MFTEExtendedWeaponTier(2031, 7, -2.0f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistry.BLOOD_RUNE.get()), new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 
     int uses;
     float damage;

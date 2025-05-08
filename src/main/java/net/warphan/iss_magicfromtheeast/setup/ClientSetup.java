@@ -9,6 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
@@ -31,7 +32,7 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.THROW_CIRCLE_ENTITY.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_LOONG.get(), JadeLoongRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_DAO.get(), JadeDaoRenderer::new);
-//        event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
+//      event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), JiangshiRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
@@ -39,6 +40,7 @@ public class ClientSetup {
 
         event.registerEntityRenderer(MFTEEntityRegistries.SOUL_SKULL.get(), SoulSkullRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoulRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsRenderer::new);
 
         CuriosRendererRegistry.register(ItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
 

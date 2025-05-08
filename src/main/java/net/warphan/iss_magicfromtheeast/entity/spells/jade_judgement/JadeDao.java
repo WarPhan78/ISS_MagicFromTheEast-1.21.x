@@ -21,9 +21,13 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -225,8 +229,18 @@ public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
         return Optional.empty();
     }
 
+    //ANIMATION
+    private final RawAnimation prepare = RawAnimation.begin().thenPlay("prepare");
+
+    private PlayState predicate(software.bernie.geckolib.animation.AnimationState state) {
+        state.getController().setAnimation(prepare);
+        return PlayState.CONTINUE;
+    }
+
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {}
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

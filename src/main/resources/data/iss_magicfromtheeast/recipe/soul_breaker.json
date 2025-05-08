@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CS",
+    "CSC",
+    "FC "
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:yin_yang_core"
+    },
+    "F": {
+      "item": "irons_spellbooks:frosted_helve"
+    },
+    "S": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:soul_breaker",
+    "count": 1
+  }
+}

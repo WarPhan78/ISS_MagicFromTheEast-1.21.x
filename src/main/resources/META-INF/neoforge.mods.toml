@@ -11,6 +11,7 @@ authors="WarPhan" #optional
 credits="Thanks Iron431 and Lab3 for creating the main mod. And for our contributors: Amadhe" #optional
 contributors="Thanks for our contributors: Amadhe"
 description='''Add new schools, spells and related features which inspired from Eastern culture to ISS.'''
+enumExtensions="META-INF/enumextensions.json"
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 #[[mixins]]

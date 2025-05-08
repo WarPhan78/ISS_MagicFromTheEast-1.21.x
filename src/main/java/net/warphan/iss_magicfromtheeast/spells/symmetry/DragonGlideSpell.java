@@ -16,6 +16,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,6 @@ public class DragonGlideSpell extends AbstractSpell {
 
     @Override
     public AnimationHolder getCastStartAnimation() {
-        return SpellAnimations.CHARGE_WAVY_ANIMATION;
+        return MFTESpellAnimations.ANIMATION_LOONG_CAST;
     }
 }

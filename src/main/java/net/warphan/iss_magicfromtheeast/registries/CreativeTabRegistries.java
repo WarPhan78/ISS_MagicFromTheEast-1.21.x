@@ -29,10 +29,14 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.RITUAL_ORIHON.get());
 
                 entries.accept(ItemRegistries.JADE_GUANDAO.get());
+                entries.accept(ItemRegistries.SOUL_BREAKER.get());
+                entries.accept(ItemRegistries.MURAMASA.get());
 
                 entries.accept(ItemRegistries.BAGUA_MIRROR.get());
                 entries.accept(ItemRegistries.COINS_SWORD.get());
+                entries.accept(ItemRegistries.RUSTED_COINS_SWORD.get());
                 entries.accept(ItemRegistries.SOULWARD_RING.get());
+                entries.accept(ItemRegistries.JADE_PENDANT.get());
 
                 entries.accept(ItemRegistries.RAW_JADE.get());
                 entries.accept(ItemRegistries.JADE.get());
@@ -41,8 +45,10 @@ public class CreativeTabRegistries {
                 entries.accept(ItemRegistries.RED_STRING.get());
                 entries.accept(ItemRegistries.COPPER_COINS.get());
                 entries.accept(ItemRegistries.YIN_YANG_CORE.get());
+                entries.accept(ItemRegistries.RED_SHAFT.get());
 
                 entries.accept(ItemRegistries.REFINED_JADE_INGOT.get());
+                entries.accept(ItemRegistries.CRYSTALLIZED_SOUL.get());
 
                 entries.accept(ItemRegistries.TAOIST_HAT.get());
                 entries.accept(ItemRegistries.TAOIST_ROBES.get());

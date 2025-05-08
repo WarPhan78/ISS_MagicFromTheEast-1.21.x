@@ -41,7 +41,7 @@ public class MFTEAttributeRegistries {
     }
 
     private static DeferredHolder<Attribute, Attribute> newResistanceAttribute(String id) {
-        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_magic_resist", () -> (new MagicRangedAttribute("attribute.iss_magicfrometheeast." + id + "_magic_resit",
+        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_magic_resist", () -> (new MagicRangedAttribute("attribute.iss_magicfromtheeast." + id + "_magic_resist",
                 1.0D, 0,10).setSyncable(true)));
     }
 
