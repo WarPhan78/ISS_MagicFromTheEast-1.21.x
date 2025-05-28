@@ -78,8 +78,8 @@ public class JadeSword extends AbstractMagicProjectile implements GeoEntity {
                     LivingEntity target;
                     target = owner.getLastHurtMob();
                     if (target != null && !target.isDeadOrDying()) {
-                        Vec3 attack = target.position().subtract(this.position());
-                        this.setDeltaMovement(getDeltaMovement().add(attack.multiply(1, 0, 1).normalize().scale(2)));
+                        Vec3 attack = target.getBoundingBox().getCenter().subtract(this.position());
+                        this.setDeltaMovement(getDeltaMovement().add(attack.multiply(1, 1, 1).normalize().scale(2)));
                     }
                 }
                 else if (waitTimer == 5) {

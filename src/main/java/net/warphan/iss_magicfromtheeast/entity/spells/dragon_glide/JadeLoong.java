@@ -105,7 +105,7 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     }
 
     //ANIMATION
-    private final RawAnimation loongglide = RawAnimation.begin().thenPlay("animation.jade_loong.glide");
+    private final RawAnimation loongglide = RawAnimation.begin().thenPlay("loong_glide");
 
     private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
         event.getController().setAnimation(loongglide);

@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.spirit;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
@@ -10,14 +11,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
 import java.util.List;
+import java.util.Optional;
 
 @AutoSpellConfig
 public class SpiritChallengingSpell extends AbstractSpell {
@@ -63,6 +68,11 @@ public class SpiritChallengingSpell extends AbstractSpell {
     }
 
     @Override
+    public Optional<SoundEvent> getCastFinishSound() {
+        return Optional.of(MFTESoundRegistries.SOUL_CAST.get());
+    }
+
+    @Override
     public boolean checkPreCastConditions(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData) {
         return Utils.preCastTargetHelper(level, entity, playerMagicData, this, 6, .35f);
     }
@@ -104,5 +114,15 @@ public class SpiritChallengingSpell extends AbstractSpell {
     private int getBonusPercent(int spellLevel, LivingEntity caster) {
         int bonusAmount = (int) getSpellPower(spellLevel, caster);
         return Math.min(bonusAmount, 80);
+    }
+
+    @Override
+    public AnimationHolder getCastStartAnimation() {
+        return MFTESpellAnimations.ANIMATION_SOUL_EXTRACT;
+    }
+
+    @Override
+    public AnimationHolder getCastFinishAnimation() {
+        return AnimationHolder.pass();
     }
 }

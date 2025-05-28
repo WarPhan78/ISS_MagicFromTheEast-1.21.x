@@ -28,6 +28,9 @@ public class MFTESoundRegistries extends SoundRegistry {
     public static DeferredHolder<SoundEvent, SoundEvent> BONE_AMBIENT = registerSoundEvent("cast.generic.bone_ambient");
     public static DeferredHolder<SoundEvent, SoundEvent> BONE_HURT = registerSoundEvent("cast.generic.bone_hit");
     public static DeferredHolder<SoundEvent, SoundEvent> BONE_SLAM = registerSoundEvent("cast.generic.bone_slam");
+    public static DeferredHolder<SoundEvent, SoundEvent> KATANA_WIND_UP = registerSoundEvent("cast.generic.katana_wind_up");
+    public static DeferredHolder<SoundEvent, SoundEvent> SWORD_STRIKE = registerSoundEvent("cast.generic.sword_strike");
+    public static DeferredHolder<SoundEvent, SoundEvent> DEATH_BELL = registerSoundEvent("cast.generic.death_bell");
 
     //JADE SENTINEL
 //    public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_AMBIENT = registerSoundEvent("sentinel.generic.ambient");

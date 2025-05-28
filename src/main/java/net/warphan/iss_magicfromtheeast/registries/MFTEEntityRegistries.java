@@ -12,12 +12,13 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
+import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullProjectile;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
-import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullPushField;
+import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullField;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
 import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 
@@ -53,14 +54,19 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(0.5f, 0.0f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_circle").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<PullPushField>> PULL_FIELD =
-            MFTE_ENTITIES.register("pull_field", () -> EntityType.Builder.<PullPushField>of(PullPushField::new, MobCategory.MISC)
+    public static final DeferredHolder<EntityType<?>, EntityType<PullField>> PULL_FIELD =
+            MFTE_ENTITIES.register("pull_field", () -> EntityType.Builder.<PullField>of(PullField::new, MobCategory.MISC)
                     .sized(1f, 1f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "pull_field").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<PushZone>> PUSH_ZONE =
+            MFTE_ENTITIES.register("push_zone", () -> EntityType.Builder.<PushZone>of(PushZone::new, MobCategory.MISC)
+                    .sized(0.3f, 0.3f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "push_zone").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<JadeSword>> JADE_SWORD =
             MFTE_ENTITIES.register("jade_sword", () -> EntityType.Builder.<JadeSword>of(JadeSword::new, MobCategory.MISC)
-                    .sized(0.3f, 1f)
+                    .sized(0.3f, 0.3f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sword").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<SummonedJiangshi>> SUMMONED_JIANGSHI =

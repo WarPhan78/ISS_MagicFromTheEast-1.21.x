@@ -4,6 +4,7 @@ import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
@@ -23,6 +24,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
 import java.util.List;
 import java.util.Optional;
@@ -116,5 +118,10 @@ public class JiangshiInvokeSpell extends AbstractSpell {
 
     private float getJiangshiHealth(int spellLevel, LivingEntity summoner) {
         return 20 + spellLevel * 10;
+    }
+
+    @Override
+    public AnimationHolder getCastStartAnimation() {
+        return MFTESpellAnimations.ANIMATION_INVOKING;
     }
 }

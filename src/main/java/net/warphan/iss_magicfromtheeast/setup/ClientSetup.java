@@ -35,6 +35,7 @@ public class ClientSetup {
 //      event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), JiangshiRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.PULL_FIELD.get(), NoopRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.PUSH_ZONE.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.VERDICT_CIRCLE.get(), VerdictCircleRender::new);
 

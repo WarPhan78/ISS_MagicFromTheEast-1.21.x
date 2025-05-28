@@ -58,5 +58,20 @@
     "sounds": [
       "iss_magicfromtheeast:generic/bone_slam"
     ]
+  },
+  "cast.generic.katana_wind_up": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/katana_wind_up"
+    ]
+  },
+  "cast.generic.sword_strike": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/sword_strike"
+    ]
+  },
+  "cast.generic.death_bell": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/deathbell"
+    ]
   }
 }

@@ -4,6 +4,10 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
+import io.redspace.ironsspellbooks.network.particles.FieryExplosionParticlesPacket;
+import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
+import io.redspace.ironsspellbooks.particle.SparkParticleOptions;
+import io.redspace.ironsspellbooks.util.ParticleHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +23,9 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -215,8 +221,10 @@ public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
 
     @Override
     public void impactParticles(double x, double y, double z) {
-        MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, x, y, z, 50, .8, .1, .8, 0.2, false);
-        MagicManager.spawnParticles(level, ParticleTypes.GLOW, x, y, z, 25, .5, .1, .5, 0.3, false);
+        MagicManager.spawnParticles(level, new BlastwaveParticleOptions(MFTESchoolRegistries.SYMMETRY.get().getTargetingColor(), 5f), x, y + .165f, z, 1, 0, 0, 0, 0, true);
+        MagicManager.spawnParticles(level, new SparkParticleOptions(MFTESchoolRegistries.SYMMETRY.get().getTargetingColor()), x, y + 0.1, z, 30, .08, 1.0, .08, 0.3, false);
+        MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, x, y + 0.1, z, 60, 2.0, .2, 2.0, 0.5, false);
+        MagicManager.spawnParticles(level, ParticleTypes.GLOW, x, y + 0.1, z, 40, 1.5, .1, 1.5, 0.6, false);
     }
 
     @Override

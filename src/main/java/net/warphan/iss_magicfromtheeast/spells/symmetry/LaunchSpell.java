@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @AutoSpellConfig
-public class ThrowUpSpell extends AbstractSpell {
+public class LaunchSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_up");
 
     @Override
@@ -42,7 +42,7 @@ public class ThrowUpSpell extends AbstractSpell {
             .setCooldownSeconds(15)
             .build();
 
-    public ThrowUpSpell() {
+    public LaunchSpell() {
         this.manaCostPerLevel = 10;
         this.baseSpellPower = 5;
         this.spellPowerPerLevel = 3;

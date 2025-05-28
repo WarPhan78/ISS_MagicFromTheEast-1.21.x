@@ -1,8 +1,13 @@
 package net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands;
 
+import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
 import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 
@@ -43,11 +48,21 @@ public class BoneHandAttackGoal extends WarlockAttackGoal {
                 forceFaceTarget();
                 meleeAnimTimer--;
                 if (attack.data.isHitFrame(meleeAnimTimer)) {
-                    boolean flag = this.mob.doHurtTarget(target);
-                        target.invulnerableTime = 0;
-                        if (flag) {
-                            playSlamSound();
-                        }
+                    playSlamSound();
+                    float radius = 1.0f;
+                    Vec3 forward = boneHands.getForward().multiply(1, 0, 1).normalize();
+                    Vec3 start = boneHands.getEyePosition().subtract(0, 8, 0).add(forward.scale(1.5));
+                    Vec3 bbBox = new Vec3(radius, radius * 5.0f, radius);
+                    float slamDamage = (float) boneHands.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                    for (int i = 0; i <= 6; i++) {
+                        Vec3 slamPos = start.add(forward.scale(i));
+                        boneHands.level.getEntitiesOfClass(LivingEntity.class, new AABB(slamPos.subtract(bbBox), slamPos.add(bbBox))).forEach(entity -> {
+                            if (entity.isPickable() && !DamageSources.isFriendlyFireBetween(boneHands, entity)) {
+                                entity.hurt(boneHands.level().damageSources().mobAttack(boneHands), slamDamage);
+                                entity.hurtMarked =  true;
+                            }
+                        });
+                    }
                 }
             } else if (target != null && !target.isDeadOrDying()) {
                 doMeleeAction();

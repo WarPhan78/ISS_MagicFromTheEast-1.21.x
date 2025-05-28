@@ -34,7 +34,9 @@
   "spell.iss_magicfromtheeast.spirit_challenging": "Spirit Challenging",
   "spell.iss_magicfromtheeast.spirit_challenging.guide": "Extracting a part of target soul and then start the challenging. The soul can be attacked and an amount of the damage it took will be transfer to its owner. If the soul get destroyed or the owner try to run out of the challenging zone, they will get a debuff for some second",
   "spell.iss_magicfromtheeast.bone_hands": "Bone Hands",
-  "spell.iss_magicfromtheeast.bone_hands.guide": "Summon Spirit Bone Hands from the ground, the hands will slam your targets if they are in range, deal damage with a bonus of 5% of the target current health",
+  "spell.iss_magicfromtheeast.bone_hands.guide": "Summon Spirit Bone Hands from the ground, the hands will slam your targets if they are in range",
+  "spell.iss_magicfromtheeast.calamity_cut": "Calamity Cut",
+  "spell.iss_magicfromtheeast.calamity_cut.guide": "Swing your weapon and strike down a deadly cut, the stronger your weapon, the more powerful the cut is",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -102,7 +104,7 @@
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.iss_magicfromtheeast.soulburn": "Soulburn",
-  "effect.iss_magicfromtheeast.soulburn.description": "Burning living entity souls",
+  "effect.iss_magicfromtheeast.soulburn.description": "Burning victim's souls",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 
@@ -117,12 +119,14 @@
   "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s couldn't resist to %2$s's push force",
   "death.attack.iss_magicfromtheeast.bagua_array_circle": "%1$s couldn't get out of %2$s's bagua circle",
   "death.attack.iss_magicfromtheeast.dragon_glide": "%1$s was killed by %2$s's force dragon",
-  "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s was split into half by %2$s's jade sao",
+  "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s was split into half by %2$s's jade dao",
   "death.attack.iss_magicfromtheeast.jiangshi_invoke": "%1$s was teared by %2$s's jiangshi",
   "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s couldn't escape from %2$s's impermanence friends",
 
   "death.attack.iss_magicfromtheeast.soul_catalyst": "%2$s's soul skulls has burned %1$s's soul into dust",
   "death.attack.iss_magicfromtheeast:soul_burst": "%1$s's soul was burned into dust while get inside in %2$s's soul explosion",
+  "death.attack.iss_magicfromtheeast:bone_hands": "%1$s was crushed into mash by %2$s's bone hands",
+  "death.attack.iss_magicfromtheeast:calamity_cut": "%1$s was cut into half by %2$s",
 
   "fluid_type.iss_magicfromtheeast.soul": "Soul"
 }

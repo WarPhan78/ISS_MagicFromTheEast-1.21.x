@@ -192,14 +192,14 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
     }
 
     //Sounds
-    @Override
-    public void playAmbientSound() {
-        this.playSound(getAmbientSound(), 2, Mth.randomBetweenInclusive(getRandom(), 2, 10) * .1f);
-    }
+//    @Override
+//    public void playAmbientSound() {
+//        this.playSound(getAmbientSound(), 2, Mth.randomBetweenInclusive(getRandom(), 2, 10) * .1f);
+//    }
 
-    protected SoundEvent getAmbientSound() {
-        return MFTESoundRegistries.BONE_AMBIENT.get();
-    }
+//    protected SoundEvent getAmbientSound() {
+//        return MFTESoundRegistries.BONE_AMBIENT.get();
+//    }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return MFTESoundRegistries.BONE_HURT.get();

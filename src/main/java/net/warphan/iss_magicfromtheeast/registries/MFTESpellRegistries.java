@@ -5,10 +5,7 @@ import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.spells.spirit.BoneHandsSpell;
-import net.warphan.iss_magicfromtheeast.spells.spirit.SoulBurstSpell;
-import net.warphan.iss_magicfromtheeast.spells.spirit.SoulCatalystSpell;
-import net.warphan.iss_magicfromtheeast.spells.spirit.SpiritChallengingSpell;
+import net.warphan.iss_magicfromtheeast.spells.spirit.*;
 import net.warphan.iss_magicfromtheeast.spells.symmetry.*;
 
 import java.util.function.Supplier;
@@ -25,7 +22,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     }
 
     //SYMMETRY SPELLS
-    public static final Supplier<AbstractSpell> THROW_UP_SPELL = registerSpell(new ThrowUpSpell());
+    public static final Supplier<AbstractSpell> LAUNCH_SPELL = registerSpell(new LaunchSpell());
 //    public static final Supplier<AbstractSpell> FORCE_SWORD_SPELL = registerSpell(new ForceSwordSpell());
     public static final Supplier<AbstractSpell> QIGONG_CONTROLLING_SPELL = registerSpell(new QigongControllingSpell());
     public static final Supplier<AbstractSpell> SWORD_DANCE_SPELL = registerSpell(new SwordDanceSpell());
@@ -41,6 +38,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     public static final Supplier<AbstractSpell> SOUL_BURST_SPELL = registerSpell(new SoulBurstSpell());
     public static final Supplier<AbstractSpell> SPIRIT_CHALLENGING = registerSpell(new SpiritChallengingSpell());
     public static final Supplier<AbstractSpell> BONE_HANDS_SPELL = registerSpell(new BoneHandsSpell());
+    public static final Supplier<AbstractSpell> CALAMITY_CUT_SPELL = registerSpell(new CalamityCutSpell());
 
     //DUNE SPELLS
 

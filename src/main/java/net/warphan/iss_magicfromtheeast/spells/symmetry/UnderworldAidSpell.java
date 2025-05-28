@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
@@ -18,6 +19,8 @@ import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,7 +71,12 @@ public class UnderworldAidSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastStartSound() {
-        return Optional.of(SoundRegistry.RAISE_DEAD_START.value());
+        return Optional.of(SoundRegistry.RAISE_DEAD_START.get());
+    }
+
+    @Override
+    public Optional<SoundEvent> getCastFinishSound() {
+        return Optional.of(MFTESoundRegistries.DEATH_BELL.get());
     }
 
     @Override
@@ -124,6 +132,16 @@ public class UnderworldAidSpell extends AbstractSpell {
     }
     private float getPercentBonus(int spellLevel, LivingEntity caster) {
         return ((float)spellLevel / 10);
+    }
+
+    @Override
+    public AnimationHolder getCastStartAnimation() {
+        return MFTESpellAnimations.ANIMATION_CALLING_IMPERMANENCE;
+    }
+
+    @Override
+    public AnimationHolder getCastFinishAnimation() {
+        return AnimationHolder.pass();
     }
 }
 
