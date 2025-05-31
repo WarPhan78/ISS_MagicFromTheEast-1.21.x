@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
-import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
@@ -107,7 +107,7 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ItemRegistries.JIANGSHI_HAT));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MFTEItemRegistries.JIANGSHI_HAT));
 
         return pSpawnData;
     }

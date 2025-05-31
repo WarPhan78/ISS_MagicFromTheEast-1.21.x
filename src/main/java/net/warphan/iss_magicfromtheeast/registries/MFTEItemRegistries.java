@@ -33,7 +33,7 @@ import net.warphan.iss_magicfromtheeast.setup.BloodfulRarity;
 
 import java.util.function.Supplier;
 
-public class ItemRegistries {
+public class MFTEItemRegistries {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ISS_MagicFromTheEast.MOD_ID);
 
     //Magic Stuffs
@@ -136,15 +136,15 @@ public class ItemRegistries {
 
     //Block Items
     public static final DeferredHolder<Item, Item> JADE_ORE_ITEM = ITEMS.register("jade_ore",
-            () -> new BlockItem(BlockRegistries.JADE_ORE.get(), new Item.Properties()));
+            () -> new BlockItem(MFTEBlockRegistries.JADE_ORE.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> JADE_ORE_DEEPSLATE_ITEM = ITEMS.register("deepslate_jade_ore",
-            () -> new BlockItem(BlockRegistries.JADE_ORE_DEEPSLATE.get(), new Item.Properties()));
+            () -> new BlockItem(MFTEBlockRegistries.JADE_ORE_DEEPSLATE.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> RAW_JADE_BLOCK_ITEM = ITEMS.register("raw_jade_block",
-            () -> new BlockItem(BlockRegistries.RAW_JADE_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(MFTEBlockRegistries.RAW_JADE_BLOCK.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> JADE_BLOCK_ITEM = ITEMS.register("jade_block",
-            () -> new BlockItem(BlockRegistries.JADE_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(MFTEBlockRegistries.JADE_BLOCK.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> REFINED_JADE_BLOCK_ITEM = ITEMS.register("refined_jade_block",
-            () -> new BlockItem(BlockRegistries.REFINED_JADE_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(MFTEBlockRegistries.REFINED_JADE_BLOCK.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

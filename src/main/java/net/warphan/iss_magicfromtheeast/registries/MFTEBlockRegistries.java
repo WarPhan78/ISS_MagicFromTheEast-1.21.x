@@ -11,7 +11,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
 import java.util.Collection;
 
-public class BlockRegistries {
+public class MFTEBlockRegistries {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ISS_MagicFromTheEast.MOD_ID);
 
     public static void register(IEventBus eventBus){

@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
@@ -94,4 +95,9 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(0.4f, 8.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bone_hand").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<JadeExecutionerEntity>> JADE_EXECUTIONER =
+            MFTE_ENTITIES.register("jade_executioner", () -> EntityType.Builder.<JadeExecutionerEntity>of(JadeExecutionerEntity::new, MobCategory.MISC)
+                    .sized(2.8f, 6.0f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_executioner").toString()));
 }

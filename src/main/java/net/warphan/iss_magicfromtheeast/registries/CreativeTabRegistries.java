@@ -23,56 +23,56 @@ public class CreativeTabRegistries {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EQUIPMENT_TAB = TABS.register("magic_from_the_east", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + ISS_MagicFromTheEast.MOD_ID + ".magic_from_the_east"))
-            .icon(() -> new ItemStack(ItemRegistries.YIN_YANG_CORE.get()))
+            .icon(() -> new ItemStack(MFTEItemRegistries.YIN_YANG_CORE.get()))
             .displayItems((enabledFeatures, entries) -> {
-                entries.accept(ItemRegistries.TAIJI_SWORD.get());
-                entries.accept(ItemRegistries.RITUAL_ORIHON.get());
+                entries.accept(MFTEItemRegistries.TAIJI_SWORD.get());
+                entries.accept(MFTEItemRegistries.RITUAL_ORIHON.get());
 
-                entries.accept(ItemRegistries.JADE_GUANDAO.get());
-                entries.accept(ItemRegistries.SOUL_BREAKER.get());
-                entries.accept(ItemRegistries.MURAMASA.get());
+                entries.accept(MFTEItemRegistries.JADE_GUANDAO.get());
+                entries.accept(MFTEItemRegistries.SOUL_BREAKER.get());
+                entries.accept(MFTEItemRegistries.MURAMASA.get());
 
-                entries.accept(ItemRegistries.BAGUA_MIRROR.get());
-                entries.accept(ItemRegistries.COINS_SWORD.get());
-                entries.accept(ItemRegistries.RUSTED_COINS_SWORD.get());
-                entries.accept(ItemRegistries.SOULWARD_RING.get());
-                entries.accept(ItemRegistries.JADE_PENDANT.get());
+                entries.accept(MFTEItemRegistries.BAGUA_MIRROR.get());
+                entries.accept(MFTEItemRegistries.COINS_SWORD.get());
+                entries.accept(MFTEItemRegistries.RUSTED_COINS_SWORD.get());
+                entries.accept(MFTEItemRegistries.SOULWARD_RING.get());
+                entries.accept(MFTEItemRegistries.JADE_PENDANT.get());
 
-                entries.accept(ItemRegistries.RAW_JADE.get());
-                entries.accept(ItemRegistries.JADE.get());
-                entries.accept(ItemRegistries.BOTTLE_OF_SOULS.get());
-                entries.accept(ItemRegistries.ARCANE_RELICS.get());
-                entries.accept(ItemRegistries.RED_STRING.get());
-                entries.accept(ItemRegistries.COPPER_COINS.get());
-                entries.accept(ItemRegistries.YIN_YANG_CORE.get());
-                entries.accept(ItemRegistries.RED_SHAFT.get());
+                entries.accept(MFTEItemRegistries.RAW_JADE.get());
+                entries.accept(MFTEItemRegistries.JADE.get());
+                entries.accept(MFTEItemRegistries.BOTTLE_OF_SOULS.get());
+                entries.accept(MFTEItemRegistries.ARCANE_RELICS.get());
+                entries.accept(MFTEItemRegistries.RED_STRING.get());
+                entries.accept(MFTEItemRegistries.COPPER_COINS.get());
+                entries.accept(MFTEItemRegistries.YIN_YANG_CORE.get());
+                entries.accept(MFTEItemRegistries.RED_SHAFT.get());
 
-                entries.accept(ItemRegistries.REFINED_JADE_INGOT.get());
-                entries.accept(ItemRegistries.CRYSTALLIZED_SOUL.get());
+                entries.accept(MFTEItemRegistries.REFINED_JADE_INGOT.get());
+                entries.accept(MFTEItemRegistries.CRYSTALLIZED_SOUL.get());
 
-                entries.accept(ItemRegistries.TAOIST_HAT.get());
-                entries.accept(ItemRegistries.TAOIST_ROBES.get());
-                entries.accept(ItemRegistries.TAOIST_LEGGINGS.get());
-                entries.accept(ItemRegistries.TAOIST_BOOTS.get());
+                entries.accept(MFTEItemRegistries.TAOIST_HAT.get());
+                entries.accept(MFTEItemRegistries.TAOIST_ROBES.get());
+                entries.accept(MFTEItemRegistries.TAOIST_LEGGINGS.get());
+                entries.accept(MFTEItemRegistries.TAOIST_BOOTS.get());
 
-                entries.accept(ItemRegistries.ONMYOJI_HAT.get());
-                entries.accept(ItemRegistries.ONMYOJI_ROBES.get());
-                entries.accept(ItemRegistries.ONMYOJI_LEGGINGS.get());
-                entries.accept(ItemRegistries.ONMYOJI_GETA.get());
+                entries.accept(MFTEItemRegistries.ONMYOJI_HAT.get());
+                entries.accept(MFTEItemRegistries.ONMYOJI_ROBES.get());
+                entries.accept(MFTEItemRegistries.ONMYOJI_LEGGINGS.get());
+                entries.accept(MFTEItemRegistries.ONMYOJI_GETA.get());
 
-                entries.accept(ItemRegistries.JIANGSHI_HAT.get());
+                entries.accept(MFTEItemRegistries.JIANGSHI_HAT.get());
 
-                entries.accept(ItemRegistries.SYMMETRY_RUNE.get());
-                entries.accept(ItemRegistries.SPIRIT_RUNE.get());
-                entries.accept(ItemRegistries.DUNE_RUNE.get());
-                entries.accept(ItemRegistries.SYMMETRY_UPGRADE_ORB.get());
-                entries.accept(ItemRegistries.SPIRIT_UPGRADE_ORB.get());
+                entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
+                entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());
+                entries.accept(MFTEItemRegistries.DUNE_RUNE.get());
+                entries.accept(MFTEItemRegistries.SYMMETRY_UPGRADE_ORB.get());
+                entries.accept(MFTEItemRegistries.SPIRIT_UPGRADE_ORB.get());
 
-                entries.accept(ItemRegistries.JADE_ORE_ITEM.get());
-                entries.accept(ItemRegistries.JADE_ORE_DEEPSLATE_ITEM.get());
-                entries.accept(ItemRegistries.JADE_BLOCK_ITEM.get());
-                entries.accept(ItemRegistries.RAW_JADE_BLOCK_ITEM.get());
-                entries.accept(ItemRegistries.REFINED_JADE_BLOCK_ITEM.get());
+                entries.accept(MFTEItemRegistries.JADE_ORE_ITEM.get());
+                entries.accept(MFTEItemRegistries.JADE_ORE_DEEPSLATE_ITEM.get());
+                entries.accept(MFTEItemRegistries.JADE_BLOCK_ITEM.get());
+                entries.accept(MFTEItemRegistries.RAW_JADE_BLOCK_ITEM.get());
+                entries.accept(MFTEItemRegistries.REFINED_JADE_BLOCK_ITEM.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());

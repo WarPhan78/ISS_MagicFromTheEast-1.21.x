@@ -39,8 +39,8 @@ public class ISS_MagicFromTheEast {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-        ItemRegistries.register(modEventBus);
-        BlockRegistries.register(modEventBus);
+        MFTEItemRegistries.register(modEventBus);
+        MFTEBlockRegistries.register(modEventBus);
         CreativeTabRegistries.register(modEventBus);
         MFTESchoolRegistries.register(modEventBus);
         MFTEAttributeRegistries.register(modEventBus);

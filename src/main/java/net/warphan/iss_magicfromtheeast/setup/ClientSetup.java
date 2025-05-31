@@ -10,6 +10,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsRenderer;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
@@ -18,7 +19,7 @@ import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.Challen
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDaoRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSwordRenderer;
-import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEFluidRegistries;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
@@ -38,16 +39,17 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.PUSH_ZONE.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_SWORD.get(), JadeSwordRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.VERDICT_CIRCLE.get(), VerdictCircleRender::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.JADE_EXECUTIONER.get(), JadeExecutionerRenderer::new);
 
         event.registerEntityRenderer(MFTEEntityRegistries.SOUL_SKULL.get(), SoulSkullRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoulRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsRenderer::new);
 
-        CuriosRendererRegistry.register(ItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
+        CuriosRendererRegistry.register(MFTEItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
 
-        CuriosRendererRegistry.register(ItemRegistries.BAGUA_MIRROR.get(), MFTEBeltCurioRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistries.COINS_SWORD.get(), MFTEBeltCurioRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistries.RUSTED_COINS_SWORD.get(), MFTEBeltCurioRenderer::new);
+        CuriosRendererRegistry.register(MFTEItemRegistries.BAGUA_MIRROR.get(), MFTEBeltCurioRenderer::new);
+        CuriosRendererRegistry.register(MFTEItemRegistries.COINS_SWORD.get(), MFTEBeltCurioRenderer::new);
+        CuriosRendererRegistry.register(MFTEItemRegistries.RUSTED_COINS_SWORD.get(), MFTEBeltCurioRenderer::new);
     }
 
     @SubscribeEvent

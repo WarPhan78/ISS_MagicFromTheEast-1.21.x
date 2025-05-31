@@ -7,6 +7,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
@@ -32,6 +33,8 @@ public class CommonSetup {
     public static void onAttributeCreate(EntityAttributeCreationEvent event) {
 //        event.put(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinel.prepareAttributes().build());
         event.put(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), SummonedJiangshi.prepareAttributes().build());
+        event.put(MFTEEntityRegistries.JADE_EXECUTIONER.get(), JadeExecutionerEntity.prepareAttributes().build());
+
         event.put(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoul.prepareAttributes().build());
         event.put(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsEntity.prepareAttributes().build());
     }

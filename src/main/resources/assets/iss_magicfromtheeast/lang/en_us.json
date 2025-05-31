@@ -26,6 +26,8 @@
   "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 fast and furious Jiangshi to aid in your battle",
   "spell.iss_magicfromtheeast.underworld_aid": "Impermanence's Verdict",
   "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
+  "spell.iss_magicfromtheeast.punishing_heaven": "Punishing Heaven",
+  "spell.iss_magicfromtheeast.punishing_heaven.guide": "Summon a Jade Executioner, a great warrior that will behead anything that's against you or the celestial court",
 
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
   "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
@@ -100,6 +102,7 @@
   "entity.iss_magicfromtheeast.soul_skull": "Soul Skull Projectile",
   "entity.iss_magicfromtheeast.challenged_soul": "Challenged Soul",
   "entity.iss_magicfromtheeast.bone_hand": "Spirit Bone Hand",
+  "entity.iss_magicfromtheeast.jade_executioner": "Jade Executioner",
 
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
@@ -110,6 +113,7 @@
 
   "ui.iss_magicfromtheeast.lost_health_damage_bonus": "%d%% Target Lost Health",
   "ui.iss_magicfromtheeast.hand_attack_range": "%d Block Hand Reach",
+  "ui.iss_magicfromtheeast.armor": "%d Armor",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",
@@ -122,6 +126,7 @@
   "death.attack.iss_magicfromtheeast.jade_judgement": "%1$s was split into half by %2$s's jade dao",
   "death.attack.iss_magicfromtheeast.jiangshi_invoke": "%1$s was teared by %2$s's jiangshi",
   "death.attack.iss_magicfromtheeast.underworld_aid": "%1$s couldn't escape from %2$s's impermanence friends",
+  "death.attack.iss_magicfromtheeast.punishing_heaven": "%1$s was beheaded by %2$s's executioner",
 
   "death.attack.iss_magicfromtheeast.soul_catalyst": "%2$s's soul skulls has burned %1$s's soul into dust",
   "death.attack.iss_magicfromtheeast:soul_burst": "%1$s's soul was burned into dust while get inside in %2$s's soul explosion",

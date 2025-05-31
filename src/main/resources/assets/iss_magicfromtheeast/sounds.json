@@ -73,5 +73,40 @@
     "sounds": [
       "iss_magicfromtheeast:generic/deathbell"
     ]
+  },
+  "executioner.generic.axe_chop": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/axe_chop"
+    ]
+  },
+  "executioner.generic.axe_sweep": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/axe_sweep"
+    ]
+  },
+  "executioner.generic.executioner_ambient": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/executioner_ambient"
+    ]
+  },
+  "executioner.generic.executioner_hurt": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/executioner_hurt"
+    ]
+  },
+  "executioner.generic.roar": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/roar"
+    ]
+  },
+  "executioner.generic.shield_bash": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/shield_bash"
+    ]
+  },
+  "executioner.generic.showdown": {
+    "sounds": [
+      "iss_magicfromtheeast:jade_executioner/showdown"
+    ]
   }
 }

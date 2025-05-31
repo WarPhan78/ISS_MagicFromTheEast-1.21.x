@@ -32,6 +32,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     public static final Supplier<AbstractSpell> JIANGSHI_INVOKE_SPELL = registerSpell(new JiangshiInvokeSpell());
 //  public static final Supplier<AbstractSpell> JADE_SENTINEL_SPELL = registerSpell(new JadeSentinelSpell());
     public static final Supplier<AbstractSpell> UNDERWORLD_AID_SPELL = registerSpell(new UnderworldAidSpell());
+    public static final Supplier<AbstractSpell> PUNISHING_HEAVEN_SPELL = registerSpell(new PunishingHeavenSpell());
 
     //SPIRIT SPELLS
     public static final Supplier<AbstractSpell> SOUL_CATALYST_SPELL = registerSpell(new SoulCatalystSpell());

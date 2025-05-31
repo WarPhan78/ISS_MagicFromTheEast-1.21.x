@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
-import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -9,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
-public class MFTESoundRegistries extends SoundRegistry {
+public class MFTESoundRegistries{
     private static final DeferredRegister<SoundEvent> MFTESOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, ISS_MagicFromTheEast.MOD_ID);
 
     public static void register(IEventBus eventBus) {
@@ -31,6 +30,15 @@ public class MFTESoundRegistries extends SoundRegistry {
     public static DeferredHolder<SoundEvent, SoundEvent> KATANA_WIND_UP = registerSoundEvent("cast.generic.katana_wind_up");
     public static DeferredHolder<SoundEvent, SoundEvent> SWORD_STRIKE = registerSoundEvent("cast.generic.sword_strike");
     public static DeferredHolder<SoundEvent, SoundEvent> DEATH_BELL = registerSoundEvent("cast.generic.death_bell");
+
+    //JADE EXECUTIONER
+    public static DeferredHolder<SoundEvent, SoundEvent> AXE_CHOP = registerSoundEvent("executioner.generic.axe_chop");
+    public static DeferredHolder<SoundEvent, SoundEvent> AXE_SWEEP = registerSoundEvent("executioner.generic.axe_sweep");
+    public static DeferredHolder<SoundEvent, SoundEvent> EXECUTIONER_AMBIENT = registerSoundEvent("executioner.generic.executioner_ambient");
+    public static DeferredHolder<SoundEvent, SoundEvent> EXECUTIONER_HURT = registerSoundEvent("executioner.generic.executioner_hurt");
+    public static DeferredHolder<SoundEvent, SoundEvent> ROAR = registerSoundEvent("executioner.generic.roar");
+    public static DeferredHolder<SoundEvent, SoundEvent> SHIELD_BASH = registerSoundEvent("executioner.generic.shield_bash");
+    public static DeferredHolder<SoundEvent, SoundEvent> EXECUTIONER_SHOWDOWN = registerSoundEvent("executioner.generic.showdown");
 
     //JADE SENTINEL
 //    public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_AMBIENT = registerSoundEvent("sentinel.generic.ambient");

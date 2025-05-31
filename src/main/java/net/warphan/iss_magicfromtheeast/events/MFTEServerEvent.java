@@ -24,8 +24,9 @@ import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
-import net.warphan.iss_magicfromtheeast.registries.ItemRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 
 @EventBusSubscriber
@@ -44,7 +45,7 @@ public class MFTEServerEvent {
             player.level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0f, 1.0f);
             player.swing(hand);
             player.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 40, 0));
-            player.setItemInHand(hand, ItemUtils.createFilledResult(useItem, player, new ItemStack(ItemRegistries.BOTTLE_OF_SOULS.get())));
+            player.setItemInHand(hand, ItemUtils.createFilledResult(useItem, player, new ItemStack(MFTEItemRegistries.BOTTLE_OF_SOULS.get())));
             event.setCancellationResult(InteractionResultHolder.consume(player.getItemInHand(hand)).getResult());
             event.setCanceled(true);
         }
@@ -75,16 +76,16 @@ public class MFTEServerEvent {
         if (damageSource.getEntity() instanceof LivingEntity attacker && (damageSource.getDirectEntity() == attacker || damageSource.getDirectEntity() instanceof AbstractArrow) && !(damageSource instanceof SpellDamageSource)) {
             var hand = attacker.getUsedItemHand();
             var attackItem = attacker.getItemInHand(hand);
-            if (attackItem.is(ItemRegistries.SOUL_BREAKER)) {
+            if (attackItem.is(MFTEItemRegistries.SOUL_BREAKER)) {
                 target.hurt(target.damageSources().magic(), 5);
             }
         }
     }
 
     @SubscribeEvent
-    public static void ignoreKnockBackSoul(LivingKnockBackEvent event) {
+    public static void ignoreKnockBackEntityList(LivingKnockBackEvent event) {
         var entity = event.getEntity();
-        if (entity instanceof ChallengedSoul || entity instanceof BoneHandsEntity) {
+        if (entity instanceof ChallengedSoul || entity instanceof BoneHandsEntity || entity instanceof JadeExecutionerEntity) {
             event.setCanceled(true);
         }
     }

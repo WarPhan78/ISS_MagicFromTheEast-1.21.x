@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguratio
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.registries.BlockRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEBlockRegistries;
 
 import java.util.List;
 
@@ -24,8 +24,8 @@ public class MFTEConfiguredFeatures {
         RuleTest deepslateReplaceable = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
         List<OreConfiguration.TargetBlockState> jadeOresSpawn =  List.of(
-                OreConfiguration.target(stoneReplaceable, BlockRegistries.JADE_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceable, BlockRegistries.JADE_ORE_DEEPSLATE.get().defaultBlockState()));
+                OreConfiguration.target(stoneReplaceable, MFTEBlockRegistries.JADE_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceable, MFTEBlockRegistries.JADE_ORE_DEEPSLATE.get().defaultBlockState()));
 
         register(context, JADE_ORE_KEY, Feature.ORE, new OreConfiguration(jadeOresSpawn, 9));
     }
