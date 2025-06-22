@@ -6,7 +6,7 @@ license="All Rights Reserved"
 [[mods]] #mandatory
 modId="iss_magicfromtheeast" #mandatory
 version="1.0.1" #mandatory
-displayName="ISS:MagicFromTheEast" #mandatory
+displayName="ISS: Magic From The East" #mandatory
 authors="WarPhan" #optional
 credits="Thanks Iron431 and Lab3 for creating the main mod. And for our contributors: Amadhe" #optional
 contributors="Thanks for our contributors: Amadhe"

@@ -28,6 +28,10 @@
   "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
   "spell.iss_magicfromtheeast.punishing_heaven": "Punishing Heaven",
   "spell.iss_magicfromtheeast.punishing_heaven.guide": "Summon a Jade Executioner, a great warrior that will behead anything that's against you or the celestial court",
+  "spell.iss_magicfromtheeast.drapes_of_reflection": "Drapes Of Reflection",
+  "spell.iss_magicfromtheeast.drapes_of_reflection.guide": "Create a magical Jade Drape, reflect any projectile hit it",
+  "spell.iss_magicfromtheeast.cloud_ride": "Cloud Ride",
+  "spell.iss_magicfromtheeast.cloud_ride.guide": "Create a Magical Cloud that can be ridden on",
 
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
   "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
@@ -62,6 +66,9 @@
   "item.iss_magicfromtheeast.soul_breaker.description": "Deal 5 extra magic damage on hit",
   "item.iss_magicfromtheeast.muramasa": "Muramasa",
 
+  "item.iss_magicfromtheeast.soulpiercer": "Soulpiercer",
+  "item.iss_magicfromtheeast.soulpiercer.description": "Required mana to shoot",
+
   "item.iss_magicfromtheeast.bagua_mirror": "Bagua Mirror",
   "item.iss_magicfromtheeast.coins_sword": "Coins Sword",
   "item.iss_magicfromtheeast.soulward_ring": "Soulward Ring",
@@ -81,11 +88,22 @@
 
   "item.iss_magicfromtheeast.jiangshi_hat": "Jiangshi Hat",
 
+  "item.iss_magicfromtheeast.jade_pagoda_helmet": "Jade Pagoda Helmet",
+  "item.iss_magicfromtheeast.jade_pagoda_chestplate": "Jade Pagoda Chestplate",
+  "item.iss_magicfromtheeast.jade_pagoda_leggings": "Jade Pagoda Leggings",
+  "item.iss_magicfromtheeast.jade_pagoda_boots": "Jade Pagoda Boots",
+  "item.iss_magicfromtheeast.jade_pagoda_horse_armor": "Jade Pagoda Horse Armor",
+
   "item.iss_magicfromtheeast.symmetry_rune": "Symmetry Rune",
   "item.iss_magicfromtheeast.spirit_rune": "Spirit Rune",
   "item.iss_magicfromtheeast.dune_rune": "Dune Rune",
   "item.iss_magicfromtheeast.symmetry_upgrade_orb": "Symmetry Upgrade Orb",
   "item.iss_magicfromtheeast.spirit_upgrade_orb": "Spirit Upgrade Orb",
+
+  "enchantment.iss_magicfromtheeast.soul_flame": "Soul Flame",
+  "enchantment.iss_magicfromtheeast.ghostly_cold": "Ghostly Cold",
+  "enchantment.iss_magicfromtheeast.spiritual_focus": "Spiritual Focus",
+  "enchantment.iss_magicfromtheeast.wisely_will": "Wisely Will",
 
   "block.iss_magicfromtheeast.jade_ore": "Jade Ore",
   "block.iss_magicfromtheeast.deepslate_jade_ore": "Deepslate Jade Ore",
@@ -103,17 +121,24 @@
   "entity.iss_magicfromtheeast.challenged_soul": "Challenged Soul",
   "entity.iss_magicfromtheeast.bone_hand": "Spirit Bone Hand",
   "entity.iss_magicfromtheeast.jade_executioner": "Jade Executioner",
+  "entity.iss_magicfromtheeast.summon_cloud": "Magical Cloud",
+  "entity.iss_magicfromtheeast.spirit_arrow": "Spirit Arrow",
 
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.iss_magicfromtheeast.soulburn": "Soulburn",
   "effect.iss_magicfromtheeast.soulburn.description": "Burning victim's souls",
+  "effect.iss_magicfromtheeast.jade_executioner_timer": "Jade Executioner Timer",
+  "effect.iss_magicfromtheeast.jade_executioner_timer.description": "Displays the duration remaining on your executioner",
+  "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
+  "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 
   "ui.iss_magicfromtheeast.lost_health_damage_bonus": "%d%% Target Lost Health",
   "ui.iss_magicfromtheeast.hand_attack_range": "%d Block Hand Reach",
   "ui.iss_magicfromtheeast.armor": "%d Armor",
+  "ui.iss_magicfromtheeast.reflect_damage_percent": "%d%% Damage Reflect",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",

@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 0,
+  "description": {
+    "translate": "enchantment.iss_magicfromtheeast.wisely_will"
+  },
+  "effects": {
+    "minecraft:ammo_use": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": -5.0,
+            "per_level_above_first": -5.0
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#minecraft:soulpiercer_function_exclusive",
+  "max_cost": {
+    "base": 18,
+    "per_level_above_first": 9
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 3,
+    "per_level_above_first": 9
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#iss_magicfromtheeast:soulpiercer",
+  "weight": 5
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "JCJ",
+    "JGJ"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chainmail_helmet"
+    },
+    "S": {
+      "item": "iss_magicfromtheeast:red_string"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    }
+  },
+"result": {
+    "id": "iss_magicfromtheeast:jade_pagoda_helmet",
+    "count": 1
+  }
+}

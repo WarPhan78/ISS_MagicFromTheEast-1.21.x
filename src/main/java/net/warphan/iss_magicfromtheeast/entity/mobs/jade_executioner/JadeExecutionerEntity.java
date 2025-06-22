@@ -240,9 +240,6 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     //Hurt, Die and Damage
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (pSource.getDirectEntity() instanceof Projectile projectile) {
-            pAmount *= .05;
-        }
         if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingShowdown() || shouldIgnoreDamage(pSource))) {
             return false;
         }
@@ -288,17 +285,17 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         return entityData.get(DATA_IS_DYING);
     }
 
-    public boolean isAnimatingAttack() {
-        return entityData.get(DATA_IS_ATTACKING);
-    }
-
-    public void stopAnimationAttack() {
-        entityData.set(DATA_IS_ATTACKING, false);
-    }
-
-    public void triggerAnimatingAttack() {
-        entityData.set(DATA_IS_ATTACKING, true);
-    }
+//    public boolean isAnimatingAttack() {
+//        return entityData.get(DATA_IS_ATTACKING);
+//    }
+//
+//    public void stopAnimationAttack() {
+//        entityData.set(DATA_IS_ATTACKING, false);
+//    }
+//
+//    public void triggerAnimatingAttack() {
+//        entityData.set(DATA_IS_ATTACKING, true);
+//    }
 
     public void triggerShowdownAnimation() {
         entityData.set(DATA_IS_SHOWDOWN, true);

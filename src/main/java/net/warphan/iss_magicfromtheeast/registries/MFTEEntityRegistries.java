@@ -13,17 +13,20 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
+import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullProjectile;
+import net.warphan.iss_magicfromtheeast.entity.spells.summoned_cloud.SummonCloudEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullField;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
 import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
+import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
 
-public class MFTEEntityRegistries extends EntityRegistry {
+public class MFTEEntityRegistries {
     private static final DeferredRegister<EntityType<?>> MFTE_ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ISS_MagicFromTheEast.MOD_ID);
 
     public static void register(IEventBus eventBus) {
@@ -100,4 +103,19 @@ public class MFTEEntityRegistries extends EntityRegistry {
                     .sized(2.8f, 6.0f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_executioner").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<JadeDrapesEntity>> JADE_DRAPES_ENTITY =
+            MFTE_ENTITIES.register("jade_drapes", () -> EntityType.Builder.<JadeDrapesEntity>of(JadeDrapesEntity::new, MobCategory.MISC)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_drapes").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SummonCloudEntity>> SUMMON_CLOUD_ENTITY =
+            MFTE_ENTITIES.register("summon_cloud", () -> EntityType.Builder.<SummonCloudEntity>of(SummonCloudEntity::new, MobCategory.MISC)
+                    .sized(1f, 0.5f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summon_cloud").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpiritArrow>> SPIRIT_ARROW =
+            MFTE_ENTITIES.register("spirit_arrow", () -> EntityType.Builder.<SpiritArrow>of(SpiritArrow::new, MobCategory.MISC)
+                    .sized(.5f, .5f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_arrow").toString()));
 }

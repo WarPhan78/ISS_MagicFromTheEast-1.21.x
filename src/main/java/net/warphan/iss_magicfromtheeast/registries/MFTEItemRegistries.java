@@ -20,15 +20,13 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.compat.MFTECurios;
 import net.warphan.iss_magicfromtheeast.item.RitualOrihonSpellbookItem;
+import net.warphan.iss_magicfromtheeast.item.armor.JadePagodaArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
 import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
 import net.warphan.iss_magicfromtheeast.item.curios.RustedCoinsSword;
 import net.warphan.iss_magicfromtheeast.item.curios.SoulwardRing;
-import net.warphan.iss_magicfromtheeast.item.weapons.MFTEExtendedWeaponTier;
-import net.warphan.iss_magicfromtheeast.item.weapons.MFTEStaffTier;
-import net.warphan.iss_magicfromtheeast.item.weapons.MuramasaItem;
-import net.warphan.iss_magicfromtheeast.item.weapons.SoulBreakerItem;
+import net.warphan.iss_magicfromtheeast.item.weapons.*;
 import net.warphan.iss_magicfromtheeast.setup.BloodfulRarity;
 
 import java.util.function.Supplier;
@@ -74,6 +72,9 @@ public class MFTEItemRegistries {
             () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(BloodfulRarity.BLOODFUL_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(SpellRegistry.BLOOD_SLASH_SPELL, 5))));
 
+    public static final DeferredHolder<Item, Item> SOULPIERCER = ITEMS.register("soulpiercer",
+            () -> new SoulPiercer(ItemPropertiesHelper.hidden().durability(635).rarity(Rarity.RARE)));
+
     // Curios
     public static final Supplier<CurioBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror",
             () -> new CurioBaseItem(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
@@ -96,7 +97,8 @@ public class MFTEItemRegistries {
             new AttributeContainer(Attributes.KNOCKBACK_RESISTANCE, 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
     public static final Supplier<CurioBaseItem> RUSTED_COINS_SWORD = ITEMS.register("rusted_coins_sword",
             () -> new RustedCoinsSword(ItemPropertiesHelper.equipment(1)).withAttributes(MFTECurios.BELT_SLOT,
-            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+            new AttributeContainer(AttributeRegistry.SUMMON_DAMAGE, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)));
 
     //Rune and Orbs
     public static final DeferredHolder<Item, Item> SYMMETRY_RUNE = ITEMS.register("symmetry_rune",
@@ -133,6 +135,19 @@ public class MFTEItemRegistries {
     //Armor
     public static final DeferredHolder<Item, Item> JIANGSHI_HAT = ITEMS.register("jiangshi_hat",
             () -> new JiangshiHatItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).rarity(Rarity.UNCOMMON).durability(ArmorItem.Type.HELMET.getDurability(24))));
+
+    public static final DeferredHolder<Item, Item> JADE_PAGODA_HELMET = ITEMS.register("jade_pagoda_helmet",
+            () -> new JadePagodaArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).rarity(Rarity.RARE).durability(ArmorItem.Type.HELMET.getDurability(45))));
+    public static final DeferredHolder<Item, Item> JADE_PAGODA_CHESTPLATE = ITEMS.register("jade_pagoda_chestplate",
+            () -> new JadePagodaArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).rarity(Rarity.RARE).durability(ArmorItem.Type.CHESTPLATE.getDurability(45))));
+    public static final DeferredHolder<Item, Item> JADE_PAGODA_LEGGINGS = ITEMS.register("jade_pagoda_leggings",
+            () -> new JadePagodaArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).rarity(Rarity.RARE).durability(ArmorItem.Type.LEGGINGS.getDurability(45))));
+    public static final DeferredHolder<Item, Item> JADE_PAGODA_BOOTS = ITEMS.register("jade_pagoda_boots",
+            () -> new JadePagodaArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).rarity(Rarity.RARE).durability(ArmorItem.Type.BOOTS.getDurability(45))));
+
+    public static final DeferredHolder<Item, Item> JADE_PAGODA_HORSE_ARMOR = ITEMS.register("jade_pagoda_horse_armor",
+            () -> new AnimalArmorItem(MFTEArmorMaterialRegistries.JADE, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     //Block Items
     public static final DeferredHolder<Item, Item> JADE_ORE_ITEM = ITEMS.register("jade_ore",

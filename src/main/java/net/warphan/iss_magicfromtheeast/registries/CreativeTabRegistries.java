@@ -32,6 +32,8 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.SOUL_BREAKER.get());
                 entries.accept(MFTEItemRegistries.MURAMASA.get());
 
+                entries.accept(MFTEItemRegistries.SOULPIERCER.get());
+
                 entries.accept(MFTEItemRegistries.BAGUA_MIRROR.get());
                 entries.accept(MFTEItemRegistries.COINS_SWORD.get());
                 entries.accept(MFTEItemRegistries.RUSTED_COINS_SWORD.get());
@@ -61,6 +63,12 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.ONMYOJI_GETA.get());
 
                 entries.accept(MFTEItemRegistries.JIANGSHI_HAT.get());
+
+                entries.accept(MFTEItemRegistries.JADE_PAGODA_HELMET.get());
+                entries.accept(MFTEItemRegistries.JADE_PAGODA_CHESTPLATE.get());
+                entries.accept(MFTEItemRegistries.JADE_PAGODA_LEGGINGS.get());
+                entries.accept(MFTEItemRegistries.JADE_PAGODA_BOOTS.get());
+                entries.accept(MFTEItemRegistries.JADE_PAGODA_HORSE_ARMOR.get());
 
                 entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());

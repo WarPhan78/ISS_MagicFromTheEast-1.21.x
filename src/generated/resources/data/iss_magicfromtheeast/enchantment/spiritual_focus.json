@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.iss_magicfromtheeast.spiritual_focus"
+  },
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 1.0,
+            "per_level_above_first": 1.0
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#minecraft:soulpiercer_function_exclusive",
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 12
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 4,
+    "per_level_above_first": 12
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#iss_magicfromtheeast:soulpiercer",
+  "weight": 10
+}

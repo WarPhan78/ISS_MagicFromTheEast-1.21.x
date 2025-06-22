@@ -74,6 +74,14 @@
       "iss_magicfromtheeast:generic/deathbell"
     ]
   },
+  "cast.generic.spirit_arrow_shot": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/spirit_arrow_shot"
+    ]
+  },
+
+
+
   "executioner.generic.axe_chop": {
     "sounds": [
       "iss_magicfromtheeast:jade_executioner/axe_chop"

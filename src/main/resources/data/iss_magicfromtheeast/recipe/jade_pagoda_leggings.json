@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JBJ",
+    "JCJ",
+    "BGB"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chainmail_leggings"
+    },
+    "B": {
+      "item": "irons_spellbooks:bloody_vellum"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade_pagoda_leggings",
+    "count": 1
+  }
+}

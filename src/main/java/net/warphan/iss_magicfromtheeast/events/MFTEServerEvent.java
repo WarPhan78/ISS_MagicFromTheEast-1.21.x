@@ -1,6 +1,9 @@
 package net.warphan.iss_magicfromtheeast.events;
 
+import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
 import io.redspace.ironsspellbooks.damage.SpellDamageSource;
+import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
+import io.redspace.ironsspellbooks.entity.spells.ShieldPart;
 import io.redspace.ironsspellbooks.registries.BlockRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
@@ -16,8 +19,11 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
@@ -25,6 +31,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
+import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
@@ -97,7 +104,7 @@ public class MFTEServerEvent {
         if (entity instanceof ChallengedSoul challengedSoul) {
             var soulOwner = challengedSoul.getSummoner();
             float linkingRange = 10.0f;
-            if (!challengedSoul.level.isClientSide) {
+            if (!challengedSoul.level.isClientSide && soulOwner != null) {
                 float distance = challengedSoul.distanceTo(soulOwner);
                 if (distance > linkingRange) {
                     challengedSoul.onUnSummon();
@@ -116,10 +123,12 @@ public class MFTEServerEvent {
             var soulOwner = challengedSoul1.getSummoner();
             var damageOnSoul = event.getOriginalDamage();
             var damageAmount = damageOnSoul * challengedSoul1.bonusPercent;
+            if (soulOwner != null) {
             if (damageOnSoul <= challengedSoul1.getHealth()) {
                 soulOwner.hurt(soulOwner.damageSources().magic(), damageAmount);
             } else if (damageOnSoul > challengedSoul1.getHealth()) {
                 soulOwner.hurt(soulOwner.damageSources().magic(), challengedSoul1.getHealth() * challengedSoul1.bonusPercent);
+            }
             }
         }
     }
@@ -130,10 +139,73 @@ public class MFTEServerEvent {
         if (!entity.level.isClientSide) {
             if (entity instanceof ChallengedSoul challengedSoul) {
                 var soulOwner = challengedSoul.getSummoner();
+                if (soulOwner != null) {
+                    soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
+                    soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void counterSpellCastOnSoul(CounterSpellEvent event) {
+        var entity = event.target;
+        var caster = event.caster;
+        if (entity instanceof ChallengedSoul challengedSoul) {
+            if (caster == challengedSoul.getSummoner()) {
+                var soulOwner = challengedSoul.getSummoner();
                 soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
                 soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
             }
         }
     }
+
+    @SubscribeEvent
+    public static void jadeExecutionerAntiCounterSpell(CounterSpellEvent event) {
+        var target = event.target;
+        var caster = event.caster;
+        if (target instanceof JadeExecutionerEntity jadeExecutioner) {
+            if (caster != jadeExecutioner.getSummoner()) {
+                event.setCanceled(true);
+                float percentDamage = jadeExecutioner.getMaxHealth() / 10;
+                jadeExecutioner.hurt(jadeExecutioner.damageSources().generic(), percentDamage);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void drapeReflectionEvent(ProjectileImpactEvent event) {
+        var ray = event.getRayTraceResult();
+        var projectile = event.getProjectile();
+        if (ray instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof ShieldPart shieldPart && shieldPart.parentEntity instanceof JadeDrapesEntity jadeDrapes) {
+            event.setCanceled(true);
+            if (projectile.getOwner() != jadeDrapes.getSummoner()) {
+            Vec3 reflectionVec = projectile.getDeltaMovement().reverse();
+
+            if (projectile instanceof AbstractMagicProjectile magicProjectile) {
+                magicProjectile.setOwner(jadeDrapes.getSummoner());
+                magicProjectile.setDamage(magicProjectile.getDamage() * jadeDrapes.percentReflectDamage);
+            }
+
+            projectile.setDeltaMovement(reflectionVec);
+            }
+
+            //For some special case
+            if (projectile.getOwner() == null) {
+                projectile.setOwner(jadeDrapes.getSummoner());
+                projectile.setDeltaMovement(projectile.getDeltaMovement().reverse());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void counterSpellHitDrapes(CounterSpellEvent event) {
+        var target = event.target;
+        if (target instanceof JadeDrapesEntity jadeDrapes) {
+            event.setCanceled(false);
+            jadeDrapes.onUnSummon();
+        }
+    }
+
     //@SubscribeEvent
 }

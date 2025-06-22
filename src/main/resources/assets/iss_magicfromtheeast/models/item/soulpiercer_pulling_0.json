@@ -1,0 +1,6 @@
+{
+  "parent": "iss_magicfromtheeast:item/soulpiercer",
+  "textures": {
+    "layer0": "iss_magicfromtheeast:item/soulpiercer_pulling_0"
+  }
+}

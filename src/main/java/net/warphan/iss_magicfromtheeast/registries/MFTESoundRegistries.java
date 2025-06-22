@@ -30,6 +30,7 @@ public class MFTESoundRegistries{
     public static DeferredHolder<SoundEvent, SoundEvent> KATANA_WIND_UP = registerSoundEvent("cast.generic.katana_wind_up");
     public static DeferredHolder<SoundEvent, SoundEvent> SWORD_STRIKE = registerSoundEvent("cast.generic.sword_strike");
     public static DeferredHolder<SoundEvent, SoundEvent> DEATH_BELL = registerSoundEvent("cast.generic.death_bell");
+    public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_ARROW_SHOT = registerSoundEvent("cast.generic.spirit_arrow_shot");
 
     //JADE EXECUTIONER
     public static DeferredHolder<SoundEvent, SoundEvent> AXE_CHOP = registerSoundEvent("executioner.generic.axe_chop");

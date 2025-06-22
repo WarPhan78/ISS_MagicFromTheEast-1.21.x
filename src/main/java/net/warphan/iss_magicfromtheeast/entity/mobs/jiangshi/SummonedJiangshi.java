@@ -66,7 +66,6 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     public void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2f, true));
-        this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.5f));
         this.goalSelector.addGoal(7, new GenericFollowOwnerGoal(this, this::getSummoner, 0.6f, 15, 5, false, 30));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8d));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0f, 1.0f));

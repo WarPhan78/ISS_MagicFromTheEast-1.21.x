@@ -33,9 +33,6 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
     public JadeExecutionerEntity.AttackAnim currentAttack;
     public JadeExecutionerEntity.AttackAnim nextAttack;
     public JadeExecutionerEntity.AttackAnim queueCombo;
-//    private boolean hasCharged;
-//    private boolean hasHitCharged;
-//    private Vec3 oldChargedPos;
 
     @Override
     public boolean isActing() {
@@ -51,7 +48,7 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
             forceFaceTarget();
             meleeAnimTimer--;
             if (currentAttack.data.isHitFrame(meleeAnimTimer)) {
-                Vec3 lunge = target.position().subtract(mob.position()).normalize().scale(.25f);
+                Vec3 lunge = target.position().subtract(mob.position()).normalize().scale(-.25f);
                 mob.push(lunge.x, lunge.y, lunge.z);
                 float radius = 0.8f;
                 var damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -71,10 +68,10 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.AXE_LEFT) {
                         playSweepSound();
-                        Vec3 leftSweepPos = start.add(forward.scale(1));
-                        var entities = mob.level.getEntities(mob, AABB.ofSize(leftSweepPos, radius * 2.5, radius * 3, radius * 2.5));
+                        Vec3 leftSweepPos = start.add(forward.scale(0.5));
+                        var entities = mob.level.getEntities(mob, AABB.ofSize(leftSweepPos, radius * 3.5, radius * 3, radius * 3.5));
                         for (Entity targetEntity : entities) {
-                            if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, leftSweepPos.add(0, 1, 0), targetEntity.getBoundingBox().getCenter(), true)) {
+                            if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, leftSweepPos.add(0, 0.5, 0), targetEntity.getBoundingBox().getCenter(), true)) {
                                 DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
                                 if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
                                     queueCombo = randomizeNextAttack(0);
@@ -83,15 +80,12 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.AXE_RIGHT) {
                         playSweepSound();
-                        Vec3 rightSweepPos = mob.position().add(0, 1.0, 0).add(forward.scale(3.0));
-                        var entities = mob.level.getEntities(mob, AABB.ofSize(rightSweepPos, radius * 3.0, radius * 3, radius * 3.0));
+                        Vec3 rightSweepPos = mob.position().add(0, 0.5, 0).add(forward.scale(2.0));
+                        var entities = mob.level.getEntities(mob, AABB.ofSize(rightSweepPos, radius * 3.5, radius * 3, radius * 3.5));
                         for (Entity targetEntity : entities) {
-                            Vec3 offset = targetEntity.getBoundingBox().getCenter().subtract(start);
-                            if (offset.dot(forward) >= 0) {
-                                DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
-                                if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
-                                    queueCombo = randomizeNextAttack(0);
-                                }
+                            DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
+                            if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
+                                queueCombo = randomizeNextAttack(0);
                             }
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.BITE) {
@@ -105,13 +99,13 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.SHIELD_BASH) {
                         playBashSound();
-                        Vec3 bashPos = start.add(forward.scale(1));
-                        var entities = mob.level.getEntities(mob, AABB.ofSize(bashPos, radius * 1.4, radius * 3, radius * 1.4));
+                        Vec3 bashPos = start.add(forward.scale(0.5));
+                        var entities = mob.level.getEntities(mob, AABB.ofSize(bashPos, radius * 2.0, radius * 3, radius * 2.0));
                         for (Entity targetEntity : entities) {
-                            if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, bashPos.add(0, 1, 0), targetEntity.getBoundingBox().getCenter(), true)) {
+                            if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, bashPos.add(0, 0.5, 0), targetEntity.getBoundingBox().getCenter(), true)) {
                                 DamageSources.applyDamage(targetEntity,damage/2, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
                                 Vec3 knockBack = mob.position().subtract(targetEntity.position());
-                                target.knockback(1, knockBack.x, knockBack.z);
+                                target.knockback(2, knockBack.x, knockBack.z);
                                 targetEntity.hurtMarked = true;
                             }
                         }
@@ -143,7 +137,7 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
     private JadeExecutionerEntity.AttackAnim randomizeNextAttack(float distance) {
         var meleeRange = meleeRange();
         int i;
-        if (distance < meleeRange) {
+        if (distance < meleeRange * 1.2f) {
             i = JadeExecutionerEntity.AttackAnim.values().length - 1;
         }else {
             i = JadeExecutionerEntity.AttackAnim.values().length;

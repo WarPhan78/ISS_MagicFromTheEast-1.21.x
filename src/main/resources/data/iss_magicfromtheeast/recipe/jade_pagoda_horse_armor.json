@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBJ",
+    "BDJ",
+    "JJJ"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond_horse_armor"
+    },
+    "B": {
+      "item": "irons_spellbooks:bloody_vellum"
+    },
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade_pagoda_horse_armor",
+    "count": 1
+  }
+}

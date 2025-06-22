@@ -4,6 +4,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
+import net.warphan.iss_magicfromtheeast.util.MFTEItemProperties;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
@@ -49,6 +50,8 @@ public class ISS_MagicFromTheEast {
         MFTEEntityRegistries.register(modEventBus);
         MFTEEffectRegistries.register(modEventBus);
         MFTEFluidRegistries.register(modEventBus);
+        MFTEArmorMaterialRegistries.register(modEventBus);
+        MFTEEnchantmentEffectRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -79,6 +82,7 @@ public class ISS_MagicFromTheEast {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            MFTEItemProperties.addCustomItemProperties();
         }
     }
 

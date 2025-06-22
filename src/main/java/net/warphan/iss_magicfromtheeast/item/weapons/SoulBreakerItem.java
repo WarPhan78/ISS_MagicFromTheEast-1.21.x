@@ -18,8 +18,7 @@ public class SoulBreakerItem extends ExtendedSwordItem {
     public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, context, components, flag);
         components.add(Component.translatable("item.iss_magicfromtheeast.soul_breaker.description").
-                withStyle(ChatFormatting.AQUA).
-                withStyle(ChatFormatting.ITALIC)
+                withStyle(ChatFormatting.AQUA)
         );
     }
 }

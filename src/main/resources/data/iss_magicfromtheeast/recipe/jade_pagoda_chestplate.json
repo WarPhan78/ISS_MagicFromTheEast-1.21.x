@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BJB",
+    "BCB",
+    "JJJ"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chainmail_chestplate"
+    },
+    "B": {
+      "item": "irons_spellbooks:bloody_vellum"
+    },
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade_pagoda_chestplate",
+    "count": 1
+  }
+}
