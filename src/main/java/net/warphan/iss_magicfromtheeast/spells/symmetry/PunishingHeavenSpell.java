@@ -49,11 +49,11 @@ public class PunishingHeavenSpell extends AbstractSpell {
             .build();
 
     public PunishingHeavenSpell() {
-        this.manaCostPerLevel = 40;
+        this.manaCostPerLevel = 100;
         this.baseSpellPower = 0;
         this.spellPowerPerLevel = 5;
         this.castTime = 30;
-        this.baseManaCost = 80;
+        this.baseManaCost = 250;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     private float getExecutionerDamage(int spellLevel, LivingEntity summoner) {
-        return 14 + ((spellPowerPerLevel - 1) * spellLevel);
+        return 12 + ((spellPowerPerLevel - 1) * spellLevel);
     }
 
     private float getExecutionerHealth(int spellLevel, LivingEntity summoner) {

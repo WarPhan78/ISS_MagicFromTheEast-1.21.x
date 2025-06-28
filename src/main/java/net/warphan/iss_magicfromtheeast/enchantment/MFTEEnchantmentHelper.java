@@ -35,4 +35,12 @@ public class MFTEEnchantmentHelper extends EnchantmentHelper {
         });
         return mutablefloat.intValue();
     }
+
+    public static int increaseAmmoLoad(ServerLevel serverLevel, ItemStack stack, int amount) {
+        MutableFloat mutableFloat = new MutableFloat((float) amount);
+        runIterationOnItem(stack, (p_344545_, p_344546_) -> {
+            ((Enchantment)p_344545_.value()).modifyAmmoCount(serverLevel, p_344546_, null, mutableFloat);
+        });
+        return mutableFloat.intValue();
+    }
 }

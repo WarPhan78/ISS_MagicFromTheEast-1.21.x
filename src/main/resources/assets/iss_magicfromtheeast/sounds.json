@@ -79,6 +79,11 @@
       "iss_magicfromtheeast:generic/spirit_arrow_shot"
     ]
   },
+  "cast.generic.projectile_loading": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/projectile_loading"
+    ]
+  },
 
 
 

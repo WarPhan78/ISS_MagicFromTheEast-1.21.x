@@ -52,6 +52,7 @@ public class ISS_MagicFromTheEast {
         MFTEFluidRegistries.register(modEventBus);
         MFTEArmorMaterialRegistries.register(modEventBus);
         MFTEEnchantmentEffectRegistries.register(modEventBus);
+        MFTEDataComponentRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

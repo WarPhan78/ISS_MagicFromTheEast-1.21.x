@@ -24,6 +24,8 @@ public class MFTEEnchantments {
             ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spiritual_focus"));
     public static final ResourceKey<Enchantment> WISELY_WILL = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "wisely_will"));
+//    public static final ResourceKey<Enchantment> EXPANDING = ResourceKey.create(Registries.ENCHANTMENT,
+//            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "expanding"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);
@@ -81,6 +83,18 @@ public class MFTEEnchantments {
                         .withEffect(EnchantmentEffectComponents.AMMO_USE,
                                 new AddValue(LevelBasedValue.perLevel(-5)))
         );
+//        register(
+//                context, EXPANDING, Enchantment.enchantment(Enchantment.definition(
+//                        items.getOrThrow(MFTETags.REPEATING_CROSSBOW),
+//                        10,
+//                        5,
+//                        Enchantment.dynamicCost(5, 10),
+//                        Enchantment.dynamicCost(15, 10),
+//                        0,
+//                        EquipmentSlotGroup.MAINHAND))
+//                        .withEffect(EnchantmentEffectComponents.AMMO_USE,
+//                                new AddValue(LevelBasedValue.perLevel(1)))
+//        );
     }
 
     private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,

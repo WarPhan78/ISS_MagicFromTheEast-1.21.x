@@ -68,6 +68,8 @@
 
   "item.iss_magicfromtheeast.soulpiercer": "Soulpiercer",
   "item.iss_magicfromtheeast.soulpiercer.description": "Required mana to shoot",
+  "item.iss_magicfromtheeast.repeating_crossbow": "Repeating Crossbow",
+  "item.iss_magicfromtheeast.repeating_crossbow.ammo_amount": "Ammo Amount:",
 
   "item.iss_magicfromtheeast.bagua_mirror": "Bagua Mirror",
   "item.iss_magicfromtheeast.coins_sword": "Coins Sword",
@@ -104,6 +106,7 @@
   "enchantment.iss_magicfromtheeast.ghostly_cold": "Ghostly Cold",
   "enchantment.iss_magicfromtheeast.spiritual_focus": "Spiritual Focus",
   "enchantment.iss_magicfromtheeast.wisely_will": "Wisely Will",
+  "enchantment.iss_magicfromtheeast.expanding": "Expanding",
 
   "block.iss_magicfromtheeast.jade_ore": "Jade Ore",
   "block.iss_magicfromtheeast.deepslate_jade_ore": "Deepslate Jade Ore",
@@ -128,8 +131,8 @@
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.iss_magicfromtheeast.soulburn": "Soulburn",
   "effect.iss_magicfromtheeast.soulburn.description": "Burning victim's souls",
-  "effect.iss_magicfromtheeast.jade_executioner_timer": "Jade Executioner Timer",
-  "effect.iss_magicfromtheeast.jade_executioner_timer.description": "Displays the duration remaining on your executioner",
+  "effect.iss_magicfromtheeast.summon_executioner_timer": "Jade Executioner Timer",
+  "effect.iss_magicfromtheeast.summon_executioner_timer.description": "Displays the duration remaining on your executioner",
   "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
 

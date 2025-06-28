@@ -12,4 +12,5 @@ public class MFTETags {
     public static final TagKey<Item> DUNE_FOCUS = ItemTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "dune_focus.json"));
 
     public static final TagKey<Item> SOULPIERCER = ItemTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soulpiercer"));
+    public static final TagKey<Item> REPEATING_CROSSBOW = ItemTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "repeating_crossbow"));
 }

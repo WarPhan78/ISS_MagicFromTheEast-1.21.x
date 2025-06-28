@@ -33,6 +33,7 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.MURAMASA.get());
 
                 entries.accept(MFTEItemRegistries.SOULPIERCER.get());
+                entries.accept(MFTEItemRegistries.REPEATING_CROSSBOW.get());
 
                 entries.accept(MFTEItemRegistries.BAGUA_MIRROR.get());
                 entries.accept(MFTEItemRegistries.COINS_SWORD.get());

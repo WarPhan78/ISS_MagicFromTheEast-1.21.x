@@ -74,6 +74,8 @@ public class MFTEItemRegistries {
 
     public static final DeferredHolder<Item, Item> SOULPIERCER = ITEMS.register("soulpiercer",
             () -> new SoulPiercer(ItemPropertiesHelper.hidden().durability(635).rarity(Rarity.RARE)));
+    public static final DeferredHolder<Item, Item> REPEATING_CROSSBOW = ITEMS.register("repeating_crossbow",
+            () -> new RepeatingCrossbow(ItemPropertiesHelper.hidden().durability(465)));
 
     // Curios
     public static final Supplier<CurioBaseItem> BAGUA_MIRROR = ITEMS.register("bagua_mirror",

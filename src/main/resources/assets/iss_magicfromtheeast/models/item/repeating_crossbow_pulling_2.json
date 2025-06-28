@@ -1,0 +1,6 @@
+{
+  "parent": "iss_magicfromtheeast:item/repeating_crossbow",
+  "textures": {
+    "layer0": "iss_magicfromtheeast:item/repeating_crossbow_pulling_2"
+  }
+}
