@@ -31,6 +31,7 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE_GUANDAO.get());
                 entries.accept(MFTEItemRegistries.SOUL_BREAKER.get());
                 entries.accept(MFTEItemRegistries.MURAMASA.get());
+                entries.accept(MFTEItemRegistries.SOUL_KATANA.get());
 
                 entries.accept(MFTEItemRegistries.SOULPIERCER.get());
                 entries.accept(MFTEItemRegistries.REPEATING_CROSSBOW.get());

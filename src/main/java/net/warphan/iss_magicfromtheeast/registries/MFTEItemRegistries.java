@@ -71,6 +71,9 @@ public class MFTEItemRegistries {
     public static final DeferredHolder<Item, Item> MURAMASA = ITEMS.register("muramasa",
             () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(BloodfulRarity.BLOODFUL_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(SpellRegistry.BLOOD_SLASH_SPELL, 5))));
+    public static final DeferredHolder<Item, Item> SOUL_KATANA = ITEMS.register("soul_katana",
+            () -> new MasamuneItem(MFTEExtendedWeaponTier.SOUL_KATANA, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_KATANA)), SpellDataRegistryHolder.of(
+                    new SpellDataRegistryHolder(MFTESpellRegistries.CALAMITY_CUT_SPELL, 5))));
 
     public static final DeferredHolder<Item, Item> SOULPIERCER = ITEMS.register("soulpiercer",
             () -> new SoulPiercer(ItemPropertiesHelper.hidden().durability(635).rarity(Rarity.RARE)));

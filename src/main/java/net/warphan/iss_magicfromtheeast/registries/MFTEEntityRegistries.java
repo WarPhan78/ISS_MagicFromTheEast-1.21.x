@@ -1,10 +1,10 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
-import io.redspace.ironsspellbooks.registries.EntityRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -14,6 +14,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecuti
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
@@ -118,4 +119,11 @@ public class MFTEEntityRegistries {
                     .sized(.5f, .5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_arrow").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SummonedKitsune>> SUMMONED_KITSUNE =
+            MFTE_ENTITIES.register("summoned_kitsune", () -> EntityType.Builder.<SummonedKitsune>of(SummonedKitsune::new, MobCategory.MISC)
+                    .sized(.7f, .6f)
+                    .immuneTo(Blocks.POWDER_SNOW)
+                    .fireImmune()
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_kitsune").toString()));
 }

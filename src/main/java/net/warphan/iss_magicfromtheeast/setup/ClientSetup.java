@@ -15,6 +15,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesRenderer;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoulRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
@@ -44,6 +45,7 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_EXECUTIONER.get(), JadeExecutionerRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_DRAPES_ENTITY.get(), JadeDrapesRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.SUMMON_CLOUD_ENTITY.get(), NoopRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.SUMMONED_KITSUNE.get(), SummonedKitsuneRenderer::new);
 
         event.registerEntityRenderer(MFTEEntityRegistries.SOUL_SKULL.get(), SoulSkullRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoulRenderer::new);

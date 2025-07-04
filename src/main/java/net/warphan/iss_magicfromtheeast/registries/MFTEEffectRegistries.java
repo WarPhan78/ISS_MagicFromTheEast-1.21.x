@@ -21,5 +21,6 @@ public class MFTEEffectRegistries{
     public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_CLOUD_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_cloud_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
 //    public static final DeferredHolder<MobEffect, MobEffect> SWORD_DANCE_EFFECT = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("sword_dance_effect", () -> new SwordDanceEffect(MobEffectCategory.BENEFICIAL, 0xbea925));
     public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_JIANGSHI_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_jiangshi_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
+    public static final DeferredHolder<MobEffect, SummonTimer> SUMMON_KITSUNE_TIMER = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("summon_kitsune_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 0xbea925));
     public static final DeferredHolder<MobEffect, MobEffect> SOULBURN = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("soulburn", () -> new SoulburnEffect(MobEffectCategory.HARMFUL, 0x00ffff));
 }

@@ -25,13 +25,13 @@
   "spell.iss_magicfromtheeast.jiangshi_invoke": "Jiangshi Invoke",
   "spell.iss_magicfromtheeast.jiangshi_invoke.guide": "Summon 2 fast and furious Jiangshi to aid in your battle",
   "spell.iss_magicfromtheeast.underworld_aid": "Impermanence's Verdict",
-  "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target (Max damage 40)",
+  "spell.iss_magicfromtheeast.underworld_aid.guide": "Calling upon 4 Impermanence to verdict targets in a circle, apply slowness, blindness, darkness effect and damage them for 4 second. The damage will scale based on the lost health of the target, up to target's 40% max health",
   "spell.iss_magicfromtheeast.punishing_heaven": "Punishing Heaven",
   "spell.iss_magicfromtheeast.punishing_heaven.guide": "Summon a Jade Executioner, a great warrior that will behead anything that's against you or the celestial court",
   "spell.iss_magicfromtheeast.drapes_of_reflection": "Drapes Of Reflection",
   "spell.iss_magicfromtheeast.drapes_of_reflection.guide": "Create a magical Jade Drape, reflect any projectile hit it",
   "spell.iss_magicfromtheeast.cloud_ride": "Cloud Ride",
-  "spell.iss_magicfromtheeast.cloud_ride.guide": "Create a Magical Cloud that can be ridden on",
+  "spell.iss_magicfromtheeast.cloud_ride.guide": "Summon a Magical Cloud that can be ridden on for a moment",
 
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
   "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
@@ -43,6 +43,8 @@
   "spell.iss_magicfromtheeast.bone_hands.guide": "Summon Spirit Bone Hands from the ground, the hands will slam your targets if they are in range",
   "spell.iss_magicfromtheeast.calamity_cut": "Calamity Cut",
   "spell.iss_magicfromtheeast.calamity_cut.guide": "Swing your weapon and strike down a deadly cut, the stronger your weapon, the more powerful the cut is",
+  "spell.iss_magicfromtheeast.kitsune_pack": "Kitsune Pack",
+  "spell.iss_magicfromtheeast.kitsune_pack.guide": "Summon a pack of kitsune that will fight for you",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -65,6 +67,7 @@
   "item.iss_magicfromtheeast.soul_breaker": "Soul Breaker",
   "item.iss_magicfromtheeast.soul_breaker.description": "Deal 5 extra magic damage on hit",
   "item.iss_magicfromtheeast.muramasa": "Muramasa",
+  "item.iss_magicfromtheeast.soul_katana": "Masamune",
 
   "item.iss_magicfromtheeast.soulpiercer": "Soulpiercer",
   "item.iss_magicfromtheeast.soulpiercer.description": "Required mana to shoot",
@@ -126,6 +129,7 @@
   "entity.iss_magicfromtheeast.jade_executioner": "Jade Executioner",
   "entity.iss_magicfromtheeast.summon_cloud": "Magical Cloud",
   "entity.iss_magicfromtheeast.spirit_arrow": "Spirit Arrow",
+  "entity.iss_magicfromtheeast.summoned_kitsune": "Summoned Kitsune",
 
   "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
   "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
@@ -135,6 +139,8 @@
   "effect.iss_magicfromtheeast.summon_executioner_timer.description": "Displays the duration remaining on your executioner",
   "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
+  "effect.iss_magicfromtheeast.summon_kitsune_timer": "Summon Kitsune Timer",
+  "effect.iss_magicfromtheeast.summon_kitsune_timer.description": "Displays the duration remaining on your summons",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 

@@ -9,6 +9,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.summoned_cloud.SummonCloudEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
@@ -39,5 +40,6 @@ public class CommonSetup {
 
         event.put(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoul.prepareAttributes().build());
         event.put(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsEntity.prepareAttributes().build());
+        event.put(MFTEEntityRegistries.SUMMONED_KITSUNE.get(), SummonedKitsune.prepareAttributes().build());
     }
 }

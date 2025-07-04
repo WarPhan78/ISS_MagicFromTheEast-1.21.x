@@ -63,9 +63,10 @@ public class VerdictCircle extends AoeEntity implements GeoEntity, AntiMagicSusc
 
             float targetLostHealth = target.getMaxHealth() - target.getHealth();
             float damageAmount = this.getDamage() + (targetLostHealth * percentBonus);
-            if (damageAmount >= 40.0f) {
-                float damageLimit = damageAmount * 0.0f + 40.0f;
-                DamageSources.applyDamage(target, damageLimit, MFTESpellRegistries.UNDERWORLD_AID_SPELL.get().getDamageSource(this, getOwner()));
+            float limitDamage = target.getMaxHealth() * 0.4f;
+            if (damageAmount >= limitDamage) {
+                damageAmount = limitDamage;
+                DamageSources.applyDamage(target, damageAmount, MFTESpellRegistries.UNDERWORLD_AID_SPELL.get().getDamageSource(this, getOwner()));
             }
             else DamageSources.applyDamage(target, damageAmount, MFTESpellRegistries.UNDERWORLD_AID_SPELL.get().getDamageSource(this, getOwner()));
         }
