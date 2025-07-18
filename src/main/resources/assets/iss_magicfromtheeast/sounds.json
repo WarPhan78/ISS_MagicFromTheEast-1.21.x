@@ -84,6 +84,11 @@
       "iss_magicfromtheeast:generic/projectile_loading"
     ]
   },
+  "cast.generic.soul_rise": {
+    "sounds": [
+      "iss_magicfromtheeast:generic/soul_rise"
+    ]
+  },
 
 
 
@@ -120,6 +125,44 @@
   "executioner.generic.showdown": {
     "sounds": [
       "iss_magicfromtheeast:jade_executioner/showdown"
+    ]
+  },
+
+
+
+  "spiritmob.generic.ashigaru_spear": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/ashigaru_spear"
+    ]
+  },
+  "spiritmob.generic.ashigaru_voice": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/ashigaru_voice"
+    ]
+  },
+  "spiritmob.generic.ashigaru_gun": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/gunshot"
+    ]
+  },
+  "spiritmob.generic.samurai_ambient": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/samurai_ambient"
+    ]
+  },
+  "spiritmob.generic.samurai_slash": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/samurai_slash"
+    ]
+  },
+  "spiritmob.generic.spirit_dead": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/spirit_dead"
+    ]
+  },
+  "spiritmob.generic.spirit_hurt": {
+    "sounds": [
+      "iss_magicfromtheeast:spiritmob/spirit_hurt"
     ]
   }
 }

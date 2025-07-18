@@ -2,6 +2,7 @@ package net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi;
 
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
@@ -58,8 +59,6 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
             triggerRiseAnimation();
     }
 
-    protected LivingEntity cachedSummoner;
-    protected UUID summonerUUID;
     private int riseAnimTime = 45;
 
     @Override
@@ -116,20 +115,15 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
         return super.isAlliedTo(entity) || this.isAlliedHelper(entity);
     }
 
-    @Override
-    public LivingEntity getSummoner() {
-        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
-    }
+    //Summon Stuffs
     public void setSummoner(@Nullable LivingEntity owner) {
-        if (owner != null) {
-            this.summonerUUID = owner.getUUID();
-            this.cachedSummoner = owner;
-        }
+        if (owner == null) return;
+        SummonManager.setOwner(this, owner);
     }
 
     @Override
     public void onRemovedFromLevel() {
-        this.onRemovedHelper(this, MFTEEffectRegistries.SUMMON_JIANGSHI_TIMER);
+        this.onRemovedHelper(this);
         super.onRemovedFromLevel();
     }
 
@@ -175,20 +169,8 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     public void onUnSummon() {
         if (!level().isClientSide) {
             MagicManager.spawnParticles(level(), ParticleTypes.POOF, getX(), getY(), getZ(), 25, .4, .8, .4, .03, false);
-            discard();
+            setRemoved(RemovalReason.DISCARDED);
         }
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.summonerUUID = OwnerHelper.deserializeOwner(compoundTag);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        OwnerHelper.serializeOwner(compoundTag, summonerUUID);
     }
 
     protected void clientDiggingParticles(LivingEntity livingEntity) {

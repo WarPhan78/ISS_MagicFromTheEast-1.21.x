@@ -12,9 +12,12 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
+import net.warphan.iss_magicfromtheeast.entity.spells.phantom_cavalry.PhantomCavalryVisualEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
@@ -26,6 +29,7 @@ import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullFie
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
 import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
+import net.warphan.iss_magicfromtheeast.entity.spirit_bullet.SpiritBulletProjectile;
 
 public class MFTEEntityRegistries {
     private static final DeferredRegister<EntityType<?>> MFTE_ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ISS_MagicFromTheEast.MOD_ID);
@@ -126,4 +130,25 @@ public class MFTEEntityRegistries {
                     .fireImmune()
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_kitsune").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpiritSamuraiEntity>> REVENANT =
+            MFTE_ENTITIES.register("spirit_samurai", () -> EntityType.Builder.<SpiritSamuraiEntity>of(SpiritSamuraiEntity::new, MobCategory.MISC)
+                    .sized(.85f, 2.3f)
+                    .clientTrackingRange(64)
+                    .eyeHeight(2.3f)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_samurai").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpiritAshigaruEntity>> ASHIGARU =
+            MFTE_ENTITIES.register("spirit_ashigaru", () -> EntityType.Builder.<SpiritAshigaruEntity>of(SpiritAshigaruEntity::new, MobCategory.MISC)
+                    .sized(.6f, 1.8f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_ashigaru").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpiritBulletProjectile>> SPIRIT_BULLET =
+            MFTE_ENTITIES.register("spirit_bullet", () -> EntityType.Builder.<SpiritBulletProjectile>of(SpiritBulletProjectile::new, MobCategory.MISC)
+                    .sized(.1f, .1f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_bullet").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<PhantomCavalryVisualEntity>> PHANTOM_CAVALRY =
+            MFTE_ENTITIES.register("phantom_cavalry", () -> EntityType.Builder.<PhantomCavalryVisualEntity>of(PhantomCavalryVisualEntity::new, MobCategory.MISC)
+                    .sized(1.2f, 1.2f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "phantom_cavalry").toString()));
 }

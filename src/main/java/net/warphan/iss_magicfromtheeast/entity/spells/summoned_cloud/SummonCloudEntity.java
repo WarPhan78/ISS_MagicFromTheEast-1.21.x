@@ -2,7 +2,6 @@ package net.warphan.iss_magicfromtheeast.entity.spells.summoned_cloud;
 
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
-import io.redspace.ironsspellbooks.entity.mobs.goals.GenericFollowOwnerGoal;
 import io.redspace.ironsspellbooks.particle.FogParticleOptions;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,13 +14,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
-import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import org.joml.Vector3f;
 
@@ -41,12 +37,11 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
 
     protected LivingEntity cachedSummoner;
     protected UUID summonerUUID;
+    int livingTick = -1;
 
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new GenericFollowOwnerGoal(this, this::getSummoner, 1.2f, 12, 5, true, 25));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.8d));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -75,9 +70,17 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     @Override
     public void tick() {
         super.tick();
+        livingTick--;
+        if (livingTick == 0) {
+            this.discard();
+        }
         if (!level.isClientSide) {
             MagicManager.spawnParticles(level, new FogParticleOptions(new Vector3f(198 / 255f, 1f, 226 / 255f), 0.4f), this.getX(), this.getY() - 0.25f, this.getZ(), 1, 0.4, - 0.2, 0.4, 2.0, false);
         }
+    }
+
+    public void setLivingTick(int livingTick) {
+        this.livingTick = livingTick;
     }
 
     //Summon Stuffs
@@ -109,7 +112,7 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
 
     @Override
     public void onRemovedFromLevel() {
-        this.onRemovedHelper(this, MFTEEffectRegistries.SUMMON_CLOUD_TIMER);
+        this.onRemovedHelper(this);
         super.onRemovedFromLevel();
     }
 
@@ -210,7 +213,7 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
         }
 
         if (KeyMappings.FLIGHT_ASCENT_KEY.isDown()) f2 = 1;
-        else if (KeyMappings.FLIGHT_DESCENT_KEY.isDown()) f2 = -1;
+        else if (KeyMappings.FLIGHT_DESCENT_KEY.isDown() && !this.onGround()) f2 = -1;
 
         return new Vec3(f, f2, f1);
     }

@@ -12,10 +12,13 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiRenderer;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruRenderer;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircleRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoongRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneRenderer;
+import net.warphan.iss_magicfromtheeast.entity.spells.phantom_cavalry.PhantomCavalryRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoulRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
@@ -50,8 +53,12 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.SOUL_SKULL.get(), SoulSkullRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoulRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.REVENANT.get(), SpiritSamuraiRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.ASHIGARU.get(), SpiritAshigaruRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.PHANTOM_CAVALRY.get(), PhantomCavalryRenderer::new);
 
         event.registerEntityRenderer(MFTEEntityRegistries.SPIRIT_ARROW.get(), SpiritArrowRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.SPIRIT_BULLET.get(), NoopRenderer::new);
 
         CuriosRendererRegistry.register(MFTEItemRegistries.RITUAL_ORIHON.get(), SpellBookCurioRenderer::new);
 

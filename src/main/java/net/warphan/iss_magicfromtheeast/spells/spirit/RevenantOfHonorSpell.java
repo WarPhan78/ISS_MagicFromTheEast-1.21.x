@@ -1,10 +1,9 @@
-package net.warphan.iss_magicfromtheeast.spells.symmetry;
+package net.warphan.iss_magicfromtheeast.spells.spirit;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
-import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastResult;
@@ -14,55 +13,56 @@ import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
-import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
+import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
 @AutoSpellConfig
-public class PunishingHeavenSpell extends AbstractSpell {
-    private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "punishing_heaven");
+public class RevenantOfHonorSpell extends AbstractSpell {
+    private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "revenant_of_honor");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.hp", getExecutionerHealth(spellLevel, null)),
-                Component.translatableEscape("ui.irons_spellbooks.damage", getExecutionerDamage(spellLevel, null)),
-                Component.translatable("ui.iss_magicfromtheeast.armor", getExecutionerArmor(spellLevel, null))
+                Component.translatable("ui.irons_spellbooks.hp", getSamuraiHealth(spellLevel, null)),
+                Component.translatableEscape("ui.irons_spellbooks.damage", getSamuraiDamage(spellLevel, null)),
+                Component.translatable("ui.iss_magicfromtheeast.armor", getSamuraiArmor(spellLevel, null))
         );
     }
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.EPIC)
-            .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
-            .setMaxLevel(4)
-            .setCooldownSeconds(320)
+            .setMinRarity(SpellRarity.RARE)
+            .setSchoolResource(MFTESchoolRegistries.SPIRIT_RESOURCE)
+            .setMaxLevel(5)
+            .setCooldownSeconds(240)
             .build();
 
-    public PunishingHeavenSpell() {
-        this.manaCostPerLevel = 100;
-        this.baseSpellPower = 0;
+    public RevenantOfHonorSpell() {
+        this.manaCostPerLevel = 35;
+        this.baseSpellPower = 3;
         this.spellPowerPerLevel = 5;
-        this.castTime = 30;
-        this.baseManaCost = 250;
+        this.castTime = 20;
+        this.baseManaCost = 80;
     }
 
     @Override
-    public CastType getCastType() {
-        return CastType.LONG;
+    public ResourceLocation getSpellResource() {
+        return spellID;
     }
 
     @Override
@@ -71,8 +71,8 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     @Override
-    public ResourceLocation getSpellResource() {
-        return spellID;
+    public CastType getCastType() {
+        return CastType.LONG;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastFinishSound() {
-        return Optional.of(SoundEvents.BEACON_ACTIVATE);
+        return Optional.of(MFTESoundRegistries.SPIRIT_INVOKING.value());
     }
 
     @Override
@@ -105,25 +105,27 @@ public class PunishingHeavenSpell extends AbstractSpell {
     @Override
     public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
 
-        int summonTime = 20 * 60 * 5;
+        int summonTime = 20 * 60 * 10;
         var recast = playerMagicData.getPlayerRecasts();
 
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
-            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 12).getLocation();
+            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 8).getLocation();
 
-            JadeExecutionerEntity jadeExecutioner = new JadeExecutionerEntity(world, entity, true);
+            SpiritSamuraiEntity spiritSamurai = new SpiritSamuraiEntity(world, entity, true);
 
-            jadeExecutioner.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getExecutionerDamage(spellLevel, entity));
-            jadeExecutioner.getAttributes().getInstance(Attributes.ARMOR).setBaseValue(getExecutionerArmor(spellLevel, entity));
-            jadeExecutioner.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getExecutionerHealth(spellLevel, entity));
-            jadeExecutioner.setHealth(jadeExecutioner.getMaxHealth());
+            spiritSamurai.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getSamuraiDamage(spellLevel, entity));
+            spiritSamurai.getAttributes().getInstance(Attributes.ARMOR).setBaseValue(getSamuraiArmor(spellLevel, entity));
+            spiritSamurai.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getSamuraiHealth(spellLevel, entity));
+            spiritSamurai.setHealth(spiritSamurai.getMaxHealth());
 
-            jadeExecutioner.setPos(location);
-            jadeExecutioner.setOnGround(true);
-            var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<JadeExecutionerEntity>(entity, jadeExecutioner, this.spellID, spellLevel)).getCreature();
+            spiritSamurai.setPos(location);
+            spiritSamurai.setOnGround(true);
+            var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<SpiritSamuraiEntity>(entity, spiritSamurai, this.spellID, spellLevel)).getCreature();
             world.addFreshEntity(creature);
+
+            spiritSamurai.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(spiritSamurai.getOnPos()), MobSpawnType.MOB_SUMMONED, null);
 
             SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);
 
@@ -134,20 +136,15 @@ public class PunishingHeavenSpell extends AbstractSpell {
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
 
-    private float getExecutionerDamage(int spellLevel, LivingEntity summoner) {
-        return 12 + ((spellPowerPerLevel - 1) * spellLevel);
+    private float getSamuraiDamage(int spellLevel, LivingEntity summoner) {
+        return 6 + ((spellPowerPerLevel - 2) * spellLevel);
     }
 
-    private float getExecutionerHealth(int spellLevel, LivingEntity summoner) {
-        return 250 + spellPowerPerLevel * spellLevel * 10;
+    private float getSamuraiHealth(int spellLevel, LivingEntity summoner) {
+        return 40 + spellPowerPerLevel * spellLevel * 2.5f;
     }
 
-    private float getExecutionerArmor(int spellLevel, LivingEntity summoner) {
-        return (float) 14.0 + (spellLevel * 2);
-    }
-
-    @Override
-    public AnimationHolder getCastStartAnimation() {
-        return MFTESpellAnimations.ANIMATION_INVOKING;
+    private float getSamuraiArmor(int spellLevel, LivingEntity summoner) {
+        return 6.0f + spellLevel * 2;
     }
 }

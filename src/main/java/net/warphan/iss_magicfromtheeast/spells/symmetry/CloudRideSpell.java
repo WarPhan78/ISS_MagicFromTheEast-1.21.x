@@ -63,19 +63,19 @@ public class CloudRideSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        int summonTime = getDuration(spellLevel, entity);
+        int summonTick = getDuration(spellLevel, entity);
         Vec3 spawn = entity.position();
         Vec3 forward = entity.getForward().normalize().scale(1.5f);
         spawn.add(forward.x, 0.25f, forward.z);
 
         SummonCloudEntity cloudEntity = new SummonCloudEntity(level, entity);
 
+        cloudEntity.setLivingTick(summonTick);
         cloudEntity.setPos(spawn);
-        cloudEntity.removeEffectNoUpdate(MFTEEffectRegistries.SUMMON_CLOUD_TIMER);
-        cloudEntity.forceAddEffect(new MobEffectInstance(MFTEEffectRegistries.SUMMON_CLOUD_TIMER, summonTime, 0, false, false, false), null);
-        var event = NeoForge.EVENT_BUS.post(new SpellSummonEvent<SummonCloudEntity>(entity, cloudEntity, this.spellId, spellLevel));
-        level.addFreshEntity(event.getCreature());
-        entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SUMMON_CLOUD_TIMER, summonTime, 0, false, false, true));
+
+        level.addFreshEntity(cloudEntity);
+
+        entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SUMMON_CLOUD_TIMER, summonTick, 0, false, false, true));
 
         super.onCast(level, spellLevel, entity, castSource, playerMagicData);
     }

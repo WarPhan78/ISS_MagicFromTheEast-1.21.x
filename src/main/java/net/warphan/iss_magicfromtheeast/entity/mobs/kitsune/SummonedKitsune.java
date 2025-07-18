@@ -2,14 +2,13 @@ package net.warphan.iss_magicfromtheeast.entity.mobs.kitsune;
 
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
-import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,12 +21,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class SummonedKitsune extends Fox implements IMagicSummon {
     public SummonedKitsune(EntityType<? extends Fox> pEntityType, Level plevel) {
@@ -40,19 +39,10 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
         setSummoner(owner);
     }
 
-    protected LivingEntity cachedSummoner;
-    protected UUID summonerUUID;
-
-    @Override
-    public LivingEntity getSummoner() {
-        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
-    }
-
+    //Summon Stuffs
     public void setSummoner(@Nullable LivingEntity owner) {
-        if (owner != null) {
-            this.summonerUUID = owner.getUUID();
-            this.cachedSummoner = owner;
-        }
+        if (owner == null) return;
+        SummonManager.setOwner(this, owner);
     }
 
     @Override
@@ -64,13 +54,13 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
     public void onUnSummon() {
         if (!level().isClientSide) {
             MagicManager.spawnParticles(level(), ParticleTypes.SOUL_FIRE_FLAME, getX(), getY(), getZ(), 25, .4, .8, .4, .03, false);
-            discard();
+            setRemoved(RemovalReason.DISCARDED);
         }
     }
 
     @Override
     public void onRemovedFromLevel() {
-        this.onRemovedHelper(this, MFTEEffectRegistries.SUMMON_KITSUNE_TIMER);
+        this.onRemovedHelper(this);
         super.onRemovedFromLevel();
     }
 
@@ -81,6 +71,10 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
 
     @Override
     public boolean doHurtTarget(Entity entity) {
+        if (entity instanceof LivingEntity livingEntity) {
+            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 60, 0));
+            livingEntity.invulnerableTime = 0;
+        }
         return Utils.doMeleeAttack(this, entity, MFTESpellRegistries.KITSUNE_PACK_SPELL.get().getDamageSource(this, getSummoner()));
     }
 
@@ -90,18 +84,6 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
             return false;
         }
         return super.hurt(source, amount);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.summonerUUID = OwnerHelper.deserializeOwner(compoundTag);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        OwnerHelper.serializeOwner(compoundTag, summonerUUID);
     }
 
     @Override
@@ -150,6 +132,18 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
                 .add(Attributes.MAX_HEALTH, 15.0)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.5);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (tickCount % 10 == 0) {
+            for (int i = 0; i < 2; i++) {
+                Vec3 pos = new Vec3(Utils.getRandomScaled(1), Utils.getRandomScaled(1.0f) + 0.2f, Utils.getRandomScaled(1)).add(this.position());
+                Vec3 random = new Vec3(Utils.getRandomScaled(.04f), Utils.getRandomScaled(.04f), Utils.getRandomScaled(.04f));
+                level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, random.x, random.y, random.z);
+            }
+        }
     }
 
     @Override

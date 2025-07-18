@@ -32,6 +32,7 @@ public class MFTESoundRegistries{
     public static DeferredHolder<SoundEvent, SoundEvent> DEATH_BELL = registerSoundEvent("cast.generic.death_bell");
     public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_ARROW_SHOT = registerSoundEvent("cast.generic.spirit_arrow_shot");
     public static DeferredHolder<SoundEvent, SoundEvent> PROJECTILE_LOAD = registerSoundEvent("cast.generic.projectile_loading");
+    public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_INVOKING = registerSoundEvent("cast.generic.soul_rise");
 
     //JADE EXECUTIONER
     public static DeferredHolder<SoundEvent, SoundEvent> AXE_CHOP = registerSoundEvent("executioner.generic.axe_chop");
@@ -50,6 +51,15 @@ public class MFTESoundRegistries{
 //    public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_SWEEP = registerSoundEvent("sentinel.generic.sweep");
 //    public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_STOMP = registerSoundEvent("sentinel.generic.stomp");
 //    public static DeferredHolder<SoundEvent, SoundEvent> JADE_SENTINEL_CHARGE = registerSoundEvent("sentinel.generic.charge");
+
+    //SPIRIT MOB
+    public static DeferredHolder<SoundEvent, SoundEvent> ASHIGARU_SPEAR = registerSoundEvent("spiritmob.generic.ashigaru_spear");
+    public static DeferredHolder<SoundEvent, SoundEvent> ASHIGARU_AMBIENT = registerSoundEvent("spiritmob.generic.ashigaru_voice");
+    public static DeferredHolder<SoundEvent, SoundEvent> ASHIGARU_GUNSHOT = registerSoundEvent("spiritmob.generic.ashigaru_gun");
+    public static DeferredHolder<SoundEvent, SoundEvent> SAMURAI_AMBIENT = registerSoundEvent("spiritmob.generic.samurai_ambient");
+    public static DeferredHolder<SoundEvent, SoundEvent> SAMURAI_SLASH = registerSoundEvent("spiritmob.generic.samurai_slash");
+    public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_MOB_HURT = registerSoundEvent("spiritmob.generic.spirit_hurt");
+    public static DeferredHolder<SoundEvent, SoundEvent> SPIRIT_MOB_DEATH = registerSoundEvent("spiritmob.generic.spirit_dead");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
         return MFTESOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name)));

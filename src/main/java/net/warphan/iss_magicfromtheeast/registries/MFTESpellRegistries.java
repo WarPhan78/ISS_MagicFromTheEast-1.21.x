@@ -43,6 +43,9 @@ public class MFTESpellRegistries extends SpellRegistry {
     public static final Supplier<AbstractSpell> BONE_HANDS_SPELL = registerSpell(new BoneHandsSpell());
     public static final Supplier<AbstractSpell> CALAMITY_CUT_SPELL = registerSpell(new CalamityCutSpell());
     public static final Supplier<AbstractSpell> KITSUNE_PACK_SPELL = registerSpell(new KitsunePackSpell());
+    public static final Supplier<AbstractSpell> REVENANT_OF_HONOR_SPELL = registerSpell(new RevenantOfHonorSpell());
+    public static final Supplier<AbstractSpell> ASHIGARU_SQUAD_SPELL = registerSpell(new AshigaruSquadSpell());
+    public static final Supplier<AbstractSpell> PHANTOM_CHARGE_SPELL = registerSpell(new PhantomChargeSpell());
 
     //DUNE SPELLS
 

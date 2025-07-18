@@ -5,6 +5,7 @@ import io.redspace.ironsspellbooks.api.util.CameraShakeData;
 import io.redspace.ironsspellbooks.api.util.CameraShakeManager;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.IAnimatedAttacker;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
@@ -12,14 +13,11 @@ import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.Abstra
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import io.redspace.ironsspellbooks.entity.mobs.goals.melee.AttackAnimationData;
 import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
-import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,7 +34,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -45,7 +42,6 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class JadeExecutionerEntity extends AbstractSpellCastingMob implements GeoEntity, IAnimatedAttacker, IMagicSummon {
     private static final EntityDataAccessor<Boolean> DATA_IS_SHOWDOWN = SynchedEntityData.defineId(JadeExecutionerEntity.class, EntityDataSerializers.BOOLEAN);
@@ -58,7 +54,6 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         AXE_RIGHT(25, "axe_sweep_right", 13),
         SHIELD_BASH(20, "shield_bash", 8),
         BITE(15, "bite", 10);
-        //CHARGE_ATTACK(50, "charge", 40, 41, 42, 43, 44, 45); need to be fixed
 
         AttackAnim(int lengthTick, String animationID, int... attackTimeStamp) {
             this.data = new AttackAnimationData(lengthTick, animationID, attackTimeStamp);
@@ -81,8 +76,6 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
             triggerShowdownAnimation();
     }
 
-    protected UUID summonerUUID;
-    protected LivingEntity cachedSummoner;
     private int showdownAnimTick = 40;
 
     //Goal & AI
@@ -119,16 +112,9 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     }
 
     //Summon Stuffs
-    @Override
-    public LivingEntity getSummoner() {
-        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
-    }
-
-    public void setSummoner(@Nullable LivingEntity summoner) {
-        if (summoner != null) {
-            this.summonerUUID = summoner.getUUID();
-            this.cachedSummoner = summoner;
-        }
+    public void setSummoner(@Nullable LivingEntity owner) {
+        if (owner == null) return;
+        SummonManager.setOwner(this, owner);
     }
 
     @Override
@@ -137,28 +123,16 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.summonerUUID = OwnerHelper.deserializeOwner(pCompound);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        OwnerHelper.serializeOwner(pCompound, summonerUUID);
-    }
-
-    @Override
     public void onUnSummon() {
         if (!level().isClientSide) {
             MagicManager.spawnParticles(level(), ParticleTypes.SCRAPE, getX(), getY(), getZ(), 60, 1.5, 2.5, 1.5, .08, false);
-            discard();
+            setRemoved(RemovalReason.DISCARDED);
         }
     }
 
     @Override
     public void onRemovedFromLevel() {
-        this.onRemovedHelper(this, MFTEEffectRegistries.SUMMON_EXECUTIONER_TIMER);
+        this.onRemovedHelper(this);
         super.onRemovedFromLevel();
     }
 
@@ -284,18 +258,6 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     public boolean isAnimatingDead() {
         return entityData.get(DATA_IS_DYING);
     }
-
-//    public boolean isAnimatingAttack() {
-//        return entityData.get(DATA_IS_ATTACKING);
-//    }
-//
-//    public void stopAnimationAttack() {
-//        entityData.set(DATA_IS_ATTACKING, false);
-//    }
-//
-//    public void triggerAnimatingAttack() {
-//        entityData.set(DATA_IS_ATTACKING, true);
-//    }
 
     public void triggerShowdownAnimation() {
         entityData.set(DATA_IS_SHOWDOWN, true);

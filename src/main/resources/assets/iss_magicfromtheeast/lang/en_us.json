@@ -38,13 +38,19 @@
   "spell.iss_magicfromtheeast.soul_burst": "Soul Burst",
   "spell.iss_magicfromtheeast.soul_burst.guide": "Release a soul fire explosion at the caster position, damaging and burning souls of targets caught inside",
   "spell.iss_magicfromtheeast.spirit_challenging": "Spirit Challenging",
-  "spell.iss_magicfromtheeast.spirit_challenging.guide": "Extracting a part of target soul and then start the challenging. The soul can be attacked and an amount of the damage it took will be transfer to its owner. If the soul get destroyed or the owner try to run out of the challenging zone, they will get a debuff for some second",
+  "spell.iss_magicfromtheeast.spirit_challenging.guide": "Extracting a part of target soul and then start the challenging. The soul can be attacked and an amount of the damage it took will be transferred to its owner. If the soul get destroyed or the owner try to run out of the challenging zone, they will get a debuff for a moment",
   "spell.iss_magicfromtheeast.bone_hands": "Bone Hands",
   "spell.iss_magicfromtheeast.bone_hands.guide": "Summon Spirit Bone Hands from the ground, the hands will slam your targets if they are in range",
   "spell.iss_magicfromtheeast.calamity_cut": "Calamity Cut",
   "spell.iss_magicfromtheeast.calamity_cut.guide": "Swing your weapon and strike down a deadly cut, the stronger your weapon, the more powerful the cut is",
   "spell.iss_magicfromtheeast.kitsune_pack": "Kitsune Pack",
-  "spell.iss_magicfromtheeast.kitsune_pack.guide": "Summon a pack of kitsune that will fight for you",
+  "spell.iss_magicfromtheeast.kitsune_pack.guide": "Summon a pack of Kitsune that will fight for you, inflict soulburn effect on their bite",
+  "spell.iss_magicfromtheeast.revenant_of_honor": "Revenant of Honor",
+  "spell.iss_magicfromtheeast.revenant_of_honor.guide": "Summon a loyal Spirit Samurai to protect you from threats",
+  "spell.iss_magicfromtheeast.ashigaru_squad": "Ashigaru Squad",
+  "spell.iss_magicfromtheeast.ashigaru_squad.guide": "Calling upon a squad of Spirit Ashigaru to aid in your battle",
+  "spell.iss_magicfromtheeast.phantom_charge": "Phantom Charge",
+  "spell.iss_magicfromtheeast.phantom_charge.guide": "Summon a group of samurai horseman that will charge directly into your enemy formation",
 
   "itemGroup.iss_magicfromtheeast.magic_from_the_east": "Magic From The East",
 
@@ -130,17 +136,14 @@
   "entity.iss_magicfromtheeast.summon_cloud": "Magical Cloud",
   "entity.iss_magicfromtheeast.spirit_arrow": "Spirit Arrow",
   "entity.iss_magicfromtheeast.summoned_kitsune": "Summoned Kitsune",
+  "entity.iss_magicfromtheeast.spirit_samurai": "Spirit Samurai",
+  "entity.iss_magicfromtheeast.spirit_ashigaru": "Spirit Ashigaru",
+  "entity.iss_magicfromtheeast.phantom_cavalry": "Phantom Horseman",
 
-  "effect.iss_magicfromtheeast.summon_jiangshi_timer": "Jiangshi Timer",
-  "effect.iss_magicfromtheeast.summon_jiangshi_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.iss_magicfromtheeast.soulburn": "Soulburn",
   "effect.iss_magicfromtheeast.soulburn.description": "Burning victim's souls",
-  "effect.iss_magicfromtheeast.summon_executioner_timer": "Jade Executioner Timer",
-  "effect.iss_magicfromtheeast.summon_executioner_timer.description": "Displays the duration remaining on your executioner",
   "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
-  "effect.iss_magicfromtheeast.summon_kitsune_timer": "Summon Kitsune Timer",
-  "effect.iss_magicfromtheeast.summon_kitsune_timer.description": "Displays the duration remaining on your summons",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
 
@@ -148,6 +151,7 @@
   "ui.iss_magicfromtheeast.hand_attack_range": "%d Block Hand Reach",
   "ui.iss_magicfromtheeast.armor": "%d Armor",
   "ui.iss_magicfromtheeast.reflect_damage_percent": "%d%% Damage Reflect",
+  "ui.iss_magicfromtheeast.row_length": "%d Horseman",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",
@@ -163,9 +167,13 @@
   "death.attack.iss_magicfromtheeast.punishing_heaven": "%1$s was beheaded by %2$s's executioner",
 
   "death.attack.iss_magicfromtheeast.soul_catalyst": "%2$s's soul skulls has burned %1$s's soul into dust",
-  "death.attack.iss_magicfromtheeast:soul_burst": "%1$s's soul was burned into dust while get inside in %2$s's soul explosion",
-  "death.attack.iss_magicfromtheeast:bone_hands": "%1$s was crushed into mash by %2$s's bone hands",
-  "death.attack.iss_magicfromtheeast:calamity_cut": "%1$s was cut into half by %2$s",
+  "death.attack.iss_magicfromtheeast.soul_burst": "%1$s's soul was blasted inside %2$s's spirit explosion",
+  "death.attack.iss_magicfromtheeast.bone_hands": "%1$s was crushed into mash by %2$s's bone hands",
+  "death.attack.iss_magicfromtheeast.calamity_cut": "%1$s was cut into half by %2$s",
+  "death.attack.iss_magicfromtheeast.kitsune_pack": "%1$s was shredded into small pieces by %2$s's kitsune",
+  "death.attack.iss_magicfromtheeast.ashigaru_squad": "%1$s was killed by %2$s's ashigaru",
+  "death.attack.iss_magicfromtheeast.revenant_of_honor": "%1$s wasn't escaped from the blade of %2$s's revenant",
+  "death.attack.iss_magicfromtheeast.phantom_charge": "%1$s was crushed under the march of %2$s's horseman",
 
   "fluid_type.iss_magicfromtheeast.soul": "Soul"
 }
