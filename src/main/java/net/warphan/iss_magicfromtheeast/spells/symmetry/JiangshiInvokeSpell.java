@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -25,7 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
@@ -113,11 +114,13 @@ public class JiangshiInvokeSpell extends AbstractSpell {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
             for (int i = 0; i < 3; i++) {
-                SummonedJiangshi jiangshi = new SummonedJiangshi(world, entity, true);
+                JiangshiEntity jiangshi = new JiangshiEntity(world, entity, true);
 
                 jiangshi.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getJiangshiDamage(spellLevel, entity));
                 jiangshi.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getJiangshiHealth(spellLevel, entity));
                 jiangshi.setHealth(jiangshi.getMaxHealth());
+                jiangshi.setDropChance(EquipmentSlot.HEAD, 0.0f);
+                jiangshi.skipDropExperience();
 
                 jiangshi.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(jiangshi.getOnPos()), MobSpawnType.MOB_SUMMONED, null);
 

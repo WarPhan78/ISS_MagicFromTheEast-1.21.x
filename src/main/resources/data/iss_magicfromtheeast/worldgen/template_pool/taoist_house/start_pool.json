@@ -1,0 +1,16 @@
+{
+  "name": "iss_magicfromtheeast:taoist_house_start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "iss_magicfromtheeast:taoist_house/main_house",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "irons_spellbooks:individual_terrain_element",
+        "terrain_adjustment": "beard_thin"
+      }
+    }
+  ]
+}

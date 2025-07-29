@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Zombie;
 
-public class JiangshiRenderer extends HumanoidRenderer<SummonedJiangshi> {
+public class JiangshiRenderer extends HumanoidRenderer<JiangshiEntity> {
     ZombieRenderer vanillaRenderer;
 
     public JiangshiRenderer(EntityRendererProvider.Context renderManager) {
@@ -24,7 +24,7 @@ public class JiangshiRenderer extends HumanoidRenderer<SummonedJiangshi> {
     }
 
     @Override
-    public void render(SummonedJiangshi jiangshi, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(JiangshiEntity jiangshi, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         if (jiangshi.isAnimatingRise() || (jiangshi.walkAnimation.isMoving() && jiangshi.walkAnimation.speed() > 0.05f))
             super.render(jiangshi, entityYaw, partialTick, poseStack, bufferSource, packedLight);
         else

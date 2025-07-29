@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": [
+      {
+       "model": "iss_magicfromtheeast:block/rice_wine_vase",
+        "y": 0
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "iss_magicfromtheeast:block/rice_wine_vase",
+        "y": 90
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "iss_magicfromtheeast:block/rice_wine_vase",
+        "y": 180
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "iss_magicfromtheeast:block/rice_wine_vase",
+        "y": 270
+      }
+    ]
+  }
+}

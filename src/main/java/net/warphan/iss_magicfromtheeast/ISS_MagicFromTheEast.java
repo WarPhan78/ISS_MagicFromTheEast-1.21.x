@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 @Mod(ISS_MagicFromTheEast.MOD_ID)
 public class ISS_MagicFromTheEast {
     public static final String MOD_ID = "iss_magicfromtheeast";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -53,6 +53,7 @@ public class ISS_MagicFromTheEast {
         MFTEArmorMaterialRegistries.register(modEventBus);
         MFTEEnchantmentEffectRegistries.register(modEventBus);
         MFTEDataComponentRegistries.register(modEventBus);
+        MFTELootRegistries.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

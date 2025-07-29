@@ -76,14 +76,14 @@ public class PhantomChargeSpell extends AbstractSpell {
 
         Vec3 orth = new Vec3(-Mth.cos(-entity.getYRot() * Mth.DEG_TO_RAD - (float) Math.PI), 0, Mth.sin(-entity.getYRot() * Mth.DEG_TO_RAD - (float) Math.PI));
 
-        for (int i = 0; i < spellLevel; i++) {
+        for (int i = 1; i < spellLevel + 1; i++) {
 
             PhantomCavalryVisualEntity phantomCavalry = new PhantomCavalryVisualEntity(level, entity);
 
             if (i % 2 == 0) {
-                phantomCavalry.setPos(entity.position().add(orth.scale(i - 2)));
+                phantomCavalry.setPos(entity.position().add(orth.scale(i)));
             } else {
-                phantomCavalry.setPos(entity.position().add(orth.scale(-i + 2)));
+                phantomCavalry.setPos(entity.position().add(orth.scale(-i + 1)));
             }
 
             phantomCavalry.shoot(entity.getLookAngle().multiply(1, 0, 1));

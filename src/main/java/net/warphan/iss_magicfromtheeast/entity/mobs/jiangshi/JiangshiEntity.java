@@ -5,10 +5,8 @@ import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
-import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,13 +14,18 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,7 +33,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
-import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -42,17 +44,21 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
-public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimatable {
-    private static final EntityDataAccessor<Boolean> DATA_IS_ANIMATING_RISE = SynchedEntityData.defineId(SummonedJiangshi.class, EntityDataSerializers.BOOLEAN);
+public class JiangshiEntity extends Zombie implements IMagicSummon, GeoAnimatable {
+    private static final EntityDataAccessor<Boolean> DATA_IS_ANIMATING_RISE = SynchedEntityData.defineId(JiangshiEntity.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> DATA_IS_WILD = SynchedEntityData.defineId(JiangshiEntity.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> DATA_ANIMATING_CORPSE_RISE = SynchedEntityData.defineId(JiangshiEntity.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> DATA_IS_CORPSE_IDLE = SynchedEntityData.defineId(JiangshiEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public SummonedJiangshi(EntityType<? extends Zombie> pEntityType, Level plevel) {
+    public JiangshiEntity(EntityType<? extends Zombie> pEntityType, Level plevel) {
         super(pEntityType, plevel);
-        xpReward = 0;
+//        if (!isWild()) {
+        xpReward = 25;
+//        } else xpReward = 25;
     }
 
-    public SummonedJiangshi(Level level, LivingEntity owner, boolean playRiseAnimation) {
+    public JiangshiEntity(Level level, LivingEntity owner, boolean playRiseAnimation) {
         this(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), level);
         setSummoner(owner);
         if (playRiseAnimation)
@@ -60,13 +66,16 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     }
 
     private int riseAnimTime = 45;
+//    private int corpseRiseTick = 20;
 
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2f, true));
         this.goalSelector.addGoal(7, new GenericFollowOwnerGoal(this, this::getSummoner, 0.6f, 15, 5, false, 30));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8d));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0f, 1.0f));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0f));
 
@@ -79,8 +88,8 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
 
     public static AttributeSupplier.Builder prepareAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0)
-                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.MAX_HEALTH, 50.0)
+                .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
                 .add(Attributes.STEP_HEIGHT, 4)
@@ -101,11 +110,15 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
         super.defineSynchedData(pBuilder);
         pBuilder.define(DATA_IS_ANIMATING_RISE, false);
+//        pBuilder.define(DATA_ANIMATING_CORPSE_RISE, false);
+//        pBuilder.define(DATA_IS_CORPSE_IDLE, true);
+//        pBuilder.define(DATA_IS_WILD, true);
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MFTEItemRegistries.JIANGSHI_HAT));
+        this.setDropChance(EquipmentSlot.HEAD, 0.75f);
 
         return pSpawnData;
     }
@@ -134,12 +147,15 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
 
     @Override
     public boolean doHurtTarget(Entity entity) {
+//        if (this.isWild()) {
+//            return super.doHurtTarget(entity);
+//        }
         return Utils.doMeleeAttack(this, entity, MFTESpellRegistries.JIANGSHI_INVOKE_SPELL.get().getDamageSource(this, getSummoner()));
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(source))) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && isAnimatingRise() || shouldIgnoreDamage(source)) {
             return false;
         }
         return super.hurt(source, amount);
@@ -155,7 +171,8 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
                 this.setXRot(0);
                 this.setOldPosAndRot();
             }
-        } else {
+        }
+        else {
             super.tick();
         }
     }
@@ -186,6 +203,25 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
         }
     }
 
+
+//    //Wild data
+//    public boolean isWild() {
+//        return entityData.get(DATA_IS_WILD);
+//    }
+//
+//    public boolean isCorpseAnimating() {
+//        return entityData.get(DATA_ANIMATING_CORPSE_RISE);
+//    }
+//
+//    public boolean isCorpseIdle() {
+//        return entityData.get(DATA_IS_CORPSE_IDLE);
+//    }
+//
+//    public void triggerCorpseRiseAnim() {
+//        entityData.set(DATA_IS_CORPSE_IDLE, false);
+//        entityData.set(DATA_ANIMATING_CORPSE_RISE, true);
+//    }
+
     public boolean isAnimatingRise() {
         return entityData.get(DATA_IS_ANIMATING_RISE);
     }
@@ -194,9 +230,10 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
         entityData.set(DATA_IS_ANIMATING_RISE, true);
     }
 
+    //Immune
     @Override
     public boolean isPushable() {
-        return super.isPushable() && isAnimatingRise();
+        return super.isPushable() && (isAnimatingRise());
     }
 
     @Override
@@ -209,11 +246,14 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "rise", 0, this::risePredicate));
         controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "hop", 0, this::movePredicate));
+//        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "corpse", 0, this::corpsePredicate));
     }
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private final RawAnimation animation = RawAnimation.begin().thenPlay("jiangshi_rise");
     private final RawAnimation animationHop = RawAnimation.begin().thenPlay("j_hop");
+    private final RawAnimation animationCorpseIdle = RawAnimation.begin().thenPlay("corpse_idle");
+    private final RawAnimation animationCorpseRise = RawAnimation.begin().thenPlay("corpse_rise");
 
     @Override
     public double getTick(Object o) {
@@ -237,6 +277,17 @@ public class SummonedJiangshi extends Zombie implements IMagicSummon, GeoAnimata
         }
         return PlayState.CONTINUE;
     }
+
+//    private PlayState corpsePredicate(software.bernie.geckolib.animation.AnimationState event) {
+//        if (this.isWild()) {
+//            if (isCorpseIdle())
+//                event.getController().setAnimation(animationCorpseIdle);
+//            if (isCorpseAnimating())
+//             event.getController().setAnimation(animationCorpseRise);
+//            return PlayState.CONTINUE;
+//        }
+//        return PlayState.STOP;
+//    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

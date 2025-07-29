@@ -22,7 +22,8 @@ public class MFTEDataPackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.PLACED_FEATURE, MFTEPlacedFeatures::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, MFTEBiomeModifiers::bootstrap)
             .add(Registries.DAMAGE_TYPE, MFTEDamageTypes::bootstrap)
-            .add(Registries.ENCHANTMENT, MFTEEnchantments::bootstrap);
+            .add(Registries.ENCHANTMENT, MFTEEnchantments::bootstrap)
+            .add(Registries.BANNER_PATTERN, MFTEBannerPatterns::bootstrap);
 
     public MFTEDataPackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of("minecraft", ISS_MagicFromTheEast.MOD_ID));

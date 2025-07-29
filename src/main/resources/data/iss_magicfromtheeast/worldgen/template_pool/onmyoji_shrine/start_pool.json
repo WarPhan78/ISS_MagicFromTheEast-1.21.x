@@ -1,0 +1,16 @@
+{
+  "name": "iss_magicfromtheeast:onmyoji_shrine_start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "iss_magicfromtheeast:onmyoji_shrine/torii_gate",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "irons_spellbooks:individual_terrain_element",
+        "terrain_adjustment": "beard_thin"
+      }
+    }
+  ]
+}

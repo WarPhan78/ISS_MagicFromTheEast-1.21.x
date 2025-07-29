@@ -1,0 +1,16 @@
+{
+  "name": "iss_magicfromtheeast:onmyoji_shrine/front_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "iss_magicfromtheeast:onmyoji_shrine/front_shrine",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "irons_spellbooks:individual_terrain_element",
+        "terrain_adjustment": "beard_thin"
+      }
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
@@ -24,10 +25,12 @@ import net.warphan.iss_magicfromtheeast.item.armor.JadePagodaArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
 import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
 import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
+import net.warphan.iss_magicfromtheeast.item.consumables.RiceWineBottleItem;
 import net.warphan.iss_magicfromtheeast.item.curios.RustedCoinsSword;
 import net.warphan.iss_magicfromtheeast.item.curios.SoulwardRing;
 import net.warphan.iss_magicfromtheeast.item.weapons.*;
 import net.warphan.iss_magicfromtheeast.setup.BloodfulRarity;
+import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
 import java.util.function.Supplier;
 
@@ -61,6 +64,9 @@ public class MFTEItemRegistries {
             () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE)));
     public static final DeferredHolder<Item, Item> CRYSTALLIZED_SOUL = ITEMS.register("crystallized_soul",
             () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE)));
+
+    public static final DeferredHolder<Item, Item> RICE_WINE_BOTTLE = ITEMS.register("rice_wine_bottle",
+            () -> new RiceWineBottleItem(ItemPropertiesHelper.material(4)));
 
     //Weapons
     public static final DeferredHolder<Item, Item> JADE_GUANDAO = ITEMS.register("jade_guandao",
@@ -165,6 +171,15 @@ public class MFTEItemRegistries {
             () -> new BlockItem(MFTEBlockRegistries.JADE_BLOCK.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> REFINED_JADE_BLOCK_ITEM = ITEMS.register("refined_jade_block",
             () -> new BlockItem(MFTEBlockRegistries.REFINED_JADE_BLOCK.get(), new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VASE_OF_RICE_WINE = ITEMS.register("vase_rice_wine",
+            () -> new BlockItem(MFTEBlockRegistries.RICE_WINE_VASE.get(), new Item.Properties().stacksTo(1)));
+
+    //Patterns
+    public static final Supplier<BannerPatternItem> BALANCE_PATTERN = ITEMS.register("balance_pattern", () -> new BannerPatternItem(MFTETags.BALANCE_PATTERN_ITEM, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+
+    //Spawn Eggs
+    public static final Supplier<DeferredSpawnEggItem> TAOIST_SPAWN_EGG = ITEMS.register("taoist_spawn_egg", () -> new DeferredSpawnEggItem(MFTEEntityRegistries.TAOIST, 0xdfff00, 0x222021, ItemPropertiesHelper.material().stacksTo(64)));
+    public static final Supplier<DeferredSpawnEggItem> ONMYOJI_SPAWN_EGG = ITEMS.register("onmyoji_spawn_egg", () -> new DeferredSpawnEggItem(MFTEEntityRegistries.ONMYOJI, 0xfbfbf9, 0x01ffff, ItemPropertiesHelper.material().stacksTo(64)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

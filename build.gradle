@@ -124,9 +124,6 @@ configurations {
 dependencies {
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
-    localRuntime "curse.maven:better-combat-by-daedelus-639842:5723092"
-    localRuntime "curse.maven:cloth-config-348521:5623420"
-
     implementation "dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}"
 
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:${geckolib_version}"

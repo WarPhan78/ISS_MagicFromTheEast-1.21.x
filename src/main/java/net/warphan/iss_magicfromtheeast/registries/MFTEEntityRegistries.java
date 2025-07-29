@@ -11,7 +11,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
-import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.onmyoji.OnmyojiEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.taoist.TaoistEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.bagua_array.BaguaCircle;
@@ -78,8 +80,8 @@ public class MFTEEntityRegistries {
                     .sized(0.3f, 0.3f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sword").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<SummonedJiangshi>> SUMMONED_JIANGSHI =
-            MFTE_ENTITIES.register("summoned_jiangshi", () -> EntityType.Builder.<SummonedJiangshi>of(SummonedJiangshi::new, MobCategory.MISC)
+    public static final DeferredHolder<EntityType<?>, EntityType<JiangshiEntity>> SUMMONED_JIANGSHI =
+            MFTE_ENTITIES.register("summoned_jiangshi", () -> EntityType.Builder.<JiangshiEntity>of(JiangshiEntity::new, MobCategory.MISC)
                     .sized(.6f, 1.8f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_jiangshi").toString()));
@@ -148,7 +150,21 @@ public class MFTEEntityRegistries {
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_bullet").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<PhantomCavalryVisualEntity>> PHANTOM_CAVALRY =
             MFTE_ENTITIES.register("phantom_cavalry", () -> EntityType.Builder.<PhantomCavalryVisualEntity>of(PhantomCavalryVisualEntity::new, MobCategory.MISC)
-                    .sized(1.2f, 1.2f)
+                    .sized(1.2f, 2.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "phantom_cavalry").toString()));
+
+    //MFTE WIZARDS
+    public static final DeferredHolder<EntityType<?>, EntityType<TaoistEntity>> TAOIST =
+            MFTE_ENTITIES.register("taoist", () -> EntityType.Builder.<TaoistEntity>of(TaoistEntity::new, MobCategory.MONSTER)
+                    .sized(.6f, 1.8f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "taoist").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<OnmyojiEntity>> ONMYOJI =
+            MFTE_ENTITIES.register("onmyoji", () -> EntityType.Builder.<OnmyojiEntity>of(OnmyojiEntity::new, MobCategory.MONSTER)
+                    .sized(.6f, 1.8f)
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "onmyoji").toString()));
+    //MFTE WIZARDS
+
 }

@@ -8,8 +8,10 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
-import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshi;
+import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
+import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.onmyoji.OnmyojiEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.taoist.TaoistEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
@@ -36,7 +38,7 @@ public class CommonSetup {
     @SubscribeEvent
     public static void onAttributeCreate(EntityAttributeCreationEvent event) {
 //        event.put(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinel.prepareAttributes().build());
-        event.put(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), SummonedJiangshi.prepareAttributes().build());
+        event.put(MFTEEntityRegistries.SUMMONED_JIANGSHI.get(), JiangshiEntity.prepareAttributes().build());
         event.put(MFTEEntityRegistries.JADE_EXECUTIONER.get(), JadeExecutionerEntity.prepareAttributes().build());
         event.put(MFTEEntityRegistries.SUMMON_CLOUD_ENTITY.get(), SummonCloudEntity.createAttributes().build());
 
@@ -45,5 +47,8 @@ public class CommonSetup {
         event.put(MFTEEntityRegistries.SUMMONED_KITSUNE.get(), SummonedKitsune.prepareAttributes().build());
         event.put(MFTEEntityRegistries.REVENANT.get(), SpiritSamuraiEntity.prepareAttributes().build());
         event.put(MFTEEntityRegistries.ASHIGARU.get(), SpiritAshigaruEntity.prepareAttributes().build());
+
+        event.put(MFTEEntityRegistries.TAOIST.get(), TaoistEntity.prepareAttributes().build());
+        event.put(MFTEEntityRegistries.ONMYOJI.get(), OnmyojiEntity.prepareAttributes().build());
     }
 }

@@ -83,6 +83,13 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE_BLOCK_ITEM.get());
                 entries.accept(MFTEItemRegistries.RAW_JADE_BLOCK_ITEM.get());
                 entries.accept(MFTEItemRegistries.REFINED_JADE_BLOCK_ITEM.get());
+                entries.accept(MFTEItemRegistries.VASE_OF_RICE_WINE.get());
+                entries.accept(MFTEItemRegistries.RICE_WINE_BOTTLE.get());
+
+                entries.accept(MFTEItemRegistries.TAOIST_SPAWN_EGG.get());
+                entries.accept(MFTEItemRegistries.ONMYOJI_SPAWN_EGG.get());
+
+                entries.accept(MFTEItemRegistries.BALANCE_PATTERN.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());
