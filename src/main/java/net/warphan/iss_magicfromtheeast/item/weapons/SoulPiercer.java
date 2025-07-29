@@ -112,7 +112,7 @@ public class SoulPiercer extends ProjectileWeaponItem {
 
     @Override
     public Predicate<ItemStack> getAllSupportedProjectiles() {
-        return null;
+        return ARROW_ONLY;
     }
 
     public int getDefaultProjectileRange() {
