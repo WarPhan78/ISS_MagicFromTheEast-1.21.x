@@ -1,6 +1,7 @@
 package net.warphan.iss_magicfromtheeast.entity.spells.summoned_cloud;
 
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.particle.FogParticleOptions;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
@@ -22,7 +23,6 @@ import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     public SummonCloudEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
@@ -35,8 +35,6 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
         setSummoner(caster);
     }
 
-    protected LivingEntity cachedSummoner;
-    protected UUID summonerUUID;
     int livingTick = -1;
 
     @Override
@@ -84,16 +82,9 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     }
 
     //Summon Stuffs
-    @Override
-    public LivingEntity getSummoner() {
-        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
-    }
-
     public void setSummoner(@Nullable LivingEntity owner) {
-        if (owner != null) {
-            this.summonerUUID = owner.getUUID();
-            this.cachedSummoner = owner;
-        }
+        if (owner == null) return;
+        SummonManager.setOwner(this, owner);
     }
 
     @Override
@@ -119,18 +110,6 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     @Override
     public boolean isAlliedTo(Entity entity) {
         return super.isAlliedTo(entity) || this.isAlliedHelper(entity);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.summonerUUID = OwnerHelper.deserializeOwner(compoundTag);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        OwnerHelper.serializeOwner(compoundTag, summonerUUID);
     }
 
     //Immunity

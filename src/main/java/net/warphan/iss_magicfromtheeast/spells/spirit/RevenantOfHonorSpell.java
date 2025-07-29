@@ -141,7 +141,7 @@ public class RevenantOfHonorSpell extends AbstractSpell {
     }
 
     private float getSamuraiHealth(int spellLevel, LivingEntity summoner) {
-        return 40 + spellPowerPerLevel * spellLevel * 2.5f;
+        return 50 + spellPowerPerLevel * spellLevel * 2.5f;
     }
 
     private float getSamuraiArmor(int spellLevel, LivingEntity summoner) {

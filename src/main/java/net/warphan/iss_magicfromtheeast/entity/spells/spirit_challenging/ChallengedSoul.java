@@ -60,11 +60,6 @@ public class ChallengedSoul extends LivingEntity implements GeoEntity, IMagicSum
         }
     }
 
-    @Override
-    public boolean shouldShowName() {
-        return false;
-    }
-
     //Attribute
     public static AttributeSupplier.Builder prepareAttributes() {
         return LivingEntity.createLivingAttributes()
@@ -95,6 +90,14 @@ public class ChallengedSoul extends LivingEntity implements GeoEntity, IMagicSum
     //Sounds, Hurt and Die
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.SOUL_ESCAPE.value();
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (shouldIgnoreDamage(source)) {
+            return false;
+        }
+        return super.hurt(source, amount);
     }
 
     @Override

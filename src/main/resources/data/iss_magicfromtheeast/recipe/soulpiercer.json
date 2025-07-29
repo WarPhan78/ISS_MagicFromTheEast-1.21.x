@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DCS",
+    "C S",
+    "DCS"
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "iss_magicfromtheeast:red_string"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:soulpiercer",
+    "count": 1
+  }
+}

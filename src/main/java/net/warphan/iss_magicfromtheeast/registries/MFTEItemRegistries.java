@@ -124,9 +124,9 @@ public class MFTEItemRegistries {
             () -> new UpgradeOrbItem(ItemPropertiesHelper.material().rarity(Rarity.UNCOMMON).component(ComponentRegistry.UPGRADE_ORB_TYPE, MFTEUpgradeOrbTypeRegistries.SPIRIT_SPELL_POWER)));
 
     //Taoist Set
-    public static final DeferredHolder<Item, Item> TAOIST_HAT = ITEMS.register("taoist_hat",
+    public static final DeferredHolder<Item, Item> TAOIST_HAT = ITEMS.register("taoist_helmet",
             () -> new TaoistArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(37))));
-    public static final DeferredHolder<Item, Item> TAOIST_ROBES = ITEMS.register("taoist_robes",
+    public static final DeferredHolder<Item, Item> TAOIST_ROBES = ITEMS.register("taoist_chestplate",
             () -> new TaoistArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
     public static final DeferredHolder<Item, Item> TAOIST_LEGGINGS = ITEMS.register("taoist_leggings",
             () -> new TaoistArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
@@ -134,13 +134,13 @@ public class MFTEItemRegistries {
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
     //Onmyoji Set
-    public static final DeferredHolder<Item, Item> ONMYOJI_HAT = ITEMS.register("onmyoji_hat",
+    public static final DeferredHolder<Item, Item> ONMYOJI_HAT = ITEMS.register("onmyoji_helmet",
             () -> new OnmyojiArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(37))));
-    public static final DeferredHolder<Item, Item> ONMYOJI_ROBES = ITEMS.register("onmyoji_robes",
+    public static final DeferredHolder<Item, Item> ONMYOJI_ROBES = ITEMS.register("onmyoji_chestplate",
             () -> new OnmyojiArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
     public static final DeferredHolder<Item, Item> ONMYOJI_LEGGINGS = ITEMS.register("onmyoji_leggings",
             () -> new OnmyojiArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
-    public static final DeferredHolder<Item, Item> ONMYOJI_GETA = ITEMS.register("onmyoji_geta",
+    public static final DeferredHolder<Item, Item> ONMYOJI_GETA = ITEMS.register("onmyoji_boots",
             () -> new OnmyojiArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
     //Armor

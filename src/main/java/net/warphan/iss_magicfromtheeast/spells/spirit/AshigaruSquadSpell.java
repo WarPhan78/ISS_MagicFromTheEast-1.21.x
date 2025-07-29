@@ -147,7 +147,7 @@ public class AshigaruSquadSpell extends AbstractSpell {
     }
 
     private float getAshigaruHealth(int spellLevel, LivingEntity summoner) {
-        return 15 + spellLevel * spellPowerPerLevel;
+        return 20 + spellLevel * spellPowerPerLevel;
     }
 
     private float getAshigaruArmor(int spellLevel, LivingEntity summoner) {

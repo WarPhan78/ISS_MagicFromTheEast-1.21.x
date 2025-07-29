@@ -2,20 +2,18 @@ package net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands;
 
 import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IAnimatedAttacker;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.AbstractSpellCastingMob;
 import io.redspace.ironsspellbooks.entity.mobs.goals.GenericCopyOwnerTargetGoal;
 import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtTargetGoal;
 import io.redspace.ironsspellbooks.entity.mobs.goals.melee.AttackAnimationData;
-import io.redspace.ironsspellbooks.util.OwnerHelper;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -37,7 +35,6 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntity, IMagicSummon, IAnimatedAttacker {
     private static final EntityDataAccessor<Boolean> DATA_IS_RISING = SynchedEntityData.defineId(BoneHandsEntity.class, EntityDataSerializers.BOOLEAN);
@@ -68,8 +65,6 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
             triggerRiseAnimation();
     }
 
-    protected UUID summonerUUID;
-    protected LivingEntity cachedSummoner;
     private int riseAnimTick = 20;
     private int retreatAnimTick = 20;
     public int duration;
@@ -80,33 +75,14 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
     }
 
     //Summon Stuffs
-    @Override
-    public LivingEntity getSummoner() {
-        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
-    }
-
-    public void setSummoner(@Nullable LivingEntity summoner) {
-        if (summoner != null) {
-            this.summonerUUID = summoner.getUUID();
-            this.cachedSummoner = summoner;
-        }
+    public void setSummoner(@Nullable LivingEntity owner) {
+        if (owner == null) return;
+        SummonManager.setOwner(this, owner);
     }
 
     @Override
     public boolean isAlliedTo(Entity entity) {
         return super.isAlliedTo(entity) || this.isAlliedHelper(entity);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.summonerUUID = OwnerHelper.deserializeOwner(pCompound);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        OwnerHelper.serializeOwner(pCompound, summonerUUID);
     }
 
     @Override

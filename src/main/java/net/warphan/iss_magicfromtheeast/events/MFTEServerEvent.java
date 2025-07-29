@@ -31,6 +31,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
@@ -174,6 +175,19 @@ public class MFTEServerEvent {
     }
 
     @SubscribeEvent
+    public static void spiritSamuraiAntiCounterSpell(CounterSpellEvent event) {
+        var target = event.target;
+        var caster = event.caster;
+        if (target instanceof SpiritSamuraiEntity samurai) {
+            if (caster != samurai.getSummoner()) {
+                event.setCanceled(true);
+                float percentDamage = samurai.getMaxHealth() / 3;
+                samurai.hurt(samurai.damageSources().generic(), percentDamage);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void drapeReflectionEvent(ProjectileImpactEvent event) {
         var ray = event.getRayTraceResult();
         var projectile = event.getProjectile();
@@ -187,12 +201,15 @@ public class MFTEServerEvent {
                 magicProjectile.setDamage(magicProjectile.getDamage() * jadeDrapes.percentReflectDamage);
             }
 
+            jadeDrapes.playSound(SoundEvents.ENDER_EYE_DEATH);
             projectile.setDeltaMovement(reflectionVec);
             }
 
             //For some special case
             if (projectile.getOwner() == null) {
                 projectile.setOwner(jadeDrapes.getSummoner());
+
+                jadeDrapes.playSound(SoundEvents.ENDER_EYE_DEATH);
                 projectile.setDeltaMovement(projectile.getDeltaMovement().reverse());
             }
         }

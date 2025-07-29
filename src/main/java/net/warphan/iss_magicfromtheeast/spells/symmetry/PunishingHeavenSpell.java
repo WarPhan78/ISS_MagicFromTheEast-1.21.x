@@ -135,7 +135,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     private float getExecutionerDamage(int spellLevel, LivingEntity summoner) {
-        return 12 + ((spellPowerPerLevel - 1) * spellLevel);
+        return 8 + ((spellPowerPerLevel - 1) * spellLevel);
     }
 
     private float getExecutionerHealth(int spellLevel, LivingEntity summoner) {
@@ -143,7 +143,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     private float getExecutionerArmor(int spellLevel, LivingEntity summoner) {
-        return (float) 14.0 + (spellLevel * 2);
+        return (float) 10.0 + (spellLevel * 2);
     }
 
     @Override

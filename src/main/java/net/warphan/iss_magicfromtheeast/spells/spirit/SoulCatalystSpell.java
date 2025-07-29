@@ -33,7 +33,7 @@ public class SoulCatalystSpell extends AbstractSpell {
 
     public SoulCatalystSpell() {
         this.manaCostPerLevel = 5;
-        this.baseSpellPower = 1;
+        this.baseSpellPower = 3;
         this.spellPowerPerLevel = 1;
         this.castTime = 0;
         this.baseManaCost = 35;
@@ -74,7 +74,7 @@ public class SoulCatalystSpell extends AbstractSpell {
 
     @Override
     public int getRecastCount(int spellLevel, @Nullable LivingEntity caster) {
-        return 1 + spellLevel;
+        return 2 + spellLevel / 2;
     }
 
     @Override

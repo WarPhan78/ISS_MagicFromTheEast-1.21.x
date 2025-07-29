@@ -190,6 +190,21 @@
           "chance": 0.1
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "iss_magicfromtheeast:soulward_ring"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.33
+        }
+      ]
     }
   ]
 }

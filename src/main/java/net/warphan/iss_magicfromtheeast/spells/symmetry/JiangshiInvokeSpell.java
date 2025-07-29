@@ -143,7 +143,7 @@ public class JiangshiInvokeSpell extends AbstractSpell {
     }
 
     private float getJiangshiDamage(int spellLevel, LivingEntity summoner) {
-        return 2 + spellLevel * 2;
+        return 2 + spellLevel;
     }
 
     private float getJiangshiHealth(int spellLevel, LivingEntity summoner) {

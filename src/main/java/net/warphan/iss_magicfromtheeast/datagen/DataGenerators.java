@@ -22,5 +22,6 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider =  event.getLookupProvider();
 
         generator.addProvider(event.includeServer(), new MFTEDataPackProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new MFTERecipeProvider(packOutput, lookupProvider));
     }
 }

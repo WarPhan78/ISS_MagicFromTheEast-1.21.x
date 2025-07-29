@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": [],
+  "base": {
+    "item": "irons_spellbooks:wizard_helmet"
+  },
+  "result": {
+    "count": 1,
+    "id": "iss_magicfromtheeast:taoist_helmet"
+  },
+  "template": {
+    "item": "iss_magicfromtheeast:symmetry_rune"
+  }
+}

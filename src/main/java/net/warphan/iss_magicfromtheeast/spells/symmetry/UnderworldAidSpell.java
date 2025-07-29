@@ -47,11 +47,11 @@ public class UnderworldAidSpell extends AbstractSpell {
             .build();
 
     public UnderworldAidSpell() {
-        this.manaCostPerLevel = 40;
+        this.manaCostPerLevel = 90;
         this.baseSpellPower = 1;
         this.spellPowerPerLevel = 1;
         this.castTime = 40;
-        this.baseManaCost = 40;
+        this.baseManaCost = 180;
     }
 
     @Override
