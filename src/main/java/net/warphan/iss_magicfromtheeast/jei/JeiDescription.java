@@ -20,6 +20,7 @@ public class JeiDescription implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addItemStackInfo(new ItemStack(MFTEItemRegistries.RAW_JADE.get()), Component.translatable("item.iss_magicfromtheeast.raw_jade.guide"));
         registration.addItemStackInfo(new ItemStack(MFTEItemRegistries.BOTTLE_OF_SOULS.get()), Component.translatable("item.iss_magicfromtheeast.bottle_of_souls.guide"));
+        registration.addItemStackInfo(new ItemStack(MFTEItemRegistries.CRYSTALLIZED_SOUL.get()), Component.translatable("item.iss_magicfromtheeast.crystallized_soul.guide"));
 
         registration.addItemStackInfo(new ItemStack(MFTEItemRegistries.REPEATING_CROSSBOW.get()), Component.translatable("item.iss_magicfromtheeast.repeating_crossbow.guide"));
     }

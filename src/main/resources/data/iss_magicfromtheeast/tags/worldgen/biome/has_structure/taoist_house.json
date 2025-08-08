@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "minecraft:bamboo_jungle",
-    "minecraft:sparse_jungle"
+    "minecraft:sparse_jungle",
+    {
+      "id": "regions_unexplored:bamboo_forest",
+      "required": false
+    }
   ]
 }

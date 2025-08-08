@@ -176,8 +176,9 @@
   "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
 
-  "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting, however",
-  "item.iss_magicfromtheeast.bottle_of_souls.guide": "Obtained by using empty bottle on soul fire",
+  "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting.",
+  "item.iss_magicfromtheeast.bottle_of_souls.guide": "Obtained by using empty bottle on soul fire, can be filled in Alchemist Cauldron.",
+  "item.iss_magicfromtheeast.crystallized_soul.guide": "Obtained by soaking an Echo Shard in an Alchemist Cauldron full of Soul liquid.",
 
   "item.iss_magicfromtheeast.repeating_crossbow.guide": "Need to be charged two time. Caution: this item is functional but not as its max, may appear some harmless issue while in use",
 
