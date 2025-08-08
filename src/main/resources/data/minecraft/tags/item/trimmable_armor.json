@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [],
+  "remove": [
+    "#iss_magicfromtheeast:armors/boots",
+    "#iss_magicfromtheeast:armors/leggings",
+    "#iss_magicfromtheeast:armors/chestplates",
+    "#iss_magicfromtheeast:armors/helmets"
+  ]
+}

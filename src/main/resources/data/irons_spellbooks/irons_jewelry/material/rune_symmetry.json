@@ -1,0 +1,18 @@
+{
+  "descriptionId": "material.iss_magicfromtheeast.rune_symmetry",
+  "ingredient": {
+    "item": "iss_magicfromtheeast:symmetry_rune"
+  },
+  "materialType": [
+    "spellbooks_rune"
+  ],
+  "paletteLocation": "iss_magicfromtheeast:palettes/rune_symmetry",
+  "quality": 1.5,
+  "bonusParameters": {
+    "irons_jewelry:attribute": {
+      "attribute": "iss_magicfromtheeast:symmetry_spell_power",
+      "amount": 0.025,
+      "operation": "add_multiplied_total"
+    }
+  }
+}

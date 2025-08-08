@@ -135,9 +135,13 @@
   "item.iss_magicfromtheeast.onmyoji_spawn_egg": "Onmyoji Spawn Egg",
 
   "enchantment.iss_magicfromtheeast.soul_flame": "Soul Flame",
+  "enchantment.iss_magicfromtheeast.soul_flame.desc": "Inflict Soulburn effect on spirit arrow hit.",
   "enchantment.iss_magicfromtheeast.ghostly_cold": "Ghostly Cold",
+  "enchantment.iss_magicfromtheeast.ghostly_cold.desc": "Freeze targets on spirit arrow hit.",
   "enchantment.iss_magicfromtheeast.spiritual_focus": "Spiritual Focus",
+  "enchantment.iss_magicfromtheeast.spiritual_focus.desc": "Increase the damaged scaling of spirit arrow based on you Spirit Spell Power.",
   "enchantment.iss_magicfromtheeast.wisely_will": "Wisely Will",
+  "enchantment.iss_magicfromtheeast.wisely_will.desc": "Reduce the mana cost per shot.",
   "enchantment.iss_magicfromtheeast.expanding": "Expanding",
 
   "block.iss_magicfromtheeast.jade_ore": "Jade Ore",
@@ -205,5 +209,10 @@
   "death.attack.iss_magicfromtheeast.revenant_of_honor": "%1$s wasn't escaped from the blade of %2$s's revenant",
   "death.attack.iss_magicfromtheeast.phantom_charge": "%1$s was crushed under the march of %2$s's horseman",
 
-  "fluid_type.iss_magicfromtheeast.soul": "Soul"
+  "fluid_type.iss_magicfromtheeast.soul": "Soul",
+
+  "material.iss_magicfromtheeast.crystallized_soul": "Crystallized Soul",
+  "material.iss_magicfromtheeast.refined_jade": "Refined Jade",
+  "material.iss_magicfromtheeast.rune_symmetry": "Symmetry Rune",
+  "material.iss_magicfromtheeast.rune_spirit": "Spirit Rune"
 }

@@ -1,0 +1,37 @@
+{
+  "descriptionId": "material.iss_magicfromtheeast.refined_jade",
+  "ingredient": {
+    "tag": "c:ingots/refined_jade"
+  },
+  "materialType": [
+    "metal"
+  ],
+  "paletteLocation": "iss_magicfromtheeast:palettes/refined_jade",
+  "quality": 2.5,
+  "bonusParameters": {
+    "irons_jewelry:attribute": {
+      "attribute": "minecraft:generic.armor_toughness",
+      "amount": 2,
+      "operation": "add_value"
+    },
+    "irons_jewelry:positive_effect": {
+      "effect": "minecraft:resistance"
+    },
+    "irons_jewelry:negative_effect": {
+      "effect": "minecraft:weakness"
+    },
+    "irons_jewelry:action": {
+      "targetSelf": true,
+      "action": {
+        "type": "irons_jewelry:apply_effect",
+        "duration": 60,
+        "amplifier": {
+          "base": 0,
+          "scalar": 1,
+          "max": 2
+        },
+        "effect": "minecraft:absorption"
+      }
+    }
+  }
+}

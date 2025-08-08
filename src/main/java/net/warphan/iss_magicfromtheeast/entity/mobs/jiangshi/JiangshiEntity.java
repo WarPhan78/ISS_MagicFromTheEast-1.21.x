@@ -93,7 +93,8 @@ public class JiangshiEntity extends Zombie implements IMagicSummon, GeoAnimatabl
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
                 .add(Attributes.STEP_HEIGHT, 4)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.8);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.8)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0);
     }
 
     @Override
