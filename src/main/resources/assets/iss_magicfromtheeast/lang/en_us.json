@@ -31,7 +31,7 @@
   "spell.iss_magicfromtheeast.drapes_of_reflection": "Drapes Of Reflection",
   "spell.iss_magicfromtheeast.drapes_of_reflection.guide": "Create a magical Jade Drape, deflect any projectile hit it",
   "spell.iss_magicfromtheeast.cloud_ride": "Cloud Ride",
-  "spell.iss_magicfromtheeast.cloud_ride.guide": "Summon a Magical Cloud that can be ridden on for a moment, press Z button to fly down and SPACE to fly up",
+  "spell.iss_magicfromtheeast.cloud_ride.guide": "Summon a Magical Cloud that can be ridden on for a moment",
 
   "spell.iss_magicfromtheeast.soul_catalyst": "Soul Catalyst",
   "spell.iss_magicfromtheeast.soul_catalyst.guide": "Firing soul skulls at targets, burns their souls on hit",
@@ -59,7 +59,7 @@
   "item.iss_magicfromtheeast.bottle_of_souls": "Bottle Of Souls",
   "item.iss_magicfromtheeast.arcane_relics": "Arcane Relics",
   "item.iss_magicfromtheeast.red_string": "Red String",
-  "item.iss_magicfromtheeast.copper_coins": "Copper Coins",
+  "item.iss_magicfromtheeast.copper_coins": "Line of Coins",
   "item.iss_magicfromtheeast.yin_yang_core": "Yin Yang Core",
   "item.iss_magicfromtheeast.red_shaft": "Red Shaft",
   "item.iss_magicfromtheeast.rice_wine_bottle": "Rice Wine Bottle",
@@ -187,6 +187,8 @@
   "ui.iss_magicfromtheeast.armor": "%d Armor",
   "ui.iss_magicfromtheeast.reflect_damage_percent": "%d%% Damage Reflect",
   "ui.iss_magicfromtheeast.row_length": "%d Horseman",
+
+  "key.iss_magicfromtheeast.general": "Magic From The East",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",

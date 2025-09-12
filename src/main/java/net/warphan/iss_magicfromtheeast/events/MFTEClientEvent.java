@@ -9,6 +9,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 
 @EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value =  Dist.CLIENT)
 public class MFTEClientEvent {
+
     @SubscribeEvent
     public static void onComputeFovModifierEvent(ComputeFovModifierEvent event) {
         if(event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().getItem() == MFTEItemRegistries.SOULPIERCER.get()) {
@@ -24,4 +25,5 @@ public class MFTEClientEvent {
             event.setNewFovModifier(fovModifier);
         }
     }
+
 }

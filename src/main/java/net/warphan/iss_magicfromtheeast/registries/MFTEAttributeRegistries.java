@@ -1,5 +1,6 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
+import io.redspace.ironsspellbooks.api.attribute.MagicPercentAttribute;
 import io.redspace.ironsspellbooks.api.attribute.MagicRangedAttribute;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -41,12 +42,12 @@ public class MFTEAttributeRegistries {
     }
 
     private static DeferredHolder<Attribute, Attribute> newResistanceAttribute(String id) {
-        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_magic_resist", () -> (new MagicRangedAttribute("attribute.iss_magicfromtheeast." + id + "_magic_resist",
-                1.0D, 0,10).setSyncable(true)));
+        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_magic_resist", () -> (new MagicPercentAttribute("attribute.iss_magicfromtheeast." + id + "_magic_resist",
+                1.0D, -100,100).setSyncable(true)));
     }
 
     private static DeferredHolder<Attribute, Attribute> newPowerAttribute(String id) {
-        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_spell_power", () -> (new MagicRangedAttribute("attribute.iss_magicfromtheeast." + id + "_spell_power",
-                1.0D, 0, 10).setSyncable(true)));
+        return (DeferredHolder<Attribute, Attribute>) ATTRIBUTES.register(id + "_spell_power", () -> (new MagicPercentAttribute("attribute.iss_magicfromtheeast." + id + "_spell_power",
+                1.0D, -100, 100).setSyncable(true)));
     }
 }

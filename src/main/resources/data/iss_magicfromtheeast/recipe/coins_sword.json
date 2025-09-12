@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "MRC",
-    "RCR",
-    "CRM"
+    " MC",
+    "RCM",
+    "CR "
   ],
   "key": {
     "M": {

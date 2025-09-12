@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "neoforge:separate_transforms",
   "base": {
-    "parent": "iss_magicfromtheeast:item/muramasa_model",
+    "parent": "irons_spellbooks:item/template_large_sword",
     "textures": {
       "layer0": "iss_magicfromtheeast:item/muramasa"
     }
@@ -11,7 +11,7 @@
     "gui": {
       "parent": "minecraft:item/handheld",
       "textures": {
-        "layer0": "iss_magicfromtheeast:item/muramasa_ui"
+        "layer0": "iss_magicfromtheeast:item/muramasa_gui"
       }
     }
   }

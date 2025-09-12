@@ -1,9 +1,7 @@
 package net.warphan.iss_magicfromtheeast;
 
-import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.warphan.iss_magicfromtheeast.registries.*;
-import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import net.warphan.iss_magicfromtheeast.setup.ModSetup;
 import net.warphan.iss_magicfromtheeast.util.MFTEItemProperties;
 import org.jetbrains.annotations.NotNull;
@@ -19,8 +17,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-
-import java.util.function.Consumer;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ISS_MagicFromTheEast.MOD_ID)
@@ -50,11 +46,6 @@ public class ISS_MagicFromTheEast {
         MFTELootRegistries.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    static void registerKeyBindings(Consumer<KeyMapping> registrar) {
-        KeyMappings.registerKeybinds(registrar);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

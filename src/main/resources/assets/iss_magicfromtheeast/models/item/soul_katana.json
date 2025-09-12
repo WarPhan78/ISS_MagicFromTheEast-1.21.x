@@ -2,16 +2,16 @@
   "parent": "minecraft:item/handheld",
   "loader": "neoforge:separate_transforms",
   "base": {
-    "parent": "iss_magicfromtheeast:item/soul_katana_model",
+    "parent": "irons_spellbooks:item/template_large_sword",
     "textures": {
-      "layer0": "iss_magicfromtheeast:item/soul_katana"
+      "layer0": "iss_magicfromtheeast:item/masamune"
     }
   },
   "perspectives": {
     "gui": {
       "parent": "minecraft:item/handheld",
       "textures": {
-        "layer0": "iss_magicfromtheeast:item/soul_katana_ui"
+        "layer0": "iss_magicfromtheeast:item/masamune_gui"
       }
     }
   }

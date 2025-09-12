@@ -4,9 +4,7 @@ import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.particle.FogParticleOptions;
-import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
-import net.warphan.iss_magicfromtheeast.setup.KeyMappings;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -67,7 +64,6 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
 
     @Override
     public void tick() {
-        super.tick();
         livingTick--;
         if (livingTick == 0) {
             this.discard();
@@ -75,6 +71,7 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
         if (!level.isClientSide) {
             MagicManager.spawnParticles(level, new FogParticleOptions(new Vector3f(198 / 255f, 1f, 226 / 255f), 0.4f), this.getX(), this.getY() - 0.25f, this.getZ(), 1, 0.4, - 0.2, 0.4, 2.0, false);
         }
+        super.tick();
     }
 
     public void setLivingTick(int livingTick) {
@@ -191,8 +188,9 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
             f1 *= 0.25F;
         }
 
-        if (KeyMappings.FLIGHT_ASCENT_KEY.isDown()) f2 = 1;
-        else if (KeyMappings.FLIGHT_DESCENT_KEY.isDown() && !this.onGround()) f2 = -1;
+        if (f1 > 0) {
+            f2 = player.getLookAngle().y;
+        }
 
         return new Vec3(f, f2, f1);
     }

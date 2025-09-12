@@ -64,7 +64,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
         Vec3 pos = this.getBoundingBox().getCenter().add(getDeltaMovement());
         pos = pos.add(getDeltaMovement());
 
-        level.addParticle(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 0, 0, 0);
+        level.addParticle(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y - 0.25f, pos.z, 0, 0, 0);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
 
     @Override
     public float getSpeed() {
-        return 48f;
+        return 64f;
     }
 
     int onWorldTick = -1;
@@ -90,13 +90,13 @@ public class SpiritArrow extends AbstractMagicProjectile {
             Vec3 pos = this.getBoundingBox().getCenter().add(getDeltaMovement());
             pos = pos.add(getDeltaMovement());
 
-            level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, 0, 0, 0);
+            level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y - 0.25f, pos.z, 0, 0, 0);
         }
         if (this.entityData.get(GHOSTLY_COLD)) {
             Vec3 pos = this.getBoundingBox().getCenter().add(getDeltaMovement());
             pos = pos.add(getDeltaMovement());
 
-            level.addParticle(ParticleTypes.SNOWFLAKE, pos.x, pos.y, pos.z, 0, 0, 0);
+            level.addParticle(ParticleTypes.SNOWFLAKE, pos.x, pos.y - 0.25f, pos.z, 0, 0, 0);
         }
     }
 

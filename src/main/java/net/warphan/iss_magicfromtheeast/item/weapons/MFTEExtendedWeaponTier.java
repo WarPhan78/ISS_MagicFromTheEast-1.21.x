@@ -19,10 +19,10 @@ import java.util.function.Supplier;
 
 public class MFTEExtendedWeaponTier implements Tier, IronsWeaponTier {
 
-    public static MFTEExtendedWeaponTier JADE_GUANDAO = new MFTEExtendedWeaponTier(2031, 10, -2.5f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.REFINED_JADE_INGOT.get()), new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 1, AttributeModifier.Operation.ADD_VALUE));
-    public static MFTEExtendedWeaponTier SOUL_BREAKER = new MFTEExtendedWeaponTier(1561, 3, -3.0f, 10, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.CRYSTALLIZED_SOUL.get()), new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-    public static MFTEExtendedWeaponTier MURAMASA = new MFTEExtendedWeaponTier(2031, 7, -2.0f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistry.BLOOD_RUNE.get()), new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-    public static MFTEExtendedWeaponTier SOUL_KATANA = new MFTEExtendedWeaponTier(2031, 6.5f, -1.8f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.SPIRIT_RUNE.get()), new AttributeContainer(MFTEAttributeRegistries.SPIRIT_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+    public static MFTEExtendedWeaponTier JADE_GUANDAO = new MFTEExtendedWeaponTier(2031, 11, -2.5f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.REFINED_JADE_INGOT.get()), new AttributeContainer(Attributes.ARMOR_TOUGHNESS, 1, AttributeModifier.Operation.ADD_VALUE));
+    public static MFTEExtendedWeaponTier SOUL_BREAKER = new MFTEExtendedWeaponTier(1561, 3, -2.3f, 10, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.CRYSTALLIZED_SOUL.get()), new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+    public static MFTEExtendedWeaponTier MURAMASA = new MFTEExtendedWeaponTier(2031, 7, -2.0f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistry.BLOOD_RUNE.get()), new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+    public static MFTEExtendedWeaponTier SOUL_KATANA = new MFTEExtendedWeaponTier(2031, 6.5f, -1.9f, 12, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, () -> Ingredient.of(MFTEItemRegistries.SPIRIT_RUNE.get()), new AttributeContainer(MFTEAttributeRegistries.SPIRIT_SPELL_POWER, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 
     int uses;
     float damage;

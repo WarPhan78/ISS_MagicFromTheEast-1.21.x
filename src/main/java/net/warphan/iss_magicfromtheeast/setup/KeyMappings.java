@@ -1,23 +1,23 @@
-package net.warphan.iss_magicfromtheeast.setup;
-
-import net.minecraft.client.KeyMapping;
-import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import org.lwjgl.glfw.GLFW;
-
-import java.util.function.Consumer;
-
-public class KeyMappings {
-    public static final KeyMapping FLIGHT_DESCENT_KEY = keyMapping("flight descend", GLFW.GLFW_KEY_Z, "key.categories.movement");
-    public static final KeyMapping FLIGHT_ASCENT_KEY = keyMapping("flight_ascent", GLFW.GLFW_KEY_SPACE, "key.categories.movement");
-
-    @SuppressWarnings({"ConstantConditions"})
-    private static KeyMapping keyMapping(String name, int defaultMapping, String category)
-    {
-        return new KeyMapping(String.format("key.%s.%s", ISS_MagicFromTheEast.MOD_ID, name), defaultMapping, category);
-    }
-
-    public static void registerKeybinds(Consumer<KeyMapping> registrar) {
-        registrar.accept(FLIGHT_DESCENT_KEY);
-        registrar.accept(FLIGHT_ASCENT_KEY);
-    }
-}
+//package net.warphan.iss_magicfromtheeast.setup;
+//
+//import com.mojang.blaze3d.platform.InputConstants;
+//import net.minecraft.client.KeyMapping;
+//import net.neoforged.api.distmarker.Dist;
+//import net.neoforged.bus.api.SubscribeEvent;
+//import net.neoforged.fml.common.EventBusSubscriber;
+//import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+//import net.neoforged.neoforge.client.settings.KeyConflictContext;
+//import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+//
+//@EventBusSubscriber(value = Dist.CLIENT, modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+//public class KeyMappings {
+//    public static final String KEY_BIND_GENERAL_CATEGORY = "key.iss_magicfromtheeast.general";
+//
+//    private static String getResourceName(String name) {
+//        return String.format("key.iss_magicfromtheeast.%s", name);
+//    }
+//
+//    @SubscribeEvent
+//    public static void registerKeybinds(RegisterKeyMappingsEvent event) {
+//    }
+//}
