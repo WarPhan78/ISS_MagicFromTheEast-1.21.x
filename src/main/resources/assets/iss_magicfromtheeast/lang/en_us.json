@@ -72,7 +72,10 @@
 
   "item.iss_magicfromtheeast.jade_guandao": "Jade Guandao",
   "item.iss_magicfromtheeast.soul_breaker": "Soul Breaker",
-  "item.iss_magicfromtheeast.soul_breaker.description": "Deal 5 extra magic damage on hit",
+  "item.iss_magicfromtheeast.soul_breaker.description": "Deal 3 extra soul damage on hit, apply Slowness when target's health lower than 60%",
+
+  "item.iss_magicfromtheeast.spirit_crusher": "Spirit Crusher",
+  "item.iss_magicfromtheeast.spirit_crusher.description": "Deal bonus soul damage based on target's max health, apply Slowness and Weakness when target's health lower than 30%",
   "item.iss_magicfromtheeast.muramasa": "Muramasa",
   "item.iss_magicfromtheeast.soul_katana": "Masamune",
 
@@ -92,6 +95,7 @@
   "item.iss_magicfromtheeast.taoist_chestplate": "Taoist Robes",
   "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate": "Elemental Commander Robes",
 
   "item.iss_magicfromtheeast.onmyoji_helmet": "Onmyoji Hat",
   "item.iss_magicfromtheeast.onmyoji_chestplate": "Onmyoji Robes",
@@ -193,6 +197,8 @@
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",
   "death.attack.dune_magic": "%1$s was corroded by %2$s's dune magic",
+  "death.attack.soul_damage": "%1$s now is a soulless corpse",
+  "death.attack.spirit_arrow": "%1$s's soul was pierced by %2$s spirit arrows",
 
   "death.attack.iss_magicfromtheeast.sword_dance": "%1$s was pierced by %2$s force swords",
   "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s couldn't resist to %2$s's push force",

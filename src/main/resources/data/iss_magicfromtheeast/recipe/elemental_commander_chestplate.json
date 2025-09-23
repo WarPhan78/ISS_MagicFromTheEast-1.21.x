@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WBW",
+    "LAY",
+    "BDB"
+  ],
+  "key": {
+    "A": {
+      "item": "iss_magicfromtheeast:taoist_chestplate"
+    },
+    "D": {
+      "item": "irons_spellbooks:divine_soulshard"
+    },
+    "W": {
+      "item": "irons_spellbooks:mithril_weave"
+    },
+    "B": {
+      "item": "irons_spellbooks:bloody_vellum"
+    },
+    "L": {
+      "item": "iss_magicfromtheeast:copper_coins"
+    },
+    "Y": {
+      "item": "iss_magicfromtheeast:yin_yang_core"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:elemental_commander_chestplate",
+    "count": 1
+  }
+}

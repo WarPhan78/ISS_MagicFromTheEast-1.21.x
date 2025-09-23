@@ -1,6 +1,8 @@
-// 1.21.1	2025-07-24T04:15:32.2308988	Registries
+// 1.21.1	2025-09-17T18:23:33.3229736	Registries
 bde464f9f7a39cec4582ed079f7ffd23a463b155 data/iss_magicfromtheeast/banner_pattern/balance.json
 d8997b9cdbb09b2e29b6cd043f99652b924d41dd data/iss_magicfromtheeast/damage_type/dune_magic.json
+c3da953c9ea6ab986b5774fb885483c07b3bc9de data/iss_magicfromtheeast/damage_type/soul_damage.json
+c659d7915d8dce0d57f53c8ea59679e79ddc70aa data/iss_magicfromtheeast/damage_type/spirit_arrow.json
 43e22e42dd4c310552c4d1d9aff2788dac55f7b5 data/iss_magicfromtheeast/damage_type/spirit_magic.json
 b57f8890d70effc78a338acbdfccf2f6257e5aa8 data/iss_magicfromtheeast/damage_type/symmetry_magic.json
 b24c78347fa816872bbebde4d85f39029d46479b data/iss_magicfromtheeast/enchantment/ghostly_cold.json

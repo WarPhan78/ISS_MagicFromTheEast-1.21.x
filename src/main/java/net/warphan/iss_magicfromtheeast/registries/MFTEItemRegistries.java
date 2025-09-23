@@ -21,10 +21,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.compat.MFTECurios;
 import net.warphan.iss_magicfromtheeast.item.RitualOrihonSpellbookItem;
-import net.warphan.iss_magicfromtheeast.item.armor.JadePagodaArmorItem;
-import net.warphan.iss_magicfromtheeast.item.armor.JiangshiHatItem;
-import net.warphan.iss_magicfromtheeast.item.armor.OnmyojiArmorItem;
-import net.warphan.iss_magicfromtheeast.item.armor.TaoistArmorItem;
+import net.warphan.iss_magicfromtheeast.item.armor.*;
 import net.warphan.iss_magicfromtheeast.item.consumables.RiceWineBottleItem;
 import net.warphan.iss_magicfromtheeast.item.curios.RustedCoinsSword;
 import net.warphan.iss_magicfromtheeast.item.curios.SoulwardRing;
@@ -73,7 +70,10 @@ public class MFTEItemRegistries {
             () -> new MagicSwordItem(MFTEExtendedWeaponTier.JADE_GUANDAO, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.JADE_GUANDAO)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(MFTESpellRegistries.SWORD_DANCE_SPELL, 8))));
     public static final DeferredHolder<Item, Item> SOUL_BREAKER = ITEMS.register("soul_breaker",
-            () -> new SoulBreakerItem(MFTEExtendedWeaponTier.SOUL_BREAKER, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_BREAKER))));
+            () -> new SoulBreakerItem(MFTEExtendedWeaponTier.SOUL_BREAKER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_BREAKER))));
+
+    public static final DeferredHolder<Item, Item> SPIRIT_CRUSHER = ITEMS.register("spirit_crusher",
+            () -> new SpiritCrusherItem(MFTEExtendedWeaponTier.SPIRIT_CRUSHER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SPIRIT_CRUSHER))));
     public static final DeferredHolder<Item, Item> MURAMASA = ITEMS.register("muramasa",
             () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(BloodfulRarity.BLOODFUL_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(SpellRegistry.BLOOD_SLASH_SPELL, 5))));
@@ -132,6 +132,9 @@ public class MFTEItemRegistries {
             () -> new TaoistArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
     public static final DeferredHolder<Item, Item> TAOIST_BOOTS = ITEMS.register("taoist_boots",
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
+
+    public static final DeferredHolder<Item, Item> ELEMENTAL_COMMANDER_CHESTPLATE = ITEMS.register("elemental_commander_chestplate",
+            () -> new ElementalCommanderArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).rarity(Rarity.EPIC).fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
 
     //Onmyoji Set
     public static final DeferredHolder<Item, Item> ONMYOJI_HAT = ITEMS.register("onmyoji_helmet",

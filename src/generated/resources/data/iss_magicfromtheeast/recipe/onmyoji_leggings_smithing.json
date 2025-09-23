@@ -1,14 +1,16 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": [],
+  "addition": {
+    "item": "irons_spellbooks:arcane_essence"
+  },
   "base": {
     "item": "irons_spellbooks:wizard_leggings"
   },
   "result": {
     "count": 1,
-    "id": "iss_magicfromtheeast:taoist_leggings"
+    "id": "iss_magicfromtheeast:onmyoji_leggings"
   },
   "template": {
-    "item": "iss_magicfromtheeast:symmetry_rune"
+    "item": "iss_magicfromtheeast:spirit_rune"
   }
 }

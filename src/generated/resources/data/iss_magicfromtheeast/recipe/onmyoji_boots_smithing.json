@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": [],
+  "addition": {
+    "item": "irons_spellbooks:arcane_essence"
+  },
   "base": {
     "item": "irons_spellbooks:wizard_boots"
   },

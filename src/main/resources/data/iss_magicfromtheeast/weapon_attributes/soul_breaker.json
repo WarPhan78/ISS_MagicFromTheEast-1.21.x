@@ -1,11 +1,12 @@
 {
   "attributes": {
-    "attack_range": 2.5,
+    "attack_range": 2.3,
+    "two_handed": false,
     "category": "mace",
     "attacks": [
       {
         "hitbox": "HORIZONTAL_PLANE",
-        "damage_multiplier": 0.7,
+        "damage_multiplier": 0.9,
         "angle": 150,
         "upswing": 0.5,
         "animation": "bettercombat:one_handed_slash_horizontal_right",
@@ -15,7 +16,7 @@
       },
       {
         "hitbox": "HORIZONTAL_PLANE",
-        "damage_multiplier": 0.7,
+        "damage_multiplier": 0.9,
         "angle": 150,
         "upswing": 0.5,
         "animation": "bettercombat:one_handed_slash_horizontal_left",
@@ -26,7 +27,7 @@
       {
         "conditions": ["DUAL_WIELDING_SAME_CATEGORY", "MAIN_HAND_ONLY"],
         "hitbox": "VERTICAL_PLANE",
-        "damage_multiplier": 4.0,
+        "damage_multiplier": 2.0,
         "angle": 180,
         "upswing": 0.5,
         "animation": "bettercombat:dual_handed_slash_uncross",

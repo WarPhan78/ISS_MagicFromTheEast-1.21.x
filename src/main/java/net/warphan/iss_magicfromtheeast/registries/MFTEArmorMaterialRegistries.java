@@ -1,5 +1,6 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
+import io.redspace.ironsspellbooks.util.ModTags;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -32,6 +33,14 @@ public class MFTEArmorMaterialRegistries {
             2.0f,
             0.05f);
 
+    public static DeferredHolder<ArmorMaterial, ArmorMaterial> ELEMENTAL_COMMANDER = register("elemental",
+            magicArmorMap(),
+            40,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.of(ModTags.MITHRIL_INGOT),
+            0,
+            0f);
+
     private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(
             String name,
             EnumMap<ArmorItem.Type, Integer> defense,
@@ -53,5 +62,9 @@ public class MFTEArmorMaterialRegistries {
             p_266655_.put(ArmorItem.Type.HELMET, helmet);
             p_266655_.put(ArmorItem.Type.BODY, body);
         });
+    }
+
+    static public EnumMap<ArmorItem.Type, Integer> magicArmorMap() {
+        return makeArmorMap(3, 8, 6, 3, 0);
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "irons_spellbooks:wizard_boots"
+    },
+    {
+      "item": "iss_magicfromtheeast:symmetry_rune"
+    },
+    {
+      "item": "irons_spellbooks:arcane_essence"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "iss_magicfromtheeast:taoist_boots"
+  }
+}

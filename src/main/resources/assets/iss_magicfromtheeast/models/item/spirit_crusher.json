@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "iss_magicfromtheeast:item/template_two_handed_verylarge_sword",
+    "textures": {
+      "layer0": "iss_magicfromtheeast:item/spirit_crusher"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "iss_magicfromtheeast:item/spirit_crusher_gui"
+      }
+    }
+  }
+}

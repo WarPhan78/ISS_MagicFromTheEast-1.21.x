@@ -11,7 +11,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantmentHelper;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
@@ -147,7 +147,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
                     }
                 }
             }
-            DamageSources.applyDamage(target, damage, this.damageSources().source(DamageTypes.MAGIC, this.getOwner()));
+            DamageSources.applyDamage(target, damage, this.damageSources().source(MFTEDamageTypes.SPIRIT_ARROW, this.getOwner()));
         }
     }
 

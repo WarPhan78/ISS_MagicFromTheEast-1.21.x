@@ -30,6 +30,8 @@ public class CreativeTabRegistries {
 
                 entries.accept(MFTEItemRegistries.JADE_GUANDAO.get());
                 entries.accept(MFTEItemRegistries.SOUL_BREAKER.get());
+
+                entries.accept(MFTEItemRegistries.SPIRIT_CRUSHER.get());
                 entries.accept(MFTEItemRegistries.MURAMASA.get());
                 entries.accept(MFTEItemRegistries.SOUL_KATANA.get());
 
@@ -71,6 +73,8 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_LEGGINGS.get());
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_BOOTS.get());
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_HORSE_ARMOR.get());
+
+                entries.accept(MFTEItemRegistries.ELEMENTAL_COMMANDER_CHESTPLATE.get());
 
                 entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());

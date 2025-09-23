@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -29,6 +30,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
@@ -81,11 +83,24 @@ public class MFTEServerEvent {
     public static void weaponBreakingSoul(LivingDamageEvent.Post event) {
         var damageSource = event.getSource();
         var target = event.getEntity();
-        if (damageSource.getEntity() instanceof LivingEntity attacker && (damageSource.getDirectEntity() == attacker || damageSource.getDirectEntity() instanceof AbstractArrow) && !(damageSource instanceof SpellDamageSource)) {
-            var hand = attacker.getUsedItemHand();
-            var attackItem = attacker.getItemInHand(hand);
-            if (attackItem.is(MFTEItemRegistries.SOUL_BREAKER)) {
-                target.hurt(target.damageSources().magic(), 5);
+        var attacker = damageSource.getEntity();
+        if (attacker instanceof LivingEntity livingEntity) {
+            var weaponItem = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
+            if (damageSource.getWeaponItem() == weaponItem && weaponItem.is(MFTEItemRegistries.SOUL_BREAKER)) {
+                target.invulnerableTime = 0;
+                target.hurt(attacker.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), 3);
+                if (target.getHealth() < target.getMaxHealth() * 0.6f) {
+                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
+                }
+            } else if (damageSource.getWeaponItem() == weaponItem && weaponItem.is(MFTEItemRegistries.SPIRIT_CRUSHER)) {
+                float health = target.getMaxHealth();
+                float bonusDamage = health / 100 * 5;
+                target.invulnerableTime = 0;
+                target.hurt(attacker.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), bonusDamage);
+                if (target.getHealth() < target.getMaxHealth() * 0.3f) {
+                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
+                    target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 2));
+                }
             }
         }
     }
@@ -125,11 +140,11 @@ public class MFTEServerEvent {
             var damageOnSoul = event.getOriginalDamage();
             var damageAmount = damageOnSoul * challengedSoul1.bonusPercent;
             if (soulOwner != null) {
-            if (damageOnSoul <= challengedSoul1.getHealth()) {
-                soulOwner.hurt(soulOwner.damageSources().magic(), damageAmount);
-            } else if (damageOnSoul > challengedSoul1.getHealth()) {
-                soulOwner.hurt(soulOwner.damageSources().magic(), challengedSoul1.getHealth() * challengedSoul1.bonusPercent);
-            }
+                if (damageOnSoul <= challengedSoul1.getHealth()) {
+                    soulOwner.hurt(soulOwner.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), damageAmount);
+                } else if (damageOnSoul > challengedSoul1.getHealth()) {
+                    soulOwner.hurt(soulOwner.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), challengedSoul1.getHealth() * challengedSoul1.bonusPercent);
+                }
             }
         }
     }
