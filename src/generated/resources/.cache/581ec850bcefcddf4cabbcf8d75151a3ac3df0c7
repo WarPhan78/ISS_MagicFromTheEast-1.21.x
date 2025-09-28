@@ -1,0 +1,6 @@
+// 1.21.1	2025-09-26T18:02:30.5457147	Tags for minecraft:damage_type mod id iss_magicfromtheeast
+9107eda2a2e755af366cef6023be0979aedf34bf data/iss_magicfromtheeast/tags/damage_type/bypass_reversal_healing.json
+64fffdd3828f9cf89204aa9b0c49bd5a466b3742 data/iss_magicfromtheeast/tags/damage_type/dune_magic.json
+3f1fab25b7bdec891bae17467e9bbf5e309c7987 data/iss_magicfromtheeast/tags/damage_type/is_soul.json
+ab3b0d4e1bdfabd944d26ba960d44e435d895410 data/iss_magicfromtheeast/tags/damage_type/spirit_magic.json
+7001adbbeb42949d93287ff2f7e3ec05722d257c data/iss_magicfromtheeast/tags/damage_type/symmetry_magic.json

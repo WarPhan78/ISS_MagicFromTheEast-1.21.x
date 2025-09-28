@@ -1,6 +1,7 @@
 package net.warphan.iss_magicfromtheeast;
 
 import net.minecraft.resources.ResourceLocation;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import net.warphan.iss_magicfromtheeast.setup.ModSetup;
 import net.warphan.iss_magicfromtheeast.util.MFTEItemProperties;
@@ -45,7 +46,7 @@ public class ISS_MagicFromTheEast {
         MFTEDataComponentRegistries.register(modEventBus);
         MFTELootRegistries.register(modEventBus);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, MFTEServerConfigs.SPEC, String.format("%s-server.toml", ISS_MagicFromTheEast.MOD_ID));
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

@@ -5,8 +5,37 @@
       "name": "ISS_MAGICFROMTHEEAST_RARITY_BLOODFUL",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "net/warphan/iss_magicfromtheeast/setup/BloodfulRarity",
+        "class": "net/warphan/iss_magicfromtheeast/setup/MFTERarity",
         "field": "BLOODFUL_RARITY_PROXY"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "ISS_MAGICFROMTHEEAST_RARITY_JADELIGHT",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "net/warphan/iss_magicfromtheeast/setup/MFTERarity",
+        "field": "JADELIGHT_RARITY_PROXY"
+      }
+    },
+
+
+    {
+      "enum": "net/minecraft/client/gui/Gui$HeartType",
+      "name": "ISS_MAGICFROMTHEEAST_JADE_HEART_TYPE",
+      "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
+      "parameters": {
+        "class": "net/warphan/iss_magicfromtheeast/setup/MFTEHeartTypes",
+        "field": "JADE_HEART_PROXY"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/gui/Gui$HeartType",
+      "name": "ISS_MAGICFROMTHEEAST_SOUL_HEART_TYPE",
+      "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
+      "parameters": {
+        "class": "net/warphan/iss_magicfromtheeast/setup/MFTEHeartTypes",
+        "field": "SOUL_HEART_PROXY"
       }
     }
   ]

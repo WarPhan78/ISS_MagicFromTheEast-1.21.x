@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C  ",
+    " M ",
+    "   "
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    },
+    "M": {
+      "item": "irons_spellbooks:mithril_scrap"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:soulward_ring",
+    "count": 1
+  }
+}

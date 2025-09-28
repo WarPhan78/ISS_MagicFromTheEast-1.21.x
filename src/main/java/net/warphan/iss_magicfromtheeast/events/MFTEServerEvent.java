@@ -1,11 +1,9 @@
 package net.warphan.iss_magicfromtheeast.events;
 
 import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
-import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import io.redspace.ironsspellbooks.entity.spells.ShieldPart;
 import io.redspace.ironsspellbooks.registries.BlockRegistry;
-import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,7 +12,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -26,7 +23,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -110,69 +106,6 @@ public class MFTEServerEvent {
         var entity = event.getEntity();
         if (entity instanceof ChallengedSoul || entity instanceof BoneHandsEntity || entity instanceof JadeExecutionerEntity) {
             event.setCanceled(true);
-        }
-    }
-
-    //Soul Challenging Events
-    @SubscribeEvent
-    public static void linkedSoulChallengingEvent(EntityTickEvent.Pre event) {
-        var entity = event.getEntity();
-        if (entity instanceof ChallengedSoul challengedSoul) {
-            var soulOwner = challengedSoul.getSummoner();
-            float linkingRange = 10.0f;
-            if (!challengedSoul.level.isClientSide && soulOwner != null) {
-                float distance = challengedSoul.distanceTo(soulOwner);
-                if (distance > linkingRange) {
-                    challengedSoul.onUnSummon();
-                    soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
-                    soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
-                    event.setCanceled(true);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void soulOwnerHurtEvent(LivingDamageEvent.Post event) {
-        var entity = event.getEntity();
-        if (entity instanceof ChallengedSoul challengedSoul1) {
-            var soulOwner = challengedSoul1.getSummoner();
-            var damageOnSoul = event.getOriginalDamage();
-            var damageAmount = damageOnSoul * challengedSoul1.bonusPercent;
-            if (soulOwner != null) {
-                if (damageOnSoul <= challengedSoul1.getHealth()) {
-                    soulOwner.hurt(soulOwner.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), damageAmount);
-                } else if (damageOnSoul > challengedSoul1.getHealth()) {
-                    soulOwner.hurt(soulOwner.damageSources().source(MFTEDamageTypes.SOUL_DAMAGE), challengedSoul1.getHealth() * challengedSoul1.bonusPercent);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onSoulCrushedEvent(LivingDeathEvent event) {
-        var entity = event.getEntity();
-        if (!entity.level.isClientSide) {
-            if (entity instanceof ChallengedSoul challengedSoul) {
-                var soulOwner = challengedSoul.getSummoner();
-                if (soulOwner != null) {
-                    soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
-                    soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void counterSpellCastOnSoul(CounterSpellEvent event) {
-        var entity = event.target;
-        var caster = event.caster;
-        if (entity instanceof ChallengedSoul challengedSoul) {
-            if (caster == challengedSoul.getSummoner()) {
-                var soulOwner = challengedSoul.getSummoner();
-                soulOwner.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
-                soulOwner.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
-            }
         }
     }
 

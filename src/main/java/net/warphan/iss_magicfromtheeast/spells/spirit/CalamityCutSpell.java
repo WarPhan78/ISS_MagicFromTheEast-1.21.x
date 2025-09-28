@@ -48,7 +48,7 @@ public class CalamityCutSpell extends AbstractSpell {
         this.manaCostPerLevel = 18;
         this.baseSpellPower = 4;
         this.spellPowerPerLevel = 4;
-        this.castTime = 25;
+        this.castTime = 24;
         this.baseManaCost = 30;
     }
 
@@ -98,7 +98,7 @@ public class CalamityCutSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        float radius = 0.8f;
+        float radius = 0.5f;
         Vec3 forward = entity.getForward().multiply(1, 0, 1).normalize();
         Vec3 start = entity.getEyePosition().subtract(0, 0.5, 0).add(forward.scale(1.5));
         float count = getRange(spellLevel, entity);
@@ -159,6 +159,5 @@ public class CalamityCutSpell extends AbstractSpell {
 
     @Override
     public AnimationHolder getCastFinishAnimation() {
-        return MFTESpellAnimations.ANIMATION_KATANA_STRIKE_END;
-    }
-}
+        return AnimationHolder.pass();
+    }}

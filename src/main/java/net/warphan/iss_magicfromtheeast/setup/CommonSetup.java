@@ -6,6 +6,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
@@ -25,13 +26,15 @@ public class CommonSetup {
     public static void onModConfigLoadingEvent(ModConfigEvent.Loading event) {
         if (event.getConfig().getType() == ModConfig.Type.SERVER) {
             MFTESpellRegistries.onConfigReload();
+            MFTEServerConfigs.onConfigReload();
         }
     }
 
     @SubscribeEvent
-    public static void onModConfigReloadEvent(ModConfigEvent.Reloading event) {
+    public static void onModConfigReloadingEvent(ModConfigEvent.Reloading event) {
         if (event.getConfig().getType() == ModConfig.Type.SERVER) {
             MFTESpellRegistries.onConfigReload();
+            MFTEServerConfigs.onConfigReload();
         }
     }
 

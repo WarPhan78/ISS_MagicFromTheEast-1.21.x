@@ -17,7 +17,7 @@
   "spell.iss_magicfromtheeast.qigong_controlling": "Qigong Controlling",
   "spell.iss_magicfromtheeast.qigong_controlling.guide": "Control the force of yin and yang, pulling in targets when casting and push them out with powerful force when the cast is done",
   "spell.iss_magicfromtheeast.bagua_array_circle": "Bagua Array Circle",
-  "spell.iss_magicfromtheeast.bagua_array_circle.guide": "Summon a Bagua Circle at designated are, continually deal damage to anything that step on it except the owner and give 80% damage resistance buff instead",
+  "spell.iss_magicfromtheeast.bagua_array_circle.guide": "Summon a Bagua Circle at designated area, damaging undead mob inside and give its owner Reversal Healing effect",
   "spell.iss_magicfromtheeast.dragon_glide": "Dragon Glide",
   "spell.iss_magicfromtheeast.dragon_glide.guide": "Cast a unstoppable force dragon ahead the caster, deal damage to anything on its path, can break magic shield with a chance",
   "spell.iss_magicfromtheeast.jade_judgement": "Jade Judgement",
@@ -87,9 +87,10 @@
   "item.iss_magicfromtheeast.bagua_mirror": "Bagua Mirror",
   "item.iss_magicfromtheeast.coins_sword": "Coins Sword",
   "item.iss_magicfromtheeast.soulward_ring": "Soulward Ring",
-  "item.iss_magicfromtheeast.soulward_ring.desc": "Grants soulburn immunity",
+  "item.iss_magicfromtheeast.soulward_ring.desc": "Grants soulburn immunity and reduce soul damage taken by 80%",
   "item.iss_magicfromtheeast.rusted_coins_sword": "Rusted Coins Sword",
   "item.iss_magicfromtheeast.jade_pendant": "Jade Pendant",
+  "item.iss_magicfromtheeast.jade_pendant.desc": "Reflect 50% damage in a radius when being hit. The reflecting damage increase by 5% for per armor toughness you have",
 
   "item.iss_magicfromtheeast.taoist_helmet": "Taoist Hat",
   "item.iss_magicfromtheeast.taoist_chestplate": "Taoist Robes",
@@ -179,6 +180,8 @@
   "effect.iss_magicfromtheeast.soulburn.description": "Burning victim's souls",
   "effect.iss_magicfromtheeast.summon_cloud_timer": "Summon Cloud Timer",
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
+  "effect.iss_magicfromtheeast.reversal_healing": "Reversal Healing",
+  "effect.iss_magicfromtheeast.reversal_healing.description": "Bypass incoming damage while heal yourself instead. Also gain 5% knock back resistance for per level of effect",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting.",
   "item.iss_magicfromtheeast.bottle_of_souls.guide": "Obtained by using empty bottle on soul fire, can be filled in Alchemist Cauldron.",
@@ -191,6 +194,8 @@
   "ui.iss_magicfromtheeast.armor": "%d Armor",
   "ui.iss_magicfromtheeast.reflect_damage_percent": "%d%% Damage Reflect",
   "ui.iss_magicfromtheeast.row_length": "%d Horseman",
+  "ui.iss_magicfromtheeast.undead_damaging": "%d Damage to Undead",
+  "ui.iss_magicfromtheeast.reverse_healing": "%d%% Damage to Heal",
 
   "key.iss_magicfromtheeast.general": "Magic From The East",
 
@@ -199,6 +204,7 @@
   "death.attack.dune_magic": "%1$s was corroded by %2$s's dune magic",
   "death.attack.soul_damage": "%1$s now is a soulless corpse",
   "death.attack.spirit_arrow": "%1$s's soul was pierced by %2$s spirit arrows",
+  "death.attack.pendant_reflect": "%1$s has taken the karma",
 
   "death.attack.iss_magicfromtheeast.sword_dance": "%1$s was pierced by %2$s force swords",
   "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s couldn't resist to %2$s's push force",

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SJ ",
+    "JRJ",
+    " J "
+  ],
+  "key": {
+    "S": {
+      "item": "iss_magicfromtheeast:red_string"
+    },
+    "J": {
+      "tag": "c:ingots/refined_jade"
+    },
+    "R": {
+      "item": "iss_magicfromtheeast:symmetry_rune"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:jade_pendant",
+    "count": 1
+  }
+}

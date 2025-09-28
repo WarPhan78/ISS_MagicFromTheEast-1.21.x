@@ -20,6 +20,8 @@ public class MFTEDamageTypes {
     public static final ResourceKey<DamageType> SOUL_DAMAGE = register("soul_damage");
     public static final ResourceKey<DamageType> SPIRIT_ARROW = register("spirit_arrow");
 
+    public static final ResourceKey<DamageType> PENDANT_REFLECT = register("pendant_reflect");
+
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(SYMMETRY_MAGIC, new DamageType(SYMMETRY_MAGIC.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER,0f));
         context.register(SPIRIT_MAGIC, new DamageType(SPIRIT_MAGIC.location().getPath(), DamageScaling. WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0f));
@@ -27,5 +29,6 @@ public class MFTEDamageTypes {
 
         context.register(SOUL_DAMAGE, new DamageType(SOUL_DAMAGE.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0f));
         context.register(SPIRIT_ARROW, new DamageType(SPIRIT_ARROW.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0f));
+        context.register(PENDANT_REFLECT, new DamageType(PENDANT_REFLECT.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0f));
     }
 }

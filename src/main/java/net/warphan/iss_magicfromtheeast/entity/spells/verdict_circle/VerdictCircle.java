@@ -12,6 +12,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -63,9 +64,9 @@ public class VerdictCircle extends AoeEntity implements GeoEntity, AntiMagicSusc
 
             float targetLostHealth = target.getMaxHealth() - target.getHealth();
             float damageAmount = this.getDamage() + (targetLostHealth * percentBonus);
-            float limitDamage = target.getMaxHealth() * 0.4f;
+            double limitDamage = target.getMaxHealth() * MFTEServerConfigs.IMPERMANENCE_LIMIT_PERCENT.get();
             if (damageAmount >= limitDamage) {
-                damageAmount = limitDamage;
+                damageAmount = (float) limitDamage;
                 DamageSources.applyDamage(target, damageAmount, MFTESpellRegistries.UNDERWORLD_AID_SPELL.get().getDamageSource(this, getOwner()));
             }
             else DamageSources.applyDamage(target, damageAmount, MFTESpellRegistries.UNDERWORLD_AID_SPELL.get().getDamageSource(this, getOwner()));

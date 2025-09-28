@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -27,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
+import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 
@@ -41,8 +43,8 @@ public class JiangshiInvokeSpell extends AbstractSpell {
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.hp", getJiangshiHealth(spellLevel, null)),
-                Component.translatableEscape("ui.irons_spellbooks.damage", getJiangshiDamage(spellLevel, null))
+                Component.translatable("ui.irons_spellbooks.hp", getJiangshiHealth(spellLevel, caster)),
+                Component.translatableEscape("ui.irons_spellbooks.damage", getJiangshiDamage(spellLevel, caster))
         );
     }
 
@@ -143,11 +145,11 @@ public class JiangshiInvokeSpell extends AbstractSpell {
     }
 
     private float getJiangshiDamage(int spellLevel, LivingEntity summoner) {
-        return 2 + spellLevel;
+        return (2 + spellLevel) * (float) summoner.getAttributeValue(AttributeRegistry.BLOOD_SPELL_POWER);
     }
 
     private float getJiangshiHealth(int spellLevel, LivingEntity summoner) {
-        return 20 + spellLevel * 10;
+        return (10 + spellLevel * 5) * (float) summoner.getAttributeValue(MFTEAttributeRegistries.SYMMETRY_SPELL_POWER);
     }
 
     @Override

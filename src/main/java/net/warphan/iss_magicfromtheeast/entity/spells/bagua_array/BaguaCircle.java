@@ -5,6 +5,7 @@ import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
 import io.redspace.ironsspellbooks.entity.spells.AoeEntity;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -35,6 +37,8 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
         this(MFTEEntityRegistries.BAGUA_CIRCLE.get(), level);
     }
 
+    public int healingAmplifier;
+
     @Override
     protected boolean canHitEntity(Entity pTarget) {
         return !pTarget.isSpectator() && pTarget.isAlive() && pTarget.isPickable();
@@ -42,12 +46,16 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
 
     @Override
     public void applyEffect(LivingEntity target) {
-        if (target != getOwner()) {
+        if (target != getOwner() && target.getType().is(EntityTypeTags.UNDEAD)) {
             DamageSources.applyDamage(target, getDamage(), MFTESpellRegistries.BAGUA_ARRAY_CIRCLE_SPELL.get().getDamageSource(this, getOwner()));
             DamageSources.ignoreNextKnockback(target);
         } else if (target == getOwner()) {
-            target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 3));
+            target.addEffect(new MobEffectInstance(MFTEEffectRegistries.REVERSAL_HEALING, 40, healingAmplifier));
         }
+    }
+
+    public void setAmplifier(int amplifier) {
+        this.healingAmplifier = amplifier;
     }
 
     @Override

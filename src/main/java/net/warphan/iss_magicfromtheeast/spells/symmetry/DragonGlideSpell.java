@@ -41,7 +41,7 @@ public class DragonGlideSpell extends AbstractSpell {
         this.manaCostPerLevel = 4;
         this.baseSpellPower = 2;
         this.spellPowerPerLevel = 2;
-        this.castTime = 20;
+        this.castTime = 30;
         this.baseManaCost = 34;
     }
 

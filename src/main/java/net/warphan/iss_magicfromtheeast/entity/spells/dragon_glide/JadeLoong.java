@@ -41,11 +41,7 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     }
 
     @Override
-    public void trailParticles() {
-        Vec3 pos = this.getBoundingBox().getCenter().add(getDeltaMovement());
-        pos = pos.add(getDeltaMovement());
-        level.addParticle(ParticleTypes.SCRAPE, pos.x, pos.y, pos.z, 0, 0, 0);
-    }
+    public void trailParticles() {return;}
 
     @Override
     public void impactParticles(double x, double y, double z) {
@@ -105,7 +101,7 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     }
 
     //ANIMATION
-    private final RawAnimation loongglide = RawAnimation.begin().thenPlay("loong_glide");
+    private final RawAnimation loongglide = RawAnimation.begin().thenPlay("glide");
 
     private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
         event.getController().setAnimation(loongglide);

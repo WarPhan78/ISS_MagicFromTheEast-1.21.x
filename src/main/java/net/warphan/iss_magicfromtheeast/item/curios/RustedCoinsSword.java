@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
+import net.warphan.iss_magicfromtheeast.setup.MFTERarity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 public class RustedCoinsSword extends CurioBaseItem implements IPresetSpellContainer {
     public RustedCoinsSword(Item.Properties properties) {
-        super(properties);
+        super(properties.rarity(MFTERarity.BLOODFUL_RARITY_PROXY.getValue()));
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -31,7 +32,8 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.aoe_damage", Utils.stringTruncation(getDamage(spellLevel, caster), 4)),
+                Component.translatable("ui.iss_magicfromtheeast.undead_damaging", Utils.stringTruncation(getDamage(spellLevel, caster), 4)),
+                Component.translatable("ui.iss_magicfromtheeast.reverse_healing", Utils.stringTruncation(getHealingPercent(spellLevel, caster), 0)),
                 Component.translatable("ui.irons_spellbooks.radius", Utils.stringTruncation(getRadius(spellLevel, caster), 1)),
                 Component.translatable("ui.irons_spellbooks.duration", Utils.timeFromTicks(getDuration(spellLevel, caster), 1))
         );
@@ -41,7 +43,7 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.UNCOMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(8)
-            .setCooldownSeconds(35)
+            .setCooldownSeconds(60)
             .build();
 
     public BaguaArrayCircleSpell() {
@@ -100,6 +102,7 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
         float radius = getRadius(spellLevel, entity);
 
         BaguaCircle baguaCircle = new BaguaCircle(world);
+        baguaCircle.setAmplifier(spellLevel - 1);
         baguaCircle.setOwner(entity);
         baguaCircle.setCircular();
         baguaCircle.setRadius(radius);
@@ -117,13 +120,16 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
     }
 
     private float getDamage(int spellLevel, LivingEntity caster) {
-        return getSpellPower(spellLevel, caster) * .5f;
+        return getSpellPower(spellLevel, caster) * .5f * (float) caster.getAttributeValue(AttributeRegistry.HOLY_SPELL_POWER);
     }
     private float getRadius(int spellLevel, LivingEntity caster) {
         return 5;
     }
     private int getDuration(int spellLevel, LivingEntity caster) {
         return 200;
+    }
+    private int getHealingPercent(int spellLevel, LivingEntity caster) {
+        return spellLevel * 10;
     }
 
     @Override
