@@ -22,7 +22,7 @@ import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesRende
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.phantom_cavalry.PhantomCavalryRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullRenderer;
-import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoulRenderer;
+import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoulRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircleRender;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDaoRenderer;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSwordRenderer;
@@ -38,7 +38,6 @@ public class ClientSetup {
     @SubscribeEvent
     public static void rendererRegister(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(MFTEEntityRegistries.BAGUA_CIRCLE.get(), BaguaCircleRenderer::new);
-        event.registerEntityRenderer(MFTEEntityRegistries.THROW_CIRCLE_ENTITY.get(), NoopRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_LOONG.get(), JadeLoongRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.JADE_DAO.get(), JadeDaoRenderer::new);
 //      event.registerEntityRenderer(MFTEEntityRegistries.JADE_SENTINEL.get(), JadeSentinelRenderer::new);
@@ -56,7 +55,7 @@ public class ClientSetup {
         event.registerEntityRenderer(MFTEEntityRegistries.ONMYOJI.get(), OnmyojiRenderer::new);
 
         event.registerEntityRenderer(MFTEEntityRegistries.SOUL_SKULL.get(), SoulSkullRenderer::new);
-        event.registerEntityRenderer(MFTEEntityRegistries.CHALLENGING_SOUL.get(), ChallengedSoulRenderer::new);
+        event.registerEntityRenderer(MFTEEntityRegistries.EXTRACTED_SOUL.get(), ExtractedSoulRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.REVENANT.get(), SpiritSamuraiRenderer::new);
         event.registerEntityRenderer(MFTEEntityRegistries.ASHIGARU.get(), SpiritAshigaruRenderer::new);

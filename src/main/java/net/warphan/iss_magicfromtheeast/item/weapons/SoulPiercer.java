@@ -1,36 +1,44 @@
 package net.warphan.iss_magicfromtheeast.item.weapons;
 
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.util.MinecraftInstanceHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantmentHelper;
+import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantments;
 import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SoulPiercer extends ProjectileWeaponItem {
-    public int MAX_MANA_COST = 50;
-    public int SPIRIT_POWER_SCALE = 10;
+    public int MAX_MANA_COST = 100;
+    public int BASE_SPIRIT_POWER_SCALE = 10;
 
     public SoulPiercer(Properties properties) {
         super(properties);
     }
 
+    @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int use) {
         if (livingEntity instanceof Player player) {
             int i = this.getUseDuration(stack, livingEntity) - use;
@@ -39,7 +47,7 @@ public class SoulPiercer extends ProjectileWeaponItem {
             }
 
             float f = getPowerForTime(i);
-            float damage = (f * (float) (player.getAttributeValue(MFTEAttributeRegistries.SPIRIT_SPELL_POWER) * (SPIRIT_POWER_SCALE + getSpiritPowerScale(stack, livingEntity) - 1)));
+            float damage = (f * (float) (player.getAttributeValue(MFTEAttributeRegistries.SPIRIT_SPELL_POWER) * (BASE_SPIRIT_POWER_SCALE + getSpiritPowerScale(stack, livingEntity))));
             SpiritArrow spiritArrow = new SpiritArrow(level, player, stack);
             spiritArrow.setPos(player.position().add(0, 1.5, 0));
             spiritArrow.shoot(player.getLookAngle());
@@ -64,14 +72,14 @@ public class SoulPiercer extends ProjectileWeaponItem {
 
     public static int getSpiritPowerScale(ItemStack stack, LivingEntity livingEntity) {
         if (livingEntity.level instanceof ServerLevel serverLevel) {
-            int powerScalePoint = MFTEEnchantmentHelper.modifyPowerScale(serverLevel, stack, livingEntity, 1);
+            int powerScalePoint = MFTEEnchantmentHelper.modifySoulDamage(serverLevel, stack, livingEntity, 0);
             return Mth.floor(powerScalePoint);
         } else return 0;
     }
 
     public static int getManaOnUse(ItemStack stack, LivingEntity livingEntity) {
         if (livingEntity.level instanceof ServerLevel serverLevel) {
-            int manaUseAmount = MFTEEnchantmentHelper.processManaUse(serverLevel, stack, -5);
+            int manaUseAmount = MFTEEnchantmentHelper.processManaUse(serverLevel, stack, 0);
             return Mth.floor(manaUseAmount);
         } else return 0;
     }
@@ -91,6 +99,7 @@ public class SoulPiercer extends ProjectileWeaponItem {
         return f;
     }
 
+    @Override
     public UseAnim getUseAnimation(ItemStack p_40678_) {
         return UseAnim.BOW;
     }
@@ -99,10 +108,14 @@ public class SoulPiercer extends ProjectileWeaponItem {
         return 7200;
     }
 
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         MagicData magicData = MagicData.getPlayerMagicData(player);
         if (magicData.getMana() < (MAX_MANA_COST + getManaOnUse(itemstack, player)) && !player.isCreative()) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("ui.iss_magicfromtheeast.soulpiercer_not_enough_mana").withStyle(ChatFormatting.RED)));
+            }
             return InteractionResultHolder.fail(itemstack);
         } else {
             player.startUsingItem(hand);
@@ -123,10 +136,34 @@ public class SoulPiercer extends ProjectileWeaponItem {
         return 1;
     }
 
-    public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, components, flag);
-        components.add(Component.translatable("item.iss_magicfromtheeast.soulpiercer.description").
-                withStyle(ChatFormatting.AQUA)
-        );
+    //Client call for damage tooltip
+    public static double getDisplayMaxDamage(ItemStack stack, LivingEntity livingEntity) {
+        double baseMaxDamage = 10;
+        if (livingEntity instanceof Player player) {
+            double modifiedMaxDamage = baseMaxDamage * player.getAttributeValue(MFTEAttributeRegistries.SPIRIT_SPELL_POWER);
+            if (!stack.isEmpty() && stack.has(DataComponents.ENCHANTMENTS)) {
+                modifiedMaxDamage = player.getAttributeValue(MFTEAttributeRegistries.SPIRIT_SPELL_POWER) * (baseMaxDamage + Utils.processEnchantment(player.level, MFTEEnchantments.SPIRITUAL_FOCUS, MFTEDataComponentRegistries.SOUL_DAMAGE.get(), stack.get(DataComponents.ENCHANTMENTS)));
+            } return modifiedMaxDamage;
+        }
+        return baseMaxDamage;
     }
+
+    //Client call for mana cost tooltip
+    public static double getDisplayManaCost(ItemStack stack, Entity entity) {
+        double baseManaCost = 100;
+        if (!stack.isEmpty() && stack.has(DataComponents.ENCHANTMENTS) && entity != null) {
+            baseManaCost = baseManaCost + (Utils.processEnchantment(entity.level, MFTEEnchantments.WISELY_WILL, MFTEDataComponentRegistries.MANA_USE.get(), stack.get(DataComponents.ENCHANTMENTS)));
+        } return baseManaCost;
+    }
+
+    @Override
+    public void appendHoverText( ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+        super.appendHoverText(stack, context, components, flag);
+        components.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".description")).withStyle(ChatFormatting.AQUA));
+        components.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".description.damage",
+                Component.literal(Utils.stringTruncation(getDisplayMaxDamage(stack, MinecraftInstanceHelper.getPlayer()), 1)).withStyle(ChatFormatting.YELLOW))
+        ).withStyle(ChatFormatting.AQUA));
+        components.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".description.mana_cost",
+                Component.literal(Utils.stringTruncation(getDisplayManaCost(stack, MinecraftInstanceHelper.getPlayer()), 1)).withStyle(ChatFormatting.YELLOW))
+        ).withStyle(ChatFormatting.AQUA));    }
 }

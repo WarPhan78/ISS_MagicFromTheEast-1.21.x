@@ -7,19 +7,23 @@ import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
+import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
+import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +78,7 @@ public class SpiritChallengingSpell extends AbstractSpell {
 
     @Override
     public boolean checkPreCastConditions(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData) {
-        return Utils.preCastTargetHelper(level, entity, playerMagicData, this, 6, .35f);
+        return Utils.preCastTargetHelper(level, entity, playerMagicData, this, 8, .35f);
     }
 
     @Override
@@ -82,21 +86,26 @@ public class SpiritChallengingSpell extends AbstractSpell {
         if (playerMagicData.getAdditionalCastData() instanceof TargetEntityCastData targetEntityData) {
             var challengedEntity = targetEntityData.getTarget((ServerLevel) level);
             if (challengedEntity != null) {
+                if (challengedEntity.getType().is(MFTETags.SPIRIT_CHALLENGING_IMMUNE)) {
+                    if (entity instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("ui.iss_magicfromtheeast.soulpiercer_not_enough_mana").withStyle(ChatFormatting.RED)));
+                    }
+                } else {
+                    ExtractedSoul extractedSoul = new ExtractedSoul(level, challengedEntity, entity);
+                    extractedSoul.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(challengedEntity.getHealth());
+                    extractedSoul.setHealth(extractedSoul.getMaxHealth());
 
-                ChallengedSoul challengedSoul = new ChallengedSoul(level, challengedEntity);
-                challengedSoul.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(challengedEntity.getHealth());
-                challengedSoul.setHealth(challengedSoul.getMaxHealth());
+                    extractedSoul.setDuration(getDuration(spellLevel, entity));
+                    extractedSoul.setBonusPercent(getBonusPercent(spellLevel, entity));
+                    extractedSoul.setPos(entity.position().add(entity.getViewVector(5)));
 
-                challengedSoul.setDuration(getDuration(spellLevel, entity));
-                challengedSoul.setBonusPercent(getBonusPercent(spellLevel, entity));
-                challengedSoul.setPos(entity.position().add(entity.getViewVector(5)));
+                    TargetedAreaEntity visualEntity = TargetedAreaEntity.createTargetAreaEntity(level, challengedEntity.position(), 12.0f, 0x00ffff);
+                    visualEntity.setDuration(extractedSoul.duration);
+                    visualEntity.setOwner(extractedSoul);
+                    visualEntity.setShouldFade(true);
 
-                TargetedAreaEntity visualEntity = TargetedAreaEntity.createTargetAreaEntity(level, challengedEntity.position(), 10.0f, 0x00ffff);
-                visualEntity.setDuration(challengedSoul.duration);
-                visualEntity.setOwner(challengedSoul);
-                visualEntity.setShouldFade(true);
-
-                level.addFreshEntity(challengedSoul);
+                    level.addFreshEntity(extractedSoul);
+                }
             }
         }
 
@@ -104,7 +113,7 @@ public class SpiritChallengingSpell extends AbstractSpell {
     }
 
     private float getConnectionRange(int spellLevel, LivingEntity caster) {
-        return 10.0f;
+        return 12.0f;
     }
 
     private int getDuration(int spellLevel, LivingEntity caster) {

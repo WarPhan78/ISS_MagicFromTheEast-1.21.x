@@ -60,7 +60,7 @@ public class MFTEItemRegistries {
     public static final DeferredHolder<Item,Item> REFINED_JADE_INGOT = ITEMS.register("refined_jade_ingot",
             () -> new Item(ItemPropertiesHelper.material().rarity(MFTERarity.JADELIGHT_RARITY_PROXY.getValue())));
     public static final DeferredHolder<Item, Item> CRYSTALLIZED_SOUL = ITEMS.register("crystallized_soul",
-            () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE)));
+            () -> new Item(ItemPropertiesHelper.material().rarity(Rarity.RARE).fireResistant()));
 
     public static final DeferredHolder<Item, Item> RICE_WINE_BOTTLE = ITEMS.register("rice_wine_bottle",
             () -> new RiceWineBottleItem(ItemPropertiesHelper.material(4)));
@@ -70,19 +70,19 @@ public class MFTEItemRegistries {
             () -> new MagicSwordItem(MFTEExtendedWeaponTier.JADE_GUANDAO, ItemPropertiesHelper.equipment().rarity(MFTERarity.JADELIGHT_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.JADE_GUANDAO)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(MFTESpellRegistries.SWORD_DANCE_SPELL, 8))));
     public static final DeferredHolder<Item, Item> SOUL_BREAKER = ITEMS.register("soul_breaker",
-            () -> new SoulBreakerItem(MFTEExtendedWeaponTier.SOUL_BREAKER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_BREAKER))));
+            () -> new SoulBreakerItem(MFTEExtendedWeaponTier.SOUL_BREAKER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).fireResistant().attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_BREAKER))));
 
     public static final DeferredHolder<Item, Item> SPIRIT_CRUSHER = ITEMS.register("spirit_crusher",
-            () -> new SpiritCrusherItem(MFTEExtendedWeaponTier.SPIRIT_CRUSHER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SPIRIT_CRUSHER))));
+            () -> new SpiritCrusherItem(MFTEExtendedWeaponTier.SPIRIT_CRUSHER, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).fireResistant().attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SPIRIT_CRUSHER))));
     public static final DeferredHolder<Item, Item> MURAMASA = ITEMS.register("muramasa",
-            () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(MFTERarity.BLOODFUL_RARITY_PROXY.getValue()).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
+            () -> new MuramasaItem(MFTEExtendedWeaponTier.MURAMASA, ItemPropertiesHelper.equipment().rarity(MFTERarity.BLOODFUL_RARITY_PROXY.getValue()).fireResistant().attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.MURAMASA)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(SpellRegistry.BLOOD_SLASH_SPELL, 5))));
     public static final DeferredHolder<Item, Item> SOUL_KATANA = ITEMS.register("soul_katana",
-            () -> new MasamuneItem(MFTEExtendedWeaponTier.SOUL_KATANA, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_KATANA)), SpellDataRegistryHolder.of(
+            () -> new MasamuneItem(MFTEExtendedWeaponTier.SOUL_KATANA, ItemPropertiesHelper.equipment().rarity(Rarity.EPIC).fireResistant().attributes(ExtendedSwordItem.createAttributes(MFTEExtendedWeaponTier.SOUL_KATANA)), SpellDataRegistryHolder.of(
                     new SpellDataRegistryHolder(MFTESpellRegistries.CALAMITY_CUT_SPELL, 5))));
 
     public static final DeferredHolder<Item, Item> SOULPIERCER = ITEMS.register("soulpiercer",
-            () -> new SoulPiercer(ItemPropertiesHelper.hidden().durability(635).rarity(Rarity.RARE)));
+            () -> new SoulPiercer(ItemPropertiesHelper.hidden().durability(635).rarity(Rarity.RARE).fireResistant()));
     public static final DeferredHolder<Item, Item> REPEATING_CROSSBOW = ITEMS.register("repeating_crossbow",
             () -> new RepeatingCrossbow(ItemPropertiesHelper.hidden().durability(465)));
 
@@ -129,6 +129,7 @@ public class MFTEItemRegistries {
     public static final DeferredHolder<Item, Item> TAOIST_BOOTS = ITEMS.register("taoist_boots",
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
+    //Symmetry Artifact
     public static final DeferredHolder<Item, Item> ELEMENTAL_COMMANDER_CHESTPLATE = ITEMS.register("elemental_commander_chestplate",
             () -> new ElementalCommanderArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).rarity(Rarity.EPIC).fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
 
@@ -141,6 +142,10 @@ public class MFTEItemRegistries {
             () -> new OnmyojiArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
     public static final DeferredHolder<Item, Item> ONMYOJI_GETA = ITEMS.register("onmyoji_boots",
             () -> new OnmyojiArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
+
+    //Spirit Artifact
+    public static final DeferredHolder<Item, Item> BOOTS_OF_MIST = ITEMS.register("mist_boots",
+            () -> new BootsOfMistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).rarity(Rarity.EPIC).fireResistant().durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
     //Armor
     public static final DeferredHolder<Item, Item> JIANGSHI_HAT = ITEMS.register("jiangshi_hat",

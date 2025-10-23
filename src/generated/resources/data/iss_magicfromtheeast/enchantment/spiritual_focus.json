@@ -4,7 +4,7 @@
     "translate": "enchantment.iss_magicfromtheeast.spiritual_focus"
   },
   "effects": {
-    "minecraft:damage": [
+    "iss_magicfromtheeast:soul_damage": [
       {
         "effect": {
           "type": "minecraft:add",

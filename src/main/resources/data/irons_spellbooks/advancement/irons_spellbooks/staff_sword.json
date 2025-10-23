@@ -1,0 +1,32 @@
+{
+  "display": {
+    "hidden": false,
+    "icon": {
+      "id": "iss_magicfromtheeast:taiji_sword"
+    },
+    "title": {
+      "translate": "advancements.iss_magicfromtheeast.staff_sword.title"
+    },
+    "description": {
+      "translate": "advancements.iss_magicfromtheeast.staff_sword.description"
+    },
+    "announce_to_chat": true,
+    "show_toast": true,
+    "frame": "task"
+  },
+  "parent": "irons_spellbooks:irons_spellbooks/staff_root",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iss_magicfromtheeast:taiji_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  }
+}

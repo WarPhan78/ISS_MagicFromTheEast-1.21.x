@@ -4,14 +4,14 @@
     "translate": "enchantment.iss_magicfromtheeast.wisely_will"
   },
   "effects": {
-    "minecraft:ammo_use": [
+    "iss_magicfromtheeast:mana_use": [
       {
         "effect": {
           "type": "minecraft:add",
           "value": {
             "type": "minecraft:linear",
-            "base": -5.0,
-            "per_level_above_first": -5.0
+            "base": -15.0,
+            "per_level_above_first": -15.0
           }
         }
       }

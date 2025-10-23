@@ -268,6 +268,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
         return false;
     }
 
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
     //Hurt, Die and Damage
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {

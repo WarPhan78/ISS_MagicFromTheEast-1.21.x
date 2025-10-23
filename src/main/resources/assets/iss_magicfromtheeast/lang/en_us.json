@@ -72,15 +72,17 @@
 
   "item.iss_magicfromtheeast.jade_guandao": "Jade Guandao",
   "item.iss_magicfromtheeast.soul_breaker": "Soul Breaker",
-  "item.iss_magicfromtheeast.soul_breaker.description": "Deal 3 extra soul damage on hit, apply Slowness when target's health lower than 60%",
+  "item.iss_magicfromtheeast.soul_breaker.description": "Deal %s extra soul damage on hit, apply Slowness when target's health lower than 60%%",
 
   "item.iss_magicfromtheeast.spirit_crusher": "Spirit Crusher",
-  "item.iss_magicfromtheeast.spirit_crusher.description": "Deal bonus soul damage based on target's max health, apply Slowness and Weakness when target's health lower than 30%",
+  "item.iss_magicfromtheeast.spirit_crusher.description": "Deal bonus soul damage based on %s%% of target's current health, apply Slowness and Weakness when target's health lower than 30%%",
   "item.iss_magicfromtheeast.muramasa": "Muramasa",
   "item.iss_magicfromtheeast.soul_katana": "Masamune",
 
   "item.iss_magicfromtheeast.soulpiercer": "Soulpiercer",
-  "item.iss_magicfromtheeast.soulpiercer.description": "Required mana to shoot",
+  "item.iss_magicfromtheeast.soulpiercer.description": "Require mana to shoot. Damage depend on your Spirit Spell Power",
+  "item.iss_magicfromtheeast.soulpiercer.description.damage": "Max damage: %s",
+  "item.iss_magicfromtheeast.soulpiercer.description.mana_cost": "Mana cost: %s",
   "item.iss_magicfromtheeast.repeating_crossbow": "Repeating Crossbow",
   "item.iss_magicfromtheeast.repeating_crossbow.ammo_amount": "Ammo Amount:",
 
@@ -98,10 +100,20 @@
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
   "item.iss_magicfromtheeast.elemental_commander_chestplate": "Elemental Commander Robes",
 
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.description": "Trigger by hitting enemy with a spell attack. Depend on your Symmetry Spell Power and the school of the previous spell attack, receive a buff and increase the damage of your next spell attacks related to the school",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_red": "Fire: +10% attack damage & attack speed",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_green": "Nature: +10% knockback resistance & 4 armor point",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_white": "Lightning: +10% movement speed & mana regeneration",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_black": "Ice: +10% spell resistance & cooldown reduction",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_yellow": "Holy: +10% cast time reduction & 4 max health",
+  "item.iss_magicfromtheeast.elemental_commander_chestplate.effect_bonus": "Spell attack increasing: %s%%",
+
   "item.iss_magicfromtheeast.onmyoji_helmet": "Onmyoji Hat",
   "item.iss_magicfromtheeast.onmyoji_chestplate": "Onmyoji Robes",
   "item.iss_magicfromtheeast.onmyoji_leggings": "Onmyoji Leggings",
   "item.iss_magicfromtheeast.onmyoji_boots": "Onmyoji Geta",
+  "item.iss_magicfromtheeast.mist_boots": "Boots of Mist",
+  "item.iss_magicfromtheeast.mist_boots.description": "Trigger when being hit. Negate damage from that hit, apply True Invisibility and Mist Step effect for 6 second",
 
   "item.iss_magicfromtheeast.jiangshi_hat": "Jiangshi Hat",
 
@@ -144,9 +156,11 @@
   "enchantment.iss_magicfromtheeast.ghostly_cold": "Ghostly Cold",
   "enchantment.iss_magicfromtheeast.ghostly_cold.desc": "Freeze targets on spirit arrow hit.",
   "enchantment.iss_magicfromtheeast.spiritual_focus": "Spiritual Focus",
-  "enchantment.iss_magicfromtheeast.spiritual_focus.desc": "Increase the damaged scaling of spirit arrow based on you Spirit Spell Power.",
+  "enchantment.iss_magicfromtheeast.spiritual_focus.desc": "Increase the effective of Spirit Spell Power scaling on spirit arrow.",
   "enchantment.iss_magicfromtheeast.wisely_will": "Wisely Will",
-  "enchantment.iss_magicfromtheeast.wisely_will.desc": "Reduce the mana cost per shot.",
+  "enchantment.iss_magicfromtheeast.wisely_will.desc": "Reduce the mana cost per spirit arrow shot.",
+  "enchantment.iss_magicfromtheeast.inner_impact": "Inner Impact",
+  "enchantment.iss_magicfromtheeast.inner_impact.desc": "Increase Soul Breaker bonus soul damage dealt and Spirit Crusher percent health scaling.",
   "enchantment.iss_magicfromtheeast.expanding": "Expanding",
 
   "block.iss_magicfromtheeast.jade_ore": "Jade Ore",
@@ -163,7 +177,7 @@
   "entity.iss_magicfromtheeast.summoned_jiangshi": "Jiangshi",
   "entity.iss_magicfromtheeast.impermanence": "Verdict Circle",
   "entity.iss_magicfromtheeast.soul_skull": "Soul Skull Projectile",
-  "entity.iss_magicfromtheeast.challenged_soul": "Challenged Soul",
+  "entity.iss_magicfromtheeast.extracted_soul": "Extracted Soul",
   "entity.iss_magicfromtheeast.bone_hand": "Spirit Bone Hand",
   "entity.iss_magicfromtheeast.jade_executioner": "Jade Executioner",
   "entity.iss_magicfromtheeast.summon_cloud": "Magical Cloud",
@@ -182,6 +196,19 @@
   "effect.iss_magicfromtheeast.summon_cloud_timer.description": "Displays the duration remaining until your magical cloud fade away",
   "effect.iss_magicfromtheeast.reversal_healing": "Reversal Healing",
   "effect.iss_magicfromtheeast.reversal_healing.description": "Bypass incoming damage while heal yourself instead. Also gain 5% knock back resistance for per level of effect",
+  "effect.iss_magicfromtheeast.mist_step": "Mist Step",
+  "effect.iss_magicfromtheeast.mist_step.description": "Increasing movement efficiency",
+
+  "effect.iss_magicfromtheeast.effect_banner_red": "Red Flag: Blazing Flame",
+  "effect.iss_magicfromtheeast.effect_banner_red.description": "Increase attack damage and attack speed by 10%, increase damage of Fire magic attacks based on your Symmetry Spell Power",
+  "effect.iss_magicfromtheeast.effect_banner_green": "Green Flag: Sturdy Ground",
+  "effect.iss_magicfromtheeast.effect_banner_green.description": "Increase knockback resistance by 10% and gain 4 armor point, increase damage of Nature magic attacks based on your Symmetry Spell Power",
+  "effect.iss_magicfromtheeast.effect_banner_white": "White Flag: Thunderous Sky",
+  "effect.iss_magicfromtheeast.effect_banner_white.description": "Increase movement speed and mana regeneration by 10%, increase damage of Lightning magic attacks based on your Symmetry Spell Power",
+  "effect.iss_magicfromtheeast.effect_banner_black": "Black Flag: Hoarfrost Gale",
+  "effect.iss_magicfromtheeast.effect_banner_black.description": "Increase spell resistance and cooldown reduction by 10%, increase damage of Ice magic attacks based on your Symmetry Spell Power",
+  "effect.iss_magicfromtheeast.effect_banner_yellow": "Yellow Flag: Divine Light",
+  "effect.iss_magicfromtheeast.effect_banner_yellow.description": "Increase cast time reduction by 10% and gain 4 max health, increase damage of Holy magic attacks based on your Symmetry Spell Power",
 
   "item.iss_magicfromtheeast.raw_jade.guide": "Can be smelted very fast in Furnace but too fragile for blasting.",
   "item.iss_magicfromtheeast.bottle_of_souls.guide": "Obtained by using empty bottle on soul fire, can be filled in Alchemist Cauldron.",
@@ -197,6 +224,14 @@
   "ui.iss_magicfromtheeast.undead_damaging": "%d Damage to Undead",
   "ui.iss_magicfromtheeast.reverse_healing": "%d%% Damage to Heal",
 
+  "advancements.iss_magicfromtheeast.spell_book_spirit.title": "A Book Without Spine",
+  "advancements.iss_magicfromtheeast.spell_book_spirit.description": "Obtain a Ritual Orihon by trading with an Onmyoji",
+  "advancements.iss_magicfromtheeast.staff_sword.title": "This Staff is so Sharp!",
+  "advancements.iss_magicfromtheeast.staff_sword.description": "Acquire a Taiji Sword",
+
+  "ui.iss_magicfromtheeast.soul_extracting_false": "You can't extract the soul of this target!",
+  "ui.iss_magicfromtheeast.soulpiercer_not_enough_mana": "You have not enough mana to use this!",
+
   "key.iss_magicfromtheeast.general": "Magic From The East",
 
   "death.attack.symmetry_magic": "Inside of %1$s's body was destroyed by %2$s's symmetry magic",
@@ -205,6 +240,7 @@
   "death.attack.soul_damage": "%1$s now is a soulless corpse",
   "death.attack.spirit_arrow": "%1$s's soul was pierced by %2$s spirit arrows",
   "death.attack.pendant_reflect": "%1$s has taken the karma",
+  "death.attack.soul_weapons_bonus": "%1$s's soul has been destroyed by %2$s",
 
   "death.attack.iss_magicfromtheeast.sword_dance": "%1$s was pierced by %2$s force swords",
   "death.attack.iss_magicfromtheeast.qigong_controlling": "%1$s couldn't resist to %2$s's push force",

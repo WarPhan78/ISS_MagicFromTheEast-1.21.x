@@ -56,7 +56,7 @@ public class TaoistEntity extends NeutralWizard implements IMerchantWizard {
         this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(1, new WizardAttackGoal(this, 1.25f, 25, 60)
                 .setSpells(
-                        List.of(MFTESpellRegistries.DRAGON_GLIDE_SPELL.get(), MFTESpellRegistries.LAUNCH_SPELL.get(), MFTESpellRegistries.SWORD_DANCE_SPELL.get()),
+                        List.of(MFTESpellRegistries.DRAGON_GLIDE_SPELL.get(), MFTESpellRegistries.SWORD_DANCE_SPELL.get()),
                         List.of(MFTESpellRegistries.BAGUA_ARRAY_CIRCLE_SPELL.get(), MFTESpellRegistries.DRAPES_OF_REFLECTION.get()),
                         List.of(),
                         List.of(MFTESpellRegistries.JADE_JUDGEMENT_SPELL.get())

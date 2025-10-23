@@ -21,15 +21,14 @@ import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntit
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
 import net.warphan.iss_magicfromtheeast.entity.spells.phantom_cavalry.PhantomCavalryVisualEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PushZone;
-import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ChallengedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide.JadeLoong;
 import net.warphan.iss_magicfromtheeast.entity.spells.soul_skull.SoulSkullProjectile;
+import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoul;
 import net.warphan.iss_magicfromtheeast.entity.spells.summoned_cloud.SummonCloudEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.verdict_circle.VerdictCircle;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_judgement.JadeDao;
 import net.warphan.iss_magicfromtheeast.entity.spells.qigong_controlling.PullField;
 import net.warphan.iss_magicfromtheeast.entity.spells.sword_dance.JadeSword;
-import net.warphan.iss_magicfromtheeast.entity.spells.throw_circle.ThrowCircleEntity;
 import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
 import net.warphan.iss_magicfromtheeast.entity.spirit_bullet.SpiritBulletProjectile;
 
@@ -55,16 +54,6 @@ public class MFTEEntityRegistries {
                     .sized(0.8f, 4f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_dao").toString()));
-//    public static final DeferredHolder<EntityType<?>, EntityType<JadeSentinel>> JADE_SENTINEL =
-//            MFTE_ENTITIES.register("jade_sentinel", () -> EntityType.Builder.<JadeSentinel>of(JadeSentinel::new, MobCategory.MONSTER)
-//                    .sized(4f, 12f)
-//                    .clientTrackingRange(64)
-//                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_sentinel").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<ThrowCircleEntity>> THROW_CIRCLE_ENTITY =
-            MFTE_ENTITIES.register("throw_circle", () -> EntityType.Builder.<ThrowCircleEntity>of(ThrowCircleEntity::new, MobCategory.MISC)
-                    .sized(0.5f, 0.0f)
-                    .clientTrackingRange(64)
-                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "throw_circle").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<PullField>> PULL_FIELD =
             MFTE_ENTITIES.register("pull_field", () -> EntityType.Builder.<PullField>of(PullField::new, MobCategory.MISC)
                     .sized(1f, 1f)
@@ -95,11 +84,11 @@ public class MFTEEntityRegistries {
                     .sized(.4f, .4f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_skull").toString()));
-    public static final DeferredHolder<EntityType<?>, EntityType<ChallengedSoul>> CHALLENGING_SOUL =
-            MFTE_ENTITIES.register("challenged_soul", () -> EntityType.Builder.<ChallengedSoul>of(ChallengedSoul::new, MobCategory.MISC)
+    public static final DeferredHolder<EntityType<?>, EntityType<ExtractedSoul>> EXTRACTED_SOUL =
+            MFTE_ENTITIES.register("extracted_soul", () -> EntityType.Builder.<ExtractedSoul>of(ExtractedSoul::new, MobCategory.MISC)
                     .sized(.6f, 1.8f)
                     .clientTrackingRange(64)
-                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "challenged_soul").toString()));
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "extracted_soul").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<BoneHandsEntity>> BONE_HAND_ENTITY =
             MFTE_ENTITIES.register("bone_hand", () -> EntityType.Builder.<BoneHandsEntity>of(BoneHandsEntity::new, MobCategory.MISC)
                     .sized(0.4f, 8.5f)
@@ -165,6 +154,7 @@ public class MFTEEntityRegistries {
                     .sized(.6f, 1.8f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "onmyoji").toString()));
-    //MFTE WIZARDS
+
+    //MFTE BOSSES
 
 }

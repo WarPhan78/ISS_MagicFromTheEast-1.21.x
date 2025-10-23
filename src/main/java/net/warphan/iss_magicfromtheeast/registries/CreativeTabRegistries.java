@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
-@EventBusSubscriber (modid = ISS_MagicFromTheEast.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber (modid = ISS_MagicFromTheEast.MOD_ID)
 public class CreativeTabRegistries {
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ISS_MagicFromTheEast.MOD_ID);
 
@@ -75,6 +75,7 @@ public class CreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_HORSE_ARMOR.get());
 
                 entries.accept(MFTEItemRegistries.ELEMENTAL_COMMANDER_CHESTPLATE.get());
+                entries.accept(MFTEItemRegistries.BOOTS_OF_MIST.get());
 
                 entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());

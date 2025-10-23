@@ -70,7 +70,7 @@
 //
 //    public JadeSentinel(Level level, LivingEntity owner, boolean playRaiseAnim) {
 //        this(MFTEEntityRegistries.JADE_SENTINEL.get(), level);
-//        setSummoner(owner);
+//        setOwner(owner);
 //        if (playRaiseAnim)
 //            triggerRaiseAnim();
 //    }
@@ -201,7 +201,7 @@
 //        return OwnerHelper.getAndCacheOwner(level(), cachedSummoner, summonerUUID);
 //    }
 //
-//    public void setSummoner(@Nullable LivingEntity owner) {
+//    public void setOwner(@Nullable LivingEntity owner) {
 //        if (owner != null) {
 //            this.summonerUUID = owner.getUUID();
 //            this.cachedSummoner = owner;

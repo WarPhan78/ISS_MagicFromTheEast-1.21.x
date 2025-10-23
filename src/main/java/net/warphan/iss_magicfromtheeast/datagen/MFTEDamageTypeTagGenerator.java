@@ -40,7 +40,8 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
 
         tag(SOUL_HURTING).add(
                 MFTEDamageTypes.SOUL_DAMAGE,
-                MFTEDamageTypes.SPIRIT_ARROW
+                MFTEDamageTypes.SPIRIT_ARROW,
+                MFTEDamageTypes.SOUL_WEAPONS_BONUS
         );
 
         tag(BYPASS_REVERSAL_HEALING).add(

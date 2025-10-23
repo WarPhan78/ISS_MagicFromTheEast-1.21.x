@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.enchantment.effects.AddValue;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.GhostlyColdEnchantmentEffect;
 import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.SoulFlameEnchantmentEffect;
+import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEEnchantmentTags;
 import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
@@ -24,8 +26,8 @@ public class MFTEEnchantments {
             ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spiritual_focus"));
     public static final ResourceKey<Enchantment> WISELY_WILL = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "wisely_will"));
-//    public static final ResourceKey<Enchantment> EXPANDING = ResourceKey.create(Registries.ENCHANTMENT,
-//            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "expanding"));
+    public static final ResourceKey<Enchantment> INNER_IMPACT = ResourceKey.create(Registries.ENCHANTMENT,
+            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "inner_impact"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);
@@ -67,7 +69,7 @@ public class MFTEEnchantments {
                                 1,
                                 EquipmentSlotGroup.MAINHAND))
                             .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_FUNCTION_EXCLUSIVE))
-                        .withEffect(EnchantmentEffectComponents.DAMAGE,
+                        .withEffect(MFTEDataComponentRegistries.SOUL_DAMAGE.get(),
                                 new AddValue(LevelBasedValue.perLevel(1)))
         );
         register(
@@ -80,8 +82,21 @@ public class MFTEEnchantments {
                                 0,
                                 EquipmentSlotGroup.MAINHAND))
                             .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_FUNCTION_EXCLUSIVE))
-                        .withEffect(EnchantmentEffectComponents.AMMO_USE,
-                                new AddValue(LevelBasedValue.perLevel(-5)))
+                        .withEffect(MFTEDataComponentRegistries.MANA_USE.get(),
+                                new AddValue(LevelBasedValue.perLevel(-15)))
+        );
+        register(
+                context, INNER_IMPACT, Enchantment.enchantment(Enchantment.definition(
+                        items.getOrThrow(MFTETags.SOUL_MELEE_WEAPON),
+                        10,
+                        5,
+                        Enchantment.dynamicCost(4, 12),
+                        Enchantment.dynamicCost(20, 12),
+                        1,
+                        EquipmentSlotGroup.MAINHAND))
+                        .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
+                        .withEffect(MFTEDataComponentRegistries.SOUL_DAMAGE.get(),
+                                new AddValue(LevelBasedValue.perLevel(1)))
         );
 //        register(
 //                context, EXPANDING, Enchantment.enchantment(Enchantment.definition(
@@ -97,8 +112,7 @@ public class MFTEEnchantments {
 //        );
     }
 
-    private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,
-                                 Enchantment.Builder builder) {
+    private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
         registry.register(key, builder.build(key.location()));
     }
 }

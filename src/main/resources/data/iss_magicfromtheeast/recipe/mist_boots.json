@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "PBP",
+    " M "
+  ],
+  "key": {
+    "B": {
+      "item": "iss_magicfromtheeast:onmyoji_boots"
+    },
+    "D": {
+      "item": "irons_spellbooks:divine_soulshard"
+    },
+    "M": {
+      "item": "irons_spellbooks:mithril_weave"
+    },
+    "P": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "result": {
+    "id": "iss_magicfromtheeast:mist_boots",
+    "count": 1
+  }
+}

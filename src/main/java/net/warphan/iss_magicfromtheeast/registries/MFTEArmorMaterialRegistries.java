@@ -41,6 +41,14 @@ public class MFTEArmorMaterialRegistries {
             0,
             0f);
 
+    public static DeferredHolder<ArmorMaterial, ArmorMaterial> BOOTS_OF_MIST = register("mist",
+            magicArmorMap(),
+            40,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.of(ModTags.MITHRIL_INGOT),
+            0,
+            0f);
+
     private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(
             String name,
             EnumMap<ArmorItem.Type, Integer> defense,

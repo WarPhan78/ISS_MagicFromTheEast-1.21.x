@@ -209,6 +209,7 @@ public class OnmyojiEntity extends NeutralWizard implements IMerchantWizard {
             }
             this.offers.add(new MerchantOffer(
                     new ItemCost(MFTEItemRegistries.CRYSTALLIZED_SOUL.get(), 4),
+                    Optional.of(new ItemCost(ItemRegistry.RUINED_BOOK.get(), 1)),
                     new ItemStack(MFTEItemRegistries.RITUAL_ORIHON.get(), 1),
                     1,
                     1,

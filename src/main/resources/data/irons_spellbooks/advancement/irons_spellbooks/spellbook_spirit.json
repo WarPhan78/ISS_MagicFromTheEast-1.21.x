@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "iss_magicfromtheeast:ritual_orihon"
+    },
+    "title": {
+      "translate": "advancements.iss_magicfromtheeast.spell_book_spirit.title"
+    },
+    "description": {
+      "translate": "advancements.iss_magicfromtheeast.spell_book_spirit.description"
+    },
+    "announce_to_chat": false,
+    "show_toast": true,
+    "frame": "challenge"
+  },
+  "parent": "irons_spellbooks:irons_spellbooks/spell_book_diamond",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iss_magicfromtheeast:ritual_orihon"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  }
+}

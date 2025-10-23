@@ -8,6 +8,9 @@ public class MFTEServerConfigs {
     public static final ModConfigSpec.ConfigValue<Double> SOULBURN_MAX_DAMAGE;
     public static final ModConfigSpec.ConfigValue<Integer> SOULBURN_DAMAGE_SCALING;
     public static final ModConfigSpec.ConfigValue<Double> IMPERMANENCE_LIMIT_PERCENT;
+    public static final ModConfigSpec.ConfigValue<Boolean> PASS_CHALLENGING;
+    public static final ModConfigSpec.ConfigValue<Boolean> ALLOW_SPIRIT_CRUSHER_DAMAGE_CAP;
+    public static final ModConfigSpec.ConfigValue<Double> SPIRIT_CRUSHER_DAMAGE_CAP;
 
     static {
         BUILDER.comment("Serverside Configurations");
@@ -16,6 +19,8 @@ public class MFTEServerConfigs {
 
             BUILDER.comment("The limit of damage Impermanence's Verdict spell can reach based on target's max health. Default: 0.4 (40% target's max health)");
             IMPERMANENCE_LIMIT_PERCENT = BUILDER.worldRestart().define("impermanencePercentLimit", 0.4);
+            BUILDER.comment("Allow player to use counterspell on extracted soul to skip the challenging. Default: false");
+            PASS_CHALLENGING = BUILDER.worldRestart().define("passChallenging", false);
             BUILDER.pop();
         }
         {
@@ -25,6 +30,16 @@ public class MFTEServerConfigs {
             SOULBURN_MAX_DAMAGE = BUILDER.define("maxSoulburnDamage", 10.0);
             BUILDER.comment("The percent amount of damage soulburn effect dealt based on target's max health. Default: 5 (5% of target's max health)");
             SOULBURN_DAMAGE_SCALING = BUILDER.define("soulburnDamageScaling", 5);
+            BUILDER.pop();
+        }
+        {
+            BUILDER.push("Weapons");
+
+            BUILDER.comment("Allow damage cap working on Spirit Crusher. Default: false");
+            ALLOW_SPIRIT_CRUSHER_DAMAGE_CAP = BUILDER.worldRestart().define("allowSpiritCrusherDamageCap", false);
+            BUILDER.comment("The amount of the damage cap. Default: 30.0");
+            SPIRIT_CRUSHER_DAMAGE_CAP = BUILDER.worldRestart().define("spiritCrusherDamageCapAmount", 30.0);
+            BUILDER.pop();
         }
 
         SPEC = BUILDER.build();

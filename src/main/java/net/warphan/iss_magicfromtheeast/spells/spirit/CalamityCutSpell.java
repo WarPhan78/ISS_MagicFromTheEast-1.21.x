@@ -102,7 +102,7 @@ public class CalamityCutSpell extends AbstractSpell {
         Vec3 forward = entity.getForward().multiply(1, 0, 1).normalize();
         Vec3 start = entity.getEyePosition().subtract(0, 0.5, 0).add(forward.scale(1.5));
         float count = getRange(spellLevel, entity);
-        CameraShakeManager.addCameraShake(new CameraShakeData(10, entity.position(), 10));
+        CameraShakeManager.addCameraShake(new CameraShakeData(level, 10, entity.position(), 10));
 
 
         for (int i = 0; i < count; i++) {

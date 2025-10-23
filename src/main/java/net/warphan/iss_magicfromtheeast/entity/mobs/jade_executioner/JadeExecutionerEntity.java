@@ -67,6 +67,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         xpReward = 0;
         this.lookControl = createLookControl();
         this.moveControl = createMoveControl();
+        noCulling = true;
     }
 
     public JadeExecutionerEntity(Level level, LivingEntity owner, boolean playShowdownAnimation) {
@@ -211,6 +212,11 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         return false;
     }
 
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
     //Hurt, Die and Damage
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
@@ -299,7 +305,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
 
         MagicManager.spawnParticles(level, new BlastwaveParticleOptions(MFTESchoolRegistries.SYMMETRY.get().getTargetingColor(), radius), getX(), getY() + .165f, getZ(), 1, 0, 0, 0, 0, true);
         MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, getX(), getY() + 0.1, getZ(), 60, 2.0, .2, 2.0, 0.5, false);
-        CameraShakeManager.addCameraShake(new CameraShakeData(10, entity.position(), radius * 2));
+        CameraShakeManager.addCameraShake(new CameraShakeData(level,10, entity.position(), radius * 2));
 
         float damage = entity.getMaxHealth() / 10;
         level.getEntities(entity, entity.getBoundingBox().inflate(radius, 4, radius), (target) -> !DamageSources.isFriendlyFireBetween(target, entity)

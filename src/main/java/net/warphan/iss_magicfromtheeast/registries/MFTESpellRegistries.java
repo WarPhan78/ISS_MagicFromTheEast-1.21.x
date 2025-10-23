@@ -22,7 +22,7 @@ public class MFTESpellRegistries extends SpellRegistry {
     }
 
     //SYMMETRY SPELLS
-    public static final Supplier<AbstractSpell> LAUNCH_SPELL = registerSpell(new LaunchSpell());
+//    public static final Supplier<AbstractSpell> LAUNCH_SPELL = registerSpell(new LaunchSpell());
 //    public static final Supplier<AbstractSpell> FORCE_SWORD_SPELL = registerSpell(new ForceSwordSpell());
     public static final Supplier<AbstractSpell> QIGONG_CONTROLLING_SPELL = registerSpell(new QigongControllingSpell());
     public static final Supplier<AbstractSpell> SWORD_DANCE_SPELL = registerSpell(new SwordDanceSpell());
