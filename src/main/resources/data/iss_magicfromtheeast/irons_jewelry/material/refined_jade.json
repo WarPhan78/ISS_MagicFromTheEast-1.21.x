@@ -3,9 +3,6 @@
   "ingredient": {
     "tag": "c:ingots/refined_jade"
   },
-  "materialType": [
-    "metal"
-  ],
   "paletteLocation": "iss_magicfromtheeast:palettes/refined_jade",
   "quality": 2.5,
   "bonusParameters": {
