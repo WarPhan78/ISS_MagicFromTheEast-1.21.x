@@ -1,4 +1,14 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "registry": "minecraft:item",
+        "tag": "c:gems/jade"
+      }
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {

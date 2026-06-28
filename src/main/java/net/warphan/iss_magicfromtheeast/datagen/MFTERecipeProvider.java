@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTEFluidRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,8 +21,8 @@ public class MFTERecipeProvider extends IronRecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
-        schoolArmorSmithing(recipeOutput, ISS_MagicFromTheEast.MOD_ID, "symmetry", "taoist");
-        schoolArmorSmithing(recipeOutput, ISS_MagicFromTheEast.MOD_ID, "spirit", "onmyoji");
+        schoolArmorSmithing(recipeOutput, MFTESchoolRegistries.SYMMETRY.get(), "taoist");
+        schoolArmorSmithing(recipeOutput, MFTESchoolRegistries.SPIRIT.get(), "onmyoji");
 
         simpleRingSalvageRecipe(recipeOutput, MFTEItemRegistries.SOULWARD_RING.get(), Ingredient.of(MFTEItemRegistries.CRYSTALLIZED_SOUL.get()));
 
