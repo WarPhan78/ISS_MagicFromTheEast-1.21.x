@@ -1,130 +1,182 @@
-package net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands;
-
-import io.redspace.ironsspellbooks.damage.DamageSources;
-import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
-import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
-
-public class BoneHandAttackGoal extends WarlockAttackGoal {
-    final BoneHandsEntity boneHands;
-
-    public BoneHandAttackGoal(BoneHandsEntity boneHandsEntity, double pSpeedModifier, int minAttackInterval, int maxAttackInterval) {
-        super(boneHandsEntity, pSpeedModifier, minAttackInterval, maxAttackInterval);
-        boneHands = boneHandsEntity;
-        attack = actionAttack(0);
-        this.wantsToMelee = true;
-    }
-
-    @Override
-    protected float meleeBias() {
-        return 1f;
-    }
-
-    int meleeAnimTimer = -1;
-    public BoneHandsEntity.AttackAnim attack;
-    float meleeRange = 9.0f;
-    float watchRange = 12.0f;
-
-    @Override
-    protected void handleAttackLogic(double distanceSquared) {
-        float distance = Mth.sqrt((float) distanceSquared);
-        if (target != null) {
-            mob.getLookControl().setLookAt(target);
-        }
-        if (distance > meleeRange) {
-            if (mob instanceof BoneHandsEntity boneHands) {
-                boneHands.stopAnimationAttack();
-            }
-            if (distance < watchRange) {
-                forceFaceTarget();
-            } else if (distance > watchRange) {
-                mob.setTarget(null);
-                mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-            }
-            meleeAnimTimer = 0;
-        } else if (distance <= meleeRange) {
-            if (mob instanceof BoneHandsEntity boneHands) {
-                boneHands.triggerAnimatingAttack();
-            }
-            if (meleeAnimTimer > 0) {
-                forceFaceTarget();
-                meleeAnimTimer--;
-                if (attack.data.isHitFrame(meleeAnimTimer)) {
-                    playSlamSound();
-                    float radius = 1.0f;
-                    Vec3 forward = boneHands.getForward().multiply(1, 0, 1).normalize();
-                    Vec3 start = boneHands.getEyePosition().subtract(0, 8, 0).add(forward.scale(1.5));
-                    Vec3 bbBox = new Vec3(radius, radius * 5.0f, radius);
-                    float slamDamage = (float) boneHands.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                    for (int i = 0; i <= 6; i++) {
-                        Vec3 slamPos = start.add(forward.scale(i));
-                        boneHands.level.getEntitiesOfClass(LivingEntity.class, new AABB(slamPos.subtract(bbBox), slamPos.add(bbBox))).forEach(entity -> {
-                            if (entity.isPickable() && !DamageSources.isFriendlyFireBetween(boneHands, entity)) {
-                                entity.hurt(boneHands.level().damageSources().mobAttack(boneHands), slamDamage);
-                                entity.hurtMarked =  true;
-                            }
-                        });
-                    }
-                }
-            } else if (target != null && !target.isDeadOrDying()) {
-                doMeleeAction();
-            } else if (meleeAnimTimer == 0) {
-                resetMeleeAttackInterval(distanceSquared);
-                meleeAnimTimer = -1;
-            }
-            if (target == null || target.isDeadOrDying()) {
-                if (mob instanceof BoneHandsEntity boneHands) {
-                    boneHands.stopAnimationAttack();
-                }
-            }
-        }
-    }
-
-    private BoneHandsEntity.AttackAnim actionAttack(float distance) {
-        return BoneHandsEntity.AttackAnim.BONE_SLAM;
-    }
-
-    private void forceFaceTarget() {
-        double d0 = target.getX() - mob.getX();
-        double d1 = target.getZ() - mob.getZ();
-        float yRot = (float) (Mth.atan2(d1, d0) * (double) (180 / (float) Math.PI)) - 90.0F;
-        mob.setYBodyRot(yRot);
-        mob.setYHeadRot(yRot);
-        mob.setYRot(yRot);
-    }
-
-    @Override
-    protected void doMeleeAction() {
-        if (attack != null) {
-            meleeAnimTimer = attack.data.lengthInTicks;
-            PacketDistributor.sendToPlayersTrackingEntity(boneHands, new SyncAnimationPacket<>(attack.toString(), boneHands));
-        }
-    }
-
-    @Override
-    protected void doMovement(double distanceSquared) {
-        return;
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return super.canContinueToUse() || meleeAnimTimer > 0;
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-        this.meleeAnimTimer = -1;
-    }
-
-    public void playSlamSound() {
-        mob.playSound(MFTESoundRegistries.BONE_SLAM.get(), 1, Mth.randomBetweenInclusive(mob.getRandom(),9,13) * .1f);
-    }
-}
+//package net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands;
+//
+//import io.redspace.ironsspellbooks.api.util.Utils;
+//import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+//import io.redspace.ironsspellbooks.damage.DamageSources;
+//import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
+//import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
+//import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
+//import net.minecraft.util.Mth;
+//import net.minecraft.world.entity.Entity;
+//import net.minecraft.world.entity.ai.attributes.Attributes;
+//import net.minecraft.world.phys.AABB;
+//import net.minecraft.world.phys.Vec3;
+//import net.neoforged.neoforge.network.PacketDistributor;
+//import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
+//import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+//import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
+//
+//public class BoneHandAttackGoal extends WarlockAttackGoal {
+//    final BoneHandsEntity boneHands;
+//
+//    public BoneHandAttackGoal(BoneHandsEntity boneHandsEntity, double pSpeedModifier, int minAttackInterval, int maxAttackInterval) {
+//        super(boneHandsEntity, pSpeedModifier, minAttackInterval, maxAttackInterval);
+//        boneHands = boneHandsEntity;
+//        nextAttack = randomizeNextAttack(0);
+//        this.wantsToMelee = true;
+//    }
+//
+//    @Override
+//    protected float meleeBias() {
+//        return 1f;
+//    }
+//
+//    int meleeAnimTimer = -1;
+//    public BoneHandsEntity.AttackAnim currentAttack;
+//    public BoneHandsEntity.AttackAnim nextAttack;
+//    public BoneHandsEntity.AttackAnim queueCombo;
+//
+//    @Override
+//    protected void handleAttackLogic(double distanceSquared) {
+//        var meleeRange = meleeRange();
+//        float distance = Mth.sqrt((float) distanceSquared);
+//        mob.getLookControl().setLookAt(target);
+//        if (meleeAnimTimer > 0) {
+//            forceFaceTarget();
+//            meleeAnimTimer--;
+//            if (currentAttack.data.isHitFrame(meleeAnimTimer)) {
+//                Vec3 lunge = target.position().subtract(mob.position()).normalize().scale(-.25f);
+//                Vec3 punchAhead = target.position().subtract(mob.position()).normalize().scale(.5f);
+//                float radius = 0.8f;
+//                var damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+//                Vec3 forward = mob.getForward().multiply(1, 0, 1).normalize();
+//                Vec3 start = mob.getEyePosition().add(forward.scale(1.2));
+//                if (distance <= meleeRange && Utils.hasLineOfSight(mob.level, mob, target, true)) {
+//                    if (currentAttack == BoneHandsEntity.AttackAnim.SLASH) {
+//                        playSlashSound();
+//                        mob.push(lunge.x, lunge.y, lunge.z);
+//                        Vec3 slashLocation = mob.position().add(forward.scale(2.5));
+//                        var entities = mob.level.getEntities(mob, AABB.ofSize(slashLocation, radius * 3, radius * 3, radius * 3));
+//                        for (Entity targetEntity : entities) {
+//                            DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.BONE_HANDS_SPELL.get().getDamageSource(mob));
+////                            if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
+////                                queueCombo = randomizeNextAttack(0);
+////                            }
+//                        }
+//                    } else if (currentAttack == BoneHandsEntity.AttackAnim.SMASH) {
+//                        playSlamSound();
+//                        mob.push(lunge.x, lunge.y, lunge.z);
+//                        Vec3 smashPosition = mob.position();
+//                        var entities = mob.level.getEntities(mob, AABB.ofSize(smashPosition, radius * 4, radius * 3, radius * 4));
+//                        if (!mob.level.isClientSide) {
+//                            MagicManager.spawnParticles(mob.level, new BlastwaveParticleOptions(MFTESchoolRegistries.SPIRIT.get().getTargetingColor(), radius * 4), smashPosition.x, smashPosition.y + .165f, smashPosition.z, 1, 0, 0, 0, 0, true);
+//                        }
+//                        for (Entity targetEntity : entities) {
+//                            DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.BONE_HANDS_SPELL.get().getDamageSource(mob));
+//                        }
+//                    } else if (currentAttack == BoneHandsEntity.AttackAnim.POKE) {
+//                        boolean flag = this.mob.doHurtTarget(target);
+//                        mob.push(lunge.x, lunge.y, lunge.z);
+//                        if (flag) {
+//                            playSlashSound();
+//                            if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
+//                                queueCombo = randomizeNextAttack(0);
+//                            }
+//                        }
+//                    } else if (currentAttack == BoneHandsEntity.AttackAnim.PUNCH) {
+//                        playSlashSound();
+//                        Vec3 bashPos = start.add(forward.scale(1.2));
+//                        var entities = mob.level.getEntities(mob, AABB.ofSize(bashPos, radius * 3.5, radius * 3.5, radius * 3.5));
+//                        for (Entity targetEntity : entities) {
+//                            if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, bashPos.add(0, 0.5, 0), targetEntity.getBoundingBox().getCenter(), true)) {
+//                                DamageSources.applyDamage(targetEntity,damage * 0.75f, MFTESpellRegistries.BONE_HANDS_SPELL.get().getDamageSource(mob));
+//                                Vec3 knockBack = mob.position().subtract(targetEntity.position());
+//                                target.knockback(3, knockBack.x, knockBack.z);
+//                                targetEntity.hurtMarked = true;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } else if (queueCombo != null && target != null && !target.isDeadOrDying()) {
+//            nextAttack = queueCombo;
+//            queueCombo = null;
+//            doMeleeAction();
+//        } else if (meleeAnimTimer == 0) {
+//            nextAttack = randomizeNextAttack(distance);
+//            resetMeleeAttackInterval(distanceSquared);
+//            meleeAnimTimer = -1;
+//        } else {
+//            if (distance < meleeRange) {
+//                if (hasLineOfSight && --this.meleeAttackDelay == 0) {
+//                    doMeleeAction();
+//                } else if (this.meleeAttackDelay < 0) {
+//                    resetMeleeAttackInterval(distanceSquared);
+//                }
+//            } else if (--this.meleeAttackDelay < 0) {
+//                resetMeleeAttackInterval(distanceSquared);
+//                nextAttack = randomizeNextAttack(distance);
+//            }
+//        }
+//    }
+//
+//    private BoneHandsEntity.AttackAnim randomizeNextAttack(float distance) {
+//        var meleeRange = meleeRange();
+//        int i;
+//        if (distance < meleeRange * 1.2f) {
+//            i = BoneHandsEntity.AttackAnim.values().length - 1;
+//        }else {
+//            i = BoneHandsEntity.AttackAnim.values().length;
+//        }
+//        return BoneHandsEntity.AttackAnim.values()[mob.getRandom().nextInt(i)];
+//    }
+//
+//
+//    private void forceFaceTarget() {
+//        double d0 = target.getX() - mob.getX();
+//        double d1 = target.getZ() - mob.getZ();
+//        float yRot = (float) (Mth.atan2(d1, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+//        mob.setYBodyRot(yRot);
+//        mob.setYHeadRot(yRot);
+//        mob.setYRot(yRot);
+//    }
+//
+//    @Override
+//    protected void doMeleeAction() {
+//        currentAttack = nextAttack;
+//        if (currentAttack != null) {
+//            meleeAnimTimer = currentAttack.data.lengthInTicks;
+//            PacketDistributor.sendToPlayersTrackingEntity(boneHands, new SyncAnimationPacket<>(currentAttack.toString(), boneHands));
+//        }
+//    }
+//
+//    @Override
+//    protected void doMovement(double distanceSquared) {
+//        var meleeRange = meleeRange();
+//        if (target.isDeadOrDying()) {
+//            this.mob.getNavigation().stop();
+//        } else if (distanceSquared > meleeRange * meleeRange) {
+//            this.mob.getNavigation().moveTo(this.target, this.speedModifier * 1.3f);
+//        }
+//    }
+//
+//    @Override
+//    public boolean canContinueToUse() {
+//        return super.canContinueToUse() || meleeAnimTimer > 0;
+//    }
+//
+//    @Override
+//    public void stop() {
+//        super.stop();
+//        this.meleeAnimTimer = -1;
+//        this.queueCombo = null;
+//    }
+//
+//    public void playSlashSound() {
+//        mob.playSound(MFTESoundRegistries.AXE_SWEEP.get(), 1, Mth.randomBetweenInclusive(mob.getRandom(),9,13) * .1f);
+//    }
+//
+//    public void playSlamSound() {
+//        mob.playSound(MFTESoundRegistries.JADE_EMERGE.get(), 1, Mth.randomBetweenInclusive(mob.getRandom(), 9, 13) * .1f);
+//    }
+//}

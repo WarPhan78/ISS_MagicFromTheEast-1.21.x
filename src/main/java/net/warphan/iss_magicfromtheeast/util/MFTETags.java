@@ -1,11 +1,13 @@
 package net.warphan.iss_magicfromtheeast.util;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
@@ -18,9 +20,15 @@ public class MFTETags {
     public static final TagKey<Item> AMMO_LOAD_WEAPON = ItemTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "ammo_load_weapon"));
     public static final TagKey<Item> SOUL_MELEE_WEAPON = ItemTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "melee_soul_weapon"));
 
+    public static final TagKey<Block> SOULBURN_PROVIDER = BlockTags.create(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soulburn_provider"));
+
     public static final TagKey<BannerPattern> BALANCE_PATTERN_ITEM = bannerTag("pattern_item/balance");
 
     public static final TagKey<EntityType<?>> SPIRIT_CHALLENGING_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging_immune"));
+    public static final TagKey<EntityType<?>> SOULBURN_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "soulburn_immune"));
+    public static final TagKey<EntityType<?>> SPIRIT_RESIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spirit_resist"));
+    public static final TagKey<EntityType<?>> COUNTERSPELL_RESIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "counterspell_resist_summon"));
+    public static final TagKey<EntityType<?>> STRONG_COUNTERSPELL_RESIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "counterspell_resist_summon_strong"));
 
     private static TagKey<BannerPattern> bannerTag(String name) {
         return TagKey.create(Registries.BANNER_PATTERN, ISS_MagicFromTheEast.id(name));

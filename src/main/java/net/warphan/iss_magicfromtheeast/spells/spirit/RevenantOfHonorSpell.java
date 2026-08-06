@@ -32,7 +32,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class RevenantOfHonorSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "revenant_of_honor");
 
@@ -111,7 +110,7 @@ public class RevenantOfHonorSpell extends AbstractSpell {
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
-            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 8).getLocation();
+            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 4).getLocation();
 
             SpiritSamuraiEntity spiritSamurai = new SpiritSamuraiEntity(world, entity, true);
 
@@ -145,6 +144,6 @@ public class RevenantOfHonorSpell extends AbstractSpell {
     }
 
     private float getSamuraiArmor(int spellLevel, LivingEntity summoner) {
-        return 6.0f + spellLevel * 2;
+        return 10;
     }
 }

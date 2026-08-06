@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class RepeatingCrossbow extends ProjectileWeaponItem {
+public class RepeatingCrossbow extends CrossbowItem {
     private static final int DEFAULT_PROJECTILE_AMOUNT = 5;
     public static final String AMMO_AMOUNT = "ammo_amount";
     public static final String RC_LOADING = "loading";

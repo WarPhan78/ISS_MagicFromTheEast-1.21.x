@@ -26,11 +26,11 @@ public class MFTEAttributeRegistries {
 
     public static final DeferredHolder<Attribute, Attribute> SYMMETRY_MAGIC_RESIST = newResistanceAttribute("symmetry");
     public static final DeferredHolder<Attribute, Attribute> SPIRIT_MAGIC_RESIST = newResistanceAttribute("spirit");
-    public static final DeferredHolder<Attribute, Attribute> DUNE_MAGIC_RESIST = newResistanceAttribute("dune");
+//    public static final DeferredHolder<Attribute, Attribute> DUNE_MAGIC_RESIST = newResistanceAttribute("dune");
 
     public static final DeferredHolder<Attribute, Attribute> SYMMETRY_SPELL_POWER = newPowerAttribute("symmetry");
     public static final DeferredHolder<Attribute, Attribute> SPIRIT_SPELL_POWER = newPowerAttribute("spirit");
-    public static final DeferredHolder<Attribute, Attribute> DUNE_SPELL_POWER = newPowerAttribute("dune");
+//    public static final DeferredHolder<Attribute, Attribute> DUNE_SPELL_POWER = newPowerAttribute("dune");
 
     public static Holder<Attribute> holder(Supplier<Attribute> attributeSupplier) {
         return Holder.direct(attributeSupplier.get());

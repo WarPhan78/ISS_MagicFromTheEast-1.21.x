@@ -31,7 +31,7 @@ public class MFTESchoolRegistries extends SchoolRegistry {
 
     public static final ResourceLocation SYMMETRY_RESOURCE = ISS_MagicFromTheEast.id("symmetry");
     public static final ResourceLocation SPIRIT_RESOURCE = ISS_MagicFromTheEast.id("spirit");
-    public static final ResourceLocation DUNE_RESOURCE = ISS_MagicFromTheEast.id("dune");
+//    public static final ResourceLocation DUNE_RESOURCE = ISS_MagicFromTheEast.id("dune");
 
     public static final Supplier<SchoolType> SYMMETRY = registerSchool(new SchoolType(
             SYMMETRY_RESOURCE,
@@ -53,14 +53,15 @@ public class MFTESchoolRegistries extends SchoolRegistry {
             MFTEDamageTypes.SPIRIT_MAGIC
     ));
 
-    public static final Supplier<SchoolType> DUNE = registerSchool(new SchoolType(
-            DUNE_RESOURCE,
-            MFTETags.DUNE_FOCUS,
-            Component.translatable("school.iss_magicfromtheeast.dune").withStyle(Style.EMPTY.withColor(0xff4d00)),
-            MFTEAttributeRegistries.DUNE_SPELL_POWER,
-            MFTEAttributeRegistries.DUNE_MAGIC_RESIST,
-            MFTESoundRegistries.DUNE_CAST,
-            MFTEDamageTypes.DUNE_MAGIC
-    ));
+    //Dune should only available when we start to working on it
+//    public static final Supplier<SchoolType> DUNE = registerSchool(new SchoolType(
+//            DUNE_RESOURCE,
+//            MFTETags.DUNE_FOCUS,
+//            Component.translatable("school.iss_magicfromtheeast.dune").withStyle(Style.EMPTY.withColor(0xff4d00)),
+//            MFTEAttributeRegistries.DUNE_SPELL_POWER,
+//            MFTEAttributeRegistries.DUNE_MAGIC_RESIST,
+//            MFTESoundRegistries.DUNE_CAST,
+//            MFTEDamageTypes.DUNE_MAGIC
+//    ));
 
 }

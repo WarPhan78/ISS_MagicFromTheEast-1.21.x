@@ -21,6 +21,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -58,7 +59,7 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
         KATANA_SLASH_2(15, "samurai_slash_2", 10),
         KATANA_UPPER_CUT(15, "samurai_upper_cut", 10),
         KATANA_STRIKE(15, "samurai_strike", 10),
-        KATANA_TECHNIQUE(40, "samurai_technique", 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35);
+        KATANA_TECHNIQUE(40, "samurai_technique", 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37);
 
         AttackAnim(int lengthTick, String animationID, int... attackTimeStamp) {
             this.data = new AttackAnimationData(lengthTick, animationID, attackTimeStamp);
@@ -143,6 +144,12 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        this.onDeathHelper();
+        super.die(damageSource);
     }
 
     @Override
@@ -233,11 +240,15 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
 
     //Hurt, Die and Damage
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(pSource))) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && isAnimatingRise()
+                || shouldIgnoreDamage(source)
+                || source.is(DamageTypes.DROWN)
+                || source.is(DamageTypes.FALL)
+        ) {
             return false;
         }
-        return super.hurt(pSource, pAmount);
+        return super.hurt(source, amount);
     }
 
     @Override

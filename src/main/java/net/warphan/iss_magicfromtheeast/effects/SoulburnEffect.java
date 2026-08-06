@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
+import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
 public class SoulburnEffect extends MagicMobEffect implements ISyncedMobEffect {
     public SoulburnEffect(MobEffectCategory pCategory, int pColor) {
@@ -18,17 +19,20 @@ public class SoulburnEffect extends MagicMobEffect implements ISyncedMobEffect {
     }
 
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        float minDamage = 1.0f;
-        float damageBasedOnHealth = ((livingEntity.getMaxHealth()) / 100) * MFTEServerConfigs.SOULBURN_DAMAGE_SCALING.get();
-        double maxDamage = MFTEServerConfigs.SOULBURN_MAX_DAMAGE.get();
-        if (damageBasedOnHealth < minDamage) {
-            livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), minDamage);
-        } else if (damageBasedOnHealth >= 1.0f && damageBasedOnHealth <= maxDamage) {
-            livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), damageBasedOnHealth);
-        } else if (damageBasedOnHealth > maxDamage) {
-            livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), (float) maxDamage);
-        }
-        return true;
+        if (!livingEntity.getType().is(MFTETags.SOULBURN_IMMUNE)) {
+            float minDamage = 1.0f;
+            float damageBasedOnHealth = ((livingEntity.getMaxHealth()) / 100) * MFTEServerConfigs.SOULBURN_DAMAGE_SCALING.get();
+            double maxDamage = MFTEServerConfigs.SOULBURN_MAX_DAMAGE.get();
+            if (damageBasedOnHealth < minDamage) {
+                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), minDamage);
+            } else if (damageBasedOnHealth >= 1.0f && damageBasedOnHealth <= maxDamage) {
+                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), damageBasedOnHealth);
+            } else if (damageBasedOnHealth > maxDamage) {
+                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), (float) maxDamage);
+            }
+            return true;
+        } else
+            return false;
     }
 
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {

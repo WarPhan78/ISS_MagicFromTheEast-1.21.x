@@ -22,7 +22,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@AutoSpellConfig
 public class CloudRideSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "cloud_ride");
 

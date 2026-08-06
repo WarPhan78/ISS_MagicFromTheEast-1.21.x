@@ -13,6 +13,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshiEntity;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneAlpha;
 import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.onmyoji.OnmyojiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.taoist.TaoistEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
@@ -89,7 +90,7 @@ public class MFTEEntityRegistries {
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "extracted_soul").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<BoneHandsEntity>> BONE_HAND_ENTITY =
             MFTE_ENTITIES.register("bone_hand", () -> EntityType.Builder.<BoneHandsEntity>of(BoneHandsEntity::new, MobCategory.MISC)
-                    .sized(0.4f, 8.5f)
+                    .sized(1.8f, 1.5f)
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bone_hand").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<JadeExecutionerEntity>> JADE_EXECUTIONER =
@@ -114,11 +115,18 @@ public class MFTEEntityRegistries {
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_arrow").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<SummonedKitsune>> SUMMONED_KITSUNE =
             MFTE_ENTITIES.register("summoned_kitsune", () -> EntityType.Builder.<SummonedKitsune>of(SummonedKitsune::new, MobCategory.MISC)
-                    .sized(.7f, .6f)
+                    .sized(.7f, .95f)
                     .immuneTo(Blocks.POWDER_SNOW)
                     .fireImmune()
                     .clientTrackingRange(64)
                     .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_kitsune").toString()));
+    public static final DeferredHolder<EntityType<?>, EntityType<SummonedKitsuneAlpha>> SUMMONED_KITSUNE_ALPHA =
+            MFTE_ENTITIES.register("summoned_kitsune_alpha", () -> EntityType.Builder.<SummonedKitsuneAlpha>of(SummonedKitsuneAlpha::new, MobCategory.MISC)
+                    .sized(1.2f, 1.75f)
+                    .immuneTo(Blocks.POWDER_SNOW)
+                    .fireImmune()
+                    .clientTrackingRange(64)
+                    .build(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "summoned_kitsune_alpha").toString()));
     public static final DeferredHolder<EntityType<?>, EntityType<SpiritSamuraiEntity>> REVENANT =
             MFTE_ENTITIES.register("spirit_samurai", () -> EntityType.Builder.<SpiritSamuraiEntity>of(SpiritSamuraiEntity::new, MobCategory.MISC)
                     .sized(.85f, 2.3f)

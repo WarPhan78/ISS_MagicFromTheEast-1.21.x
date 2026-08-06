@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.RaycastBuilder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.damage.SpellDamageSource;
@@ -28,7 +29,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class JadeJudgementSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_judgement");
 
@@ -93,7 +93,11 @@ public class JadeJudgementSpell extends AbstractSpell {
                 spawn = target.position();
         }
         if (spawn == null) {
-            HitResult raycast = Utils.raycastForEntity(level, entity, 32, true, .25f);
+            HitResult raycast = RaycastBuilder.begin(level, entity)
+                    .range(32)
+                    .checkForBlocks(true)
+                    .bbInflation(.25f)
+                    .build();
             if (raycast.getType() == HitResult.Type.ENTITY) {
                 spawn = ((EntityHitResult) raycast).getEntity().position();
                 if (((EntityHitResult) raycast).getEntity() instanceof LivingEntity livingEntity)

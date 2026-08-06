@@ -73,9 +73,6 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
                         for (Entity targetEntity : entities) {
                             if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(mob.level, leftSweepPos.add(0, 0.5, 0), targetEntity.getBoundingBox().getCenter(), true)) {
                                 DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
-                                if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
-                                    queueCombo = randomizeNextAttack(0);
-                                }
                             }
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.AXE_RIGHT) {
@@ -84,18 +81,12 @@ public class JadeExecutionerAttackGoal extends WarlockAttackGoal {
                         var entities = mob.level.getEntities(mob, AABB.ofSize(rightSweepPos, radius * 3.5, radius * 3, radius * 3.5));
                         for (Entity targetEntity : entities) {
                             DamageSources.applyDamage(targetEntity, damage, MFTESpellRegistries.PUNISHING_HEAVEN_SPELL.get().getDamageSource(mob));
-                            if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
-                                queueCombo = randomizeNextAttack(0);
-                            }
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.BITE) {
                         boolean flag = this.mob.doHurtTarget(target);
                         if (flag) {
                             playBiteSound();
                             mob.heal( (float) (damage * 0.75));
-                            if (currentAttack.data.isSingleHit() && ((mob.getRandom().nextFloat() < .75f) || target.isBlocking())) {
-                                queueCombo = randomizeNextAttack(0);
-                            }
                         }
                     } else if (currentAttack == JadeExecutionerEntity.AttackAnim.SHIELD_BASH) {
                         playBashSound();

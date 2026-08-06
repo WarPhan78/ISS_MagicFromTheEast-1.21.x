@@ -18,7 +18,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SplittingShurikenSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "splitting_shuriken");
 

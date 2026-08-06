@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
@@ -21,7 +20,6 @@ import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class DragonGlideSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "dragon_glide");
 

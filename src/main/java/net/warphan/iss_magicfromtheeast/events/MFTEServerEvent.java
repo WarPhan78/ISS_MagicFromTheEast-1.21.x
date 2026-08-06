@@ -1,13 +1,12 @@
 package net.warphan.iss_magicfromtheeast.events;
 
 import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
-import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
 import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
+import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import io.redspace.ironsspellbooks.entity.spells.ShieldPart;
-import io.redspace.ironsspellbooks.registries.BlockRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
@@ -21,31 +20,30 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import net.warphan.iss_magicfromtheeast.datagen.MFTEDamageTypeTagGenerator;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
-import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_samurai.SpiritSamuraiEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.jade_drape.JadeDrapesEntity;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoul;
 import net.warphan.iss_magicfromtheeast.item.armor.BootsOfMistArmorItem;
@@ -54,6 +52,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
 @EventBusSubscriber
 public class MFTEServerEvent {
@@ -81,19 +80,22 @@ public class MFTEServerEvent {
     public static void moreDangerousSoulFire(EntityTickEvent.Pre event) {
         var entity = event.getEntity();
         var level = entity.level;
-        if (!level.isClientSide) {
-            if (entity.tickCount % 20 == 0) {
-                BlockPos pos = entity.blockPosition();
-                BlockState blockState = entity.level.getBlockState(pos);
-                if (blockState.is(Blocks.SOUL_FIRE) || blockState.is(Blocks.SOUL_CAMPFIRE) || blockState.is(BlockRegistry.BRAZIER_SOUL)) {
-                    if (entity instanceof LivingEntity livingEntity) {
-                        livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 160, 0));
-                    }
+        if (!level.isClientSide && MFTEServerConfigs.ALLOW_BLOCK_PROVIDING_SOULBURN.get()) {
+            if (entity instanceof LivingEntity livingEntity && livingEntity.tickCount % 20 == 0) {
+                BlockPos entityPos = entity.blockPosition();
+                BlockState blockState = level.getBlockState(entityPos);
+                BlockState upState = level.getBlockState(entityPos.above());
+                if (livingEntity.getInBlockState().is(MFTETags.SOULBURN_PROVIDER)
+                        || blockState.is(Blocks.SOUL_SAND) && upState.is(Blocks.SOUL_FIRE)) {
+                    if (blockState.hasProperty(BlockStateProperties.LIT)) {
+                        if (blockState.getValue(BlockStateProperties.LIT)) {
+                            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 160, 0));
+                        }
+                    } else livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 160, 0));
                 }
             }
         }
     }
-    // NOTE: Fix the problem with Soul Fire on Soul Sand
 
     @SubscribeEvent
     public static void ignoreKnockBackEntityList(LivingKnockBackEvent event) {
@@ -107,21 +109,36 @@ public class MFTEServerEvent {
     }
 
     @SubscribeEvent
-    public static void jadeExecutionerAntiCounterSpell(CounterSpellEvent event) {
+    public static void counterSpellInteract(CounterSpellEvent event) {
         var target = event.target;
         var caster = event.caster;
-        if (target instanceof JadeExecutionerEntity jadeExecutioner) {
-            if (caster != jadeExecutioner.getSummoner()) {
+        var type = target.getType();
+        float percentDamage;
+        if (target instanceof IMagicSummon summon && caster != summon.getSummoner() && summon instanceof LivingEntity livingSummon) {
+            if (type.is(MFTETags.STRONG_COUNTERSPELL_RESIST)) {
                 event.setCanceled(true);
-                float percentDamage = jadeExecutioner.getMaxHealth() / 10;
-                jadeExecutioner.hurt(jadeExecutioner.damageSources().generic(), percentDamage);
+                //deal 15% max health amount as true damage to the summons
+                percentDamage = livingSummon.getMaxHealth() * 0.15f;
+                livingSummon.hurt(livingSummon.damageSources().generic(), percentDamage);
+            } else if (type.is(MFTETags.COUNTERSPELL_RESIST)) {
+                event.setCanceled(true);
+                //deal 35% max health amount as true damage to the summons
+                percentDamage = livingSummon.getMaxHealth() * 0.35f;
+                livingSummon.hurt(livingSummon.damageSources().generic(), percentDamage);
             }
+        }
+
+        //counterSpellHitJadeDrapes
+        if (target instanceof JadeDrapesEntity jadeDrapes) {
+            event.setCanceled(false);
+            jadeDrapes.onUnSummon();
         }
     }
 
-    //Flag effects action
     @SubscribeEvent
-    public static void modifyElementalAttack(LivingIncomingDamageEvent event) {
+    public static void damageModifyEvents(LivingIncomingDamageEvent event) {
+
+        //Flag effects action
         Entity attacker = event.getSource().getEntity();
         var type = event.getSource();
         if (attacker instanceof LivingEntity livingAttacker) {
@@ -148,6 +165,16 @@ public class MFTEServerEvent {
                 }
                 if (effectHoly != null && type.is(ISSDamageTypes.HOLY_MAGIC)) {
                     event.setAmount(oldDamageAmount + (oldDamageAmount * (float) enhancingBonus));
+            }
+        }
+
+        //Soul damage resit
+        if (event.getEntity() instanceof LivingEntity) {
+            var entityType = event.getEntity().getType();
+            if (entityType.is(MFTETags.SPIRIT_RESIST) && type.is(MFTEDamageTypeTagGenerator.SOUL_HURTING)) {
+                var oldDamage = event.getOriginalAmount();
+                event.setAmount(oldDamage * 0.75f);
+                return;
             }
         }
     }
@@ -224,16 +251,19 @@ public class MFTEServerEvent {
         }
     }
 
+    //borrow from ISS
     @SubscribeEvent
-    public static void spiritSamuraiAntiCounterSpell(CounterSpellEvent event) {
-        var target = event.target;
-        var caster = event.caster;
-        if (target instanceof SpiritSamuraiEntity samurai) {
-            if (caster != samurai.getSummoner()) {
-                event.setCanceled(true);
-                float percentDamage = samurai.getMaxHealth() / 3;
-                samurai.hurt(samurai.damageSources().generic(), percentDamage);
-            }
+    public static void addResistanceAttributes(FinalizeSpawnEvent event) {
+        var mob = event.getEntity();
+        if (mob.getType().is(MFTETags.SPIRIT_RESIST)) {
+            setIfNonNull(mob, MFTEAttributeRegistries.SPIRIT_MAGIC_RESIST, 1.5);
+        }
+    }
+
+    private static void setIfNonNull(LivingEntity mob, Holder<Attribute> attribute, double value) {
+        var instance = mob.getAttributes().getInstance(attribute);
+        if (instance != null) {
+            instance.setBaseValue(value);
         }
     }
 
@@ -270,11 +300,13 @@ public class MFTEServerEvent {
     }
 
     @SubscribeEvent
-    public static void counterSpellHitDrapes(CounterSpellEvent event) {
-        var target = event.target;
-        if (target instanceof JadeDrapesEntity jadeDrapes) {
-            event.setCanceled(false);
-            jadeDrapes.onUnSummon();
+    public static void onEffectRemoval(MobEffectEvent.Remove event) {
+        var effect = event.getEffect();
+        var entity = event.getEntity();
+
+        //Remove Mist Step effect when True Invisibility removed
+        if (effect == MobEffectRegistry.TRUE_INVISIBILITY && entity.hasEffect(MFTEEffectRegistries.MIST_STEP)) {
+            entity.removeEffect(MFTEEffectRegistries.MIST_STEP);
         }
     }
 

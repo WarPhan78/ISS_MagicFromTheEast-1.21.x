@@ -14,7 +14,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
 
-@AutoSpellConfig
 public class JadeBulletSpell extends AbstractSpell {
     private final ResourceLocation spellID = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "jade_bullet");
 

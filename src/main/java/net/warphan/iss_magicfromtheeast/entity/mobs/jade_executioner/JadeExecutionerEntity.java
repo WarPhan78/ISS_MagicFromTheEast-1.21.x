@@ -47,7 +47,6 @@ import javax.annotation.Nullable;
 public class JadeExecutionerEntity extends AbstractSpellCastingMob implements GeoEntity, IAnimatedAttacker, IMagicSummon {
     private static final EntityDataAccessor<Boolean> DATA_IS_SHOWDOWN = SynchedEntityData.defineId(JadeExecutionerEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_IS_DYING = SynchedEntityData.defineId(JadeExecutionerEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_IS_ATTACKING = SynchedEntityData.defineId(JadeExecutionerEntity.class, EntityDataSerializers.BOOLEAN);
 
     public enum AttackAnim {
         AXE_DOWN(25, "axe_down", 15),
@@ -235,6 +234,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     @Override
     public void die(DamageSource pDamageSource) {
         super.die(pDamageSource);
+        this.onDeathHelper();
         if (this.isDeadOrDying() && !this.level.isClientSide) {
             this.isAnimatingDead();
             this.entityData.set(DATA_IS_DYING, true);
@@ -255,7 +255,6 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         super.defineSynchedData(pBuilder);
         pBuilder.define(DATA_IS_SHOWDOWN, false);
         pBuilder.define(DATA_IS_DYING, false);
-        pBuilder.define(DATA_IS_ATTACKING, false);
     }
 
     public boolean isAnimatingShowdown() {

@@ -30,7 +30,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class AshigaruSquadSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "ashigaru_squad");
 
@@ -151,6 +150,6 @@ public class AshigaruSquadSpell extends AbstractSpell {
     }
 
     private float getAshigaruArmor(int spellLevel, LivingEntity summoner) {
-        return 2 + (float) (spellLevel / 2);
+        return 6;
     }
 }

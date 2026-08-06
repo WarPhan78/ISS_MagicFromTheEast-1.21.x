@@ -20,7 +20,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class PhantomChargeSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "phantom_charge");
 

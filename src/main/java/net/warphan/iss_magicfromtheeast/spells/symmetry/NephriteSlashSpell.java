@@ -31,7 +31,6 @@ import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class NephriteSlashSpell extends AbstractSpell {
     private final ResourceLocation spellID = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "nephrite_slash");
 

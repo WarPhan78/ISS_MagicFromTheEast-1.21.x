@@ -10,7 +10,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
 import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
 import org.apache.commons.lang3.mutable.MutableFloat;
-import org.jetbrains.annotations.Nullable;
 
 public class MFTEEnchantmentHelper extends EnchantmentHelper {
 

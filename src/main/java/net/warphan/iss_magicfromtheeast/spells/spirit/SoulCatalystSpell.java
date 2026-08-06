@@ -20,7 +20,6 @@ import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SoulCatalystSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_catalyst");
 

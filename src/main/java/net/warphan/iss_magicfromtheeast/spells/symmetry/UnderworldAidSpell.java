@@ -4,6 +4,7 @@ import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
+import io.redspace.ironsspellbooks.api.util.RaycastBuilder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
@@ -25,7 +26,6 @@ import net.warphan.iss_magicfromtheeast.spells.MFTESpellAnimations;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class UnderworldAidSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "underworld_aid");
 
@@ -94,7 +94,12 @@ public class UnderworldAidSpell extends AbstractSpell {
                 spawn = target.position();
         }
         if (spawn == null) {
-            spawn = Utils.raycastForEntity(world, entity, 32, true, .15f).getLocation();
+            spawn = RaycastBuilder.begin(world, entity)
+                    .range(32)
+                    .checkForBlocks(true)
+                    .bbInflation(.15f)
+                    .build()
+                    .getLocation();
             spawn = Utils.moveToRelativeGroundLevel(world, spawn, 6);
         }
 

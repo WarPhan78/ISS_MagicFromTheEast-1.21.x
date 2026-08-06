@@ -18,7 +18,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
 
-@AutoSpellConfig
 public class SwordDanceSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "sword_dance");
 
@@ -34,7 +33,7 @@ public class SwordDanceSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.UNCOMMON)
             .setSchoolResource(MFTESchoolRegistries.SYMMETRY_RESOURCE)
             .setMaxLevel(8)
-            .setCooldownSeconds(90)
+            .setCooldownSeconds(40)
             .build();
 
     public SwordDanceSpell() {
@@ -73,7 +72,7 @@ public class SwordDanceSpell extends AbstractSpell {
             motion = motion.yRot(offset * i * Mth.DEG_TO_RAD);
 
             JadeSword jadeSword = new JadeSword(level, entity);
-            if (i % 3 == 0) {
+            if (i % 2 == 0) {
                 jadeSword.setSilent(true);
             }
             jadeSword.setDamage(getSpellPower((spellLevel), entity));

@@ -15,6 +15,7 @@ import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecuti
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.JiangshiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneAlpha;
 import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.onmyoji.OnmyojiEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.mfte_wizards.taoist.TaoistEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
@@ -54,6 +55,7 @@ public class CommonSetup {
         event.put(MFTEEntityRegistries.EXTRACTED_SOUL.get(), ExtractedSoul.prepareAttributes().build());
         event.put(MFTEEntityRegistries.BONE_HAND_ENTITY.get(), BoneHandsEntity.prepareAttributes().build());
         event.put(MFTEEntityRegistries.SUMMONED_KITSUNE.get(), SummonedKitsune.prepareAttributes().build());
+        event.put(MFTEEntityRegistries.SUMMONED_KITSUNE_ALPHA.get(), SummonedKitsuneAlpha.prepareAttributes().build());
         event.put(MFTEEntityRegistries.REVENANT.get(), SpiritSamuraiEntity.prepareAttributes().build());
         event.put(MFTEEntityRegistries.ASHIGARU.get(), SpiritAshigaruEntity.prepareAttributes().build());
 

@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.RaycastBuilder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -16,7 +17,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
 
-@AutoSpellConfig
 public class DrapesOfReflectionSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "drapes_of_reflection");
 
@@ -61,7 +61,11 @@ public class DrapesOfReflectionSpell extends AbstractSpell {
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
         JadeDrapesEntity drapes = new JadeDrapesEntity(level, getDrapesHP(spellLevel, entity), entity, true);
-        Vec3 spawn = Utils.raycastForEntity(level, entity, 3, true).getLocation();
+        Vec3 spawn = RaycastBuilder.begin(level, entity)
+                .range(3)
+                .checkForBlocks(true)
+                .build()
+                .getLocation();
         drapes.setPos(spawn);
         drapes.setRotation(entity.getYRot());
         drapes.setPercentReflectDamage(getDrapesReflectionPercent(spellLevel, entity));

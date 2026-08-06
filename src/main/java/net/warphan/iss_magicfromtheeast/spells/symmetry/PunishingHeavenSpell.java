@@ -32,7 +32,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class PunishingHeavenSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "punishing_heaven");
 
@@ -111,7 +110,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
-            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 12).getLocation();
+            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 8).getLocation();
 
             JadeExecutionerEntity jadeExecutioner = new JadeExecutionerEntity(world, entity, true);
 
@@ -143,7 +142,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     private float getExecutionerArmor(int spellLevel, LivingEntity summoner) {
-        return (float) 6.0 + (spellLevel * 2);
+        return 12;
     }
 
     @Override

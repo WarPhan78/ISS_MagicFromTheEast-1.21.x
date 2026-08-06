@@ -4,8 +4,6 @@ import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
-import io.redspace.ironsspellbooks.api.util.CameraShakeData;
-import io.redspace.ironsspellbooks.api.util.CameraShakeManager;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
@@ -26,7 +24,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SoulBurstSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_burst");
 
@@ -86,7 +83,6 @@ public class SoulBurstSpell extends AbstractSpell {
         MagicManager.spawnParticles(level, new BlastwaveParticleOptions(MFTESchoolRegistries.SPIRIT.get().getTargetingColor(), radius), entity.getX(), entity.getY() + .165f, entity.getZ(), 1, 0, 0, 0, 0, true);
         MagicManager.spawnParticles(level, ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY() + 1, entity.getZ(), 100, .25, .25, .25, 0.7f + radius * .1f, false);
         MagicManager.spawnParticles(level, ParticleTypes.SCULK_SOUL, entity.getX(), entity.getY() + 1, entity.getZ(), 40, .15, .15, .15, 0.7f + radius * .1f, false);
-        CameraShakeManager.addCameraShake(new CameraShakeData(10, entity.position(), radius * 2));
 
         float damage = getDamage(spellLevel, entity);
         int duration = getDuration(spellLevel, entity);

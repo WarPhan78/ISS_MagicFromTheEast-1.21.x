@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru;
 
-import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
@@ -18,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -52,8 +52,8 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     private static final EntityDataAccessor<Boolean> DATA_IS_RANGE_TYPE = SynchedEntityData.defineId(SpiritAshigaruEntity.class, EntityDataSerializers.BOOLEAN);
 
     public enum AttackType {
-        MELEE(20, "melee_attack", 13),
-        RANGE(50, "range_attack", 30);
+        MELEE(30, "melee_attack", 22),
+        RANGE(40, "range_attack", 28);
 
         AttackType(int lengthTick, String animationID, int... attackTimeStamp) {
             this.data = new AttackAnimationData(lengthTick, animationID, attackTimeStamp);
@@ -83,7 +83,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
-        this.goalSelector.addGoal(1, new SpiritAshigaruAttackGoal(this, 1f, 10, 30));
+        this.goalSelector.addGoal(1, new SpiritAshigaruAttackGoal(this, 1f, 20, 30));
 
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.7));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -102,7 +102,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 4.0)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2.0)
                 .add(Attributes.STEP_HEIGHT, 1)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.6)
@@ -161,6 +161,12 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        this.onDeathHelper();
+        super.die(damageSource);
     }
 
     //Controlling
@@ -276,11 +282,15 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
 
     //Hurt, Die and Damage
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(pSource))) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && isAnimatingRise()
+                || shouldIgnoreDamage(source)
+                || source.is(DamageTypes.DROWN)
+                || source.is(DamageTypes.FALL)
+        ) {
             return false;
         }
-        return super.hurt(pSource, pAmount);
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -299,6 +309,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
                 this.setOldPosAndRot();
             }
         }
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() || this.isAnimatingRise();
     }
 
     //Animations

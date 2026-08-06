@@ -28,7 +28,6 @@ import net.warphan.iss_magicfromtheeast.util.MFTETags;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SpiritChallengingSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging");
 
