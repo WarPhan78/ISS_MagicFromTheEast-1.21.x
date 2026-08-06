@@ -6,7 +6,7 @@ import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
 import io.redspace.ironsspellbooks.entity.spells.AoeEntity;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -19,13 +19,13 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
@@ -48,11 +48,11 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
 
     @Override
     public void applyEffect(LivingEntity target) {
-        if (target != getOwner() && target.getType().is(EntityTypeTags.UNDEAD)) {
+        if (target != getOwner() && target.getMobType() == MobType.UNDEAD) {
             DamageSources.applyDamage(target, getDamage(), MFTESpellRegistries.BAGUA_ARRAY_CIRCLE_SPELL.get().getDamageSource(this, getOwner()));
             DamageSources.ignoreNextKnockback(target);
         } else if (target == getOwner()) {
-            target.addEffect(new MobEffectInstance(MFTEEffectRegistries.REVERSAL_HEALING, 40, healingAmplifier));
+            target.addEffect(new MobEffectInstance(MFTEEffectRegistries.REVERSAL_HEALING.get(), 40, healingAmplifier));
         }
     }
 
@@ -90,7 +90,7 @@ public class BaguaCircle extends AoeEntity implements GeoEntity, AntiMagicSuscep
     // ANIMATION
     private final RawAnimation baguaspin = RawAnimation.begin().thenPlay("animation.bagua_circle.spin");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState event) {
         event.getController().setAnimation(baguaspin);
         return PlayState.CONTINUE;
     }

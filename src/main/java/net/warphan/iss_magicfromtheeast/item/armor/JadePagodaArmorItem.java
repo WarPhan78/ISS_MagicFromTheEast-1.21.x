@@ -1,25 +1,19 @@
 package net.warphan.iss_magicfromtheeast.item.armor;
 
-import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.entity.armor.GenericCustomArmorRenderer;
 import io.redspace.ironsspellbooks.item.armor.ImbuableChestplateArmorItem;
-import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.entity.armor.JadePagodaArmorModel;
 import net.warphan.iss_magicfromtheeast.registries.MFTEArmorMaterialRegistries;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class JadePagodaArmorItem extends ImbuableChestplateArmorItem {
-    public JadePagodaArmorItem(ArmorItem.Type slot, Properties properties) {
-        super(MFTEArmorMaterialRegistries.JADE, slot, properties,
-                new AttributeContainer(Attributes.MOVEMENT_SPEED, -0.025, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                new AttributeContainer(AttributeRegistry.MAX_MANA, 50, AttributeModifier.Operation.ADD_VALUE)
-        );
+    public JadePagodaArmorItem(Type slot, Properties properties) {
+        // PORT 1.20.1: the 1.21 AttributeContainers (-2.5% movement speed, +10% spell resist,
+        // +50 max mana) are carried by the JADE material (ISS 3.16.2-1.20.1 style).
+        super(MFTEArmorMaterialRegistries.JADE, slot, properties);
     }
 
     @Override

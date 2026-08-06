@@ -3,7 +3,6 @@ package net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -17,16 +16,17 @@ import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     public JadeLoong(EntityType<? extends Projectile> pEntityType, Level pLevel) {
@@ -73,7 +73,7 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
         return Optional.empty();
     }
 
@@ -127,7 +127,7 @@ public class JadeLoong extends AbstractMagicProjectile implements GeoEntity {
     //ANIMATION
     private final RawAnimation loongglide = RawAnimation.begin().thenPlay("glide");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState event) {
         event.getController().setAnimation(loongglide);
         return PlayState.CONTINUE;
     }

@@ -6,6 +6,7 @@ import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.Abstra
 import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
 import io.redspace.ironsspellbooks.entity.mobs.goals.melee.AttackAnimationData;
 import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,19 +39,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.item.curios.RustedCoinsSword;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity, IAnimatedAttacker, Enemy {
@@ -152,16 +153,22 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
+        // TODO PORT 1.20.1: STEP_HEIGHT(3)/ENTITY_INTERACTION_RANGE(1.8) mapped to Forge attributes; SAFE_FALL_DISTANCE(7) emulated via calculateFallDamage override
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 60.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.STEP_HEIGHT, 3)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2.4)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.7)
-                .add(Attributes.SAFE_FALL_DISTANCE, 7)
                 .add(Attributes.FOLLOW_RANGE, 24)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 1.8f);
+                .add(ForgeMod.ENTITY_REACH.get(), 1.8f);
+    }
+
+    @Override
+    protected int calculateFallDamage(float pFallDistance, float pDamageMultiplier) {
+        // TODO PORT 1.20.1: SAFE_FALL_DISTANCE attribute (7) does not exist; reduce effective fall distance by the extra 4 blocks
+        return super.calculateFallDamage(Math.max(0, pFallDistance - 4), pDamageMultiplier);
     }
 
     @Override
@@ -183,9 +190,9 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_IS_ANIMATING_RISE, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_ANIMATING_RISE, false);
     }
 
     public boolean isAnimatingRise() {
@@ -245,7 +252,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
         return this.tickCount;
     }
 
-    private PlayState movePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState movePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         Vec3 motion = this.getDeltaMovement();
         float horizontalSpeed = (float) Math.sqrt(motion.x * motion.x + motion.z * motion.z);
 
@@ -262,7 +269,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
         return PlayState.CONTINUE;
     }
 
-    private PlayState risePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState risePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -281,7 +288,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
     @Override
     public void playAnimation(String animationID) {
         try {
-            var attackType = JiangshiEntity.AttackType.valueOf(animationID);
+            var attackType = AttackType.valueOf(animationID);
             animationToPlay = RawAnimation.begin().thenPlay(attackType.data.animationId);
         } catch (Exception ignore) {
             ISS_MagicFromTheEast.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);
@@ -303,7 +310,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
 
         final JiangshiEntity jiangshi;
         int meleeAnimTimer = 1;
-        public JiangshiEntity.AttackType attacks = AttackType.MELEE;
+        public AttackType attacks = AttackType.MELEE;
 
         public JiangshiAttackGoal(JiangshiEntity jiangshi, double pSpeedModifier, int minAttackInterval, int maxAttackInterval) {
             super(jiangshi, pSpeedModifier, minAttackInterval, maxAttackInterval);

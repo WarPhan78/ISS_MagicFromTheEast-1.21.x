@@ -4,7 +4,6 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,6 +18,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class SpiritBulletProjectile extends AbstractMagicProjectile {
     public SpiritBulletProjectile(EntityType<? extends SpiritBulletProjectile> entityType, Level level) {
@@ -51,8 +51,8 @@ public class SpiritBulletProjectile extends AbstractMagicProjectile {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
-        return Optional.of(SoundEvents.SOUL_ESCAPE);
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
+        return Optional.of(() -> SoundEvents.SOUL_ESCAPE);
     }
 
     @Override

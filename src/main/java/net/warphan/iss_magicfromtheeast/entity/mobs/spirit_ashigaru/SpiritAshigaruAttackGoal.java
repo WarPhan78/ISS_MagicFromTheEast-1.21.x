@@ -3,11 +3,11 @@ package net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
 import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.entity.spirit_bullet.SpiritBulletProjectile;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 

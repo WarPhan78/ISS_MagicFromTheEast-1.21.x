@@ -4,29 +4,33 @@ import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import net.warphan.iss_magicfromtheeast.datagen.MFTEDamageTypeTagGenerator;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 
 import javax.annotation.Nullable;
 
-@EventBusSubscriber
+/**
+ * PORT 1.20.1: EntityTickEvent.Pre -> LivingEvent.LivingTickEvent; LivingDamageEvent.Pre ->
+ * LivingHurtEvent.
+ */
+@Mod.EventBusSubscriber
 public class SoulChallengingEvents {
 
     @SubscribeEvent
-    public static void linkedSoulChallengingEvent(EntityTickEvent.Pre event) {
+    public static void linkedSoulChallengingEvent(LivingEvent.LivingTickEvent event) {
         var entity = event.getEntity();
         if (entity instanceof ExtractedSoul challengedSoul) {
             var soulOwner = challengedSoul.getOwner();
             float linkingRange = 12.0f;
-            if (!challengedSoul.level.isClientSide && soulOwner != null && challengedSoul.hasRadius()) {
+            if (!challengedSoul.level().isClientSide && soulOwner != null && challengedSoul.hasRadius()) {
                 float distance = challengedSoul.distanceTo(soulOwner);
                 if (distance > linkingRange) {
                     challengedSoul.onUnSummon();
@@ -41,13 +45,13 @@ public class SoulChallengingEvents {
     }
 
     @SubscribeEvent
-    public static void soulOwnerHurtEvent(LivingDamageEvent.Pre event) {
+    public static void soulOwnerHurtEvent(LivingHurtEvent event) {
         var entity = event.getEntity();
         var source = event.getSource();
         @Nullable var attacker = event.getSource().getEntity();
         if (entity instanceof ExtractedSoul extractedSoul) {
             var soulOwner = extractedSoul.getOwner();
-            float damageOnSoul = event.getOriginalDamage();
+            float damageOnSoul = event.getAmount();
             float damageAmount = damageOnSoul * extractedSoul.bonusPercent;
             float damageAmountOver = extractedSoul.getHealth() * extractedSoul.bonusPercent;
             if (soulOwner != null) {
@@ -66,7 +70,7 @@ public class SoulChallengingEvents {
     @SubscribeEvent
     public static void onSoulCrushedEvent(LivingDeathEvent event) {
         var entity = event.getEntity();
-        if (!entity.level.isClientSide) {
+        if (!entity.level().isClientSide) {
             if (entity instanceof ExtractedSoul challengedSoul) {
                 var soulOwner = challengedSoul.getOwner();
                 if (soulOwner != null) {
@@ -91,8 +95,8 @@ public class SoulChallengingEvents {
     }
 
     public static void punishingOwner(LivingEntity livingEntity) {
-        livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 200, 0));
-        livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED, 200, 3));
+        livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 200, 0));
+        livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED.get(), 200, 3));
     }
 
 }

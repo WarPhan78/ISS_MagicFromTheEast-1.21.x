@@ -3,7 +3,6 @@ package net.warphan.iss_magicfromtheeast.entity.spirit_arrow;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,6 +27,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class SpiritArrow extends AbstractMagicProjectile {
     private static final EntityDataAccessor<Boolean> SOUL_FLAME = SynchedEntityData.defineId(SpiritArrow.class, EntityDataSerializers.BOOLEAN);
@@ -105,7 +105,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
         return Optional.empty();
     }
 
@@ -138,7 +138,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
             if (target instanceof LivingEntity livingEntity) {
                 DamageSources.ignoreNextKnockback(livingEntity);
                 if (this.getSoulFlame()) {
-                    livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 100, 0));
+                    livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 100, 0));
                 }
                 if (this.getGhostlyCold()) {
                     livingEntity.setTicksFrozen(500);
@@ -151,7 +151,7 @@ public class SpiritArrow extends AbstractMagicProjectile {
         }
     }
 
-    @Override
+    // TODO PORT 1.20.1: Projectile#getWeaponItem does not exist on 1.20.1; kept as a plain accessor (no @Override)
     public ItemStack getWeaponItem() {
         return this.firedFromWeapon;
     }
@@ -160,14 +160,15 @@ public class SpiritArrow extends AbstractMagicProjectile {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         if (this.firedFromWeapon != null) {
-            compoundTag.put("weapon", this.firedFromWeapon.save(this.registryAccess(), new CompoundTag()));
+            compoundTag.put("weapon", this.firedFromWeapon.save(new CompoundTag()));
         }
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         if (compoundTag.contains("weapon", 10)) {
-            this.firedFromWeapon = ItemStack.parse(this.registryAccess(), compoundTag.getCompound("weapon")).orElse(null);
+            ItemStack stack = ItemStack.of(compoundTag.getCompound("weapon"));
+            this.firedFromWeapon = stack.isEmpty() ? null : stack;
         } else {
             this.firedFromWeapon = null;
         }
@@ -175,10 +176,10 @@ public class SpiritArrow extends AbstractMagicProjectile {
 
     //DATA
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(SOUL_FLAME, false);
-        pBuilder.define(GHOSTLY_COLD, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SOUL_FLAME, false);
+        this.entityData.define(GHOSTLY_COLD, false);
     }
 
     public boolean getSoulFlame() {

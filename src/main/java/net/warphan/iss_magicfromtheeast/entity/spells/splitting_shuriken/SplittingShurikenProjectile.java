@@ -3,7 +3,6 @@ package net.warphan.iss_magicfromtheeast.entity.spells.splitting_shuriken;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,16 +18,17 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class SplittingShurikenProjectile extends AbstractMagicProjectile implements GeoEntity {
     private static final EntityDataAccessor<Boolean> IS_PRIMARY = SynchedEntityData.defineId(SplittingShurikenProjectile.class, EntityDataSerializers.BOOLEAN);
@@ -45,9 +45,9 @@ public class SplittingShurikenProjectile extends AbstractMagicProjectile impleme
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(IS_PRIMARY, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_PRIMARY, false);
     }
 
     public void setIsPrimary() {
@@ -78,8 +78,8 @@ public class SplittingShurikenProjectile extends AbstractMagicProjectile impleme
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
-        return Optional.of(SoundEvents.SOUL_ESCAPE);
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
+        return Optional.of(() -> SoundEvents.SOUL_ESCAPE);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class SplittingShurikenProjectile extends AbstractMagicProjectile impleme
     //ANIMATION
     private final RawAnimation shuriken_spin = RawAnimation.begin().thenPlay("spin");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState event) {
         event.getController().setAnimation(shuriken_spin);
         return PlayState.CONTINUE;
     }

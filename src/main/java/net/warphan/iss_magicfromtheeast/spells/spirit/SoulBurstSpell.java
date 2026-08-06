@@ -26,7 +26,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SoulBurstSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_burst");
 
@@ -96,7 +95,7 @@ public class SoulBurstSpell extends AbstractSpell {
                 .forEach(target -> {
             if (target instanceof LivingEntity livingEntity && livingEntity.distanceToSqr(entity) < radius * radius) {
                 DamageSources.applyDamage(target, damage, getDamageSource(entity));
-                livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, duration, 0));
+                livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), duration, 0));
                 MagicManager.spawnParticles(level, ParticleTypes.SOUL_FIRE_FLAME, livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ(), 10, livingEntity.getBbWidth() / 3, livingEntity.getBbHeight() / 3, livingEntity.getBbWidth() / 3, 0.1, false);
             }
         });

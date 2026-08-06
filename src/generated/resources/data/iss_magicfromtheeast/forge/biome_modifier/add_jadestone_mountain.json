@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_mountain",
+  "features": "iss_magicfromtheeast:ore_jadestone_mountain",
+  "step": "underground_ores"
+}

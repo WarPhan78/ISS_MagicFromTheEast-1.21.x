@@ -30,7 +30,7 @@ public class JadeExecutionerRenderer extends GeoEntityRenderer<JadeExecutionerEn
     @Override
     public void render(JadeExecutionerEntity jadeExecutioner, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         Level level = jadeExecutioner.getCommandSenderWorld();
-        Optional<GeoBone> anchor = model.getBone("particle_anchor");
+        Optional<GeoBone> anchor = getGeoModel().getBone("particle_anchor");
         float radius = 0.5f;
         anchor.ifPresent((bone) ->
                 {

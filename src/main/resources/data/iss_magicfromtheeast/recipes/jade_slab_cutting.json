@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "iss_magicfromtheeast:jade_block"
+  },
+  "result": "iss_magicfromtheeast:jade_slab",
+  "count": 2
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "C"
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:jadestone_bricks_slab"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:chiseled_jadestone_bricks"
+  }
+}

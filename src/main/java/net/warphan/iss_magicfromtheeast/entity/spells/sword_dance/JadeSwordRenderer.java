@@ -21,7 +21,7 @@ public class JadeSwordRenderer extends GeoEntityRenderer<JadeSword> {
     }
 
     @Override
-    public void preRender(PoseStack poseStack, JadeSword animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void preRender(PoseStack poseStack, JadeSword animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         Vec3 motion = animatable.getDeltaMovement();
         float xRot = -((float) (Mth.atan2(motion.horizontalDistance(), motion.y) * (double) (180F / (float) Math.PI)) + 90.0F);
         float yRot = -((float) (Mth.atan2(motion.z, motion.x) * (double) (180F / (float) Math.PI)) + 90.0F);
@@ -29,7 +29,7 @@ public class JadeSwordRenderer extends GeoEntityRenderer<JadeSword> {
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
 
-        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override

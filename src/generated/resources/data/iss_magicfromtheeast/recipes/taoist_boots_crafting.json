@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "irons_spellbooks:magic_cloth"
+    },
+    "R": {
+      "item": "iss_magicfromtheeast:symmetry_rune"
+    }
+  },
+  "pattern": [
+    "C C",
+    "CRC"
+  ],
+  "result": {
+    "item": "iss_magicfromtheeast:taoist_boots"
+  }
+}

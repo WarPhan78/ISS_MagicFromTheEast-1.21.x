@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CS",
+    " C ",
+    "SC "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "S": {
+      "item": "iss_magicfromtheeast:red_string"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:copper_coins"
+  }
+}

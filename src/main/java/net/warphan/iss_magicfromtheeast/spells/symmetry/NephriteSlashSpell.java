@@ -12,7 +12,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -31,9 +30,8 @@ import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class NephriteSlashSpell extends AbstractSpell {
-    private final ResourceLocation spellID = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "nephrite_slash");
+    private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "nephrite_slash");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
@@ -98,7 +96,8 @@ public class NephriteSlashSpell extends AbstractSpell {
                     if (DamageSources.applyDamage(targetEntity, getDamage(spellLevel, entity), damageSource)) {
                         targetEntity.invulnerableTime = 0;
                         MagicManager.spawnParticles(level, MFTEParticleHelper.JADE_SHATTER, targetEntity.getX(), targetEntity.getY() + targetEntity.getBbHeight() * .5f, targetEntity.getZ(), 5, targetEntity.getBbWidth() * .5f, targetEntity.getBbHeight() * .5f, targetEntity.getBbWidth() * .5f, .03, false);
-                        EnchantmentHelper.doPostAttackEffects((ServerLevel) level, targetEntity, damageSource);
+                        // 1.20.1: doPostAttackEffects does not exist; doPostDamageEffects is the equivalent
+                        EnchantmentHelper.doPostDamageEffects(entity, targetEntity);
                     }
                 }
             }

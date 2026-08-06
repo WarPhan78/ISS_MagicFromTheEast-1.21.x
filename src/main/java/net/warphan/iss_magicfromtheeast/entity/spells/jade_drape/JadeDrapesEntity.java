@@ -18,12 +18,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.entity.PartEntity;
+import net.minecraftforge.entity.PartEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -165,10 +166,10 @@ public class JadeDrapesEntity extends AbstractShieldEntity implements GeoEntity,
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_IS_OPENING, false);
-        pBuilder.define(DATA_IS_CLOSING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_OPENING, false);
+        this.entityData.define(DATA_IS_CLOSING, false);
     }
 
     public boolean isAnimatingOpen() {
@@ -197,7 +198,7 @@ public class JadeDrapesEntity extends AbstractShieldEntity implements GeoEntity,
     private final AnimationController<JadeDrapesEntity> idleController = new AnimationController<>(this, "idle_control", 0, this::idlePredicate);
     private final AnimationController<JadeDrapesEntity> closeController = new AnimationController<>(this, "close_control", 0, this::closePredicate);
 
-    private PlayState openPredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState openPredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (!isAnimatingOpen())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -206,7 +207,7 @@ public class JadeDrapesEntity extends AbstractShieldEntity implements GeoEntity,
         return PlayState.CONTINUE;
     }
 
-    private PlayState idlePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState idlePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingClose() || isAnimatingClose())
             return PlayState.STOP;
         else {
@@ -215,7 +216,7 @@ public class JadeDrapesEntity extends AbstractShieldEntity implements GeoEntity,
         }
     }
 
-    private PlayState closePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState closePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingClose()) {
             event.getController().setAnimation(CLOSE);
         }

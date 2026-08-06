@@ -9,8 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +22,7 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
     }
 
     private static TagKey<DamageType> create(String name) {
-        return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name));
+        return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
     }
 
     public static final TagKey<DamageType> SYMMETRY_MAGIC = create("symmetry_magic");
@@ -56,7 +55,8 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
                 DamageTypes.DRY_OUT,
                 DamageTypes.IN_WALL
         );
-        tag(BYPASS_REVERSAL_HEALING).addOptional(NeoForgeMod.POISON_DAMAGE.location());
+        // TODO PORT 1.20.1: NeoForgeMod.POISON_DAMAGE does not exist on Forge 1.20.1 (poison deals
+        // minecraft:magic damage there) - the optional neoforge:poison entry was dropped.
         tag(BYPASS_REVERSAL_HEALING).addOptional(ISSDamageTypes.CAULDRON.location());
         tag(BYPASS_REVERSAL_HEALING).addOptional(ISSDamageTypes.HEARTSTOP.location());
     }

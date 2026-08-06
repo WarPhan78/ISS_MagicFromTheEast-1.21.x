@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import org.joml.Vector3f;
@@ -43,7 +44,8 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0)
-                .add(Attributes.STEP_HEIGHT, 1)
+                // TODO PORT 1.20.1: Attributes.STEP_HEIGHT does not exist on 1.20.1; use Forge's step height addition attribute
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1)
                 .add(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
@@ -68,7 +70,7 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
             MagicManager.spawnParticles(level, new FogParticleOptions(new Vector3f(198 / 255f, 1f, 226 / 255f), 0.4f), this.getX(), this.getY() - 0.25f, this.getZ(), 1, 0.4, - 0.2, 0.4, 2.0, false);
             var rider = this.getControllingPassenger();
             if (rider != null && !rider.isDeadOrDying()) {
-                rider.addEffect(new MobEffectInstance(MFTEEffectRegistries.CLOUD_BLESS_EFFECT, 100, 0, false, false, true));
+                rider.addEffect(new MobEffectInstance(MFTEEffectRegistries.CLOUD_BLESS_EFFECT.get(), 100, 0, false, false, true));
             }
         }
 
@@ -96,9 +98,10 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     }
 
     @Override
-    public void onRemovedFromLevel() {
+    public void onRemovedFromWorld() {
+        // 1.20.1: onRemovedFromLevel -> onRemovedFromWorld (Forge)
         this.onRemovedHelper(this);
-        super.onRemovedFromLevel();
+        super.onRemovedFromWorld();
     }
 
     @Override
@@ -135,7 +138,7 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     }
 
     @Override
-    public boolean canBeLeashed() {
+    public boolean canBeLeashed(Player pPlayer) {
         return false;
     }
 
@@ -200,9 +203,8 @@ public class SummonCloudEntity extends PathfinderMob implements IMagicSummon {
     @Override
     protected void positionRider(Entity passanger, MoveFunction moveFunction) {
         if (this.hasPassenger(passanger)) {
-            Vec3 vec3 = this.getPassengerRidingPosition(passanger);
-            Vec3 vec31 = passanger.getVehicleAttachmentPoint(this);
-            moveFunction.accept(passanger, vec3.x - vec31.x, (vec3.y + 0.5f) - vec31.y, vec3.z - vec31.z);
+            // TODO PORT 1.20.1: getPassengerRidingPosition/getVehicleAttachmentPoint do not exist on 1.20.1; use riding offsets like vanilla 1.20.1 Entity#positionRider
+            moveFunction.accept(passanger, this.getX(), this.getY() + this.getPassengersRidingOffset() + passanger.getMyRidingOffset() + 0.5f, this.getZ());
         }
     }
 

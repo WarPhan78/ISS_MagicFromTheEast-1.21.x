@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru;
 
-import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
@@ -35,13 +34,18 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -99,11 +103,12 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
+        // TODO PORT 1.20.1: STEP_HEIGHT(1)/ENTITY_INTERACTION_RANGE(4.0) mapped to Forge attributes
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 4.0)
-                .add(Attributes.STEP_HEIGHT, 1)
+                .add(ForgeMod.ENTITY_REACH.get(), 4.0)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.4)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.6)
                 .add(Attributes.MOVEMENT_SPEED, .33)
@@ -153,9 +158,9 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     @Override
-    public void onRemovedFromLevel() {
+    public void onRemovedFromWorld() {
         this.onRemovedHelper(this);
-        super.onRemovedFromLevel();
+        super.onRemovedFromWorld();
     }
 
     @Override
@@ -199,11 +204,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     //Data
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_IS_RISING, false);
-        builder.define(DATA_IS_MELEE_TYPE, false);
-        builder.define(DATA_IS_RANGE_TYPE, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_RISING, false);
+        this.entityData.define(DATA_IS_MELEE_TYPE, false);
+        this.entityData.define(DATA_IS_RANGE_TYPE, false);
     }
 
     public boolean isAnimatingRise() {
@@ -314,7 +319,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
 
     RawAnimation animationToPlay = null;
 
-    private PlayState risePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState risePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -326,7 +331,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     @Override
     public void playAnimation(String animationID) {
         try {
-            var attackType = SpiritAshigaruEntity.AttackType.valueOf(animationID);
+            var attackType = AttackType.valueOf(animationID);
             animationToPlay = RawAnimation.begin().thenPlay(attackType.data.animationId);
         } catch (Exception ignore) {
             ISS_MagicFromTheEast.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);

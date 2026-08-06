@@ -1,4 +1,4 @@
-//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
+package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
 //
 //import io.redspace.ironsspellbooks.IronsSpellbooks;
 //import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;

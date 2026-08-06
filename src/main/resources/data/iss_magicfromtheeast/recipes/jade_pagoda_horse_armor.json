@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBJ",
+    "BDJ",
+    "JJJ"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond_horse_armor"
+    },
+    "B": {
+      "item": "irons_spellbooks:hogskin"
+    },
+    "J": {
+      "tag": "forge:ingots/refined_jade"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:jade_pagoda_horse_armor"
+  }
+}

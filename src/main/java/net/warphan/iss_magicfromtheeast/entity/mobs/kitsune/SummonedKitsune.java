@@ -59,9 +59,9 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
     }
 
     @Override
-    public void onRemovedFromLevel() {
+    public void onRemovedFromWorld() {
         this.onRemovedHelper(this);
-        super.onRemovedFromLevel();
+        super.onRemovedFromWorld();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
     @Override
     public boolean doHurtTarget(Entity entity) {
         if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 60, 0));
+            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 60, 0));
             livingEntity.invulnerableTime = 0;
         }
         return Utils.doMeleeAttack(this, entity, MFTESpellRegistries.KITSUNE_PACK_SPELL.get().getDamageSource(this, getSummoner()));
@@ -108,13 +108,13 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
             super(SummonedKitsune.this, p_28720_, p_28721_);
         }
 
-        protected void checkAndPerformAttack(LivingEntity p_28724_) {
-            if (this.canPerformAttack(p_28724_)) {
+        // 1.20.1: checkAndPerformAttack takes the squared distance and uses getAttackReachSqr (mirrors vanilla Fox.FoxMeleeAttackGoal)
+        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+            if (this.getTicksUntilNextAttack() <= 0 && pDistToEnemySqr <= this.getAttackReachSqr(pEnemy)) {
                 this.resetAttackCooldown();
-                this.mob.doHurtTarget(p_28724_);
+                this.mob.doHurtTarget(pEnemy);
                 SummonedKitsune.this.playSound(SoundEvents.FOX_BITE, 1.0F, 1.0F);
             }
-
         }
 
         public void start() {
@@ -141,7 +141,7 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
             for (int i = 0; i < 2; i++) {
                 Vec3 pos = new Vec3(Utils.getRandomScaled(1), Utils.getRandomScaled(1.0f) + 0.2f, Utils.getRandomScaled(1)).add(this.position());
                 Vec3 random = new Vec3(Utils.getRandomScaled(.04f), Utils.getRandomScaled(.04f), Utils.getRandomScaled(.04f));
-                level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, random.x, random.y, random.z);
+                level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, random.x, random.y, random.z);
             }
         }
     }
@@ -156,8 +156,9 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
         return false;
     }
 
+    // TODO PORT 1.20.1: canBeLeashed() (1.21, no-arg) -> canBeLeashed(Player) (1.20.1 signature)
     @Override
-    public boolean canBeLeashed() {
+    public boolean canBeLeashed(Player pPlayer) {
         return false;
     }
 }

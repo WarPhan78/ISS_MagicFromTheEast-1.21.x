@@ -20,7 +20,7 @@ public class MFTETags {
 
     public static final TagKey<BannerPattern> BALANCE_PATTERN_ITEM = bannerTag("pattern_item/balance");
 
-    public static final TagKey<EntityType<?>> SPIRIT_CHALLENGING_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging_immune"));
+    public static final TagKey<EntityType<?>> SPIRIT_CHALLENGING_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging_immune"));
 
     private static TagKey<BannerPattern> bannerTag(String name) {
         return TagKey.create(Registries.BANNER_PATTERN, ISS_MagicFromTheEast.id(name));

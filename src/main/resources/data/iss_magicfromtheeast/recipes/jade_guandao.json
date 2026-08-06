@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " JJ",
+    "GSJ",
+    "RG "
+  ],
+  "key": {
+    "J": {
+      "tag": "forge:ingots/refined_jade"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "R": {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    "S": {
+      "item": "iss_magicfromtheeast:red_shaft"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:jade_guandao"
+  }
+}

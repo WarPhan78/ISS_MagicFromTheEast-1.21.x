@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "iss_magicfromtheeast:jade"
+    },
+    {
+      "item": "irons_spellbooks:cinder_essence"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:refined_jade_ingot"
+  }
+}

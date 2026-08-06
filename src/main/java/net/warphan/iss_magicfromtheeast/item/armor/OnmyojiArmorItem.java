@@ -2,17 +2,18 @@ package net.warphan.iss_magicfromtheeast.item.armor;
 
 import io.redspace.ironsspellbooks.entity.armor.GenericCustomArmorRenderer;
 import io.redspace.ironsspellbooks.item.armor.ImbuableChestplateArmorItem;
-import io.redspace.ironsspellbooks.registries.ArmorMaterialRegistry;
 import net.minecraft.world.item.ArmorItem;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.entity.armor.OnmyojiArmorModel;
-import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEArmorMaterialRegistries;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class OnmyojiArmorItem extends ImbuableChestplateArmorItem {
-    public OnmyojiArmorItem(ArmorItem.Type slot, Properties setting) {
-        super(ArmorMaterialRegistry.SCHOOL, slot, setting, schoolAttributes(MFTEAttributeRegistries.SPIRIT_SPELL_POWER));
+    public OnmyojiArmorItem(Type slot, Properties setting) {
+        // PORT 1.20.1: 1.21 ArmorMaterialRegistry.SCHOOL + schoolAttributes(...) -> the ONMYOJI
+        // IronsExtendedArmorMaterial entry carries the same attributes (ISS 3.16.2-1.20.1 style).
+        super(MFTEArmorMaterialRegistries.ONMYOJI, slot, setting);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -26,12 +25,8 @@ import javax.annotation.Nullable;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class RiceWineVaseBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<RiceWineVaseBlock> CODEC = simpleCodec((p) -> new RiceWineVaseBlock());
+    // NOTE PORT 1.20.1: block MapCodecs (BlockBehaviour#codec) do not exist on 1.20.1 - removed.
 
-    @Override
-    public MapCodec<RiceWineVaseBlock> codec() {
-        return CODEC;
-    }
     public static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 14, 14);
 
     public RiceWineVaseBlock() {
@@ -46,12 +41,14 @@ public class RiceWineVaseBlock extends HorizontalDirectionalBlock implements Sim
         return SHAPE;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return canSupportCenter(pLevel, pPos.below(), Direction.UP);
     }
 
     @Override
-    protected BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+    @SuppressWarnings("deprecation")
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
         if (pState.getValue(WATERLOGGED)) {
             pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
@@ -68,7 +65,8 @@ public class RiceWineVaseBlock extends HorizontalDirectionalBlock implements Sim
     }
 
     @Override
-    protected FluidState getFluidState(BlockState pState) {
+    @SuppressWarnings("deprecation")
+    public FluidState getFluidState(BlockState pState) {
         return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
     }
 

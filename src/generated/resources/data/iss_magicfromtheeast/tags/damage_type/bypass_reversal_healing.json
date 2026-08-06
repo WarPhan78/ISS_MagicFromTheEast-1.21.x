@@ -11,10 +11,6 @@
     "minecraft:dry_out",
     "minecraft:in_wall",
     {
-      "id": "neoforge:poison",
-      "required": false
-    },
-    {
       "id": "irons_spellbooks:blood_cauldron",
       "required": false
     },

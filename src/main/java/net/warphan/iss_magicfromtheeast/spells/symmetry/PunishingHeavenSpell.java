@@ -1,7 +1,6 @@
 package net.warphan.iss_magicfromtheeast.spells.symmetry;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
-import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
@@ -10,11 +9,11 @@ import io.redspace.ironsspellbooks.capabilities.magic.RecastInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastResult;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonedEntitiesCastData;
+import net.minecraft.server.level.ServerPlayer;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
@@ -32,7 +30,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class PunishingHeavenSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "punishing_heaven");
 
@@ -40,7 +37,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
                 Component.translatable("ui.irons_spellbooks.hp", getExecutionerHealth(spellLevel, null)),
-                Component.translatableEscape("ui.irons_spellbooks.damage", getExecutionerDamage(spellLevel, null)),
+                Component.translatable("ui.irons_spellbooks.damage", getExecutionerDamage(spellLevel, null)),
                 Component.translatable("ui.iss_magicfromtheeast.armor", getExecutionerArmor(spellLevel, null))
         );
     }
@@ -77,7 +74,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastStartSound() {
-        return Optional.of(SoundRegistry.RAISE_DEAD_START.value());
+        return Optional.of(SoundRegistry.RAISE_DEAD_START.get());
     }
 
     @Override
@@ -122,10 +119,10 @@ public class PunishingHeavenSpell extends AbstractSpell {
 
             jadeExecutioner.setPos(location);
             jadeExecutioner.setOnGround(true);
-            var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<JadeExecutionerEntity>(entity, jadeExecutioner, this.spellID, spellLevel)).getCreature();
-            world.addFreshEntity(creature);
+            // note: SpellSummonEvent is deprecated/unfired on ISS 1.20.1-3.16.x - entity used directly.
+            world.addFreshEntity(jadeExecutioner);
 
-            SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);
+            SummonManager.initSummon(entity, jadeExecutioner, summonTime, summonedEntitiesCastData);
 
             RecastInstance recastInstance = new RecastInstance(this.getSpellId(), spellLevel, getRecastCount(spellLevel, entity), summonTime, castSource, summonedEntitiesCastData);
             recast.addRecast(recastInstance, playerMagicData);

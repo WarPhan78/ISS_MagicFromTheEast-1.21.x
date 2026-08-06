@@ -1,36 +1,22 @@
 package net.warphan.iss_magicfromtheeast.util;
 
+import net.minecraftforge.common.Tags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 
-import java.util.function.UnaryOperator;
-
 public class MFTEUtils {
-    public static EnchantmentEffectComponents createEnchantmentEffectComponent(String modID) {
-        return new EnchantmentEffectComponents(modID);
-    }
-
-    public static class EnchantmentEffectComponents extends DeferredRegister<DataComponentType<?>> {
-        protected EnchantmentEffectComponents(String name) {
-            super(Registries.ENCHANTMENT_EFFECT_COMPONENT_TYPE, name);
-        }
-
-        public <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> registerComponentType(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
-            return this.register(name, () -> ((DataComponentType.Builder)builder.apply(DataComponentType.builder())).build());
-        }
-    }
+    // TODO PORT 1.20.1: the EnchantmentEffectComponents helper (custom DeferredRegister for
+    //  enchantment effect component types) was removed - enchantment effect components do not exist
+    //  on 1.20.1. The related logic lives in the Enchantment classes (see enchantment package).
 
     public static boolean checkMonsterSpawnRules(ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return !pLevel.getBiome(pPos).is(Tags.Biomes.NO_DEFAULT_MONSTERS) && pLevel.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(pLevel, pPos, pRandom) && Monster.checkMobSpawnRules(MFTEEntityRegistries.JIANGSHI.get(), pLevel, pSpawnType, pPos, pRandom);
+        // NOTE PORT 1.20.1: a tag neoforge:no_default_monsters nao existe no Forge 1.20.1 (nem no ISS 3.16.2);
+        // Tags.Biomes.IS_MUSHROOM cobre o caso vanilla de bioma sem spawn de monstros.
+        return !pLevel.getBiome(pPos).is(Tags.Biomes.IS_MUSHROOM) && pLevel.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(pLevel, pPos, pRandom) && Monster.checkMobSpawnRules(MFTEEntityRegistries.JIANGSHI.get(), pLevel, pSpawnType, pPos, pRandom);
     }
 }

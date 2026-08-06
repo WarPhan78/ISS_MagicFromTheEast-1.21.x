@@ -2,10 +2,10 @@ package net.warphan.iss_magicfromtheeast.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTEBlockRegistries;
 
@@ -32,11 +32,11 @@ public class MFTEBlockStatesProvider extends BlockStateProvider {
         blockItem(MFTEBlockRegistries.JADE_BRICK_STAIR);
     }
 
-//    private void blockWithItem(DeferredBlock<?> deferredBlock) {
+//    private void blockWithItem(RegistryObject<? extends Block> deferredBlock) {
 //        simpleBlockWithItem(deferredBlock.get(), cubeAll(deferredBlock.get()));
 //    }
 
-    private void blockItem(DeferredHolder<Block, ?> deferredBlock) {
+    private void blockItem(RegistryObject<? extends Block> deferredBlock) {
         simpleBlockItem(deferredBlock.get(), new ModelFile.UncheckedModelFile("iss_magicfromtheeast:block/" + deferredBlock.getId().getPath()));
     }
 }

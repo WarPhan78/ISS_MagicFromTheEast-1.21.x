@@ -30,8 +30,12 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -183,12 +187,12 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
 
     //Rising Data
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_IS_RISING, false);
-        pBuilder.define(DATA_IS_RETREATING, false);
-        pBuilder.define(DATA_IS_DYING, false);
-        pBuilder.define(DATA_IS_ATTACKING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_RISING, false);
+        this.entityData.define(DATA_IS_RETREATING, false);
+        this.entityData.define(DATA_IS_DYING, false);
+        this.entityData.define(DATA_IS_ATTACKING, false);
     }
 
     public boolean isAnimatingRise() {
@@ -265,7 +269,7 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
     private final AnimationController<BoneHandsEntity> retreatController = new AnimationController<>(this, "bone_bye", 2, this::retreatPredicate);
     RawAnimation animationToPlay = null;
 
-    private PlayState risePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState risePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -274,7 +278,7 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
         return PlayState.CONTINUE;
     }
 
-    private PlayState idlePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState idlePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingRise() || isAnimatingAttack())
             return PlayState.STOP;
         else {
@@ -283,14 +287,14 @@ public class BoneHandsEntity extends AbstractSpellCastingMob implements GeoEntit
         }
     }
 
-    private PlayState retreatPredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState retreatPredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingRetreat()) {
             event.getController().setAnimation(BONE_RETREAT);
         }
         return PlayState.CONTINUE;
     }
 
-    private PlayState deadPredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState deadPredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingDead())
             event.getController().setAnimation(BONE_DEFEATED);
         return PlayState.CONTINUE;

@@ -31,7 +31,6 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
@@ -73,10 +72,10 @@ public class OnmyojiEntity extends NeutralWizard implements IMerchantWizard {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag pDataTag) {
         RandomSource randomSource = Utils.random;
         this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
-        return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData);
+        return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData, pDataTag);
     }
 
     @Override
@@ -207,9 +206,10 @@ public class OnmyojiEntity extends NeutralWizard implements IMerchantWizard {
             if (this.random.nextFloat() < .8f) {
                 this.offers.add(new AdditionalWanderingTrades.RandomScrollTrade(new SpellFilter(MFTESchoolRegistries.SPIRIT.get()), .8f, 1f).getOffer(this, this.random));
             }
+            // 1.20.1: MerchantOffer takes ItemStacks directly (ItemCost does not exist)
             this.offers.add(new MerchantOffer(
-                    new ItemCost(MFTEItemRegistries.CRYSTALLIZED_SOUL.get(), 4),
-                    Optional.of(new ItemCost(ItemRegistry.RUINED_BOOK.get(), 1)),
+                    new ItemStack(MFTEItemRegistries.CRYSTALLIZED_SOUL.get(), 4),
+                    new ItemStack(ItemRegistry.RUINED_BOOK.get(), 1),
                     new ItemStack(MFTEItemRegistries.RITUAL_ORIHON.get(), 1),
                     1,
                     1,
@@ -221,14 +221,15 @@ public class OnmyojiEntity extends NeutralWizard implements IMerchantWizard {
         return this.offers;
     }
 
+    // 1.20.1: AdditionalWanderingTrades.SimpleBuy takes an ItemStack instead of ItemCost
     private static final List<VillagerTrades.ItemListing> fillerOffers = List.of(
             new AdditionalWanderingTrades.SimpleSell(16, new ItemStack(Items.SOUL_TORCH, 3), 6, 8),
             new AdditionalWanderingTrades.SimpleSell(16, new ItemStack(Items.CHERRY_SAPLING, 1), 4, 7),
             new AdditionalWanderingTrades.SimpleSell(8, new ItemStack(Items.SOUL_LANTERN, 1), 7, 10),
-            new AdditionalWanderingTrades.SimpleSell(8, new ItemStack(ItemRegistry.SOUL_BRAZIER_ITEM, 1), 11, 16),
-            new AdditionalWanderingTrades.SimpleBuy(16, new ItemCost(Items.SOUL_SAND, 8), 2, 4),
-            new AdditionalWanderingTrades.SimpleBuy(8, new ItemCost(Items.SOUL_LANTERN, 1), 3, 5),
-            new AdditionalWanderingTrades.SimpleBuy(16, new ItemCost(MFTEItemRegistries.BOTTLE_OF_SOULS.get(), 1), 6, 8)
+            new AdditionalWanderingTrades.SimpleSell(8, new ItemStack(ItemRegistry.SOUL_BRAZIER_ITEM.get(), 1), 11, 16),
+            new AdditionalWanderingTrades.SimpleBuy(16, new ItemStack(Items.SOUL_SAND, 8), 2, 4),
+            new AdditionalWanderingTrades.SimpleBuy(8, new ItemStack(Items.SOUL_LANTERN, 1), 3, 5),
+            new AdditionalWanderingTrades.SimpleBuy(16, new ItemStack(MFTEItemRegistries.BOTTLE_OF_SOULS.get(), 1), 6, 8)
     );
 
     private Collection<MerchantOffer> createRandomOffers(int min, int max) {

@@ -1,16 +1,24 @@
 package net.warphan.iss_magicfromtheeast.particle;
 
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.FriendlyByteBuf;
 import net.warphan.iss_magicfromtheeast.registries.MFTEParticleRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+import java.util.Locale;
+
+/**
+ * PORT 1.20.1: StreamCodec/MapCodec-based particle options do not exist on 1.20.1.
+ * Rewritten in the ISS 1.20.1 ShockwaveParticleOptions pattern: {@link #DESERIALIZER} +
+ * {@link #CODEC} + {@link #writeToNetwork}/{@link #writeToString}.
+ */
 public class JadeSlashParticleOptions implements ParticleOptions {
     public final float scale;
     public final float xf;
@@ -30,30 +38,56 @@ public class JadeSlashParticleOptions implements ParticleOptions {
         this.zu = zu;
     }
 
-    public static StreamCodec<? super ByteBuf, JadeSlashParticleOptions> STREAM_CODEC = StreamCodec.of(
-            (buf, option) -> {
-                buf.writeFloat(option.xf);
-                buf.writeFloat(option.yf);
-                buf.writeFloat(option.zf);
-                buf.writeFloat(option.xu);
-                buf.writeFloat(option.yu);
-                buf.writeFloat(option.zu);
-                buf.writeFloat(option.scale);
-            },
-            (buf) -> new JadeSlashParticleOptions(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat())
-    );
-
-    public static MapCodec<JadeSlashParticleOptions> MAP_CODEC = RecordCodecBuilder.mapCodec(object ->
+    public static final Codec<JadeSlashParticleOptions> CODEC = RecordCodecBuilder.create(object ->
             object.group(
-                    Codec.FLOAT.fieldOf("xf").forGetter(p -> ((JadeSlashParticleOptions) p).xf),
-                    Codec.FLOAT.fieldOf("yf").forGetter(p -> ((JadeSlashParticleOptions) p).yf),
-                    Codec.FLOAT.fieldOf("zf").forGetter(p -> ((JadeSlashParticleOptions) p).zf),
-                    Codec.FLOAT.fieldOf("xu").forGetter(p -> ((JadeSlashParticleOptions) p).xu),
-                    Codec.FLOAT.fieldOf("yu").forGetter(p -> ((JadeSlashParticleOptions) p).yu),
-                    Codec.FLOAT.fieldOf("zu").forGetter(p -> ((JadeSlashParticleOptions) p).zu),
-                    Codec.FLOAT.fieldOf("scale").forGetter(p -> ((JadeSlashParticleOptions) p).scale)
+                    Codec.FLOAT.fieldOf("xf").forGetter(p -> p.xf),
+                    Codec.FLOAT.fieldOf("yf").forGetter(p -> p.yf),
+                    Codec.FLOAT.fieldOf("zf").forGetter(p -> p.zf),
+                    Codec.FLOAT.fieldOf("xu").forGetter(p -> p.xu),
+                    Codec.FLOAT.fieldOf("yu").forGetter(p -> p.yu),
+                    Codec.FLOAT.fieldOf("zu").forGetter(p -> p.zu),
+                    Codec.FLOAT.fieldOf("scale").forGetter(p -> p.scale)
             ).apply(object, JadeSlashParticleOptions::new
             ));
+
+    @SuppressWarnings("deprecation")
+    public static final Deserializer<JadeSlashParticleOptions> DESERIALIZER = new Deserializer<JadeSlashParticleOptions>() {
+        public @NotNull JadeSlashParticleOptions fromCommand(@NotNull ParticleType<JadeSlashParticleOptions> particleType, @NotNull StringReader reader) throws CommandSyntaxException {
+            float xf = readFloat(reader);
+            float yf = readFloat(reader);
+            float zf = readFloat(reader);
+            float xu = readFloat(reader);
+            float yu = readFloat(reader);
+            float zu = readFloat(reader);
+            float scale = readFloat(reader);
+            return new JadeSlashParticleOptions(xf, yf, zf, xu, yu, zu, scale);
+        }
+
+        private float readFloat(StringReader reader) throws CommandSyntaxException {
+            reader.expect(' ');
+            return reader.readFloat();
+        }
+
+        public @NotNull JadeSlashParticleOptions fromNetwork(@NotNull ParticleType<JadeSlashParticleOptions> particleType, @NotNull FriendlyByteBuf buf) {
+            return new JadeSlashParticleOptions(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+        }
+    };
+
+    @Override
+    public void writeToNetwork(FriendlyByteBuf buf) {
+        buf.writeFloat(this.xf);
+        buf.writeFloat(this.yf);
+        buf.writeFloat(this.zf);
+        buf.writeFloat(this.xu);
+        buf.writeFloat(this.yu);
+        buf.writeFloat(this.zu);
+        buf.writeFloat(this.scale);
+    }
+
+    @Override
+    public @NotNull String writeToString() {
+        return String.format(Locale.ROOT, "%.2f %.2f %.2f %.2f %.2f %.2f %.2f", this.xf, this.yf, this.zf, this.xu, this.yu, this.zu, this.scale);
+    }
 
     public @Nonnull ParticleType<JadeSlashParticleOptions> getType() {
         return MFTEParticleRegistries.JADE_SLASH_PARTICLE.get();

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  C",
+    "GC ",
+    "PG "
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "C": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    },
+    "P": {
+      "item": "irons_spellbooks:weapon_parts"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:soul_katana"
+  }
+}

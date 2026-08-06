@@ -13,7 +13,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
@@ -33,7 +31,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class CalamityCutSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "calamity_cut");
 
@@ -107,14 +104,15 @@ public class CalamityCutSpell extends AbstractSpell {
 
         for (int i = 0; i < count; i++) {
             Vec3 strikeLocation = start.add(forward.scale(i));
-            Vec3 particleLocation = level.clip(new ClipContext(strikeLocation, strikeLocation.add(0, -2, 0), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, CollisionContext.empty())).getLocation().add(0, 0.1, 0);
+            Vec3 particleLocation = level.clip(new ClipContext(strikeLocation, strikeLocation.add(0, -2, 0), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, entity)).getLocation().add(0, 0.1, 0);
             MagicManager.spawnParticles(level, ParticleTypes.SCULK_SOUL, particleLocation.x, particleLocation.y, particleLocation.z, 8, 0, 0, 0, 1, false);
             var entities = level.getEntities(entity, AABB.ofSize(strikeLocation, radius, radius * 3, radius));
             var damageSource = this.getDamageSource(entity);
             for (Entity targetEntity : entities) {
                 if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(level, strikeLocation.add(0, 1, 0), targetEntity.getBoundingBox().getCenter(), true)) {
                     if (DamageSources.applyDamage(targetEntity, getDamage(spellLevel, entity), damageSource)) {
-                        EnchantmentHelper.doPostAttackEffects((ServerLevel) level, targetEntity, damageSource);
+                        // 1.20.1: doPostAttackEffects does not exist; doPostDamageEffects is the equivalent
+                        EnchantmentHelper.doPostDamageEffects(entity, targetEntity);
                     }
                 }
             }

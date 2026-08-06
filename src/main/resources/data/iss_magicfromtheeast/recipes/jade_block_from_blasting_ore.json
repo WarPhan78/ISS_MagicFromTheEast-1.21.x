@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 2.0,
+  "ingredient": {
+    "item": "iss_magicfromtheeast:jade_ore"
+  },
+  "result": "iss_magicfromtheeast:jade_block"
+}

@@ -9,7 +9,9 @@ import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -29,7 +31,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.network.NetworkHooks;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import org.jetbrains.annotations.Nullable;
@@ -37,9 +40,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.UUID;
 
-public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpawn, AntiMagicSusceptible {
+public class ExtractedSoul extends LivingEntity implements IEntityAdditionalSpawnData, AntiMagicSusceptible {
     @Override
-    public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
+    public void writeSpawnData(FriendlyByteBuf buffer) {
         var owner = getOwner();
         var extractor = getExtractor();
         buffer.writeInt(owner == null ? -1 : owner.getId());
@@ -53,7 +56,7 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
     }
 
     @Override
-    public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
+    public void readSpawnData(FriendlyByteBuf additionalData) {
         Entity owner = this.level.getEntity(additionalData.readInt());
         Entity extractor = this.level.getEntity(additionalData.readInt());
         if (owner instanceof LivingEntity livingEntity) {
@@ -65,6 +68,11 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
         if (additionalData.readBoolean()) {
             setEntityTypeToCopy(BuiltInRegistries.ENTITY_TYPE.get(additionalData.readResourceLocation()));
         }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     protected static final EntityDataAccessor<Boolean> DATA_IS_BABY = SynchedEntityData.defineId(ExtractedSoul.class, EntityDataSerializers.BOOLEAN);
@@ -83,10 +91,10 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_IS_BABY, false);
-        pBuilder.define(DATA_HAS_RADIUS, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_BABY, false);
+        this.entityData.define(DATA_HAS_RADIUS, false);
     }
 
     public boolean hasRadius() {
@@ -122,9 +130,7 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
                 }
             }
         }
-        if (baseEntity.getAttributes().hasAttribute(Attributes.SCALE) && entityToCopy.getAttributes().hasAttribute(Attributes.SCALE)) {
-            baseEntity.getAttributes().getInstance(Attributes.SCALE).setBaseValue(entityToCopy.getAttributeValue(Attributes.SCALE));
-        }
+        // TODO PORT 1.20.1: Attributes.SCALE does not exist on 1.20.1 (added in 1.20.5); scale copying cut
         if (entityToCopy instanceof Player player) {
             baseEntity.setCustomName(player.getDisplayName());
             baseEntity.setCustomNameVisible(true);
@@ -137,8 +143,9 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
     }
 
     @Override
-    protected EntityDimensions getDefaultDimensions(Pose pose) {
-        return entityToCopy == null ? super.getDefaultDimensions(pose) : entityToCopy.getDimensions();
+    public EntityDimensions getDimensions(Pose pose) {
+        // TODO PORT 1.20.1: getDefaultDimensions does not exist on 1.20.1; use getDimensions override instead
+        return entityToCopy == null ? super.getDimensions(pose) : entityToCopy.getDimensions();
     }
 
     public void setEntityTypeToCopy(@Nullable EntityType<?> entityToCopy) {
@@ -262,13 +269,13 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.SOUL_ESCAPE.value();
+        return SoundEvents.SOUL_ESCAPE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return MFTESoundRegistries.SOUL_CRUSHED.value();
+        return MFTESoundRegistries.SOUL_CRUSHED.get();
     }
 
     @Override
@@ -319,7 +326,7 @@ public class ExtractedSoul extends LivingEntity implements IEntityWithComplexSpa
         }
         if (compoundTag.contains("entityToCopy")) {
             try {
-                setEntityTypeToCopy(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(compoundTag.getString("entityToCopy"))));
+                setEntityTypeToCopy(BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(compoundTag.getString("entityToCopy"))));
             } catch (Exception ignore) {
             }
         }

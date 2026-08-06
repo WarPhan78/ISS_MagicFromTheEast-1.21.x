@@ -1,7 +1,6 @@
 package net.warphan.iss_magicfromtheeast.spells.symmetry;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
-import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
@@ -10,12 +9,12 @@ import io.redspace.ironsspellbooks.capabilities.magic.RecastInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastResult;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonedEntitiesCastData;
+import net.minecraft.server.level.ServerPlayer;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jiangshi.SummonedJiangshiEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
@@ -34,7 +32,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class JiangshiInvokeSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jiangshi_invoke");
 
@@ -42,7 +39,7 @@ public class JiangshiInvokeSpell extends AbstractSpell {
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
                 Component.translatable("ui.irons_spellbooks.hp", getJiangshiHealth(spellLevel, caster)),
-                Component.translatableEscape("ui.irons_spellbooks.damage", getJiangshiDamage(spellLevel, caster))
+                Component.translatable("ui.irons_spellbooks.damage", getJiangshiDamage(spellLevel, caster))
         );
     }
 
@@ -78,12 +75,12 @@ public class JiangshiInvokeSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastStartSound() {
-        return Optional.of(SoundRegistry.RAISE_DEAD_START.value());
+        return Optional.of(SoundRegistry.RAISE_DEAD_START.get());
     }
 
     @Override
     public Optional<SoundEvent> getCastFinishSound() {
-        return Optional.of(SoundRegistry.RAISE_DEAD_FINISH.value());
+        return Optional.of(SoundRegistry.RAISE_DEAD_FINISH.get());
     }
 
     @Override
@@ -122,17 +119,17 @@ public class JiangshiInvokeSpell extends AbstractSpell {
                 jiangshi.setDropChance(EquipmentSlot.HEAD, 0.0f);
                 jiangshi.skipDropExperience();
 
-                jiangshi.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(jiangshi.getOnPos()), MobSpawnType.MOB_SUMMONED, null);
+                jiangshi.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(jiangshi.getOnPos()), MobSpawnType.MOB_SUMMONED, null, null);
 
                 var yrot = 6.281f / 3 * i + entity.getYRot() * Mth.DEG_TO_RAD;
                 Vec3 spawn = Utils.moveToRelativeGroundLevel(world, entity.getEyePosition().add(new Vec3(radius * Mth.cos(yrot), 0, radius * Mth.sin(yrot))), 10);
                 jiangshi.setPos(spawn.x, spawn.y, spawn.z);
                 jiangshi.setYRot(entity.getYRot());
                 jiangshi.setOldPosAndRot();
-                var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<>(entity, jiangshi, this.spellId, spellLevel)).getCreature();
-                world.addFreshEntity(creature);
+                // note: SpellSummonEvent is deprecated/unfired on ISS 1.20.1-3.16.x - entity used directly.
+                world.addFreshEntity(jiangshi);
 
-                SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);
+                SummonManager.initSummon(entity, jiangshi, summonTime, summonedEntitiesCastData);
             }
 
             RecastInstance recastInstance = new RecastInstance(this.getSpellId(), spellLevel, getRecastCount(spellLevel, entity), summonTime, castSource, summonedEntitiesCastData);

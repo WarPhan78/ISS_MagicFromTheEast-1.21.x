@@ -1,13 +1,13 @@
 package net.warphan.iss_magicfromtheeast.setup;
 
-import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
@@ -25,7 +25,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEUtils;
 
-@EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID)
+@Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonSetup {
     @SubscribeEvent
     public static void onModConfigLoadingEvent(ModConfigEvent.Loading event) {
@@ -62,7 +62,7 @@ public class CommonSetup {
     }
 
     @SubscribeEvent
-    public static void spawnPlacement(RegisterSpawnPlacementsEvent event) {
-        event.register(MFTEEntityRegistries.JIANGSHI.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, serverLevelAccessor, spawnType, blockPos, random) -> MFTEUtils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), RegisterSpawnPlacementsEvent.Operation.OR);
+    public static void spawnPlacement(SpawnPlacementRegisterEvent event) {
+        event.register(MFTEEntityRegistries.JIANGSHI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, serverLevelAccessor, spawnType, blockPos, random) -> MFTEUtils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.OR);
     }
 }

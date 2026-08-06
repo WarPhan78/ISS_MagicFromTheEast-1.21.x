@@ -11,10 +11,11 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 public class RitualOrihonSpellbookItem extends SpellBook {
     public RitualOrihonSpellbookItem() {
         super(10);
+        // PORT 1.20.1: 1.21 ADD_MULTIPLIED_BASE -> MULTIPLY_BASE, ADD_VALUE -> ADDITION.
         withSpellbookAttributes(
-                new AttributeContainer(MFTEAttributeRegistries.SPIRIT_SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                new AttributeContainer(AttributeRegistry.SUMMON_DAMAGE, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                new AttributeContainer(AttributeRegistry.MAX_MANA, 200, AttributeModifier.Operation.ADD_VALUE));
+                new AttributeContainer(MFTEAttributeRegistries.SPIRIT_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+                new AttributeContainer(AttributeRegistry.SUMMON_DAMAGE, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+                new AttributeContainer(AttributeRegistry.MAX_MANA, 200, AttributeModifier.Operation.ADDITION));
     }
 
     @Override

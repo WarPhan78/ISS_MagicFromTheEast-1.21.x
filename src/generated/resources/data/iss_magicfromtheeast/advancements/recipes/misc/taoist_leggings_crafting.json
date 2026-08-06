@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_magic_cloth": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "irons_spellbooks:magic_cloth"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "iss_magicfromtheeast:taoist_leggings_crafting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_magic_cloth",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "iss_magicfromtheeast:taoist_leggings_crafting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

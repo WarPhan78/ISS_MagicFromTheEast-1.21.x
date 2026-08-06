@@ -19,7 +19,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
@@ -50,10 +49,10 @@ public class NephriteCrystalEntity extends AoeEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_SIZE, 1f);
-        pBuilder.define(DATA_WAIT_TIME, 8);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_SIZE, 1f);
+        this.entityData.define(DATA_WAIT_TIME, 8);
     }
 
     public float getCrystalSize() {
@@ -99,12 +98,13 @@ public class NephriteCrystalEntity extends AoeEntity {
                 if (!this.isSilent()) {
                     level.playSound(null, this.blockPosition(), MFTESoundRegistries.JADE_EMERGE.get(), SoundSource.NEUTRAL, 1.25f * getCrystalSize(), Mth.randomBetweenInclusive(Utils.random, 6, 12) * .1f);
                 }
-                MagicManager.spawnParticles(level, MFTEParticleHelper.JADE_SHATTER, getX(), level.clip(new ClipContext(position().add(0, 2, 0), position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty())).getLocation().y() + 0.1, getZ(), (int) (3 * f * f), 0.1 * f, 0.1 * f, 0.1f * f, 0.12 * f, false);
-                MagicManager.spawnParticles(level, ParticleTypes.GLOW, getX(), level.clip(new ClipContext(position().add(0, 2, 0), position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty())).getLocation().y() + 0.1, getZ(), (int) (2 * f * f), 0.1 * f, 0.1 * f, 0.1f * f, 0.08 * f, false);
+                MagicManager.spawnParticles(level, MFTEParticleHelper.JADE_SHATTER, getX(), level.clip(new ClipContext(position().add(0, 2, 0), position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getLocation().y() + 0.1, getZ(), (int) (3 * f * f), 0.1 * f, 0.1 * f, 0.1f * f, 0.12 * f, false);
+                MagicManager.spawnParticles(level, ParticleTypes.GLOW, getX(), level.clip(new ClipContext(position().add(0, 2, 0), position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getLocation().y() + 0.1, getZ(), (int) (2 * f * f), 0.1 * f, 0.1 * f, 0.1f * f, 0.08 * f, false);
             }
         } else if (tickCount > waitTime && tickCount < waitTime + RISE_TIME) {
             AABB damager = this.getBoundingBox();
-            damager.setMaxY(this.getY() + (damager.getYsize() * (getPositionOffset(0) + 1)));
+            // TODO PORT 1.20.1: AABB#setMaxY does not exist on 1.20.1 (and its 1.21 return value was discarded anyway); rebuild the box with the stretched maxY
+            damager = new AABB(damager.minX, damager.minY, damager.minZ, damager.maxX, this.getY() + (damager.getYsize() * (getPositionOffset(0) + 1)), damager.maxZ);
             for (Entity entity : level.getEntities(this, damager).stream().filter(target -> canHitEntity(target) && !victims.contains(target)).collect(Collectors.toSet())) {
                 if (DamageSources.applyDamage(entity, damage, MFTESpellRegistries.NEPHRITE_SLASH_SPELL.get().getDamageSource(this, getOwner()))) {
                     entity.setDeltaMovement(entity.getDeltaMovement().add(0, this.getCrystalSize() * 0.3, 0));

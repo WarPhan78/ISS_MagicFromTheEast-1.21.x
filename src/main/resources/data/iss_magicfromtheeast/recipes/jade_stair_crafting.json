@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C  ",
+    "CC ",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:jade_block"
+    }
+  },
+  "result": {
+    "count": 4,
+    "item": "iss_magicfromtheeast:jade_stair"
+  }
+}

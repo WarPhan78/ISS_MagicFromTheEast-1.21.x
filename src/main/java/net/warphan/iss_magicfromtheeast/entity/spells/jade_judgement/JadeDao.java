@@ -4,11 +4,9 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import io.redspace.ironsspellbooks.network.particles.FieryExplosionParticlesPacket;
 import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
 import io.redspace.ironsspellbooks.particle.SparkParticleOptions;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -24,25 +22,25 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import net.warphan.iss_magicfromtheeast.util.MFTEParticleHelper;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.UUID;
 
 public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
@@ -161,7 +159,7 @@ public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
             if (airTime <= 0) {
                 if (onGround()) {
                     doImpactDamage();
-                    this.playSound(MFTESoundRegistries.JADE_DAO_IMPACT.value(), 8, 7.5f);
+                    this.playSound(MFTESoundRegistries.JADE_DAO_IMPACT.get(), 8, 7.5f);
                     impactParticles(getX(), getY(), getZ());
                     discard();
                 } else {
@@ -237,14 +235,14 @@ public class JadeDao extends AbstractMagicProjectile implements GeoEntity {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
         return Optional.empty();
     }
 
     //ANIMATION
     private final RawAnimation prepare = RawAnimation.begin().thenPlay("prepare");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState state) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState state) {
         state.getController().setAnimation(prepare);
         return PlayState.CONTINUE;
     }

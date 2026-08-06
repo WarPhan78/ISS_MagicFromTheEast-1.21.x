@@ -5,7 +5,6 @@ import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -19,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.*;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class JadeBulletProjectile extends AbstractMagicProjectile {
     public JadeBulletProjectile(EntityType<? extends JadeBulletProjectile> pEntityType, Level pLevel) {
@@ -73,7 +73,7 @@ public class JadeBulletProjectile extends AbstractMagicProjectile {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
         return Optional.of(MFTESoundRegistries.JADE_SWORD_IMPACT);
     }
 

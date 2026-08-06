@@ -1,7 +1,6 @@
 package net.warphan.iss_magicfromtheeast.spells.spirit;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
-import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -9,18 +8,17 @@ import io.redspace.ironsspellbooks.capabilities.magic.RecastInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastResult;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonedEntitiesCastData;
+import net.minecraft.server.level.ServerPlayer;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.spirit_ashigaru.SpiritAshigaruEntity;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
@@ -30,7 +28,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class AshigaruSquadSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "ashigaru_squad");
 
@@ -76,12 +73,12 @@ public class AshigaruSquadSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastStartSound() {
-        return Optional.of(SoundRegistry.RAISE_DEAD_START.value());
+        return Optional.of(SoundRegistry.RAISE_DEAD_START.get());
     }
 
     @Override
     public Optional<SoundEvent> getCastFinishSound() {
-        return Optional.of(MFTESoundRegistries.SPIRIT_INVOKING.value());
+        return Optional.of(MFTESoundRegistries.SPIRIT_INVOKING.get());
     }
 
     @Override
@@ -116,7 +113,9 @@ public class AshigaruSquadSpell extends AbstractSpell {
 
                 if ((i + 1) % 3 == 0) {
                     ashigaru.setRangeType();
-                    ashigaru.getAttributes().getInstance(Attributes.ENTITY_INTERACTION_RANGE).setBaseValue(25.0);
+                    // TODO PORT 1.20.1: Attributes.ENTITY_INTERACTION_RANGE does not exist on 1.20.1.
+                    //  The extended (25 block) attack range of the ranged ashigaru must be handled by
+                    //  the entity's ranged attack goal instead of an attribute.
                 } else ashigaru.setMeleeType();
 
                 ashigaru.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getAshigaruDamage(spellLevel, entity));
@@ -129,10 +128,10 @@ public class AshigaruSquadSpell extends AbstractSpell {
                 ashigaru.setPos(spawn.x, spawn.y, spawn.z);
                 ashigaru.setYRot(entity.getYRot());
                 ashigaru.setOldPosAndRot();
-                var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<>(entity, ashigaru, this.spellId, spellLevel)).getCreature();
-                world.addFreshEntity(creature);
+                // note: SpellSummonEvent is deprecated/unfired on ISS 1.20.1-3.16.x - entity used directly.
+                world.addFreshEntity(ashigaru);
 
-                SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);
+                SummonManager.initSummon(entity, ashigaru, summonTime, summonedEntitiesCastData);
             }
 
             RecastInstance recastInstance = new RecastInstance(this.getSpellId(), spellLevel, getRecastCount(spellLevel, entity), summonTime, castSource, summonedEntitiesCastData);

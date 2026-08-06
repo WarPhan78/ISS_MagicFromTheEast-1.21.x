@@ -29,7 +29,7 @@ public class JadeDrapesRenderer extends GeoEntityRenderer<JadeDrapesEntity> {
     }
 
     @Override
-    public void preRender(PoseStack poseStack, JadeDrapesEntity animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void preRender(PoseStack poseStack, JadeDrapesEntity animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 
         Vec3 motion = animatable.getForward();
         float xRot = -((float) (Mth.atan2(motion.horizontalDistance(), motion.y) * (double) (180F / (float) Math.PI)) - 90.0F);
@@ -37,7 +37,7 @@ public class JadeDrapesRenderer extends GeoEntityRenderer<JadeDrapesEntity> {
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot));
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
 
-        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VRS",
+    "RSR",
+    "SRV"
+  ],
+  "key": {
+    "V": {
+      "item": "irons_spellbooks:hogskin"
+    },
+    "R": {
+      "item": "iss_magicfromtheeast:red_string"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:red_shaft"
+  }
+}

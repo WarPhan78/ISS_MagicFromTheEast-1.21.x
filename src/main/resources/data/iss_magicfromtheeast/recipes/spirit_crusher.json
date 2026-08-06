@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CG",
+    "CWC",
+    "FC "
+  ],
+  "key": {
+    "C": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    },
+    "F": {
+      "item": "irons_spellbooks:frosted_helve"
+    },
+    "W": {
+      "item": "minecraft:warped_stem"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:spirit_crusher"
+  }
+}

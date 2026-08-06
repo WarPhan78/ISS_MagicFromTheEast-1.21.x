@@ -1,15 +1,13 @@
 package net.warphan.iss_magicfromtheeast.setup;
 
-import io.redspace.ironsspellbooks.fluids.SimpleClientFluidType;
 import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsRenderer;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerRenderer;
@@ -37,11 +35,10 @@ import net.warphan.iss_magicfromtheeast.particle.JadeShatterParticle;
 import net.warphan.iss_magicfromtheeast.particle.JadeSlashParticle;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
-import net.warphan.iss_magicfromtheeast.registries.MFTEFluidRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEParticleRegistries;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
-@EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
 
     @SubscribeEvent
@@ -96,10 +93,9 @@ public class ClientSetup {
         event.registerLayerDefinition(JadeBulletRenderer.MODEL_LAYER_LOCATION, JadeBulletRenderer::createBodyLayer);
     }
 
-    @SubscribeEvent
-    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerFluidType(new SimpleClientFluidType(ISS_MagicFromTheEast.id("block/soul")), MFTEFluidRegistries.SOUL_TYPE);
-    }
+    // TODO PORT 1.20.1: RegisterClientExtensionsEvent does not exist on Forge 1.20.1.
+    //  The soul fluid client texture (formerly ISS SimpleClientFluidType registered here) is now
+    //  provided via FluidType#initializeClient inside MFTEFluidRegistries.SOUL_TYPE.
 
     @SubscribeEvent
     public static void registerClientTooltip(RegisterClientTooltipComponentFactoriesEvent event) {

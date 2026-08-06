@@ -24,10 +24,11 @@ public class SpiritSamuraiRenderer extends AbstractSpellCastingMobRenderer {
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 
+    // 1.20.1: GeckoLib 4.2 preRender uses float RGBA instead of packed int colour
     @Override
-    public void preRender(PoseStack poseStack, AbstractSpellCastingMob animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void preRender(PoseStack poseStack, AbstractSpellCastingMob animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.scale(1.3f, 1.3f, 1.3f);
-        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     //broken glowing thing here
@@ -36,8 +37,9 @@ public class SpiritSamuraiRenderer extends AbstractSpellCastingMobRenderer {
 //        return RenderType.entityTranslucent(texture);
 //    }
 
+    // 1.20.1: GeckoLib 4.2 getPackedOverlay has no partialTick parameter
     @Override
-    public int getPackedOverlay(AbstractSpellCastingMob animatable, float u, float partialTick) {
+    public int getPackedOverlay(AbstractSpellCastingMob animatable, float u) {
         return OverlayTexture.pack(OverlayTexture.u(u), OverlayTexture.v(animatable.deathTime > 0));
     }
 }

@@ -7,9 +7,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.animatable.GeoReplacedEntity;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class JiangshiModel extends GeoModel<JiangshiEntity> {
@@ -35,17 +35,19 @@ public class JiangshiModel extends GeoModel<JiangshiEntity> {
         return animationResource;
     }
 
+    // 1.20.1 (GeckoLib 4.2): handleAnimations has no partialTick parameter; taken from animationState instead (mirrors AbstractSpellCastingMobModel 3.16.2-1.20.1)
     @Override
-    public void handleAnimations(JiangshiEntity animatable, long instanceId, AnimationState<JiangshiEntity> animationState, float partialTick) {
+    public void handleAnimations(JiangshiEntity animatable, long instanceId, AnimationState<JiangshiEntity> animationState) {
         var manager = animatable.getAnimatableInstanceCache().getManagerForId(instanceId);
         Double currentTick = animationState.getData(DataTickets.TICK);
+        var partialTick = animationState.getPartialTick();
         double currentFrameTime = animatable instanceof Entity || animatable instanceof GeoReplacedEntity ? currentTick + partialTick : currentTick - manager.getFirstTickTime();
         boolean isReRender = !manager.isFirstTick() && currentFrameTime == manager.getLastUpdateTime();
         if (isReRender && instanceId == this.lastRendererInstance)
             return;
         this.lastRendererInstance = instanceId;
         transformStack.resetDirty();
-        super.handleAnimations(animatable, instanceId, animationState, partialTick);
+        super.handleAnimations(animatable, instanceId, animationState);
         transformStack.popStack();
     }
 
@@ -56,8 +58,8 @@ public class JiangshiModel extends GeoModel<JiangshiEntity> {
             return;
         }
         var partialTick = animationState.getPartialTick();
-        GeoBone head = this.getAnimationProcessor().getBone(PartNames.HEAD);
-        GeoBone hair = this.getAnimationProcessor().getBone("hair");
+        CoreGeoBone head = this.getAnimationProcessor().getBone(PartNames.HEAD);
+        CoreGeoBone hair = this.getAnimationProcessor().getBone("hair");
 
         if (animatable.shouldAlwaysAnimateHead()) {
             transformStack.pushRotation(head,
@@ -69,6 +71,5 @@ public class JiangshiModel extends GeoModel<JiangshiEntity> {
                     0);
             transformStack.pushRotation(hair, -(Mth.lerp(partialTick, -animatable.xRotO, -animatable.getXRot()) * Mth.DEG_TO_RAD), 0, 0);
         }
-
     }
 }

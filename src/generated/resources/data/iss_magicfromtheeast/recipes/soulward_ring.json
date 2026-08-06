@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "iss_magicfromtheeast:crystallized_soul"
+    },
+    "X": {
+      "item": "irons_spellbooks:arcane_salvage"
+    }
+  },
+  "pattern": [
+    "M ",
+    " X"
+  ],
+  "result": {
+    "item": "iss_magicfromtheeast:soulward_ring"
+  }
+}

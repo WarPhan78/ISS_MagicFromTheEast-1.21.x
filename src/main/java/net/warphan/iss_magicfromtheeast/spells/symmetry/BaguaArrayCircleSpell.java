@@ -25,7 +25,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class BaguaArrayCircleSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bagua_array_circle");
 

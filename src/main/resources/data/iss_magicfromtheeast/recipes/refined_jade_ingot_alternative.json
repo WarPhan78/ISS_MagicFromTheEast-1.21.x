@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gems/jade"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "tag": "forge:gems/jade"
+    },
+    {
+      "item": "irons_spellbooks:cinder_essence"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:refined_jade_ingot"
+  }
+}

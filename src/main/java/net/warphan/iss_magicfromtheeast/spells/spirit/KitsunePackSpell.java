@@ -1,7 +1,6 @@
 package net.warphan.iss_magicfromtheeast.spells.spirit;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
-import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -9,10 +8,10 @@ import io.redspace.ironsspellbooks.capabilities.magic.RecastInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.RecastResult;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.capabilities.magic.SummonedEntitiesCastData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
@@ -29,7 +27,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class KitsunePackSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "kitsune_pack");
 
@@ -121,10 +118,10 @@ public class KitsunePackSpell extends AbstractSpell {
                 kitsune.setPos(spawn.x, spawn.y, spawn.z);
                 kitsune.setYRot(entity.getYRot());
                 kitsune.setOldPosAndRot();
-                var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<>(entity, kitsune, this.spellId, spellLevel)).getCreature();
-                world.addFreshEntity(creature);
+                // note: SpellSummonEvent is deprecated/unfired on ISS 1.20.1-3.16.x - entity used directly.
+                world.addFreshEntity(kitsune);
 
-                SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);
+                SummonManager.initSummon(entity, kitsune, summonTime, summonedEntitiesCastData);
             }
 
             RecastInstance recastInstance = new RecastInstance(this.getSpellId(), spellLevel, getRecastCount(spellLevel, entity), summonTime, castSource, summonedEntitiesCastData);

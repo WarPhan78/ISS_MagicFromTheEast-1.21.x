@@ -4,7 +4,6 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,16 +20,17 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class PhantomCavalryVisualEntity extends AbstractMagicProjectile implements GeoEntity {
     public PhantomCavalryVisualEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
@@ -48,7 +48,9 @@ public class PhantomCavalryVisualEntity extends AbstractMagicProjectile implemen
 
     @Override
     public void trailParticles() {
-        Vec3 pos = this.getBoundingBox().getBottomCenter().add(getDeltaMovement());
+        // TODO PORT 1.20.1: AABB#getBottomCenter does not exist on 1.20.1; compute it manually
+        var box = this.getBoundingBox();
+        Vec3 pos = new Vec3((box.minX + box.maxX) * 0.5, box.minY, (box.minZ + box.maxZ) * 0.5).add(getDeltaMovement());
         pos = pos.add(getDeltaMovement());
         Vec3 random = new Vec3(Utils.getRandomScaled(.1f), Utils.getRandomScaled(.05f), Utils.getRandomScaled(.1f));
         level.addParticle(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, random.x, random.y, random.z);
@@ -60,7 +62,7 @@ public class PhantomCavalryVisualEntity extends AbstractMagicProjectile implemen
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
         return Optional.empty();
     }
 
@@ -121,7 +123,7 @@ public class PhantomCavalryVisualEntity extends AbstractMagicProjectile implemen
     //ANIMATION
     private final RawAnimation charge = RawAnimation.begin().thenPlay("phantom_charging");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState event) {
         event.getController().setAnimationSpeed(2).setAnimation(charge);
         return PlayState.CONTINUE;
     }

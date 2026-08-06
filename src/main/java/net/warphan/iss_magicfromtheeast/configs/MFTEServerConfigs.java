@@ -1,16 +1,16 @@
 package net.warphan.iss_magicfromtheeast.configs;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 public class MFTEServerConfigs {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    public static final ModConfigSpec SPEC;
-    public static final ModConfigSpec.ConfigValue<Double> SOULBURN_MAX_DAMAGE;
-    public static final ModConfigSpec.ConfigValue<Integer> SOULBURN_DAMAGE_SCALING;
-    public static final ModConfigSpec.ConfigValue<Double> IMPERMANENCE_LIMIT_PERCENT;
-    public static final ModConfigSpec.ConfigValue<Boolean> PASS_CHALLENGING;
-    public static final ModConfigSpec.ConfigValue<Boolean> ALLOW_SPIRIT_CRUSHER_DAMAGE_CAP;
-    public static final ModConfigSpec.ConfigValue<Double> SPIRIT_CRUSHER_DAMAGE_CAP;
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec.ConfigValue<Double> SOULBURN_MAX_DAMAGE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SOULBURN_DAMAGE_SCALING;
+    public static final ForgeConfigSpec.ConfigValue<Double> IMPERMANENCE_LIMIT_PERCENT;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PASS_CHALLENGING;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ALLOW_SPIRIT_CRUSHER_DAMAGE_CAP;
+    public static final ForgeConfigSpec.ConfigValue<Double> SPIRIT_CRUSHER_DAMAGE_CAP;
 
     static {
         BUILDER.comment("Serverside Configurations");

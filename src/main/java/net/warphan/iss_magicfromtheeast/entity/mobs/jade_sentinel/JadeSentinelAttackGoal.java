@@ -1,4 +1,4 @@
-//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
+package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
 //
 //import io.redspace.ironsspellbooks.damage.DamageSources;
 //import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
@@ -8,7 +8,7 @@
 //import net.minecraft.world.entity.ai.attributes.Attributes;
 //import net.minecraft.world.phys.AABB;
 //import net.minecraft.world.phys.Vec3;
-//import net.neoforged.neoforge.network.PacketDistributor;
+//import io.redspace.ironsspellbooks.setup.PacketDistributor;
 //import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 //
 //public class JadeSentinelAttackGoal extends WarlockAttackGoal {

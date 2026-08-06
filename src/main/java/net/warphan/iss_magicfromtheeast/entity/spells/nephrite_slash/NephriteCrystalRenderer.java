@@ -41,7 +41,7 @@ public class NephriteCrystalRenderer extends EntityRenderer<NephriteCrystalEntit
 
         this.model.setupAnim(entity, partialTicks, 0.0F, 0.0F, entity.getYRot(), entity.getXRot());
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
-        this.model.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, -1);
+        this.model.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
         poseStack.popPose();
     }
 
@@ -51,7 +51,7 @@ public class NephriteCrystalRenderer extends EntityRenderer<NephriteCrystalEntit
     }
 
     public static class NephriteCrystalModel extends EntityModel<NephriteCrystalEntity> {
-        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "nephrite_crystal"), "main");
+        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "nephrite_crystal"), "main");
         private final ModelPart bottom;
         private final ModelPart middle;
         private final ModelPart top;
@@ -97,10 +97,10 @@ public class NephriteCrystalRenderer extends EntityRenderer<NephriteCrystalEntit
         }
 
         @Override
-        public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int pColor) {
-            bottom.render(poseStack, vertexConsumer, packedLight, packedOverlay, pColor);
-            middle.render(poseStack, vertexConsumer, packedLight, packedOverlay, pColor);
-            top.render(poseStack, vertexConsumer, packedLight, packedOverlay, pColor);
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+            bottom.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            middle.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            top.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         }
     }
 }

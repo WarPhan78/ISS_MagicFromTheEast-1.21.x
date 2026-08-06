@@ -1,20 +1,19 @@
 package net.warphan.iss_magicfromtheeast.registries;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
-@EventBusSubscriber (modid = ISS_MagicFromTheEast.MOD_ID)
+@Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MFTECreativeTabRegistries {
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ISS_MagicFromTheEast.MOD_ID);
 
@@ -22,7 +21,7 @@ public class MFTECreativeTabRegistries {
         TABS.register(eventBus);
     }
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MFTE_ITEM_TAB = TABS.register("magicfromtheeast_items", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> MFTE_ITEM_TAB = TABS.register("magicfromtheeast_items", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + ISS_MagicFromTheEast.MOD_ID + ".item_tab"))
             .icon(() -> new ItemStack(MFTEItemRegistries.YIN_YANG_CORE.get()))
             .displayItems((enabledFeatures, entries) -> {
@@ -95,7 +94,7 @@ public class MFTECreativeTabRegistries {
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MFTE_BLOCK_TAB = TABS.register("magicfromtheeast_blocks", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> MFTE_BLOCK_TAB = TABS.register("magicfromtheeast_blocks", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + ISS_MagicFromTheEast.MOD_ID + ".block_tab"))
             .icon(() -> new ItemStack(MFTEItemRegistries.JADE_BLOCK_ITEM.get()))
             .displayItems((enabledFeature, entries) -> {
@@ -124,7 +123,7 @@ public class MFTECreativeTabRegistries {
 
     @SubscribeEvent
     public static void fillCreativeTabs(final BuildCreativeModeTabContentsEvent event) {
-        if (event.getTab() == BuiltInRegistries.CREATIVE_MODE_TAB.get(CreativeModeTabs.NATURAL_BLOCKS)) {
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(MFTEItemRegistries.JADE_ORE_ITEM.get());
             event.accept(MFTEItemRegistries.JADE_ORE_DEEPSLATE_ITEM.get());
         }

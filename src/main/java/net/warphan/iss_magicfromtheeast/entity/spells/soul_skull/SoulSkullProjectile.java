@@ -4,7 +4,6 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,16 +18,17 @@ import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class SoulSkullProjectile extends AbstractMagicProjectile implements GeoEntity {
     public SoulSkullProjectile(EntityType<? extends Projectile> entityType, Level level) {
@@ -65,8 +65,8 @@ public class SoulSkullProjectile extends AbstractMagicProjectile implements GeoE
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
-        return Optional.of(SoundEvents.SOUL_ESCAPE);
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
+        return Optional.of(() -> SoundEvents.SOUL_ESCAPE);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class SoulSkullProjectile extends AbstractMagicProjectile implements GeoE
         var entity = entityHitResult.getEntity();
         DamageSources.applyDamage(entity, getDamage(), MFTESpellRegistries.SOUL_CATALYST_SPELL.get().getDamageSource(this, getOwner()));
         if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN, 80, 0));
+            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 80, 0));
             livingEntity.invulnerableTime = 0;
         }
         discard();
@@ -95,7 +95,7 @@ public class SoulSkullProjectile extends AbstractMagicProjectile implements GeoE
     //ANIMATION
     private final RawAnimation skull_fly = RawAnimation.begin().thenPlay("skull_jaw");
 
-    private PlayState predicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState predicate(software.bernie.geckolib.core.animation.AnimationState event) {
         event.getController().setAnimation(skull_fly);
         return PlayState.CONTINUE;
     }

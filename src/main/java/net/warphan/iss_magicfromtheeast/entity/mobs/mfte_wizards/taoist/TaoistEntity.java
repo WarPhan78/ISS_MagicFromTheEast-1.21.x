@@ -32,7 +32,6 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
@@ -74,10 +73,10 @@ public class TaoistEntity extends NeutralWizard implements IMerchantWizard {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag pDataTag) {
         RandomSource randomSource = Utils.random;
         this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
-        return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData);
+        return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData, pDataTag);
     }
 
     @Override
@@ -215,14 +214,15 @@ public class TaoistEntity extends NeutralWizard implements IMerchantWizard {
         return this.offers;
     }
 
+    // 1.20.1: AdditionalWanderingTrades.SimpleBuy takes an ItemStack instead of ItemCost
     private static final List<VillagerTrades.ItemListing> fillerOffers = List.of(
-            new AdditionalWanderingTrades.SimpleBuy(16, new ItemCost(MFTEItemRegistries.JADE.get(), 5), 1, 3),
-            new AdditionalWanderingTrades.SimpleSell(6, new ItemStack(MFTEItemRegistries.RED_STRING, 1), 8, 12),
+            new AdditionalWanderingTrades.SimpleBuy(16, new ItemStack(MFTEItemRegistries.JADE.get(), 5), 1, 3),
+            new AdditionalWanderingTrades.SimpleSell(6, new ItemStack(MFTEItemRegistries.RED_STRING.get(), 1), 8, 12),
             new AdditionalWanderingTrades.SimpleSell(8, new ItemStack(Items.FLINT, 3), 4, 7),
             new AdditionalWanderingTrades.SimpleSell(8, new ItemStack(Items.QUARTZ, 3), 6, 10),
-            new AdditionalWanderingTrades.SimpleBuy(16, new ItemCost(MFTEItemRegistries.COPPER_COINS.get(), 16), 2, 4),
-            new AdditionalWanderingTrades.SimpleBuy(4, new ItemCost(MFTEItemRegistries.REFINED_JADE_INGOT.get(), 1), 6, 12),
-            new AdditionalWanderingTrades.SimpleBuy(16, new ItemCost(MFTEItemRegistries.YIN_YANG_CORE.get(), 1), 4, 6)
+            new AdditionalWanderingTrades.SimpleBuy(16, new ItemStack(MFTEItemRegistries.COPPER_COINS.get(), 16), 2, 4),
+            new AdditionalWanderingTrades.SimpleBuy(4, new ItemStack(MFTEItemRegistries.REFINED_JADE_INGOT.get(), 1), 6, 12),
+            new AdditionalWanderingTrades.SimpleBuy(16, new ItemStack(MFTEItemRegistries.YIN_YANG_CORE.get(), 1), 4, 6)
     );
 
     private Collection<MerchantOffer> createRandomOffers(int min, int max) {

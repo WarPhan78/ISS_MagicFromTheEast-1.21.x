@@ -5,34 +5,37 @@ import io.redspace.ironsspellbooks.effect.MagicMobEffect;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.datagen.MFTEDamageTypeTagGenerator;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 
-@EventBusSubscriber
+// TODO PORT 1.20.1: LivingDamageEvent.Pre does not exist on Forge 1.20.1 - LivingHurtEvent is the
+//  equivalent hook to zero the incoming damage before it is applied.
+@Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID)
 public class ReversalHealingEffect extends MagicMobEffect {
     public ReversalHealingEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @SubscribeEvent
-    public static void healWhenBeingHit(LivingDamageEvent.Pre event) {
+    public static void healWhenBeingHit(LivingHurtEvent event) {
         var entity = event.getEntity();
         var damageSource = event.getSource();
-        float damageAmount = event.getOriginalDamage();
-        var level = entity.level;
-        if (entity.level.isClientSide
+        float damageAmount = event.getAmount();
+        var level = entity.level();
+        if (entity.level().isClientSide
                 || damageSource.is(MFTEDamageTypeTagGenerator.BYPASS_REVERSAL_HEALING)
                 || damageSource.is(DamageTypeTags.IS_FALL)
                 || damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY))
         {
             return;
         } else {
-            var effect = entity.getEffect(MFTEEffectRegistries.REVERSAL_HEALING);
+            var effect = entity.getEffect(MFTEEffectRegistries.REVERSAL_HEALING.get());
             if (effect != null) {
-                event.setNewDamage(0.0f);
+                event.setAmount(0.0f);
                 entity.heal(damageAmount * healingAmplifier(effect.getAmplifier()));
 
                 //visual

@@ -3,13 +3,13 @@ package net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.mobs.goals.WarlockAttackGoal;
 import io.redspace.ironsspellbooks.network.SyncAnimationPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 
 public class BoneHandAttackGoal extends WarlockAttackGoal {

@@ -1,4 +1,4 @@
-//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
+package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
 //
 //import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.TransformStack;
 //import net.minecraft.client.model.geom.PartNames;

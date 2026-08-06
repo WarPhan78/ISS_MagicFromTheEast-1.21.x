@@ -12,10 +12,9 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.item.weapons.RepeatingCrossbow;
-import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,7 +36,7 @@ public abstract class ItemInHandRendererMixin {
         ItemStack itemstack = localPlayer.getUseItem();
         ItemStack mainStack = localPlayer.getMainHandItem();
         ItemStack offStack = localPlayer.getOffhandItem();
-        if (offStack.is(MFTEItemRegistries.REPEATING_CROSSBOW) && !mainStack.isEmpty()) {
+        if (offStack.is(MFTEItemRegistries.REPEATING_CROSSBOW.get()) && !mainStack.isEmpty()) {
             callback.setReturnValue(ItemInHandRenderer.HandRenderSelection.RENDER_MAIN_HAND_ONLY);
         }
         if (itemstack.getItem() instanceof RepeatingCrossbow) {
@@ -46,7 +45,8 @@ public abstract class ItemInHandRendererMixin {
                 callback.setReturnValue(ItemInHandRenderer.HandRenderSelection.onlyForHand(interactionHand));
             }
             else
-                callback.setReturnValue(itemstack.has(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT) && itemstack.get(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT).ammoAmount() > 0
+                // PORT 1.20.1: ammo amount data component -> NBT helper on RepeatingCrossbow.
+                callback.setReturnValue(RepeatingCrossbow.getAmmoAmount(itemstack) > 0
                 ? ItemInHandRenderer.HandRenderSelection.RENDER_MAIN_HAND_ONLY : ItemInHandRenderer.HandRenderSelection.RENDER_BOTH_HANDS);
         }
     }
@@ -85,7 +85,7 @@ public abstract class ItemInHandRendererMixin {
                         poseStack.mulPose(Axis.XP.rotationDegrees(-11.935F));
                         poseStack.mulPose(Axis.YP.rotationDegrees((float) i * 65.3F));
                         poseStack.mulPose(Axis.ZP.rotationDegrees((float) i * -9.785F));
-                        f12 = (float) stack.getUseDuration(player) - ((float) player.getUseItemRemainingTicks() - v + 1.0F);
+                        f12 = (float) stack.getUseDuration() - ((float) player.getUseItemRemainingTicks() - v + 1.0F);
                         f7 = f12 / (float) RepeatingCrossbow.getUsingDuration(stack, player);
                         if (f7 > 1.0F) {
                             f7 = 1.0F;
@@ -131,7 +131,7 @@ public abstract class ItemInHandRendererMixin {
                         poseStack.mulPose(Axis.XP.rotationDegrees(-11.935F));
                         poseStack.mulPose(Axis.YP.rotationDegrees((float) i * 65.3F));
                         poseStack.mulPose(Axis.ZP.rotationDegrees((float) i * -9.785F));
-                        f12 = (float) stack.getUseDuration(player) - ((float) player.getUseItemRemainingTicks() - v + 1.0F);
+                        f12 = (float) stack.getUseDuration() - ((float) player.getUseItemRemainingTicks() - v + 1.0F);
                         f7 = f12 / (float) RepeatingCrossbow.getUsingDuration(stack, player);
                         if (f7 > 1.0F) {
                             f7 = 1.0F;

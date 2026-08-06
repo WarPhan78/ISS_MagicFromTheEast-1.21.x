@@ -16,7 +16,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
 
-@AutoSpellConfig
 public class DrapesOfReflectionSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "drapes_of_reflection");
 

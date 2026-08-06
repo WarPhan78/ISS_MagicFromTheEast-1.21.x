@@ -1,4 +1,4 @@
-//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
+package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;//package net.warphan.iss_magicfromtheeast.entity.mobs.jade_sentinel;
 //
 //import com.mojang.blaze3d.vertex.PoseStack;
 //import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -18,8 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
 public class ExtractedSoulRenderer extends LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/extracted_soul.png");
-    private static final ResourceLocation TEXTURE_ALT = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/extracted_soul_alt.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/extracted_soul.png");
+    private static final ResourceLocation TEXTURE_ALT = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/extracted_soul_alt.png");
     final EntityModel<LivingEntity> originalModel;
 
     public ExtractedSoulRenderer(EntityRendererProvider.Context context) {

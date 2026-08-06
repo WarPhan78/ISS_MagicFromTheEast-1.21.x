@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -14,12 +13,7 @@ public class MFTEDirectionalBlock extends HorizontalDirectionalBlock {
         super(p_54120_);
     }
 
-    public static final MapCodec<MFTEDirectionalBlock> CODEC = simpleCodec(MFTEDirectionalBlock::new);
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
+    // NOTE PORT 1.20.1: block MapCodecs (BlockBehaviour#codec) do not exist on 1.20.1 - removed.
 
     @Nullable
     @Override

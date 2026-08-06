@@ -1,6 +1,5 @@
 package net.warphan.iss_magicfromtheeast.datagen;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -13,8 +12,9 @@ public class MFTELootTableProvider {
     static class Block extends BlockLootSubProvider {
         HashSet<net.minecraft.world.level.block.Block> knowBlocks = new HashSet<>();
 
-        public Block(HolderLookup.Provider provider) {
-            super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
+        public Block() {
+            // 1.20.1: BlockLootSubProvider has no HolderLookup.Provider parameter
+            super(Set.of(), FeatureFlags.REGISTRY.allFlags());
         }
 
         @Override

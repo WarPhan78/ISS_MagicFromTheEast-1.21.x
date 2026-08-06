@@ -1,136 +1,40 @@
 package net.warphan.iss_magicfromtheeast.enchantment;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.EnchantmentTags;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
-import net.minecraft.world.item.enchantment.LevelBasedValue;
-import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
-import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.GhostlyColdEnchantmentEffect;
-import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.SoulFlameEnchantmentEffect;
-import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
-import net.warphan.iss_magicfromtheeast.util.MFTEEnchantmentTags;
 import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
+/**
+ * 1.20.1 port: on 1.21 these enchantments were data-driven (bootstrapped ResourceKeys +
+ * enchantment effect components). On 1.20.1 each enchantment is a class extending
+ * {@link Enchantment}, registered below. The 1.21 "supported items" tags are mapped to custom
+ * {@link EnchantmentCategory} entries (Forge IExtensibleEnum), and the effect components are
+ * applied imperatively through {@link MFTEEnchantmentHelper}.
+ */
 public class MFTEEnchantments {
-    public static final ResourceKey<Enchantment> SOUL_FLAME = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "soul_flame"));
-    public static final ResourceKey<Enchantment> GHOSTLY_COLD = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "ghostly_cold"));
-    public static final ResourceKey<Enchantment> SPIRITUAL_FOCUS = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spiritual_focus"));
-    public static final ResourceKey<Enchantment> WISELY_WILL = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "wisely_will"));
-    public static final ResourceKey<Enchantment> INNER_IMPACT = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "inner_impact"));
-    public static final ResourceKey<Enchantment> EXPANDING = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "expanding"));
-//    public static final ResourceKey<Enchantment> BARRAGE = ResourceKey.create(Registries.ENCHANTMENT,
-//            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "barrage"));
+    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ISS_MagicFromTheEast.MOD_ID);
 
-    public static void bootstrap(BootstrapContext<Enchantment> context) {
-        var enchantments = context.lookup(Registries.ENCHANTMENT);
-        var items = context.lookup(Registries.ITEM);
+    // Replacements for the 1.21 "supported items" tags of the data-driven definitions.
+    public static final EnchantmentCategory SOULPIERCER_CATEGORY =
+            EnchantmentCategory.create("MFTE_SOULPIERCER", item -> item.getDefaultInstance().is(MFTETags.SOULPIERCER));
+    public static final EnchantmentCategory SOUL_MELEE_WEAPON_CATEGORY =
+            EnchantmentCategory.create("MFTE_SOUL_MELEE_WEAPON", item -> item.getDefaultInstance().is(MFTETags.SOUL_MELEE_WEAPON));
+    public static final EnchantmentCategory AMMO_LOAD_WEAPON_CATEGORY =
+            EnchantmentCategory.create("MFTE_AMMO_LOAD_WEAPON", item -> item.getDefaultInstance().is(MFTETags.AMMO_LOAD_WEAPON));
 
-        register(
-                context, SOUL_FLAME, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(MFTETags.SOULPIERCER),
-                                4,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                4,
-                                EquipmentSlotGroup.MAINHAND))
-                        .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_EFFECT_EXCLUSIVE))
-                .withEffect(EnchantmentEffectComponents.PROJECTILE_SPAWNED,
-                        new SoulFlameEnchantmentEffect())
-        );
-        register(
-                context, GHOSTLY_COLD, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(MFTETags.SOULPIERCER),
-                                4,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                4,
-                                EquipmentSlotGroup.MAINHAND))
-                        .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_EFFECT_EXCLUSIVE))
-                .withEffect(EnchantmentEffectComponents.PROJECTILE_SPAWNED,
-                        new GhostlyColdEnchantmentEffect())
-        );
-        register(
-                context, SPIRITUAL_FOCUS, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(MFTETags.SOULPIERCER),
-                                10,
-                                5,
-                                Enchantment.dynamicCost(4, 12),
-                                Enchantment.dynamicCost(20, 12),
-                                1,
-                                EquipmentSlotGroup.MAINHAND))
-                            .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_FUNCTION_EXCLUSIVE))
-                        .withEffect(MFTEDataComponentRegistries.SOUL_DAMAGE.get(),
-                                new AddValue(LevelBasedValue.perLevel(1)))
-        );
-        register(
-                context, WISELY_WILL, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(MFTETags.SOULPIERCER),
-                                5,
-                                3,
-                                Enchantment.dynamicCost(3, 9),
-                                Enchantment.dynamicCost(18, 9),
-                                0,
-                                EquipmentSlotGroup.MAINHAND))
-                            .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.SOULPIERCER_FUNCTION_EXCLUSIVE))
-                        .withEffect(MFTEDataComponentRegistries.MANA_USE.get(),
-                                new AddValue(LevelBasedValue.perLevel(-15)))
-        );
-        register(
-                context, INNER_IMPACT, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(MFTETags.SOUL_MELEE_WEAPON),
-                                10,
-                                5,
-                                Enchantment.dynamicCost(4, 12),
-                                Enchantment.dynamicCost(20, 12),
-                                1,
-                                EquipmentSlotGroup.MAINHAND))
-                            .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
-                        .withEffect(MFTEDataComponentRegistries.SOUL_DAMAGE.get(),
-                                new AddValue(LevelBasedValue.perLevel(1)))
-        );
-        register(
-                context, EXPANDING, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(MFTETags.AMMO_LOAD_WEAPON),
-                                10,
-                                5,
-                                Enchantment.dynamicCost(5, 10),
-                                Enchantment.dynamicCost(15, 10),
-                                0,
-                                EquipmentSlotGroup.MAINHAND))
-                        .withEffect(EnchantmentEffectComponents.AMMO_USE,
-                                new AddValue(LevelBasedValue.perLevel(1)))
-        );
-        //We will use this enchantment for a projectile weapon in the future
-//        register(
-//                context, BARRAGE, Enchantment.enchantment(Enchantment.definition(
-//                                items.getOrThrow(MFTETags.AMMO_LOAD_WEAPON),
-//                                2,
-//                                1,
-//                                Enchantment.constantCost(25),
-//                                Enchantment.constantCost(50),
-//                                6,
-//                                EquipmentSlotGroup.MAINHAND))
-//                            .exclusiveWith(enchantments.getOrThrow(MFTEEnchantmentTags.REPEATING_CROSSBOW_EXCLUSIVE))
-//                        .withEffect(MFTEDataComponentRegistries.BARRAGE_SHOT.get(),
-//                                new AddValue(LevelBasedValue.perLevel(3.0F)))
-//        );
-    }
+    public static final RegistryObject<Enchantment> SOUL_FLAME = ENCHANTMENTS.register("soul_flame", SoulFlameEnchantment::new);
+    public static final RegistryObject<Enchantment> GHOSTLY_COLD = ENCHANTMENTS.register("ghostly_cold", GhostlyColdEnchantment::new);
+    public static final RegistryObject<Enchantment> SPIRITUAL_FOCUS = ENCHANTMENTS.register("spiritual_focus", SpiritualFocusEnchantment::new);
+    public static final RegistryObject<Enchantment> WISELY_WILL = ENCHANTMENTS.register("wisely_will", WiselyWillEnchantment::new);
+    public static final RegistryObject<Enchantment> INNER_IMPACT = ENCHANTMENTS.register("inner_impact", InnerImpactEnchantment::new);
+    public static final RegistryObject<Enchantment> EXPANDING = ENCHANTMENTS.register("expanding", ExpandingEnchantment::new);
 
-    private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
-        registry.register(key, builder.build(key.location()));
+    public static void register(IEventBus eventBus) {
+        ENCHANTMENTS.register(eventBus);
     }
 }

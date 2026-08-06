@@ -4,7 +4,6 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,6 +20,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class AnchoringKunaiProjectile extends AbstractMagicProjectile {
     public int effectLevel = 0;
@@ -65,8 +65,8 @@ public class AnchoringKunaiProjectile extends AbstractMagicProjectile {
     }
 
     @Override
-    public Optional<Holder<SoundEvent>> getImpactSound() {
-        return Optional.of(SoundEvents.SOUL_ESCAPE);
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
+        return Optional.of(() -> SoundEvents.SOUL_ESCAPE);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class AnchoringKunaiProjectile extends AbstractMagicProjectile {
         var entity = entityHitResult.getEntity();
         DamageSources.applyDamage(entity, getDamage(), MFTESpellRegistries.ANCHORING_KUNAI.get().getDamageSource(this, getOwner()));
         if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.ANCHORED_SOUL, effectTick, effectLevel, false, false, true));
+            livingEntity.addEffect(new MobEffectInstance(MFTEEffectRegistries.ANCHORED_SOUL.get(), effectTick, effectLevel, false, false, true));
         }
         discard();
     }

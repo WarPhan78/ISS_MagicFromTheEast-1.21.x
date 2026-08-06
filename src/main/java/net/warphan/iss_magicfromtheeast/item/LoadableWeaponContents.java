@@ -1,10 +1,9 @@
 package net.warphan.iss_magicfromtheeast.item;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
@@ -16,11 +15,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * PORT 1.20.1: this used to be a data component (with Codec/StreamCodec). On 1.20.1 the contents
+ * are stored as ItemStack NBT under {@link MFTEDataComponentRegistries#LOADABLE_WEAPON_CONTENTS}
+ * (see {@link #get(ItemStack)} / {@link #set(ItemStack, LoadableWeaponContents)}).
+ */
 public final class LoadableWeaponContents implements TooltipComponent {
     public static final LoadableWeaponContents EMPTY = new LoadableWeaponContents(List.of());
-    public static final Codec<LoadableWeaponContents> CODEC;
-    public static final StreamCodec<RegistryFriendlyByteBuf, LoadableWeaponContents> STREAM_CODEC;
-    private static final Fraction PROJECTILE_IN_STORAGE_WEIGHT;
+    private static final String ITEMS_TAG = "Items";
+    private static final Fraction PROJECTILE_IN_STORAGE_WEIGHT = Fraction.getFraction(1, 16);
 
     final List<ItemStack> items;
     final Fraction weight;
@@ -42,22 +45,69 @@ public final class LoadableWeaponContents implements TooltipComponent {
         Fraction fraction = Fraction.ZERO;
 
         ItemStack itemStack;
-        for (Iterator var2 = stacks.iterator(); var2.hasNext(); fraction = fraction.add(getWeight(itemStack).multiplyBy(Fraction.getFraction(itemStack.getCount(), 1)))) {
-            itemStack = (ItemStack) var2.next();
+        for (Iterator<ItemStack> var2 = stacks.iterator(); var2.hasNext(); fraction = fraction.add(getWeight(itemStack).multiplyBy(Fraction.getFraction(itemStack.getCount(), 1)))) {
+            itemStack = var2.next();
         }
 
         return fraction;
     }
 
     static Fraction getWeight(ItemStack itemStack) {
-        LoadableWeaponContents contents = (LoadableWeaponContents) itemStack.get(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
+        LoadableWeaponContents contents = get(itemStack);
         if (contents != null)
             return PROJECTILE_IN_STORAGE_WEIGHT.add(contents.weight);
         return Fraction.ONE;
     }
 
+    //------ NBT (replacement for the 1.21 data component codecs) ------
+
+    /**
+     * @return the contents stored on the stack's NBT, or null when absent
+     * (mirrors {@code stack.get(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS)}).
+     */
+    @Nullable
+    public static LoadableWeaponContents get(ItemStack stack) {
+        CompoundTag tag = MFTEDataComponentRegistries.getCompound(stack, MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
+        return tag == null ? null : fromTag(tag);
+    }
+
+    public static void set(ItemStack stack, LoadableWeaponContents contents) {
+        MFTEDataComponentRegistries.setCompound(stack, MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS, contents.toTag());
+    }
+
+    public static void remove(ItemStack stack) {
+        MFTEDataComponentRegistries.remove(stack, MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
+    }
+
+    public CompoundTag toTag() {
+        CompoundTag tag = new CompoundTag();
+        ListTag listTag = new ListTag();
+        for (ItemStack itemStack : this.items) {
+            listTag.add(itemStack.save(new CompoundTag()));
+        }
+        tag.put(ITEMS_TAG, listTag);
+        return tag;
+    }
+
+    public static LoadableWeaponContents fromTag(@Nullable CompoundTag tag) {
+        if (tag == null) {
+            return EMPTY;
+        }
+        ListTag listTag = tag.getList(ITEMS_TAG, Tag.TAG_COMPOUND);
+        List<ItemStack> stacks = new ArrayList<>(listTag.size());
+        for (int i = 0; i < listTag.size(); i++) {
+            ItemStack stack = ItemStack.of(listTag.getCompound(i));
+            if (!stack.isEmpty()) {
+                stacks.add(stack);
+            }
+        }
+        return new LoadableWeaponContents(List.copyOf(stacks));
+    }
+
+    //------ accessors (unchanged from 1.21) ------
+
     public ItemStack getItemUnsafe(int p_330802_) {
-        return (ItemStack)this.items.get(p_330802_);
+        return this.items.get(p_330802_);
     }
 
     public Stream<ItemStack> itemCopyStream() {
@@ -87,35 +137,33 @@ public final class LoadableWeaponContents implements TooltipComponent {
     public boolean equals(Object object) {
         if (this == object) {
             return true;
-        } else {
-            boolean var10000;
-            if (object instanceof LoadableWeaponContents) {
-                LoadableWeaponContents loadableWeaponContents = (LoadableWeaponContents) object;
-                var10000 = this.weight.equals(loadableWeaponContents.weight) && ItemStack.listMatches(this.items, loadableWeaponContents.items);
-            } else {
-                var10000 = false;
+        } else if (object instanceof LoadableWeaponContents loadableWeaponContents) {
+            // PORT 1.20.1: ItemStack.listMatches does not exist - inlined equivalent.
+            if (!this.weight.equals(loadableWeaponContents.weight) || this.items.size() != loadableWeaponContents.items.size()) {
+                return false;
             }
-
-            return var10000;
+            for (int i = 0; i < this.items.size(); i++) {
+                if (!ItemStack.matches(this.items.get(i), loadableWeaponContents.items.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
     public int hashCode() {
-        return ItemStack.hashStackList(this.items);
+        // PORT 1.20.1: ItemStack.hashStackList does not exist - inlined equivalent.
+        int i = 0;
+        for (ItemStack itemStack : this.items) {
+            i = i * 31 + (itemStack.getItem().hashCode() * 31 + itemStack.getCount());
+        }
+        return i;
     }
 
     public String toString() {
         return "LoadableWeaponContents" + String.valueOf(this.items);
-    }
-
-    static {
-        CODEC = ItemStack.CODEC.listOf().xmap(LoadableWeaponContents::new, (component) -> {
-            return component.items;
-        });
-        STREAM_CODEC = ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()).map(LoadableWeaponContents::new, (function) -> {
-            return function.items;
-        });
-        PROJECTILE_IN_STORAGE_WEIGHT = Fraction.getFraction(1, 16);
     }
 
     public static class Mutable {
@@ -123,7 +171,7 @@ public final class LoadableWeaponContents implements TooltipComponent {
         private Fraction weight;
 
         public Mutable(LoadableWeaponContents contents) {
-            this.items = new ArrayList(contents.items);
+            this.items = new ArrayList<>(contents.items);
             this.weight = contents.weight;
         }
 
@@ -147,7 +195,7 @@ public final class LoadableWeaponContents implements TooltipComponent {
             if (this.items.isEmpty()) {
                 return null;
             } else {
-                ItemStack itemstack = ((ItemStack)this.items.remove(0)).copy();
+                ItemStack itemstack = this.items.remove(0).copy();
                 this.weight = this.weight.subtract(LoadableWeaponContents.getWeight(itemstack).multiplyBy(Fraction.getFraction(itemstack.getCount(), 1)));
                 return itemstack;
             }

@@ -20,7 +20,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@AutoSpellConfig
 public class BoneHandsSpell extends AbstractSpell {
     private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "bone_hands");
 

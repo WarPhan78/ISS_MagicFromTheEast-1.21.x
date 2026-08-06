@@ -18,7 +18,6 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import java.util.List;
 
-@AutoSpellConfig
 public class SwordDanceSpell extends AbstractSpell {
     private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "sword_dance");
 

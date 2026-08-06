@@ -13,9 +13,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 
@@ -53,15 +55,15 @@ public class SummonedJiangshiEntity extends JiangshiEntity implements IMagicSumm
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
+        // TODO PORT 1.20.1: STEP_HEIGHT(3)/ENTITY_INTERACTION_RANGE(1.8) mapped to Forge attributes; SAFE_FALL_DISTANCE(7) emulated in JiangshiEntity#calculateFallDamage
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.STEP_HEIGHT, 3)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2.4)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.7)
-                .add(Attributes.SAFE_FALL_DISTANCE, 7)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 1.8f);
+                .add(ForgeMod.ENTITY_REACH.get(), 1.8f);
     }
 
     @Override
@@ -76,9 +78,9 @@ public class SummonedJiangshiEntity extends JiangshiEntity implements IMagicSumm
     }
 
     @Override
-    public void onRemovedFromLevel() {
+    public void onRemovedFromWorld() {
         this.onRemovedHelper(this);
-        super.onRemovedFromLevel();
+        super.onRemovedFromWorld();
     }
 
     @Override

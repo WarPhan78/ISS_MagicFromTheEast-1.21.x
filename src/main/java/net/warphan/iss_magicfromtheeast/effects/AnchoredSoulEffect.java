@@ -10,13 +10,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.spells.spirit_challenging.ExtractedSoul;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 
-@EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID)
 public class AnchoredSoulEffect extends MagicMobEffect implements ISyncedMobEffect {
     public AnchoredSoulEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
@@ -27,8 +28,8 @@ public class AnchoredSoulEffect extends MagicMobEffect implements ISyncedMobEffe
         Entity entity = event.getEntity();
         Vec3 oldPos = new Vec3(event.getPrevX(), event.getPrevY(), event.getPrevZ());
         if (entity instanceof LivingEntity livingEntity) {
-            var level = livingEntity.level;
-            var effect = livingEntity.getEffect(MFTEEffectRegistries.ANCHORED_SOUL);
+            var level = livingEntity.level();
+            var effect = livingEntity.getEffect(MFTEEffectRegistries.ANCHORED_SOUL.get());
             if (effect != null) {
 
                 float bonusPercent = (effect.getAmplifier() + 1) * 0.5f;
@@ -53,7 +54,7 @@ public class AnchoredSoulEffect extends MagicMobEffect implements ISyncedMobEffe
         for (int i = 0; i < 1; i++) {
             Vec3 pos = new Vec3(Utils.getRandomScaled(1), Utils.getRandomScaled(1.0f) + 1.0f, Utils.getRandomScaled(1)).add(entity.position());
             Vec3 random = new Vec3(Utils.getRandomScaled(.08f), Utils.getRandomScaled(.08f), Utils.getRandomScaled(.08f));
-            entity.level.addParticle(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, random.x, random.y, random.z);
+            entity.level().addParticle(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, random.x, random.y, random.z);
         }
     }
 }

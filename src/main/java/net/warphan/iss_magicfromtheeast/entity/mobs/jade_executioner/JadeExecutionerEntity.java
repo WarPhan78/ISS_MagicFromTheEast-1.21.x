@@ -5,8 +5,8 @@ import io.redspace.ironsspellbooks.api.util.CameraShakeData;
 import io.redspace.ironsspellbooks.api.util.CameraShakeManager;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
-import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.damage.DamageSources;
+import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IAnimatedAttacker;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.AbstractSpellCastingMob;
@@ -36,10 +36,15 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -101,11 +106,12 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
+        // TODO PORT 1.20.1: STEP_HEIGHT(2)/ENTITY_INTERACTION_RANGE(3.5) mapped to Forge attributes
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 200.0)
                 .add(Attributes.ATTACK_DAMAGE, 9.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 3.5)
-                .add(Attributes.STEP_HEIGHT, 2)
+                .add(ForgeMod.ENTITY_REACH.get(), 3.5)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.4)
                 .add(Attributes.ARMOR, 12.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
@@ -133,9 +139,9 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     }
 
     @Override
-    public void onRemovedFromLevel() {
+    public void onRemovedFromWorld() {
         this.onRemovedHelper(this);
-        super.onRemovedFromLevel();
+        super.onRemovedFromWorld();
     }
 
     @Override
@@ -251,11 +257,11 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
 
     //Animation Data
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(DATA_IS_SHOWDOWN, false);
-        pBuilder.define(DATA_IS_DYING, false);
-        pBuilder.define(DATA_IS_ATTACKING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_SHOWDOWN, false);
+        this.entityData.define(DATA_IS_DYING, false);
+        this.entityData.define(DATA_IS_ATTACKING, false);
     }
 
     public boolean isAnimatingShowdown() {
@@ -281,13 +287,13 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         if (isAnimatingShowdown()) {
             if (!level.isClientSide) {
                 if (tickCount == 5) {
-                    playSound(MFTESoundRegistries.EXECUTIONER_SHOWDOWN.value(), 16, .75f);
+                    playSound(MFTESoundRegistries.EXECUTIONER_SHOWDOWN.get(), 16, .75f);
                 }
                 if (tickCount == 10) {
                     damageOnLandingImpact(this);
                 }
                 if (tickCount == 20) {
-                    playSound(MFTESoundRegistries.ROAR.value(), 20, .95f);
+                    playSound(MFTESoundRegistries.ROAR.get(), 20, .95f);
                 }
             }
             if (--showdownAnimTick < 0) {
@@ -306,7 +312,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
 
         MagicManager.spawnParticles(level, new BlastwaveParticleOptions(MFTESchoolRegistries.SYMMETRY.get().getTargetingColor(), radius), getX(), getY() + .165f, getZ(), 1, 0, 0, 0, 0, true);
         MagicManager.spawnParticles(level, ParticleTypes.SCRAPE, getX(), getY() + 0.1, getZ(), 60, 2.0, .2, 2.0, 0.5, false);
-        CameraShakeManager.addCameraShake(new CameraShakeData(level,10, entity.position(), radius * 2));
+        CameraShakeManager.addCameraShake(new CameraShakeData(level, 10, entity.position(), radius * 2));
 
         float damage = entity.getMaxHealth() / 10;
         level.getEntities(entity, entity.getBoundingBox().inflate(radius, 4, radius), (target) -> !DamageSources.isFriendlyFireBetween(target, entity)
@@ -332,7 +338,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     private final AnimationController<JadeExecutionerEntity> combatController = new AnimationController<>(this, "combat_controller", 0, this::combatPredicate);
     RawAnimation animationToPlay = null;
 
-    private PlayState showdownPredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState showdownPredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (!isAnimatingShowdown())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -341,7 +347,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         return PlayState.CONTINUE;
     }
 
-    private PlayState movePredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState movePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         Vec3 motion = this.getDeltaMovement();
         float horizontalSpeed = (float) Math.sqrt(motion.x * motion.x + motion.z * motion.z);
 
@@ -358,7 +364,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
         return PlayState.CONTINUE;
     }
 
-    private PlayState deadPredicate(software.bernie.geckolib.animation.AnimationState event) {
+    private PlayState deadPredicate(software.bernie.geckolib.core.animation.AnimationState event) {
         if (isAnimatingDead())
             event.getController().setAnimation(EXECUTIONER_DEAD);
         return PlayState.CONTINUE;
@@ -367,7 +373,7 @@ public class JadeExecutionerEntity extends AbstractSpellCastingMob implements Ge
     @Override
     public void playAnimation(String animationID) {
         try {
-            var attackAnim = JadeExecutionerEntity.AttackAnim.valueOf(animationID);
+            var attackAnim = AttackAnim.valueOf(animationID);
             animationToPlay = RawAnimation.begin().thenPlay(attackAnim.data.animationId);
         } catch (Exception ignore) {
             IronsSpellbooks.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);

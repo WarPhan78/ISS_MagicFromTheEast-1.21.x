@@ -1,6 +1,6 @@
 package net.warphan.iss_magicfromtheeast.setup;
 
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.warphan.iss_magicfromtheeast.compat.CompatHandler;
 
 public class ModSetup {
