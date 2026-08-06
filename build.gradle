@@ -15,13 +15,23 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') as Object
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     copyIdeResources = true
 
     runs {
         client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES' //SCAN, REGISTRYDUMP
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+            mods { "${mod_id}" { source sourceSets.main } }
+        }
+
+        server {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -29,7 +39,7 @@ minecraft {
             mods { "${mod_id}" { source sourceSets.main } }
         }
 
-        server {
+        gameTestServer {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -71,13 +81,7 @@ dependencies {
 
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-    // Iron's Spells 'n Spellbooks (1.20.1 / Forge)
     implementation fg.deobf("io.redspace:irons_spellbooks:${irons_spells_version}")
-    // Se a versão acima não resolver, liste as disponíveis em https://code.redspace.io/#/releases/io/redspace/ironsspellbooks
-    // ou use o CurseMaven: pegue o fileId na aba Files do mod no CurseForge (versão 1.20.1) e troque pela linha abaixo:
-    // implementation fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:<fileId>")
-    // Fallback via CurseMaven caso o artefato acima não resolva:
-    // implementation fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:<fileId>")
 
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
 
