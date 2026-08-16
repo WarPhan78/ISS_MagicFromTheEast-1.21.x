@@ -1,0 +1,10 @@
+{
+  "replacements": [
+    {
+      "dimension": "minecraft:overworld",
+      "target": "minecraft:plains",
+      "biome": "iss_magicfromtheeast:cherry_blossom_forest",
+      "proportion": 0.15
+    }
+  ]
+}

@@ -1,14 +1,14 @@
 {
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1652742,
+    "spacing": 25,
+    "separation": 18
+  },
   "structures": [
     {
       "structure": "iss_magicfromtheeast:onmyoji_shrine",
       "weight": 1
     }
-  ],
-  "placement": {
-    "salt": 1652742,
-    "spacing": 35,
-    "separation": 10,
-    "type": "minecraft:random_spread"
-  }
+  ]
 }
