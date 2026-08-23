@@ -155,7 +155,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
     public static AttributeSupplier.Builder prepareAttributes() {
         // TODO PORT 1.20.1: STEP_HEIGHT(3)/ENTITY_INTERACTION_RANGE(1.8) mapped to Forge attributes; SAFE_FALL_DISTANCE(7) emulated via calculateFallDamage override
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 60.0)
+                .add(Attributes.MAX_HEALTH, 40.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
