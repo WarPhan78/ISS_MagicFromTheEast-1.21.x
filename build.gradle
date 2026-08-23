@@ -28,6 +28,10 @@ repositories {
     maven { url = "https://cursemaven.com" }
     maven { url = "https://maven.blamejared.com" }
     maven { url = "https://maven.kosmx.dev/" }
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/'
+    }
 }
 
 base {
@@ -99,10 +103,14 @@ dependencies {
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:${geckolib_version}"
 
     implementation "io.redspace:irons_spellbooks:${irons_spells_version}"
+    implementation "curse.maven:irons-lib-1492763:8364894"
 
     compileOnly "mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}"
+
+    //Biolith
+    implementation("com.terraformersmc:biolith-neoforge:${biolith_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
