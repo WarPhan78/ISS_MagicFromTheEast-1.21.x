@@ -13,7 +13,6 @@ import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtByTargetGoa
 import io.redspace.ironsspellbooks.entity.mobs.goals.GenericOwnerHurtTargetGoal;
 import io.redspace.ironsspellbooks.entity.mobs.goals.melee.AttackAnimationData;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +21,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,15 +38,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -60,7 +59,7 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
         KATANA_SLASH_2(15, "samurai_slash_2", 10),
         KATANA_UPPER_CUT(15, "samurai_upper_cut", 10),
         KATANA_STRIKE(15, "samurai_strike", 10),
-        KATANA_TECHNIQUE(40, "samurai_technique", 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35);
+        KATANA_TECHNIQUE(40, "samurai_technique", 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37);
 
         AttackAnim(int lengthTick, String animationID, int... attackTimeStamp) {
             this.data = new AttackAnimationData(lengthTick, animationID, attackTimeStamp);
@@ -85,12 +84,6 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
 
     public int riseTick = 30;
 
-    // 1.20.1: EntityType builder has no .eyeHeight(); override instead (was .eyeHeight(2.3f))
-    @Override
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
-        return 2.3f;
-    }
-
     //Goal & AI
     @Override
     protected void registerGoals() {
@@ -111,12 +104,11 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
-        // TODO PORT 1.20.1: STEP_HEIGHT(1)/ENTITY_INTERACTION_RANGE(3.5) mapped to Forge attributes
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 50.0)
                 .add(Attributes.ATTACK_DAMAGE, 10.0)
-                .add(ForgeMod.ENTITY_REACH.get(), 3.5)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.4)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 3.5)
+                .add(Attributes.STEP_HEIGHT, 1)
                 .add(Attributes.ARMOR, 8.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
                 .add(Attributes.MOVEMENT_SPEED, .21)
@@ -144,9 +136,9 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
     }
 
     @Override
-    public void onRemovedFromWorld() {
+    public void onRemovedFromLevel() {
         this.onRemovedHelper(this);
-        super.onRemovedFromWorld();
+        super.onRemovedFromLevel();
     }
 
     @Override
@@ -155,8 +147,14 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MFTEItemRegistries.SOUL_KATANA.get()));
+    public void die(DamageSource damageSource) {
+        this.onDeathHelper();
+        super.die(damageSource);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MFTEItemRegistries.SOUL_KATANA));
 
         return pSpawnData;
     }
@@ -242,11 +240,15 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
 
     //Hurt, Die and Damage
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(pSource))) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && isAnimatingRise()
+                || shouldIgnoreDamage(source)
+                || source.is(DamageTypes.DROWN)
+                || source.is(DamageTypes.FALL)
+        ) {
             return false;
         }
-        return super.hurt(pSource, pAmount);
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -256,9 +258,9 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
 
     //Animation Data
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_IS_RISING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
+        super.defineSynchedData(pBuilder);
+        pBuilder.define(DATA_IS_RISING, false);
     }
 
     public boolean isAnimatingRise() {
@@ -300,7 +302,7 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
 
     RawAnimation animationToPlay = null;
 
-    private PlayState risePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
+    private PlayState risePredicate(software.bernie.geckolib.animation.AnimationState event) {
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -312,7 +314,7 @@ public class SpiritSamuraiEntity extends AbstractSpellCastingMob implements GeoE
     @Override
     public void playAnimation(String animationID) {
         try {
-            var attackAnim = AttackAnim.valueOf(animationID);
+            var attackAnim = SpiritSamuraiEntity.AttackAnim.valueOf(animationID);
             animationToPlay = RawAnimation.begin().thenPlay(attackAnim.data.animationId);
         } catch (Exception ignore) {
             IronsSpellbooks.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);

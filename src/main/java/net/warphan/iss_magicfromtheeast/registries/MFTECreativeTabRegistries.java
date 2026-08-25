@@ -25,37 +25,22 @@ public class MFTECreativeTabRegistries {
             .title(Component.translatable("itemGroup." + ISS_MagicFromTheEast.MOD_ID + ".item_tab"))
             .icon(() -> new ItemStack(MFTEItemRegistries.YIN_YANG_CORE.get()))
             .displayItems((enabledFeatures, entries) -> {
-                entries.accept(MFTEItemRegistries.TAIJI_SWORD.get());
+                //Spell Casting Item
                 entries.accept(MFTEItemRegistries.RITUAL_ORIHON.get());
+                entries.accept(MFTEItemRegistries.TAIJI_SWORD.get());
 
-                entries.accept(MFTEItemRegistries.JADE_GUANDAO.get());
+                //Melee Weapons
                 entries.accept(MFTEItemRegistries.SOUL_BREAKER.get());
-
                 entries.accept(MFTEItemRegistries.SPIRIT_CRUSHER.get());
-                entries.accept(MFTEItemRegistries.MURAMASA.get());
                 entries.accept(MFTEItemRegistries.SOUL_KATANA.get());
+                entries.accept(MFTEItemRegistries.MURAMASA.get());
+                entries.accept(MFTEItemRegistries.JADE_GUANDAO.get());
 
-                entries.accept(MFTEItemRegistries.SOULPIERCER.get());
+                //Range Weapons
                 entries.accept(MFTEItemRegistries.REPEATING_CROSSBOW.get());
+                entries.accept(MFTEItemRegistries.SOULPIERCER.get());
 
-                entries.accept(MFTEItemRegistries.BAGUA_MIRROR.get());
-                entries.accept(MFTEItemRegistries.COINS_SWORD.get());
-                entries.accept(MFTEItemRegistries.RUSTED_COINS_SWORD.get());
-                entries.accept(MFTEItemRegistries.SOULWARD_RING.get());
-                entries.accept(MFTEItemRegistries.JADE_PENDANT.get());
-
-                entries.accept(MFTEItemRegistries.JADE.get());
-                entries.accept(MFTEItemRegistries.YIN_YANG_CORE.get());
-                entries.accept(MFTEItemRegistries.BOTTLE_OF_SOULS.get());
-                entries.accept(MFTEItemRegistries.ARCANE_RELICS.get());
-                entries.accept(MFTEItemRegistries.RED_STRING.get());
-                entries.accept(MFTEItemRegistries.COPPER_COINS.get());
-
-                entries.accept(MFTEItemRegistries.RED_SHAFT.get());
-
-                entries.accept(MFTEItemRegistries.REFINED_JADE_INGOT.get());
-                entries.accept(MFTEItemRegistries.CRYSTALLIZED_SOUL.get());
-
+                //Armor
                 entries.accept(MFTEItemRegistries.TAOIST_HAT.get());
                 entries.accept(MFTEItemRegistries.TAOIST_ROBES.get());
                 entries.accept(MFTEItemRegistries.TAOIST_LEGGINGS.get());
@@ -74,22 +59,56 @@ public class MFTECreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_BOOTS.get());
                 entries.accept(MFTEItemRegistries.JADE_PAGODA_HORSE_ARMOR.get());
 
+                //Artifact
                 entries.accept(MFTEItemRegistries.ELEMENTAL_COMMANDER_CHESTPLATE.get());
                 entries.accept(MFTEItemRegistries.BOOTS_OF_MIST.get());
 
-                entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
-                entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());
-                entries.accept(MFTEItemRegistries.DUNE_RUNE.get());
+                //Compat Armor
+                entries.accept(MFTEItemRegistries.IMMORTAL_HEADGEAR.get());
+                entries.accept(MFTEItemRegistries.IMMORTAL_CHESTPLATE.get());
+                entries.accept(MFTEItemRegistries.IMMORTAL_LEGGINGS.get());
+                entries.accept(MFTEItemRegistries.IMMORTAL_BOOTS.get());
+
+                entries.accept(MFTEItemRegistries.RONIN_HAT.get());
+                entries.accept(MFTEItemRegistries.RONIN_CHESTPLATE.get());
+                entries.accept(MFTEItemRegistries.RONIN_LEGGINGS.get());
+                entries.accept(MFTEItemRegistries.RONIN_GETA.get());
+
+                //Curio
+                entries.accept(MFTEItemRegistries.COINS_SWORD.get());
+                entries.accept(MFTEItemRegistries.RUSTED_COINS_SWORD.get());
+                entries.accept(MFTEItemRegistries.BAGUA_MIRROR.get());
+                entries.accept(MFTEItemRegistries.JADE_PENDANT.get());
+                entries.accept(MFTEItemRegistries.SOULWARD_RING.get());
+
+                //Orb
                 entries.accept(MFTEItemRegistries.SYMMETRY_UPGRADE_ORB.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_UPGRADE_ORB.get());
 
-                entries.accept(MFTEItemRegistries.RICE_WINE_BOTTLE.get());
+                //Material
+                entries.accept(MFTEItemRegistries.YIN_YANG_CORE.get());
+                entries.accept(MFTEItemRegistries.BOTTLE_OF_SOULS.get());
+                entries.accept(MFTEItemRegistries.ARCANE_RELICS.get());
+                entries.accept(MFTEItemRegistries.COPPER_COINS.get());
+                entries.accept(MFTEItemRegistries.RED_STRING.get());
+                entries.accept(MFTEItemRegistries.RED_SHAFT.get());
+                entries.accept(MFTEItemRegistries.JADE.get());
+                entries.accept(MFTEItemRegistries.REFINED_JADE_INGOT.get());
+                entries.accept(MFTEItemRegistries.CRYSTALLIZED_SOUL.get());
 
+                //Rune
+                entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
+                entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());
+                entries.accept(MFTEItemRegistries.DUNE_RUNE.get());
+
+                //Misc Item
+                entries.accept(MFTEItemRegistries.RICE_WINE_BOTTLE.get());
+                entries.accept(MFTEItemRegistries.BALANCE_PATTERN.get());
+
+                //Spawn Egg
                 entries.accept(MFTEItemRegistries.TAOIST_SPAWN_EGG.get());
                 entries.accept(MFTEItemRegistries.ONMYOJI_SPAWN_EGG.get());
                 entries.accept(MFTEItemRegistries.JIANGSHI_SPAWN_EGG.get());
-
-                entries.accept(MFTEItemRegistries.BALANCE_PATTERN.get());
             })
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .build());

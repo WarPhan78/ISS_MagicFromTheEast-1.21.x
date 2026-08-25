@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,18 +35,13 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -56,8 +52,8 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     private static final EntityDataAccessor<Boolean> DATA_IS_RANGE_TYPE = SynchedEntityData.defineId(SpiritAshigaruEntity.class, EntityDataSerializers.BOOLEAN);
 
     public enum AttackType {
-        MELEE(20, "melee_attack", 13),
-        RANGE(50, "range_attack", 30);
+        MELEE(30, "melee_attack", 22),
+        RANGE(40, "range_attack", 28);
 
         AttackType(int lengthTick, String animationID, int... attackTimeStamp) {
             this.data = new AttackAnimationData(lengthTick, animationID, attackTimeStamp);
@@ -87,7 +83,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
-        this.goalSelector.addGoal(1, new SpiritAshigaruAttackGoal(this, 1f, 10, 30));
+        this.goalSelector.addGoal(1, new SpiritAshigaruAttackGoal(this, 1f, 20, 30));
 
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.7));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -103,12 +99,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
-        // TODO PORT 1.20.1: STEP_HEIGHT(1)/ENTITY_INTERACTION_RANGE(4.0) mapped to Forge attributes
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
-                .add(ForgeMod.ENTITY_REACH.get(), 4.0)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.4)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2.0)
+                .add(Attributes.STEP_HEIGHT, 1)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.6)
                 .add(Attributes.MOVEMENT_SPEED, .33)
@@ -158,14 +153,20 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     @Override
-    public void onRemovedFromWorld() {
+    public void onRemovedFromLevel() {
         this.onRemovedHelper(this);
-        super.onRemovedFromWorld();
+        super.onRemovedFromLevel();
     }
 
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        this.onDeathHelper();
+        super.die(damageSource);
     }
 
     //Controlling
@@ -204,11 +205,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     }
 
     //Data
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_IS_RISING, false);
-        this.entityData.define(DATA_IS_MELEE_TYPE, false);
-        this.entityData.define(DATA_IS_RANGE_TYPE, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_IS_RISING, false);
+        builder.define(DATA_IS_MELEE_TYPE, false);
+        builder.define(DATA_IS_RANGE_TYPE, false);
     }
 
     public boolean isAnimatingRise() {
@@ -281,11 +282,15 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
 
     //Hurt, Die and Damage
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (isAnimatingRise() || shouldIgnoreDamage(pSource))) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && isAnimatingRise()
+                || shouldIgnoreDamage(source)
+                || source.is(DamageTypes.DROWN)
+                || source.is(DamageTypes.FALL)
+        ) {
             return false;
         }
-        return super.hurt(pSource, pAmount);
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -306,6 +311,11 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
         }
     }
 
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() || this.isAnimatingRise();
+    }
+
     //Animations
     @Override
     public double getTick(Object o) {
@@ -319,7 +329,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
 
     RawAnimation animationToPlay = null;
 
-    private PlayState risePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
+    private PlayState risePredicate(software.bernie.geckolib.animation.AnimationState event) {
         if (!isAnimatingRise())
             return PlayState.STOP;
         if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
@@ -331,7 +341,7 @@ public class SpiritAshigaruEntity extends AbstractSpellCastingMob implements Geo
     @Override
     public void playAnimation(String animationID) {
         try {
-            var attackType = AttackType.valueOf(animationID);
+            var attackType = SpiritAshigaruEntity.AttackType.valueOf(animationID);
             animationToPlay = RawAnimation.begin().thenPlay(attackType.data.animationId);
         } catch (Exception ignore) {
             ISS_MagicFromTheEast.LOGGER.error("Entity {} Failed to play animation: {}", this, animationID);

@@ -108,7 +108,7 @@ public class RevenantOfHonorSpell extends AbstractSpell {
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
-            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 8).getLocation();
+            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 4).getLocation();
 
             SpiritSamuraiEntity spiritSamurai = new SpiritSamuraiEntity(world, entity, true);
 
@@ -142,6 +142,6 @@ public class RevenantOfHonorSpell extends AbstractSpell {
     }
 
     private float getSamuraiArmor(int spellLevel, LivingEntity summoner) {
-        return 6.0f + spellLevel * 2;
+        return 10;
     }
 }

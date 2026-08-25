@@ -89,6 +89,12 @@ public class SummonedJiangshiEntity extends JiangshiEntity implements IMagicSumm
     }
 
     @Override
+    public void die(DamageSource damageSource) {
+        this.onDeathHelper();
+        super.die(damageSource);
+    }
+
+    @Override
     public boolean doHurtTarget(Entity entity) {
         return Utils.doMeleeAttack(this, entity, MFTESpellRegistries.JIANGSHI_INVOKE_SPELL.get().getDamageSource(this, getSummoner()));
     }

@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsune;
+import net.warphan.iss_magicfromtheeast.entity.mobs.kitsune.SummonedKitsuneAlpha;
 import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 
 import javax.annotation.Nullable;
@@ -40,7 +41,7 @@ public class KitsunePackSpell extends AbstractSpell {
     public KitsunePackSpell() {
         this.manaCostPerLevel = 15;
         this.baseSpellPower = 0;
-        this.spellPowerPerLevel = 4;
+        this.spellPowerPerLevel = 2;
         this.castTime = 20;
         this.baseManaCost = 30;
     }
@@ -106,6 +107,22 @@ public class KitsunePackSpell extends AbstractSpell {
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
+            //Big Kitsune summon
+            SummonedKitsuneAlpha alphaKitsune = new SummonedKitsuneAlpha(world, entity);
+
+            alphaKitsune.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getKitsuneDamage(spellLevel, entity) * 1.2);
+            alphaKitsune.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getKitsuneHealth(spellLevel, entity) * 2.4);
+            alphaKitsune.setHealth(alphaKitsune.getMaxHealth());
+
+            alphaKitsune.setPos(entity.position());
+            alphaKitsune.setYRot(entity.getYRot());
+            alphaKitsune.setOldPosAndRot();
+            var alphaCreature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<>(entity, alphaKitsune, this.spellId, spellLevel)).getCreature();
+            world.addFreshEntity(alphaCreature);
+
+            SummonManager.initSummon(entity, alphaCreature, summonTime, summonedEntitiesCastData);
+
+            //Small Kitsune summon
             for (int i = 0; i < getKitsuneCount(spellLevel, entity); i++) {
                 SummonedKitsune kitsune = new SummonedKitsune(world, entity);
 
@@ -136,7 +153,7 @@ public class KitsunePackSpell extends AbstractSpell {
     }
 
     private float getKitsuneHealth(int spellLevel, LivingEntity summoner) {
-        return 10 + (spellPowerPerLevel * spellLevel);
+        return 8 + (spellPowerPerLevel * spellLevel);
     }
 
     private int getKitsuneCount(int spellLevel, LivingEntity summoner) {
