@@ -133,16 +133,6 @@ public class MFTEItemRegistries {
     public static final RegistryObject<Item> TAOIST_BOOTS = ITEMS.register("taoist_boots",
             () -> new TaoistArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(MFTEArmorMaterialRegistries.durabilityFor(ArmorItem.Type.BOOTS, 37))));
 
-    //Immortal Set
-    public static final DeferredHolder<Item, Item> IMMORTAL_HEADGEAR = ITEMS.register("immortal_helmet",
-            () -> new ImmortalArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(56))));
-    public static final DeferredHolder<Item, Item> IMMORTAL_CHESTPLATE = ITEMS.register("immortal_chestplate",
-            () -> new ImmortalArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(56))));
-    public static final DeferredHolder<Item, Item> IMMORTAL_LEGGINGS = ITEMS.register("immortal_leggings",
-            () -> new ImmortalArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(56))));
-    public static final DeferredHolder<Item, Item> IMMORTAL_BOOTS = ITEMS.register("immortal_boots",
-            () -> new ImmortalArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(56))));
-
     //Symmetry Artifact
     public static final RegistryObject<Item> ELEMENTAL_COMMANDER_CHESTPLATE = ITEMS.register("elemental_commander_chestplate",
             () -> new ElementalCommanderArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).rarity(Rarity.EPIC).fireResistant().durability(MFTEArmorMaterialRegistries.durabilityFor(ArmorItem.Type.CHESTPLATE, 37))));
@@ -156,16 +146,6 @@ public class MFTEItemRegistries {
             () -> new OnmyojiArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(MFTEArmorMaterialRegistries.durabilityFor(ArmorItem.Type.LEGGINGS, 37))));
     public static final RegistryObject<Item> ONMYOJI_GETA = ITEMS.register("onmyoji_boots",
             () -> new OnmyojiArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(MFTEArmorMaterialRegistries.durabilityFor(ArmorItem.Type.BOOTS, 37))));
-
-    // Ronin Set
-    public static final DeferredHolder<Item, Item> RONIN_HAT = ITEMS.register("ronin_helmet",
-            () -> new RoninArmorItem(ArmorItem.Type.HELMET, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.HELMET.getDurability(56))));
-    public static final DeferredHolder<Item, Item> RONIN_CHESTPLATE = ITEMS.register("ronin_chestplate",
-            () -> new RoninArmorItem(ArmorItem.Type.CHESTPLATE, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(56))));
-    public static final DeferredHolder<Item, Item> RONIN_LEGGINGS = ITEMS.register("ronin_leggings",
-            () -> new RoninArmorItem(ArmorItem.Type.LEGGINGS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.LEGGINGS.getDurability(56))));
-    public static final DeferredHolder<Item, Item> RONIN_GETA = ITEMS.register("ronin_boots",
-            () -> new RoninArmorItem(ArmorItem.Type.BOOTS, ItemPropertiesHelper.equipment(1).durability(ArmorItem.Type.BOOTS.getDurability(56))));
 
     //Spirit Artifact
     public static final RegistryObject<Item> BOOTS_OF_MIST = ITEMS.register("mist_boots",

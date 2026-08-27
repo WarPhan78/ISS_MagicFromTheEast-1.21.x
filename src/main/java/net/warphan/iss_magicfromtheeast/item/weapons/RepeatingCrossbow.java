@@ -1,17 +1,12 @@
 package net.warphan.iss_magicfromtheeast.item.weapons;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.util.MinecraftInstanceHelper;
 import io.redspace.ironsspellbooks.util.TooltipsUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -29,11 +24,11 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.EventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantmentHelper;
 import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantments;
 import net.warphan.iss_magicfromtheeast.item.LoadableWeaponContents;
@@ -49,12 +44,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class RepeatingCrossbow extends CrossbowItem {
+/**
+ * PORT 1.20.1:
+ * <ul>
+ *   <li>The 1.21 data components (ProjectileAmountComponent/ChargeStateComponent/
+ *       LoadingStateComponent/LoadableWeaponContents) became plain NBT on the ItemStack -
+ *       see {@link MFTEDataComponentRegistries} and {@link LoadableWeaponContents}.</li>
+ *   <li>ProjectileWeaponItem has no shoot/createProjectile/shootProjectile infrastructure on
+ *       1.20.1 - a local implementation mirroring the 1.21 logic (and the vanilla 1.20.1
+ *       CrossbowItem arrow creation) is used instead.</li>
+ *   <li>Enchantment effect components (spread/projectile count/charging sounds/ammo use) are
+ *       replaced by their 1.20.1 equivalents: MULTISHOT, QUICK_CHARGE, PIERCING levels and the
+ *       MFTE "expanding" enchantment level (+1 ammo per level, see MFTEEnchantments).</li>
+ * </ul>
+ */
+public class RepeatingCrossbow extends ProjectileWeaponItem {
     private static final int DEFAULT_PROJECTILE_AMOUNT = 5;
-    public static final String AMMO_AMOUNT = "ammo_amount";
-    public static final String RC_LOADING = "loading";
-    public static final String RC_CHARGING = "charging";
-    private static final CrossbowItem.ChargingSounds DEFAULT_SOUNDS;
     private boolean startSoundPlayed = false;
     private boolean midLoadSoundPlayed = false;
     int loadingTick = 1;
@@ -92,15 +97,15 @@ public class RepeatingCrossbow extends CrossbowItem {
                 if (getAmmoAmount(crossbow) < PROJECTILE_AMOUNT && !projectile.isEmpty()) {
                     if (loadingTick % 10 == 0) {
                         setAmmoAmount(crossbow, getAmmoAmount(crossbow) + 1);
-                        LoadableWeaponContents contents = (LoadableWeaponContents) crossbow.get(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
+                        LoadableWeaponContents contents = LoadableWeaponContents.get(crossbow);
                         if (contents != null) {
                             LoadableWeaponContents.Mutable mutable = new LoadableWeaponContents.Mutable(contents);
                             mutable.tryInsert(projectile);
-                            crossbow.set(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS, mutable.toImmutable());
+                            LoadableWeaponContents.set(crossbow, mutable.toImmutable());
                         }
                         //here the method load projectile in
 
-                        level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), MFTESoundRegistries.PROJECTILE_LOAD, SoundSource.PLAYERS, 1.0f, 1.0f);
+                        level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), MFTESoundRegistries.PROJECTILE_LOAD.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
                     }
                 } else if (getAmmoAmount(crossbow) == PROJECTILE_AMOUNT || livingEntity.getProjectile(crossbow).isEmpty()) {
                     if (livingEntity instanceof Player player) {
@@ -116,45 +121,48 @@ public class RepeatingCrossbow extends CrossbowItem {
     public void performShooting(Level level, LivingEntity livingEntity, InteractionHand hand, ItemStack crossbow, float f1, float f2, @Nullable LivingEntity nullableEntity) {
         if (level instanceof ServerLevel serverlevel) {
             if (livingEntity instanceof Player player) {
-                if (EventHooks.onArrowLoose(crossbow, livingEntity.level(), player, 1, true) < 0) {
+                if (ForgeEventFactory.onArrowLoose(crossbow, livingEntity.level(), player, 1, true) < 0) {
                     return;
                 }
             }
 
-            LoadableWeaponContents contents = (LoadableWeaponContents) crossbow.set(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS, LoadableWeaponContents.EMPTY);
+            LoadableWeaponContents contents = LoadableWeaponContents.get(crossbow);
+            LoadableWeaponContents.set(crossbow, LoadableWeaponContents.EMPTY);
 
             if (getAmmoAmount(crossbow) > 0 && contents != null) {
 
                 LoadableWeaponContents.Mutable mutable = new LoadableWeaponContents.Mutable(contents);
-                float spread = EnchantmentHelper.processProjectileSpread(serverlevel, crossbow, livingEntity, 0.0F);
+                // PORT 1.20.1: EnchantmentHelper.processProjectileSpread -> multishot check (vanilla +-10 degrees).
+                float spread = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, crossbow) > 0 ? 10.0F : 0.0F;
 
                 List<ItemStack> itemStacks = mutable.getItems();
 
                 List<ItemStack> projectileStack = new ArrayList<>(1);
-                projectileStack.add(itemStacks.getFirst());
-
-                if (spread > 0) {
-                    this.shoot(serverlevel, livingEntity, hand, crossbow, itemStacks, f1, f2, livingEntity instanceof Player, nullableEntity);
-                } else
-                    this.shoot(serverlevel, livingEntity, hand, crossbow, projectileStack, f1, f2, livingEntity instanceof Player, nullableEntity);
-                mutable.removeOne();
-
-                crossbow.set(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS, mutable.toImmutable());
-
-                if (getAmmoAmount(crossbow) <= 1) {
-                    crossbow.remove(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
-                    crossbow.remove(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE);
+                if (!itemStacks.isEmpty()) {
+                    projectileStack.add(itemStacks.get(0));
                 }
 
                 if (spread > 0) {
-                    setAmmoAmount(crossbow, getAmmoAmount(crossbow) - getAmmoAmount(crossbow));
-                    crossbow.remove(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS);
-                    crossbow.remove(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE);
+                    this.shoot(serverlevel, livingEntity, hand, crossbow, itemStacks, spread, f1, f2, livingEntity instanceof Player, nullableEntity);
+                } else
+                    this.shoot(serverlevel, livingEntity, hand, crossbow, projectileStack, spread, f1, f2, livingEntity instanceof Player, nullableEntity);
+                mutable.removeOne();
+
+                LoadableWeaponContents.set(crossbow, mutable.toImmutable());
+
+                if (getAmmoAmount(crossbow) <= 1) {
+                    LoadableWeaponContents.remove(crossbow);
+                    MFTEDataComponentRegistries.remove(crossbow, MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE);
+                }
+
+                if (spread > 0) {
+                    setAmmoAmount(crossbow, 0);
+                    LoadableWeaponContents.remove(crossbow);
+                    MFTEDataComponentRegistries.remove(crossbow, MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE);
                 } else
                     setAmmoAmount(crossbow, getAmmoAmount(crossbow) - 1);
 
-                if (livingEntity instanceof ServerPlayer) {
-                    ServerPlayer serverplayer = (ServerPlayer)livingEntity;
+                if (livingEntity instanceof ServerPlayer serverplayer) {
                     CriteriaTriggers.SHOT_CROSSBOW.trigger(serverplayer, crossbow);
                     serverplayer.awardStat(Stats.ITEM_USED.get(crossbow.getItem()));
                 }
@@ -162,23 +170,59 @@ public class RepeatingCrossbow extends CrossbowItem {
         }
     }
 
+    /**
+     * Local replacement for the 1.21 ProjectileWeaponItem#shoot (same spread math).
+     */
+    protected void shoot(ServerLevel serverLevel, LivingEntity shooter, InteractionHand hand, ItemStack weapon, List<ItemStack> projectileItems, float spread, float velocity, float inaccuracy, boolean isPlayer, @Nullable LivingEntity target) {
+        float f1 = projectileItems.size() == 1 ? 0.0F : 2.0F * spread / (float) (projectileItems.size() - 1);
+        float f2 = (float) ((projectileItems.size() - 1) % 2) * f1 / 2.0F;
+        float f3 = 1.0F;
+
+        for (int i = 0; i < projectileItems.size(); i++) {
+            ItemStack itemstack = projectileItems.get(i);
+            if (!itemstack.isEmpty()) {
+                float f4 = f2 + f3 * (float) ((i + 1) / 2) * f1;
+                f3 = -f3;
+                Projectile projectile = this.createProjectile(serverLevel, shooter, weapon, itemstack, isPlayer);
+                this.shootProjectile(shooter, projectile, i, velocity, inaccuracy, f4, target);
+                serverLevel.addFreshEntity(projectile);
+            }
+        }
+    }
+
+    /**
+     * Local replacement for the 1.21 ProjectileWeaponItem#createProjectile (mirrors the vanilla
+     * 1.20.1 CrossbowItem arrow creation).
+     */
+    protected Projectile createProjectile(Level level, LivingEntity livingEntity, ItemStack weapon, ItemStack ammo, boolean isPlayer) {
+        ArrowItem arrowitem = (ArrowItem) (ammo.getItem() instanceof ArrowItem item ? item : Items.ARROW);
+        AbstractArrow abstractarrow = arrowitem.createArrow(level, ammo, livingEntity);
+        if (isPlayer) {
+            abstractarrow.setCritArrow(true);
+        }
+        abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
+        abstractarrow.setShotFromCrossbow(true);
+        int pierceLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, weapon);
+        if (pierceLevel > 0) {
+            abstractarrow.setPierceLevel((byte) pierceLevel);
+        }
+        return abstractarrow;
+    }
+
     @Override
     public void releaseUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, int tick) {
-        int i = this.getUseDuration(itemStack, livingEntity) - tick;
-        float f = getPowerForTime(i, itemStack, livingEntity);
+        int i = this.getUseDuration(itemStack) - tick;
+        float f = getPowerForTime(i, itemStack);
         if (f >= 1.0F && !isCharged(itemStack) && tryChargeCrossbowUp(livingEntity, itemStack)) {
-            CrossbowItem.ChargingSounds crossbowitem$chargingsounds = this.getChargingSounds(itemStack);
-            crossbowitem$chargingsounds.end().ifPresent((p_352852_) -> {
-                level.playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), (SoundEvent)p_352852_.value(), livingEntity.getSoundSource(), 1.0F, 1.0F / (livingEntity.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
-            });
+            level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.CROSSBOW_LOADING_END, livingEntity.getSoundSource(), 1.0F, 1.0F / (livingEntity.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
         }
     }
 
     public static boolean tryChargeCrossbowUp(LivingEntity livingEntity, ItemStack stack) {
         List<ItemStack> list = noProjectileTakenDraw(stack, livingEntity.getProjectile(stack), livingEntity);
         if (!list.isEmpty()) {
-            stack.set(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE, stack.getOrDefault(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE, new ChargeStateComponent(false)).setChargeCrossbow(true));
-            stack.set(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS, LoadableWeaponContents.EMPTY);
+            MFTEDataComponentRegistries.setBoolean(stack, MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE, true);
+            LoadableWeaponContents.set(stack, LoadableWeaponContents.EMPTY);
             return true;
         } else {
             return false;
@@ -189,17 +233,7 @@ public class RepeatingCrossbow extends CrossbowItem {
         if (stack.isEmpty()) {
             return List.of();
         } else {
-            Level var5 = livingEntity.level();
-            int var10000;
-            if (var5 instanceof ServerLevel) {
-                ServerLevel serverlevel = (ServerLevel)var5;
-                var10000 = EnchantmentHelper.processProjectileCount(serverlevel, p_331565_, livingEntity, 1);
-            } else {
-                var10000 = 1;
-            }
-
-            int i = var10000;
-            List<ItemStack> list = new ArrayList(i);
+            List<ItemStack> list = new ArrayList<>(1);
             ItemStack itemstack1 = stack.copy();
 
             list.add(itemstack1);
@@ -209,10 +243,9 @@ public class RepeatingCrossbow extends CrossbowItem {
     }
 
     public static boolean isCharged(ItemStack stack) {
-        return stack.has(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE) && stack.get(MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE).charge();
+        return MFTEDataComponentRegistries.getBoolean(stack, MFTEDataComponentRegistries.CROSSBOW_CHARGE_STATE, false);
     }
 
-    @Override
     protected void shootProjectile(LivingEntity livingEntity, Projectile projectile, int i, float f1, float f2, float f3, @Nullable LivingEntity nullableEntity) {
         Vector3f vector3f;
         if (nullableEntity != null) {
@@ -223,35 +256,26 @@ public class RepeatingCrossbow extends CrossbowItem {
             vector3f = getProjectileShotVector(livingEntity, new Vec3(d0, d3, d1), f3);
         } else {
             Vec3 vec3 = livingEntity.getUpVector(1.0F);
-            Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double)(f3 * 0.017453292F), vec3.x, vec3.y, vec3.z);
+            Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double) (f3 * 0.017453292F), vec3.x, vec3.y, vec3.z);
             Vec3 vec31 = livingEntity.getViewVector(1.0F);
             vector3f = vec31.toVector3f().rotate(quaternionf);
         }
 
-        projectile.shoot((double)vector3f.x(), (double)vector3f.y(), (double)vector3f.z(), f1, f2);
+        projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), f1, f2);
         float f = getShotPitch(livingEntity.getRandom(), i);
-        livingEntity.level().playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.CROSSBOW_SHOOT, livingEntity.getSoundSource(), 1.0F, f);
+        livingEntity.level().playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.CROSSBOW_SHOOT, livingEntity.getSoundSource(), 1.0F, f);
     }
 
     private static Vector3f getProjectileShotVector(LivingEntity livingEntity, Vec3 vec, float f) {
         Vector3f vector3f = vec.toVector3f().normalize();
         Vector3f vector3f1 = (new Vector3f(vector3f)).cross(new Vector3f(0.0F, 1.0F, 0.0F));
-        if ((double)vector3f1.lengthSquared() <= 1.0E-7) {
+        if ((double) vector3f1.lengthSquared() <= 1.0E-7) {
             Vec3 vec3 = livingEntity.getUpVector(1.0F);
             vector3f1 = (new Vector3f(vector3f)).cross(vec3.toVector3f());
         }
 
         Vector3f vector3f2 = (new Vector3f(vector3f)).rotateAxis(1.5707964F, vector3f1.x, vector3f1.y, vector3f1.z);
         return (new Vector3f(vector3f)).rotateAxis(f * 0.017453292F, vector3f2.x, vector3f2.y, vector3f2.z);
-    }
-
-    @Override
-    protected Projectile createProjectile(Level level, LivingEntity livingEntity, ItemStack stack, ItemStack itemStack, boolean var1000) {
-        Projectile projectile = super.createProjectile(level, livingEntity, stack, itemStack, var1000);
-        if (projectile instanceof AbstractArrow abstractarrow) {
-            abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
-        }
-        return projectile;
     }
 
     private static float getShotPitch(RandomSource randomSource, int i) {
@@ -264,7 +288,7 @@ public class RepeatingCrossbow extends CrossbowItem {
     }
 
     public static int getBonusProjectileAmount(ItemStack itemStack, LivingEntity livingEntity) {
-        if (livingEntity.level instanceof ServerLevel serverLevel) {
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
             int bonusProjectileAmount = MFTEEnchantmentHelper.increaseAmmoLoad(serverLevel, itemStack, 0) + DEFAULT_PROJECTILE_AMOUNT;
             return Mth.floor(bonusProjectileAmount);
         } else return 0;
@@ -273,8 +297,10 @@ public class RepeatingCrossbow extends CrossbowItem {
     //Client display
     public static double getDisplayProjectile(ItemStack stack, Entity entity) {
         double baseAmmoAmount = DEFAULT_PROJECTILE_AMOUNT;
-        if (!stack.isEmpty() && stack.has(DataComponents.ENCHANTMENTS) && entity != null) {
-            baseAmmoAmount = baseAmmoAmount + (Utils.processEnchantment(entity.level, MFTEEnchantments.EXPANDING, EnchantmentEffectComponents.AMMO_USE, stack.get(DataComponents.ENCHANTMENTS)));
+        // PORT 1.20.1: enchantment effect components do not exist - "expanding" grants +1 loadable
+        // ammo per level (see MFTEEnchantments), read straight from the enchantment level.
+        if (!stack.isEmpty() && stack.isEnchanted() && entity != null) {
+            baseAmmoAmount = baseAmmoAmount + EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.EXPANDING.get(), stack);
         } return baseAmmoAmount;
     }
 
@@ -282,26 +308,38 @@ public class RepeatingCrossbow extends CrossbowItem {
         return getBonusProjectileAmount(stack, livingEntity) * 12;
     }
 
-    public static int getChargeDuration(ItemStack stack, LivingEntity livingEntity) {
-        float f = EnchantmentHelper.modifyCrossbowChargingTime(stack, livingEntity, 1.25F);
-        return Mth.floor(f * 20.0F);
+    /** Client-safe load duration (enchantment level based, no ServerLevel required). */
+    public static int getLoadDuration(ItemStack stack) {
+        int amount = DEFAULT_PROJECTILE_AMOUNT + EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.EXPANDING.get(), stack);
+        return amount * 12;
+    }
+
+    /**
+     * PORT 1.20.1: EnchantmentHelper.modifyCrossbowChargingTime -> vanilla 1.20.1 quick charge
+     * formula (1.25s base, -0.25s per level).
+     */
+    public static int getChargeDuration(ItemStack stack) {
+        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
+        return i == 0 ? 25 : 25 - 5 * i;
     }
 
     public static int getUsingDuration(ItemStack stack, LivingEntity livingEntity) {
+        return getUsingDuration(stack);
+    }
+
+    public static int getUsingDuration(ItemStack stack) {
         if (!isCharged(stack)) {
-            return getChargeDuration(stack, livingEntity);
-        } else return getLoadDuration(stack, livingEntity);
+            return getChargeDuration(stack);
+        } else return getLoadDuration(stack);
     }
 
     @Override
-    public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
-        if (!isCharged(stack)) {
-            return getChargeDuration(stack, livingEntity) + 3;
-        } else return getLoadDuration(stack, livingEntity) + 3;
+    public int getUseDuration(ItemStack stack) {
+        return getUsingDuration(stack) + 3;
     }
 
-    private static float getPowerForTime(int i, ItemStack itemStack, LivingEntity livingEntity) {
-        float f = (float)i / (float)getChargeDuration(itemStack, livingEntity);
+    private static float getPowerForTime(int i, ItemStack itemStack) {
+        float f = (float) i / (float) getChargeDuration(itemStack);
         if (f > 1.0F) {
             f = 1.0F;
         }
@@ -334,11 +372,13 @@ public class RepeatingCrossbow extends CrossbowItem {
         return stack.is(this);
     }
 
-    //a copy from crossbow onUseTick method
+    //a copy from crossbow onUseTick method (1.20.1 quick-charge based sounds)
     public void playingSound(Level level, LivingEntity livingEntity, ItemStack stack, int i) {
         if (!isCharged(stack)) {
-            CrossbowItem.ChargingSounds crossbowitem$chargingsounds = this.getChargingSounds(stack);
-            float f = (float) (stack.getUseDuration(livingEntity) - i) / (float) getChargeDuration(stack, livingEntity);
+            int quickCharge = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
+            SoundEvent startSound = getStartSound(quickCharge);
+            SoundEvent midSound = quickCharge < 1 ? SoundEvents.CROSSBOW_LOADING_MIDDLE : null;
+            float f = (float) (stack.getUseDuration() - i) / (float) getChargeDuration(stack);
             if (f < 0.2F) {
                 this.startSoundPlayed = false;
                 this.midLoadSoundPlayed = false;
@@ -346,27 +386,29 @@ public class RepeatingCrossbow extends CrossbowItem {
 
             if (f >= 0.2F && !this.startSoundPlayed) {
                 this.startSoundPlayed = true;
-                crossbowitem$chargingsounds.start().ifPresent((p_352849_) -> {
-                    level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), (SoundEvent) p_352849_.value(), SoundSource.PLAYERS, 0.5F, 1.0F);
-                });
+                level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), startSound, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
 
-            if (f >= 0.5F && !this.midLoadSoundPlayed) {
+            if (f >= 0.5F && midSound != null && !this.midLoadSoundPlayed) {
                 this.midLoadSoundPlayed = true;
-                crossbowitem$chargingsounds.mid().ifPresent((p_352855_) -> {
-                    level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), (SoundEvent) p_352855_.value(), SoundSource.PLAYERS, 0.5F, 1.0F);
-                });
+                level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), midSound, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
         }
     }
 
-    CrossbowItem.ChargingSounds getChargingSounds(ItemStack stack) {
-        return (CrossbowItem.ChargingSounds) EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.CROSSBOW_CHARGING_SOUNDS).orElse(DEFAULT_SOUNDS);
+    /** Mirrors vanilla 1.20.1 CrossbowItem#getStartSound. */
+    private static SoundEvent getStartSound(int quickChargeLevel) {
+        return switch (quickChargeLevel) {
+            case 1 -> SoundEvents.CROSSBOW_QUICK_CHARGE_1;
+            case 2 -> SoundEvents.CROSSBOW_QUICK_CHARGE_2;
+            case 3 -> SoundEvents.CROSSBOW_QUICK_CHARGE_3;
+            default -> SoundEvents.CROSSBOW_LOADING_START;
+        };
     }
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack itemStack) {
-        return Optional.ofNullable((LoadableWeaponContents)itemStack.get(MFTEDataComponentRegistries.LOADABLE_WEAPON_CONTENTS)).map(ClientLoadableWeaponTooltip.LoadableWeaponTooltipComponent::new);
+        return Optional.ofNullable(LoadableWeaponContents.get(itemStack)).map(ClientLoadableWeaponTooltip.LoadableWeaponTooltipComponent::new);
     }
 
     public static void startLoadingAmmo(ItemStack crossbow) {
@@ -378,85 +420,27 @@ public class RepeatingCrossbow extends CrossbowItem {
     }
 
     public static boolean isLoading(ItemStack crossbow) {
-        return crossbow.has(MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE) && crossbow.get(MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE).isLoading();
+        return MFTEDataComponentRegistries.getBoolean(crossbow, MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE, false);
     }
 
     public static void setLoadingAmmo(ItemStack crossbow, boolean isLoading) {
-        crossbow.set(MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE, crossbow.getOrDefault(MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE, new LoadingStateComponent(false)).setLoadingAmmo(isLoading));
+        MFTEDataComponentRegistries.setBoolean(crossbow, MFTEDataComponentRegistries.CROSSBOW_LOADING_STATE, isLoading);
     }
 
     public static int getAmmoAmount(ItemStack crossbow) {
-        return crossbow.has(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT) ? crossbow.get(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT).ammoAmount() : 0;
+        return MFTEDataComponentRegistries.getInt(crossbow, MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT, 0);
     }
 
     public static void setAmmoAmount(ItemStack crossbow, int amount) {
-        crossbow.set(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT, crossbow.getOrDefault(MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT, new ProjectileAmountComponent(0)).setAmmoAmount(amount));
+        MFTEDataComponentRegistries.setInt(crossbow, MFTEDataComponentRegistries.CROSSBOW_AMMO_AMOUNT, amount);
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext context, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, context, pTooltip, pFlag);
+    public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
         int ammoAmount = getAmmoAmount(pStack);
         pTooltip.add(Component.translatable("item.iss_magicfromtheeast.repeating_crossbow.ammo_amount").append(CommonComponents.SPACE).append(String.valueOf(ammoAmount)).append(" / ").append(
                 Component.literal(Utils.stringTruncation(getDisplayProjectile(pStack, MinecraftInstanceHelper.getPlayer()), 1))));
         TooltipsUtils.addShiftTooltip(pTooltip, List.of(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.YELLOW)));
-    }
-
-/// Component For Ammo Amount
-    public record ProjectileAmountComponent(int ammoAmount) {
-        public static final Codec<ProjectileAmountComponent> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-                Codec.INT.optionalFieldOf(AMMO_AMOUNT, 0).forGetter(ProjectileAmountComponent::ammoAmount)
-        ).apply(builder, ProjectileAmountComponent::new));
-
-        public static final StreamCodec<FriendlyByteBuf, ProjectileAmountComponent> STREAM_CODEC = StreamCodec.of((buf, data) -> {
-            buf.writeInt(data.ammoAmount);
-        }, (buf) -> new ProjectileAmountComponent(buf.readInt()));
-
-        public ProjectileAmountComponent setAmmoAmount(int ammoAmount) {return new ProjectileAmountComponent(ammoAmount);}
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj == this || (obj instanceof ProjectileAmountComponent projectileAmountComponent && projectileAmountComponent.ammoAmount == this.ammoAmount);
-        }
-    }
-/// Component for Crossbow Charging
-    public record ChargeStateComponent(boolean charge) {
-        public static final Codec<ChargeStateComponent> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-                Codec.BOOL.optionalFieldOf(RC_CHARGING, false).forGetter(ChargeStateComponent::charge)
-        ).apply(builder, ChargeStateComponent::new));
-
-        public static final StreamCodec<FriendlyByteBuf, ChargeStateComponent> STREAM_CODEC = StreamCodec.of((buf, data) -> {
-            buf.writeBoolean(data.charge);
-        }, (buf) -> new ChargeStateComponent(buf.readBoolean()));
-
-        public ChargeStateComponent setChargeCrossbow(boolean charge) {return new ChargeStateComponent(charge);}
-
-        @Override
-        public boolean equals(Object obj) {
-        return obj == this || (obj instanceof ChargeStateComponent chargeStateComponent && chargeStateComponent.charge == this.charge);
-        }
-    }
-
-/// Component for Ammo Loading
-    public record LoadingStateComponent(boolean isLoading) {
-        public static final Codec<LoadingStateComponent> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-                Codec.BOOL.optionalFieldOf(RC_LOADING, false).forGetter(LoadingStateComponent::isLoading)
-        ).apply(builder, LoadingStateComponent::new));
-
-        public static final StreamCodec<FriendlyByteBuf, LoadingStateComponent> STREAM_CODEC = StreamCodec.of((buf, data) -> {
-            buf.writeBoolean(data.isLoading);
-        }, (buf) -> new LoadingStateComponent(buf.readBoolean()));
-
-        public LoadingStateComponent setLoadingAmmo(boolean isLoading) {return new LoadingStateComponent(isLoading);}
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj == this || (obj instanceof LoadingStateComponent loadingStateComponent && loadingStateComponent.isLoading == this.isLoading);
-        }
-    }
-
-/// Component for Sound (copy from Crossbow)
-    static {
-        DEFAULT_SOUNDS = new CrossbowItem.ChargingSounds(Optional.of(SoundEvents.CROSSBOW_LOADING_START), Optional.of(SoundEvents.CROSSBOW_LOADING_MIDDLE), Optional.of(SoundEvents.CROSSBOW_LOADING_END));
     }
 }

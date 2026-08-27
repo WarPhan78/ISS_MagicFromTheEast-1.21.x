@@ -97,7 +97,7 @@
   "item.iss_magicfromtheeast.soulward_ring": "Soulward Ring",
   "item.iss_magicfromtheeast.soulward_ring.desc": "Grants soulburn immunity and reduce soul damage taken by 80%",
   "item.iss_magicfromtheeast.rusted_coins_sword": "Rusted Coins Sword",
-  "item.iss_magicfromtheeast.rusted_coins_sword.desc": "Increase your Summoned Jiangshi vampirism by 20%",
+  "item.iss_magicfromtheeast.rusted_coins_sword.desc": "Increase your Summoned Jiangshi vampirism by 25%",
   "item.iss_magicfromtheeast.jade_pendant": "Jade Pendant",
   "item.iss_magicfromtheeast.jade_pendant.desc": "Reflect 50% damage in a radius when being hit. The reflecting damage increase by 5% for per armor toughness you have",
 
@@ -106,10 +106,6 @@
   "item.iss_magicfromtheeast.taoist_leggings": "Taoist Leggings",
   "item.iss_magicfromtheeast.taoist_boots": "Taoist Boots",
   "item.iss_magicfromtheeast.elemental_commander_chestplate": "Elemental Commander Robes",
-  "item.iss_magicfromtheeast.immortal_helmet": "Shenxian Headgear",
-  "item.iss_magicfromtheeast.immortal_chestplate": "Shenxian Chestplate",
-  "item.iss_magicfromtheeast.immortal_leggings": "Shenxian Leggings",
-  "item.iss_magicfromtheeast.immortal_boots": "Shenxian Boots",
 
   "item.iss_magicfromtheeast.elemental_commander_chestplate.description": "Trigger by hitting enemy with a spell attack. Depend on your Symmetry Spell Power and the school of the previous spell attack, receive a buff and increase the damage of your next spell attacks related to the school",
   "item.iss_magicfromtheeast.elemental_commander_chestplate.flag_red": "Fire: +10% attack damage & attack speed",
@@ -125,10 +121,6 @@
   "item.iss_magicfromtheeast.onmyoji_boots": "Onmyoji Geta",
   "item.iss_magicfromtheeast.mist_boots": "Boots of Mist",
   "item.iss_magicfromtheeast.mist_boots.description": "Trigger when being hit. Negate damage from that hit, apply True Invisibility and Mist Step effect for 6 second",
-  "item.iss_magicfromtheeast.ronin_helmet": "Ronin Hat",
-  "item.iss_magicfromtheeast.ronin_chestplate": "Ronin Chestplate",
-  "item.iss_magicfromtheeast.ronin_leggings": "Ronin Leggings",
-  "item.iss_magicfromtheeast.ronin_boots": "Ronin Boots",
 
   "item.iss_magicfromtheeast.jiangshi_hat": "Jiangshi Hat",
 
@@ -215,7 +207,6 @@
   "entity.iss_magicfromtheeast.summon_cloud": "Magical Cloud",
   "entity.iss_magicfromtheeast.spirit_arrow": "Spirit Arrow",
   "entity.iss_magicfromtheeast.summoned_kitsune": "Summoned Kitsune",
-  "entity.iss_magicfromtheeast.summoned_kitsune_alpha": "Leader Summoned Kitsune",
   "entity.iss_magicfromtheeast.spirit_samurai": "Spirit Samurai",
   "entity.iss_magicfromtheeast.spirit_ashigaru": "Spirit Ashigaru",
   "entity.iss_magicfromtheeast.phantom_cavalry": "Phantom Horseman",

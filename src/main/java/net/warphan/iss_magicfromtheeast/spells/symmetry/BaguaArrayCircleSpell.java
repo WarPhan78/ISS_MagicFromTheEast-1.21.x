@@ -2,9 +2,9 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
-import io.redspace.ironsspellbooks.api.util.RaycastBuilder;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
@@ -93,12 +93,7 @@ public class BaguaArrayCircleSpell extends AbstractSpell {
                 spawn = target.position();
         }
         if (spawn == null) {
-            spawn = RaycastBuilder.begin(world, entity)
-                    .range(32)
-                    .checkForBlocks(true)
-                    .bbInflation(.15f)
-                    .build()
-                    .getLocation();
+            spawn = Utils.raycastForEntity(world, entity, 32, true, .15f).getLocation();
             spawn = Utils.moveToRelativeGroundLevel(world, spawn, 6);
         }
 

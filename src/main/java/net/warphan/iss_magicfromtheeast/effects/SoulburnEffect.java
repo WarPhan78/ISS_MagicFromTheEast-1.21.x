@@ -11,31 +11,34 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
-import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
+// 1.20.1: applyEffectTick returns void and the 1.21 shouldApplyEffectTickThisTick maps to
+// isDurationEffectTick; the client particles run through ISyncedMobEffect#clientTick.
 public class SoulburnEffect extends MagicMobEffect implements ISyncedMobEffect {
     public SoulburnEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
 
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        if (!livingEntity.getType().is(MFTETags.SOULBURN_IMMUNE)) {
-            float minDamage = 1.0f;
-            float damageBasedOnHealth = ((livingEntity.getMaxHealth()) / 100) * MFTEServerConfigs.SOULBURN_DAMAGE_SCALING.get();
-            double maxDamage = MFTEServerConfigs.SOULBURN_MAX_DAMAGE.get();
-            if (damageBasedOnHealth < minDamage) {
-                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), minDamage);
-            } else if (damageBasedOnHealth >= 1.0f && damageBasedOnHealth <= maxDamage) {
-                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), damageBasedOnHealth);
-            } else if (damageBasedOnHealth > maxDamage) {
-                livingEntity.hurt(DamageSources.get(livingEntity.level, MFTEDamageTypes.SOUL_DAMAGE), (float) maxDamage);
-            }
-            return true;
-        } else
-            return false;
+    @Override
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        if (livingEntity.level().isClientSide) {
+            return;
+        }
+
+        float minDamage = 1.0f;
+        float damageBasedOnHealth = ((livingEntity.getMaxHealth()) / 100) * MFTEServerConfigs.SOULBURN_DAMAGE_SCALING.get();
+        double maxDamage = MFTEServerConfigs.SOULBURN_MAX_DAMAGE.get();
+        if (damageBasedOnHealth < minDamage) {
+            livingEntity.hurt(DamageSources.get(livingEntity.level(), MFTEDamageTypes.SOUL_DAMAGE), minDamage);
+        } else if (damageBasedOnHealth >= 1.0f && damageBasedOnHealth <= maxDamage) {
+            livingEntity.hurt(DamageSources.get(livingEntity.level(), MFTEDamageTypes.SOUL_DAMAGE), damageBasedOnHealth);
+        } else if (damageBasedOnHealth > maxDamage) {
+            livingEntity.hurt(DamageSources.get(livingEntity.level(), MFTEDamageTypes.SOUL_DAMAGE), (float) maxDamage);
+        }
     }
 
-    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         int i = 20 >> amplifier;
         return i <= 0 || duration % i == 0;
     }
@@ -45,7 +48,7 @@ public class SoulburnEffect extends MagicMobEffect implements ISyncedMobEffect {
         for (int i = 0; i < 1; i++) {
             Vec3 pos = new Vec3(Utils.getRandomScaled(1), Utils.getRandomScaled(1.0f) + 1.0f, Utils.getRandomScaled(1)).add(entity.position());
             Vec3 random = new Vec3(Utils.getRandomScaled(.06f), Utils.getRandomScaled(.06f), Utils.getRandomScaled(.06f));
-            entity.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, random.x, random.y, random.z);
+            entity.level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, random.x, random.y, random.z);
         }
     }
 }
