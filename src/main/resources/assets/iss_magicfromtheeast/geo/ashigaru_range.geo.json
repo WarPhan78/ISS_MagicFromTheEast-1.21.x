@@ -20,7 +20,7 @@
 					"parent": "body",
 					"pivot": [0, 12, 0],
 					"cubes": [
-						{"origin": [-4, 12, -2], "size": [8, 12, 4], "inflate": 0.25, "uv": [36, 30]},
+						{"origin": [-4, 12, -2.1], "size": [8, 12, 4.2], "inflate": 0.25, "uv": [36, 30]},
 						{"origin": [-1.75, 9, -2.5], "size": [3.5, 4, 1], "inflate": 0.25, "uv": [60, 62]},
 						{"origin": [-1.75, 9, 1.5], "size": [3.5, 4, 1], "inflate": 0.25, "uv": [60, 67]},
 						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [0, 42]}
@@ -55,12 +55,18 @@
 				{
 					"name": "right_arm",
 					"parent": "torso",
-					"pivot": [-5, 22, 0],
+					"pivot": [-6, 21, 0]
+				},
+				{
+					"name": "right_hand",
+					"parent": "torso",
+					"pivot": [-6, 21, 0],
+					"rotation": [-50, -30, 0],
 					"cubes": [
-						{"origin": [-7, 12, -1], "size": [2, 12, 2], "uv": [16, 58]},
-						{"origin": [-8, 12, -2], "size": [4, 12, 4], "inflate": 0.25, "uv": [24, 46]},
+						{"origin": [-8, 11, -1], "size": [2, 12, 2], "uv": [16, 58]},
+						{"origin": [-9, 11, -2], "size": [4, 12, 4], "inflate": 0.25, "uv": [24, 46]},
 						{
-							"origin": [-8.2, 20.5, -2],
+							"origin": [-9.2, 19.5, -2],
 							"size": [4, 3.6, 4],
 							"inflate": 0.6,
 							"uv": {
@@ -76,11 +82,11 @@
 				},
 				{
 					"name": "armorBipedRightArm",
-					"parent": "right_arm",
-					"pivot": [-5, 22, 0],
+					"parent": "right_hand",
+					"pivot": [-6, 21, 0],
 					"cubes": [
 						{
-							"origin": [-8, 12, -2],
+							"origin": [-9, 11, -2],
 							"size": [4, 12, 4],
 							"inflate": 1,
 							"uv": {}
@@ -89,11 +95,11 @@
 				},
 				{
 					"name": "bipedHandRight",
-					"parent": "right_arm",
-					"pivot": [-6, 13, -1],
+					"parent": "right_hand",
+					"pivot": [-7, 12, -1],
 					"cubes": [
 						{
-							"origin": [-6, 13, 0],
+							"origin": [-7, 12, 0],
 							"size": [0, 0, 0],
 							"uv": {
 								"north": {"uv": [0, 0], "uv_size": [0, 0]},
@@ -109,13 +115,13 @@
 				{
 					"name": "rightItem",
 					"parent": "bipedHandRight",
-					"pivot": [-6, 12, 0],
-					"rotation": [-90, 0, 0],
+					"pivot": [-6, 11, 0],
+					"rotation": [-144.99858, -21.46902, -51.87573],
 					"cubes": [
 						{
-							"origin": [-6, 12, 0],
+							"origin": [-6, 11, 0],
 							"size": [0, 0, 0],
-							"pivot": [-6, 12, 0],
+							"pivot": [-6, 11, 0],
 							"rotation": [-90, 0, 0],
 							"uv": {
 								"north": {"uv": [0, 0], "uv_size": [0, 0]},
@@ -126,22 +132,28 @@
 								"down": {"uv": [0, 0], "uv_size": [0, 0]}
 							}
 						},
-						{"origin": [-7, 9, 0], "size": [1, 1, 16], "uv": [0, 73]},
-						{"origin": [-7.1, 11, -4], "size": [1.2, 2, 5], "pivot": [-6.5, 11.5, -3], "rotation": [-30, 0, 0], "uv": [4, 77]},
-						{"origin": [-7.2, 9.5, -1], "size": [1.4, 1.5, 15], "uv": [31, 71]},
-						{"origin": [-6.3, 10.75, -1], "size": [0, 2, 4], "uv": [20, 75]},
-						{"origin": [-6.3, 7.25, 1], "size": [0, 2, 2], "uv": [22, 82]}
+						{"origin": [-7, 8, 0], "size": [1, 1, 16], "uv": [0, 73]},
+						{"origin": [-7.1, 10, -4], "size": [1.2, 2, 5], "pivot": [-6.5, 10.5, -3], "rotation": [-30, 0, 0], "uv": [4, 77]},
+						{"origin": [-7.2, 8.5, -1], "size": [1.4, 1.5, 15], "uv": [31, 71]},
+						{"origin": [-6.3, 9.75, -1], "size": [0, 2, 4], "uv": [20, 75]},
+						{"origin": [-6.3, 6.25, 1], "size": [0, 2, 2], "uv": [22, 82]}
 					]
 				},
 				{
 					"name": "smoke_anchor",
 					"parent": "rightItem",
-					"pivot": [-6.5, 9.5, 16]
+					"pivot": [-6.5, 8.5, 16]
 				},
 				{
 					"name": "left_arm",
 					"parent": "torso",
+					"pivot": [5, 22, 0]
+				},
+				{
+					"name": "left_hand",
+					"parent": "torso",
 					"pivot": [5, 22, 0],
+					"rotation": [-69.71644, 9.39129, 3.45118],
 					"cubes": [
 						{
 							"origin": [4.2, 20.5, -2],
@@ -162,7 +174,7 @@
 				},
 				{
 					"name": "armorBipedLeftArm",
-					"parent": "left_arm",
+					"parent": "left_hand",
 					"pivot": [5, 22, 0],
 					"cubes": [
 						{
@@ -175,7 +187,7 @@
 				},
 				{
 					"name": "bipedHandLeft",
-					"parent": "left_arm",
+					"parent": "left_hand",
 					"pivot": [6, 12, -1],
 					"cubes": [
 						{

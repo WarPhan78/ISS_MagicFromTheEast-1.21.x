@@ -156,7 +156,7 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
         // TODO PORT 1.20.1: STEP_HEIGHT(3)/ENTITY_INTERACTION_RANGE(1.8) mapped to Forge attributes; SAFE_FALL_DISTANCE(7) emulated via calculateFallDamage override
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 40.0)
-                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.ARMOR, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2.4)
@@ -347,9 +347,10 @@ public class JiangshiEntity extends AbstractSpellCastingMob implements GeoEntity
                                     && summonedJiangshi.getSummoner() instanceof ServerPlayer serverPlayer) {
                                 var RUSTED_SWORD = ((RustedCoinsSword) MFTEItemRegistries.RUSTED_COINS_SWORD.get());
                                 if (RUSTED_SWORD.isEquippedBy(serverPlayer)) {
-                                    summonedJiangshi.heal((float) summonedJiangshi.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.5f);
-                                }
-                            } else jiangshi.heal((float) jiangshi.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.25f);
+                                    summonedJiangshi.heal((float) summonedJiangshi.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.35f);
+                                } else summonedJiangshi.heal((float) summonedJiangshi.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.15f);
+                            }
+                            else jiangshi.heal((float) jiangshi.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.15f);
                         }
                     }
                 }

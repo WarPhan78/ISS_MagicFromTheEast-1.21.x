@@ -150,6 +150,6 @@ public class AshigaruSquadSpell extends AbstractSpell {
     }
 
     private float getAshigaruArmor(int spellLevel, LivingEntity summoner) {
-        return 2 + (float) (spellLevel / 2);
+        return 6;
     }
 }
