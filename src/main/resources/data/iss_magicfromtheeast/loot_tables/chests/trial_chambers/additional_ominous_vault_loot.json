@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "iss_magicfromtheeast:repeating_crossbow",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "iss_magicfromtheeast:jade_pendant"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "iss_magicfromtheeast:rusted_coins_sword"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.075
+        }
+      ]
+    }
+  ]
+}

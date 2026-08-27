@@ -69,7 +69,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "irons_spellbooks:magic_items/good_ink"
+          "value": "irons_spellbooks:magic_items/good_ink"
         }
       ]
     }

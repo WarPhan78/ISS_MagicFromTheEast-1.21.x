@@ -108,7 +108,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
         if (!recast.hasRecastForSpell(this)) {
             SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
 
-            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 8).getLocation();
+            Vec3 location = Utils.getTargetBlock(world, entity, ClipContext.Fluid.ANY, 12).getLocation();
 
             JadeExecutionerEntity jadeExecutioner = new JadeExecutionerEntity(world, entity, true);
 
@@ -140,7 +140,7 @@ public class PunishingHeavenSpell extends AbstractSpell {
     }
 
     private float getExecutionerArmor(int spellLevel, LivingEntity summoner) {
-        return 12;
+        return (float) 6.0 + (spellLevel * 2);
     }
 
     @Override

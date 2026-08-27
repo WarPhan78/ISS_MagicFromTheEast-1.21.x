@@ -134,7 +134,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "irons_spellbooks:magic_items/poor_ink"
+          "value": "irons_spellbooks:magic_items/poor_ink"
         }
       ]
     },
@@ -167,7 +167,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "irons_spellbooks:magic_items/basic_curios"
+          "value": "irons_spellbooks:magic_items/basic_curios"
         }
       ],
       "conditions": [

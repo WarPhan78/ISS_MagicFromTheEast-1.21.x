@@ -2,54 +2,58 @@ package net.warphan.iss_magicfromtheeast.enchantment;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantedItemInUse;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.GhostlyColdEnchantmentEffect;
+import net.warphan.iss_magicfromtheeast.enchantment.enchantment_effects.SoulFlameEnchantmentEffect;
 import net.warphan.iss_magicfromtheeast.entity.spirit_arrow.SpiritArrow;
-import net.warphan.iss_magicfromtheeast.registries.MFTEDataComponentRegistries;
-import org.apache.commons.lang3.mutable.MutableFloat;
 
-public class MFTEEnchantmentHelper extends EnchantmentHelper {
+/**
+ * 1.20.1 port: the 1.21 version iterated the stack's enchantment holders and evaluated
+ * enchantment effect components (PROJECTILE_SPAWNED, SOUL_DAMAGE, MANA_USE, AMMO_USE).
+ * Effect components do not exist on 1.20.1, so the same behavior is computed directly from
+ * {@link EnchantmentHelper#getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantment, ItemStack)}.
+ * Method signatures are kept identical to the 1.21 version to avoid call-site churn.
+ */
+public class MFTEEnchantmentHelper {
 
     public static void onSpiritArrowSpawned(ServerLevel serverLevel, ItemStack stack, SpiritArrow spiritArrow) {
-        LivingEntity livingentity = spiritArrow.getOwner() instanceof LivingEntity livingentity1 ? livingentity1 : null;
-        if (livingentity != null) {
-            EnchantedItemInUse enchantediteminuse = new EnchantedItemInUse(stack, null, livingentity);
-            runIterationOnItem(stack, (enchantmentHolder, i) -> enchantmentHolder.value().onProjectileSpawned(serverLevel, i, enchantediteminuse, spiritArrow));
+        int soulFlame = EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.SOUL_FLAME.get(), stack);
+        if (soulFlame > 0) {
+            SoulFlameEnchantmentEffect.apply(serverLevel, soulFlame, spiritArrow);
+        }
+        int ghostlyCold = EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.GHOSTLY_COLD.get(), stack);
+        if (ghostlyCold > 0) {
+            GhostlyColdEnchantmentEffect.apply(serverLevel, ghostlyCold, spiritArrow);
         }
     }
 
+    /**
+     * 1.21 SOUL_DAMAGE component: AddValue(perLevel(1)) on spiritual_focus and inner_impact.
+     */
     public static int modifySoulDamage(ServerLevel serverLevel, ItemStack stack, Entity entity, float amount) {
-        MutableFloat mutableInt = new MutableFloat(amount);
-        runIterationOnItem(stack, (enchantmentHolder, i) -> {
-            ((Enchantment) enchantmentHolder.value()).modifyDamageFilteredValue(MFTEDataComponentRegistries.SOUL_DAMAGE.get(), serverLevel, i, stack, entity, entity.damageSources().generic(), mutableInt);
-        });
-        return mutableInt.intValue();
+        int bonus = EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.SPIRITUAL_FOCUS.get(), stack)
+                + EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.INNER_IMPACT.get(), stack);
+        return (int) (amount + bonus);
     }
 
+    /**
+     * 1.21 MANA_USE component: AddValue(perLevel(-15)) on wisely_will.
+     */
     public static int processManaUse(ServerLevel serverLevel, ItemStack stack, int amount) {
-        MutableFloat mutablefloat = new MutableFloat((float) amount);
-        runIterationOnItem(stack, (enchantmentHolder, i) -> {
-            ((Enchantment) enchantmentHolder.value()).modifyItemFilteredCount(MFTEDataComponentRegistries.MANA_USE.get(), serverLevel, i, null, mutablefloat);
-        });
-        return mutablefloat.intValue();
+        int level = EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.WISELY_WILL.get(), stack);
+        return amount - 15 * level;
     }
 
+    /**
+     * 1.21 AMMO_USE component: AddValue(perLevel(1)) on expanding.
+     */
     public static int increaseAmmoLoad(ServerLevel serverLevel, ItemStack stack, int amount) {
-        MutableFloat mutableFloat = new MutableFloat((float) amount);
-        runIterationOnItem(stack, (enchantmentHolder, i) -> {
-            ((Enchantment) enchantmentHolder.value()).modifyAmmoCount(serverLevel, i, null, mutableFloat);
-        });
-        return mutableFloat.intValue();
+        return amount + EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.EXPANDING.get(), stack);
     }
 
+//    TODO PORT 1.20.1: barrage enchantment was already disabled on 1.21 (kept for reference).
 //    public static float processProjectileBarrage(ServerLevel serverLevel, ItemStack stack, Entity entity, float f) {
-//        MutableFloat mutableFloat = new MutableFloat(f);
-//        runIterationOnItem(stack, (enchantmentHolder, i) -> {
-//            ((Enchantment) enchantmentHolder.value()).modifyEntityFilteredValue(MFTEDataComponentRegistries.BARRAGE_SHOT.get(), serverLevel, i, stack, entity, mutableFloat);
-//        });
-//        return Math.max(0.0F, mutableFloat.floatValue());
+//        return Math.max(0.0F, f + 3.0F * EnchantmentHelper.getItemEnchantmentLevel(MFTEEnchantments.BARRAGE.get(), stack));
 //    }
 }
