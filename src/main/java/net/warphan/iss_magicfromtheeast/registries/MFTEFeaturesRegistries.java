@@ -93,15 +93,15 @@ public class MFTEFeaturesRegistries {
     }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureResourceKey(final String name) {
-        return ResourceKey.create(CONFIGURED_FEATURES.getRegistryKey(), new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
+        return ResourceKey.create(CONFIGURED_FEATURES.getRegistryKey(), ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name));
     }
 
     private static ResourceKey<PlacedFeature> placedFeatureResourceKey(final String name) {
-        return ResourceKey.create(PLACED_FEATURES.getRegistryKey(), new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
+        return ResourceKey.create(PLACED_FEATURES.getRegistryKey(), ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name));
     }
 
     private static ResourceKey<BiomeModifier> biomeModifierResourceKey(final String name) {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name));
     }
 
     private static HolderSet<Biome> tag(final HolderGetter<Biome> holderGetter, final TagKey<Biome> key) {

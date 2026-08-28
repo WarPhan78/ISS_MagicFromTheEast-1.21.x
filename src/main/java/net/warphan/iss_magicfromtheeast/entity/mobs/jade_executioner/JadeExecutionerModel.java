@@ -5,9 +5,9 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.model.GeoModel;
 
 public class JadeExecutionerModel extends GeoModel<JadeExecutionerEntity> {
-    public static final ResourceLocation modelResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/jade_executioner.geo.json");
-    public static final ResourceLocation textureResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_executioner.png");
-    public static final ResourceLocation animationResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "animations/jade_executioner.animation.json");
+    public static final ResourceLocation modelResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/jade_executioner.geo.json");
+    public static final ResourceLocation textureResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_executioner.png");
+    public static final ResourceLocation animationResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/jade_executioner.animation.json");
 
     @Override
     public ResourceLocation getModelResource(JadeExecutionerEntity animatable) {

@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpiritChallengingSpell extends AbstractSpell {
-    private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging");
+    private final ResourceLocation spellID = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spirit_challenging");
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.RARE)

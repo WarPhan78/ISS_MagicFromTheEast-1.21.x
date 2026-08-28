@@ -30,7 +30,7 @@ public class MFTESchoolRegistries extends SchoolRegistry {
 
     public static final ResourceLocation SYMMETRY_RESOURCE = ISS_MagicFromTheEast.id("symmetry");
     public static final ResourceLocation SPIRIT_RESOURCE = ISS_MagicFromTheEast.id("spirit");
-    public static final ResourceLocation DUNE_RESOURCE = ISS_MagicFromTheEast.id("dune");
+//    public static final ResourceLocation DUNE_RESOURCE = ISS_MagicFromTheEast.id("dune");
 
     // PORT 1.20.1: ISS 3.16.2-1.20.1 SchoolType exposes the forwards-compatible Supplier<Attribute>/
     // Supplier<SoundEvent> constructor (the LazyOptional ctor is @Deprecated(forRemoval)). Forge
@@ -55,14 +55,14 @@ public class MFTESchoolRegistries extends SchoolRegistry {
             MFTEDamageTypes.SPIRIT_MAGIC
     ));
 
-    public static final RegistryObject<SchoolType> DUNE = registerSchool(new SchoolType(
-            DUNE_RESOURCE,
-            MFTETags.DUNE_FOCUS,
-            Component.translatable("school.iss_magicfromtheeast.dune").withStyle(Style.EMPTY.withColor(0xff4d00)),
-            MFTEAttributeRegistries.DUNE_SPELL_POWER,
-            MFTEAttributeRegistries.DUNE_MAGIC_RESIST,
-            MFTESoundRegistries.DUNE_CAST,
-            MFTEDamageTypes.DUNE_MAGIC
-    ));
+//    public static final RegistryObject<SchoolType> DUNE = registerSchool(new SchoolType(
+//            DUNE_RESOURCE,
+//            MFTETags.DUNE_FOCUS,
+//            Component.translatable("school.iss_magicfromtheeast.dune").withStyle(Style.EMPTY.withColor(0xff4d00)),
+//            MFTEAttributeRegistries.DUNE_SPELL_POWER,
+//            MFTEAttributeRegistries.DUNE_MAGIC_RESIST,
+//            MFTESoundRegistries.DUNE_CAST,
+//            MFTEDamageTypes.DUNE_MAGIC
+//    ));
 
 }

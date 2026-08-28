@@ -2,11 +2,10 @@ package net.warphan.iss_magicfromtheeast.item.armor;
 
 import io.redspace.ironsspellbooks.entity.armor.GenericCustomArmorRenderer;
 import io.redspace.ironsspellbooks.item.armor.ExtendedArmorItem;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.entity.armor.JiangshiHatModel;
-import net.warphan.iss_magicfromtheeast.registries.MFTEArmorMaterialRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEExtendedArmorMaterial;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class JiangshiHatItem extends ExtendedArmorItem {
@@ -15,7 +14,7 @@ public class JiangshiHatItem extends ExtendedArmorItem {
         //  Attributes.JUMP_STRENGTH is horse-only ("horse.jumpStrength") and there is no
         //  generic/player jump strength attribute (added in 1.20.5+). The JIANGSHI material
         //  mirrors the vanilla LEATHER stats the 1.21 version used.
-        super(MFTEArmorMaterialRegistries.JIANGSHI, slot, settings);
+        super(MFTEExtendedArmorMaterial.JIANGSHI, slot, settings);
     }
 
     @Override

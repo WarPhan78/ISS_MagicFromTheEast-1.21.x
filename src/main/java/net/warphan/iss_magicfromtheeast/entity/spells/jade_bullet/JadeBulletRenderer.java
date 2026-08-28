@@ -23,7 +23,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
 public class JadeBulletRenderer extends EntityRenderer<JadeBulletProjectile> {
 
-    public static final ModelLayerLocation MODEL_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jade_bullet_model"), "main");
+    public static final ModelLayerLocation MODEL_LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "jade_bullet_model"), "main");
     public static ResourceLocation TEXTURE = ISS_MagicFromTheEast.id("textures/entity/jade_projectile.png");
 
     private final ModelPart bullet;

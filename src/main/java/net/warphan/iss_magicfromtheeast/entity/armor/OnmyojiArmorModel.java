@@ -8,20 +8,20 @@ import software.bernie.geckolib.model.DefaultedItemGeoModel;
 public class OnmyojiArmorModel extends DefaultedItemGeoModel<OnmyojiArmorItem> {
 
     public OnmyojiArmorModel() {
-        super(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, ""));
+        super(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, ""));
     }
     @Override
     public ResourceLocation getModelResource(OnmyojiArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/onmyoji_armor.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/onmyoji_armor.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(OnmyojiArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/onmyoji.png");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/onmyoji.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(OnmyojiArmorItem animatable) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID,"animations/master_armor_animation.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/master_armor_animation.json");
     }
 }

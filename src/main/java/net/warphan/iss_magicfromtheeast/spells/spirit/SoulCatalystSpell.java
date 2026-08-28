@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SoulCatalystSpell extends AbstractSpell {
-    private final ResourceLocation spellID = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "soul_catalyst");
+    private final ResourceLocation spellID = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "soul_catalyst");
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)

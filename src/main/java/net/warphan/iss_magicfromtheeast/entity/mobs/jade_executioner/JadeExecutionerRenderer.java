@@ -15,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import java.util.Optional;
 
 public class JadeExecutionerRenderer extends GeoEntityRenderer<JadeExecutionerEntity> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_executioner.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_executioner.png");
 
     public JadeExecutionerRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new JadeExecutionerModel());

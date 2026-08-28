@@ -7,21 +7,21 @@ import software.bernie.geckolib.model.DefaultedItemGeoModel;
 
 public class BootsOfMistArmorModel extends DefaultedItemGeoModel<BootsOfMistArmorItem> {
     public BootsOfMistArmorModel() {
-        super(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, ""));
+        super(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, ""));
     }
 
     @Override
     public ResourceLocation getModelResource(BootsOfMistArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/mist_boots.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/mist_boots.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(BootsOfMistArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/mist_boots.png");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/mist_boots.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(BootsOfMistArmorItem animatable) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID,"animations/master_armor_animation.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/master_armor_animation.json");
     }
 }

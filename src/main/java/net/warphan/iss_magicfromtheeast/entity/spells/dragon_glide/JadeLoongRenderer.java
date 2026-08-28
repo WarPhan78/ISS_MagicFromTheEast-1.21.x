@@ -3,12 +3,10 @@ package net.warphan.iss_magicfromtheeast.entity.spells.dragon_glide;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import io.redspace.ironsspellbooks.api.util.Utils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -24,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class JadeLoongRenderer extends GeoEntityRenderer<JadeLoong> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_loong.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_loong.png");
 
     public JadeLoongRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new JadeLoongModel());

@@ -2,7 +2,6 @@ package net.warphan.iss_magicfromtheeast.item.curios;
 
 import io.redspace.ironsspellbooks.compat.Curios;
 import io.redspace.ironsspellbooks.item.curios.SimpleDescriptiveCurio;
-import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,8 +15,8 @@ import top.theillusivec4.curios.api.SlotContext;
 // PORT 1.20.1: LivingIncomingDamageEvent -> LivingHurtEvent (the handler rescales the damage).
 @Mod.EventBusSubscriber
 public class SoulwardRing extends SimpleDescriptiveCurio {
-    public SoulwardRing() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1), Curios.RING_SLOT);
+    public SoulwardRing(Properties properties) {
+        super(properties, Curios.RING_SLOT);
     }
 
     @Override

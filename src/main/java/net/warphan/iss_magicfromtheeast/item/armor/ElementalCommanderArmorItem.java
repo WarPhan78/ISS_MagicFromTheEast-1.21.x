@@ -9,14 +9,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.entity.armor.ElementalCommanderArmorModel;
-import net.warphan.iss_magicfromtheeast.registries.MFTEArmorMaterialRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEExtendedArmorMaterial;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
@@ -29,7 +28,7 @@ public class ElementalCommanderArmorItem extends ImbuableChestplateArmorItem {
     public ElementalCommanderArmorItem(Type slot, Properties settings) {
         // PORT 1.20.1: the 1.21 AttributeContainers (+150 max mana, +10% spell power) are carried
         // by the ELEMENTAL_COMMANDER material (ISS 3.16.2-1.20.1 style).
-        super(MFTEArmorMaterialRegistries.ELEMENTAL_COMMANDER, slot, settings);
+        super(MFTEExtendedArmorMaterial.ELEMENTAL_COMMANDER, slot, settings);
     }
 
     @Override

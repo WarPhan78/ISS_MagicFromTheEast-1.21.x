@@ -22,11 +22,11 @@ public class MFTEAttributeRegistries {
 
     public static final RegistryObject<Attribute> SYMMETRY_MAGIC_RESIST = newResistanceAttribute("symmetry");
     public static final RegistryObject<Attribute> SPIRIT_MAGIC_RESIST = newResistanceAttribute("spirit");
-    public static final RegistryObject<Attribute> DUNE_MAGIC_RESIST = newResistanceAttribute("dune");
+//    public static final RegistryObject<Attribute> DUNE_MAGIC_RESIST = newResistanceAttribute("dune");
 
     public static final RegistryObject<Attribute> SYMMETRY_SPELL_POWER = newPowerAttribute("symmetry");
     public static final RegistryObject<Attribute> SPIRIT_SPELL_POWER = newPowerAttribute("spirit");
-    public static final RegistryObject<Attribute> DUNE_SPELL_POWER = newPowerAttribute("dune");
+//    public static final RegistryObject<Attribute> DUNE_SPELL_POWER = newPowerAttribute("dune");
 
     @SubscribeEvent
     public static void modifyEntityAttributes(EntityAttributeModificationEvent e) {

@@ -11,6 +11,7 @@ public class MFTEServerConfigs {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PASS_CHALLENGING;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ALLOW_SPIRIT_CRUSHER_DAMAGE_CAP;
     public static final ForgeConfigSpec.ConfigValue<Double> SPIRIT_CRUSHER_DAMAGE_CAP;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ALLOW_BLOCK_PROVIDING_SOULBURN;
 
     static {
         BUILDER.comment("Serverside Configurations");
@@ -30,6 +31,8 @@ public class MFTEServerConfigs {
             SOULBURN_MAX_DAMAGE = BUILDER.define("maxSoulburnDamage", 10.0);
             BUILDER.comment("The percent amount of damage soulburn effect dealt based on target's max health. Default: 5 (5% of target's max health)");
             SOULBURN_DAMAGE_SCALING = BUILDER.define("soulburnDamageScaling", 5);
+            BUILDER.comment("Let listed blocks apply Soulburn effect on contact with mobs. Default: true");
+            ALLOW_BLOCK_PROVIDING_SOULBURN = BUILDER.define("allowBlockProvidingSoulburn", true);
             BUILDER.pop();
         }
         {

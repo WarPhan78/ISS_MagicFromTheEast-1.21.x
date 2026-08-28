@@ -20,13 +20,9 @@ import org.apache.commons.lang3.math.Fraction;
  */
 @OnlyIn(Dist.CLIENT)
 public class ClientLoadableWeaponTooltip implements ClientTooltipComponent {
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/container/repeating_crossbow/background.png");
+    private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/container/repeating_crossbow/background.png");
     private static final int BACKGROUND_TEXTURE_SIZE = 32;
     private static final int BACKGROUND_BORDER = 4;
-    private static final int MARGIN_Y = 4;
-    private static final int BORDER_WIDTH = 1;
-    private static final int SLOT_SIZE_X = 18;
-    private static final int SLOT_SIZE_Y = 20;
     private final LoadableWeaponContents contents;
 
     public ClientLoadableWeaponTooltip(LoadableWeaponTooltipComponent contents) {
@@ -120,8 +116,8 @@ public class ClientLoadableWeaponTooltip implements ClientTooltipComponent {
 
     @OnlyIn(Dist.CLIENT)
     static enum Texture {
-        BLOCKED_SLOT(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID,"textures/gui/sprites/container/repeating_crossbow/blocked_slot.png"), 18, 20),
-        SLOT(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/container/repeating_crossbow/slot.png"), 18, 20);
+        BLOCKED_SLOT(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID,"textures/gui/sprites/container/repeating_crossbow/blocked_slot.png"), 18, 20),
+        SLOT(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/container/repeating_crossbow/slot.png"), 18, 20);
 
         public final ResourceLocation texture;
         public final int w;

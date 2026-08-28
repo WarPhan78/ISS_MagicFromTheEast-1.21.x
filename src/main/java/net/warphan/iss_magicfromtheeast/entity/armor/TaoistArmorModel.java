@@ -8,21 +8,21 @@ import software.bernie.geckolib.model.DefaultedItemGeoModel;
 public class TaoistArmorModel extends DefaultedItemGeoModel<TaoistArmorItem> {
 
     public TaoistArmorModel() {
-        super(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, ""));
+        super(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, ""));
     }
 
     @Override
     public ResourceLocation getModelResource(TaoistArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/taoist_armor.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/taoist_armor.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TaoistArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/taoist.png");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/taoist.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(TaoistArmorItem animatable) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID,"animations/master_armor_animation.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/master_armor_animation.json");
     }
 }

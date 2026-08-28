@@ -28,12 +28,11 @@ public class DataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
 
-        generator.addProvider(event.includeServer(), new MFTEDataPackProvider(packOutput, provider));
+        generator.addProvider(event.includeServer(), new MFTERegistryDataGenerator(packOutput, provider));
         // Forge 1.20.1 doesn't properly support tagging datagen'd custom registry entries; append our
         // datapack registry patch to the lookup, mirroring ISS 1.20.1 (RegistryDataGenerator#addProviders).
         generator.addProvider(event.includeServer(), new MFTEDamageTypeTagGenerator(packOutput,
-                provider.thenApply(r -> append(r, MFTEDataPackProvider.BUILDER)), existingFileHelper));
-        generator.addProvider(event.includeServer(), new MFTERecipeProvider(packOutput));
+                provider.thenApply(r -> append(r, MFTERegistryDataGenerator.BUILDER)), existingFileHelper));
         generator.addProvider(event.includeServer(), new LootTableProvider(packOutput,
                 Set.of(),
                 List.of(new LootTableProvider.SubProviderEntry(MFTELootTableProvider.Block::new, LootContextParamSets.BLOCK))

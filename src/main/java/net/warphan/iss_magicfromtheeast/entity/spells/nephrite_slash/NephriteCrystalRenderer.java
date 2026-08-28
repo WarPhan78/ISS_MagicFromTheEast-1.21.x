@@ -51,7 +51,7 @@ public class NephriteCrystalRenderer extends EntityRenderer<NephriteCrystalEntit
     }
 
     public static class NephriteCrystalModel extends EntityModel<NephriteCrystalEntity> {
-        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "nephrite_crystal"), "main");
+        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "nephrite_crystal"), "main");
         private final ModelPart bottom;
         private final ModelPart middle;
         private final ModelPart top;

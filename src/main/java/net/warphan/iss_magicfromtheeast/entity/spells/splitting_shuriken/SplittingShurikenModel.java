@@ -5,9 +5,9 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.model.GeoModel;
 
 public class SplittingShurikenModel extends GeoModel<SplittingShurikenProjectile> {
-    public static final ResourceLocation modelResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/spirit_shuriken.geo.json");
-    public static final ResourceLocation textureResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/spirit_shuriken.png");
-    public static final ResourceLocation animationResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "animations/shuriken.animation.json");
+    public static final ResourceLocation modelResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/spirit_shuriken.geo.json");
+    public static final ResourceLocation textureResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/spirit_shuriken.png");
+    public static final ResourceLocation animationResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/shuriken.animation.json");
 
     @Override
     public ResourceLocation getModelResource(SplittingShurikenProjectile object) {

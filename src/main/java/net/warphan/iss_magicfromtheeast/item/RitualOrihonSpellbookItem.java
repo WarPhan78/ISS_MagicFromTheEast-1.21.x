@@ -6,10 +6,11 @@ import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Item;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
 public class RitualOrihonSpellbookItem extends SpellBook {
-    public RitualOrihonSpellbookItem() {
+    public RitualOrihonSpellbookItem(Item.Properties properties) {
         super(10);
         // PORT 1.20.1: 1.21 ADD_MULTIPLIED_BASE -> MULTIPLY_BASE, ADD_VALUE -> ADDITION.
         withSpellbookAttributes(

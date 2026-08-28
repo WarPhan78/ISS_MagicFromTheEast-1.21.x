@@ -10,7 +10,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import javax.annotation.Nullable;
 
 public class VerdictCircleRender extends GeoEntityRenderer<VerdictCircle> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/verdict_circle.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/verdict_circle.png");
 
     public VerdictCircleRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new VerdictCircleModel());

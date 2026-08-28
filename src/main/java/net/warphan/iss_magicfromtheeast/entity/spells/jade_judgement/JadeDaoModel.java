@@ -5,9 +5,9 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.model.GeoModel;
 
 public class JadeDaoModel extends GeoModel<JadeDao> {
-    public static final ResourceLocation modelResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/jade_dao.geo.json");
-    public static final ResourceLocation textureResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_dao.png");
-    public static final ResourceLocation animationResource = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "animations/jade_dao_animations.json");
+    public static final ResourceLocation modelResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/jade_dao.geo.json");
+    public static final ResourceLocation textureResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_dao.png");
+    public static final ResourceLocation animationResource = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/jade_dao_animations.json");
 
     public JadeDaoModel() {
     }

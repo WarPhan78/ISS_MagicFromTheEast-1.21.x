@@ -13,7 +13,7 @@ public class JeiDescription implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "jei_plugin");
     }
 
     @Override

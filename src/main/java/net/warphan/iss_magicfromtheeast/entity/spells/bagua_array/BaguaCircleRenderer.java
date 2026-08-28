@@ -10,7 +10,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import javax.annotation.Nullable;
 
 public class BaguaCircleRenderer extends GeoEntityRenderer<BaguaCircle> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/bagua_circle.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/bagua_circle.png");
 
     public BaguaCircleRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new BaguaCircleModel());

@@ -18,7 +18,7 @@ public class MFTEItemProperties {
     // NOTE PORT 1.20.1: ItemStack#getUseDuration takes no LivingEntity on 1.20.1;
     //  RepeatingCrossbow#getChargeDuration should follow vanilla 1.20.1 CrossbowItem (ItemStack only).
     private static void makeCustomBow(Item item) {
-        ItemProperties.register(item, new ResourceLocation("pull"), (p_344163_, p_344164_, p_344165_, p_344166_) -> {
+        ItemProperties.register(item, ResourceLocation.parse("pull"), (p_344163_, p_344164_, p_344165_, p_344166_) -> {
             if (p_344165_ == null) {
                 return 0.0F;
             } else {
@@ -27,23 +27,23 @@ public class MFTEItemProperties {
         });
         ItemProperties.register(
                 item,
-                new ResourceLocation("pulling"),
+                ResourceLocation.parse("pulling"),
                 (p_174630_, p_174631_, p_174632_, p_174633_) -> p_174632_ != null && p_174632_.isUsingItem() && p_174632_.getUseItem() == p_174630_ ? 1.0F : 0.0F
         );
     }
 
     private static void makeRepeatingCrossbow(Item item) {
-        ItemProperties.register(item, new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+        ItemProperties.register(item, ResourceLocation.parse("pull"), (itemStack, clientLevel, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
                 return RepeatingCrossbow.isCharged(itemStack) ? 0.0F : (float)(itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / (float)RepeatingCrossbow.getChargeDuration(itemStack);
             }
         });
-        ItemProperties.register(item, new ResourceLocation("pulling"), (itemStack, level, livingEntity, i) -> {
+        ItemProperties.register(item, ResourceLocation.parse("pulling"), (itemStack, level, livingEntity, i) -> {
             return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack && !RepeatingCrossbow.isCharged(itemStack) ? 1.0F : 0.0F;
         });
-        ItemProperties.register(item, new ResourceLocation("charged"), (itemStack, level, livingEntity, i) -> {
+        ItemProperties.register(item, ResourceLocation.parse("charged"), (itemStack, level, livingEntity, i) -> {
             return RepeatingCrossbow.isCharged(itemStack) ? 1.0F : 0.0F;
         });
     }

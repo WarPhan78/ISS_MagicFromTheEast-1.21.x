@@ -34,7 +34,7 @@ import net.warphan.iss_magicfromtheeast.setup.MFTEHeartTypes;
 @Mod.EventBusSubscriber(modid = ISS_MagicFromTheEast.MOD_ID, value = Dist.CLIENT)
 public class MFTEHeartOverlayHandler {
 
-    private static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+    private static final ResourceLocation GUI_ICONS_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/icons.png");
 
     private static final RandomSource RANDOM = RandomSource.create();
     private static int tickCount;

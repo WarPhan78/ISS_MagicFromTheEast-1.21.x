@@ -6,7 +6,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class JiangshiRenderer extends GeoEntityRenderer<JiangshiEntity> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jiangshi.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jiangshi.png");
 
     public JiangshiRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new JiangshiModel());

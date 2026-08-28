@@ -18,6 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -28,16 +29,19 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
 import net.warphan.iss_magicfromtheeast.damage.MFTEDamageTypes;
 import net.warphan.iss_magicfromtheeast.entity.mobs.bone_hands.BoneHandsEntity;
 import net.warphan.iss_magicfromtheeast.entity.mobs.jade_executioner.JadeExecutionerEntity;
@@ -50,6 +54,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEItemRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESoundRegistries;
+import net.warphan.iss_magicfromtheeast.util.MFTETags;
 
 /**
  * PORT 1.20.1:
@@ -84,12 +89,18 @@ public class MFTEServerEvent {
     public static void moreDangerousSoulFire(LivingEvent.LivingTickEvent event) {
         var entity = event.getEntity();
         var level = entity.level();
-        if (!level.isClientSide) {
+        if (!level.isClientSide && MFTEServerConfigs.ALLOW_BLOCK_PROVIDING_SOULBURN.get()) {
             if (entity.tickCount % 20 == 0) {
                 BlockPos pos = entity.blockPosition();
                 BlockState blockState = entity.level().getBlockState(pos);
-                if (blockState.is(Blocks.SOUL_FIRE) || blockState.is(Blocks.SOUL_CAMPFIRE) || blockState.is(BlockRegistry.BRAZIER_SOUL.get())) {
-                    entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 160, 0));
+                BlockState upState = entity.level.getBlockState(pos.above());
+                if (blockState.is(MFTETags.SOULBURN_PROVIDER)
+                        || blockState.is(Blocks.SOUL_SAND) && upState.is(Blocks.SOUL_FIRE)) {
+                    if (blockState.hasProperty(BlockStateProperties.LIT)) {
+                        if (blockState.getValue(BlockStateProperties.LIT)) {
+                            entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 160, 0));
+                        }
+                    } else entity.addEffect(new MobEffectInstance(MFTEEffectRegistries.SOULBURN.get(), 160, 0));
                 }
             }
         }
@@ -276,6 +287,16 @@ public class MFTEServerEvent {
         if (target instanceof JadeDrapesEntity jadeDrapes) {
             event.setCanceled(false);
             jadeDrapes.onUnSummon();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEffectRemoval(MobEffectEvent.Remove event) {
+        var effect = event.getEffect();
+        var entity = event.getEntity();
+
+        if (effect == MobEffectRegistry.TRUE_INVISIBILITY.get() && entity.hasEffect(MFTEEffectRegistries.MIST_STEP.get())) {
+            entity.removeEffect(MFTEEffectRegistries.MIST_STEP.get());
         }
     }
 

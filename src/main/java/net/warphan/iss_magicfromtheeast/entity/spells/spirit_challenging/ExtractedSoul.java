@@ -326,7 +326,7 @@ public class ExtractedSoul extends LivingEntity implements IEntityAdditionalSpaw
         }
         if (compoundTag.contains("entityToCopy")) {
             try {
-                setEntityTypeToCopy(BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(compoundTag.getString("entityToCopy"))));
+                setEntityTypeToCopy(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(compoundTag.getString("entityToCopy"))));
             } catch (Exception ignore) {
             }
         }

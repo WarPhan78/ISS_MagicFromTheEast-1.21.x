@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class KitsunePackSpell extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "kitsune_pack");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "kitsune_pack");
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)

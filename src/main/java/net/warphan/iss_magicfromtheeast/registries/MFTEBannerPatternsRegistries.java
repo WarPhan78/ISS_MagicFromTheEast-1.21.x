@@ -1,4 +1,4 @@
-package net.warphan.iss_magicfromtheeast.datagen;
+package net.warphan.iss_magicfromtheeast.registries;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -12,16 +12,16 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 /**
  * TODO PORT 1.20.1: banner patterns are NOT a datapack registry on 1.20.1 - they are a built-in
  * registry that must be registered in code. The 1.21 datagen bootstrap was replaced by this
- * DeferredRegister; ISS_MagicFromTheEast must call {@code MFTEBannerPatterns.register(modEventBus)}
+ * DeferredRegister; ISS_MagicFromTheEast must call {@code MFTEBannerPatternsRegistries.register(modEventBus)}
  * during mod construction (the generated data/&lt;ns&gt;/banner_pattern/ JSON was deleted).
  * Tooltip translation keys on 1.20.1 are "block.minecraft.banner.iss_magicfromtheeast.balance.&lt;color&gt;".
  */
-public class MFTEBannerPatterns {
+public class MFTEBannerPatternsRegistries {
     public static final DeferredRegister<BannerPattern> BANNER_PATTERNS =
             DeferredRegister.create(Registries.BANNER_PATTERN, ISS_MagicFromTheEast.MOD_ID);
 
     public static final ResourceKey<BannerPattern> BALANCE = ResourceKey.create(Registries.BANNER_PATTERN,
-            new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "balance"));
+            ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "balance"));
 
     // On 1.20.1 the "hashname" is what gets written into banner NBT - keep it stable and unique.
     public static final RegistryObject<BannerPattern> BALANCE_PATTERN =

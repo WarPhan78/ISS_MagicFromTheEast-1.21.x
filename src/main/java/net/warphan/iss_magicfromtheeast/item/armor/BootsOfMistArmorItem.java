@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.warphan.iss_magicfromtheeast.entity.armor.BootsOfMistArmorModel;
-import net.warphan.iss_magicfromtheeast.registries.MFTEArmorMaterialRegistries;
+import net.warphan.iss_magicfromtheeast.registries.MFTEExtendedArmorMaterial;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
@@ -23,7 +23,7 @@ public class BootsOfMistArmorItem extends ImbuableChestplateArmorItem {
     public BootsOfMistArmorItem(Type type, Properties properties) {
         // PORT 1.20.1: the 1.21 AttributeContainers (+150 max mana, +10% spell power; sneaking
         // speed cut) are carried by the BOOTS_OF_MIST material (ISS 3.16.2-1.20.1 style).
-        super(MFTEArmorMaterialRegistries.BOOTS_OF_MIST, type, properties);
+        super(MFTEExtendedArmorMaterial.BOOTS_OF_MIST, type, properties);
     }
 
     @Override

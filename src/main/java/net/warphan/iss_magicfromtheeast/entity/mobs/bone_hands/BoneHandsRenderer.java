@@ -6,7 +6,7 @@ import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BoneHandsRenderer extends GeoEntityRenderer<BoneHandsEntity> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/bone_hand.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/bone_hand.png");
 
     public BoneHandsRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new BoneHandsModel());

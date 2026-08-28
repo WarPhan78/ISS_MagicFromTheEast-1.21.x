@@ -18,50 +18,35 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-/**
- * TODO PORT 1.20.1: armor materials are not a registry on 1.20.1. This class is an enum
- * implementing ISS's {@link IronsExtendedArmorMaterial} (mirrors ISS 1.20.1-3.16.2
- * ExtendedArmorMaterials): on this version the per-item bonus attributes the 1.21 addon passed
- * as AttributeContainers to the ExtendedArmorItem constructor are carried by the material itself
- * via {@link #getAdditionalAttributes()}. Registry names are kept as enum entries; texture name
- * keeps the modid prefix.
- */
-public enum MFTEArmorMaterialRegistries implements IronsExtendedArmorMaterial {
+public enum MFTEExtendedArmorMaterial implements IronsExtendedArmorMaterial {
     JADE("iss_magicfromtheeast:jade", 45, makeArmorMap(4, 10, 6, 4), 40, SoundEvents.ARMOR_EQUIP_CHAIN,
             2.0f, 0.05f, () -> Ingredient.of(MFTEItemRegistries.REFINED_JADE_INGOT.get()), () -> Map.of(
             Attributes.MOVEMENT_SPEED, new AttributeModifier("Movement Speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE),
             AttributeRegistry.SPELL_RESIST.get(), new AttributeModifier("Spell Resist", 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 50, AttributeModifier.Operation.ADDITION))),
-    // 1.21 "BODY" (horse armor) defense of the jade material was 16; on 1.20.1 horse armor protection is
-    // passed directly to HorseArmorItem in MFTEItemRegistries.
-    // TODO PORT 1.20.1: ModTags.MITHRIL_INGOT does not exist on ISS 1.20.1 (mithril is a 1.21 addition);
-    //  using ISS's arcane ingot as the repair material instead.
+
     ELEMENTAL_COMMANDER("iss_magicfromtheeast:elemental", 37, magicArmorMap(), 40, SoundEvents.ARMOR_EQUIP_LEATHER,
             0f, 0f, () -> Ingredient.of(ItemRegistry.ARCANE_INGOT.get()), () -> Map.of(
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 150, AttributeModifier.Operation.ADDITION),
             AttributeRegistry.SPELL_POWER.get(), new AttributeModifier("Spell Power", 0.10, AttributeModifier.Operation.MULTIPLY_BASE))),
-    // TODO PORT 1.20.1: the 1.21 boots also gave +50% Attributes.SNEAKING_SPEED - that attribute
-    //  does not exist on 1.20.1 (no vanilla/Forge equivalent), so the bonus was cut.
+
     BOOTS_OF_MIST("iss_magicfromtheeast:mist", 37, magicArmorMap(), 40, SoundEvents.ARMOR_EQUIP_LEATHER,
             0f, 0f, () -> Ingredient.of(ItemRegistry.ARCANE_INGOT.get()), () -> Map.of(
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 150, AttributeModifier.Operation.ADDITION),
             AttributeRegistry.SPELL_POWER.get(), new AttributeModifier("Spell Power", 0.10, AttributeModifier.Operation.MULTIPLY_BASE))),
-    // School materials: replacement for the 1.21 ArmorMaterialRegistry.SCHOOL +
-    // ExtendedArmorItem.schoolAttributes(...) combination - same stats as the ISS 1.20.1 school
-    // armor materials (+125 max mana, +10% school power, +5% base spell power).
+
     ONMYOJI("iss_magicfromtheeast:onmyoji", 37, magicArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER,
             0f, 0f, () -> Ingredient.of(ItemRegistry.MAGIC_CLOTH.get()), () -> Map.of(
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 125, AttributeModifier.Operation.ADDITION),
             MFTEAttributeRegistries.SPIRIT_SPELL_POWER.get(), new AttributeModifier("School Power", .10, AttributeModifier.Operation.MULTIPLY_BASE),
             AttributeRegistry.SPELL_POWER.get(), new AttributeModifier("Base Power", .05, AttributeModifier.Operation.MULTIPLY_BASE))),
+
     TAOIST("iss_magicfromtheeast:taoist", 37, magicArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER,
             0f, 0f, () -> Ingredient.of(ItemRegistry.MAGIC_CLOTH.get()), () -> Map.of(
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 125, AttributeModifier.Operation.ADDITION),
             MFTEAttributeRegistries.SYMMETRY_SPELL_POWER.get(), new AttributeModifier("School Power", .10, AttributeModifier.Operation.MULTIPLY_BASE),
             AttributeRegistry.SPELL_POWER.get(), new AttributeModifier("Base Power", .05, AttributeModifier.Operation.MULTIPLY_BASE))),
-    // TODO PORT 1.20.1: the 1.21 hat used vanilla ArmorMaterials.LEATHER plus a +0.2 jump strength
-    //  AttributeContainer - Attributes.JUMP_STRENGTH is horse-only on 1.20.1 (no generic/player
-    //  jump strength attribute before 1.20.5), so the bonus was cut. Leather-equivalent stats.
+
     JIANGSHI("iss_magicfromtheeast:jiangshi", 24, makeArmorMap(1, 3, 2, 1), 15, SoundEvents.ARMOR_EQUIP_LEATHER,
             0f, 0f, () -> Ingredient.of(Items.LEATHER), Map::of);
 
@@ -82,9 +67,9 @@ public enum MFTEArmorMaterialRegistries implements IronsExtendedArmorMaterial {
     private final LazyLoadedValue<Ingredient> repairIngredient;
     private final LazyLoadedValue<Map<Attribute, AttributeModifier>> additionalAttributes;
 
-    MFTEArmorMaterialRegistries(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionMap,
-                                int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance,
-                                Supplier<Ingredient> repairIngredient, Supplier<Map<Attribute, AttributeModifier>> additionalAttributes) {
+    MFTEExtendedArmorMaterial(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionMap,
+                              int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance,
+                              Supplier<Ingredient> repairIngredient, Supplier<Map<Attribute, AttributeModifier>> additionalAttributes) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionMap;

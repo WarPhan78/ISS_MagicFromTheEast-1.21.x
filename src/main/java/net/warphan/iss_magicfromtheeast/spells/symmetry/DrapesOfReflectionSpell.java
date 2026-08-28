@@ -17,7 +17,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import java.util.List;
 
 public class DrapesOfReflectionSpell extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "drapes_of_reflection");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "drapes_of_reflection");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {

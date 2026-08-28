@@ -7,21 +7,21 @@ import software.bernie.geckolib.model.DefaultedItemGeoModel;
 
 public class JadePagodaArmorModel extends DefaultedItemGeoModel<JadePagodaArmorItem> {
     public JadePagodaArmorModel() {
-        super(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, ""));
+        super(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, ""));
     }
 
     @Override
     public ResourceLocation getModelResource(JadePagodaArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "geo/jade_pagoda.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "geo/jade_pagoda.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(JadePagodaArmorItem object) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/jade_pagoda.png");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/models/armor/jade_pagoda.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(JadePagodaArmorItem animatable) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID,"animations/master_armor_animation.json");
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "animations/master_armor_animation.json");
     }
 }

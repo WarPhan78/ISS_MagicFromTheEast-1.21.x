@@ -22,7 +22,7 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
     }
 
     private static TagKey<DamageType> create(String name) {
-        return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name));
+        return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name));
     }
 
     public static final TagKey<DamageType> SYMMETRY_MAGIC = create("symmetry_magic");
@@ -35,7 +35,7 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
     protected void addTags(@NotNull Provider provider) {
         tag(SYMMETRY_MAGIC).add(MFTEDamageTypes.SYMMETRY_MAGIC);
         tag(SPIRIT_MAGIC).add(MFTEDamageTypes.SPIRIT_MAGIC);
-        tag(DUNE_MAGIC).add(MFTEDamageTypes.DUNE_MAGIC);
+//        tag(DUNE_MAGIC).add(MFTEDamageTypes.DUNE_MAGIC);
 
         tag(SOUL_HURTING).add(
                 MFTEDamageTypes.SOUL_DAMAGE,
@@ -55,8 +55,7 @@ public class MFTEDamageTypeTagGenerator extends TagsProvider<DamageType> {
                 DamageTypes.DRY_OUT,
                 DamageTypes.IN_WALL
         );
-        // TODO PORT 1.20.1: NeoForgeMod.POISON_DAMAGE does not exist on Forge 1.20.1 (poison deals
-        // minecraft:magic damage there) - the optional neoforge:poison entry was dropped.
+
         tag(BYPASS_REVERSAL_HEALING).addOptional(ISSDamageTypes.CAULDRON.location());
         tag(BYPASS_REVERSAL_HEALING).addOptional(ISSDamageTypes.HEARTSTOP.location());
     }

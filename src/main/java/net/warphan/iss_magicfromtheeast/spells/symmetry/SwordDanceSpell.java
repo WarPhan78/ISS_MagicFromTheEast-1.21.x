@@ -19,7 +19,7 @@ import net.warphan.iss_magicfromtheeast.registries.MFTESchoolRegistries;
 import java.util.List;
 
 public class SwordDanceSpell extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "sword_dance");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "sword_dance");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {

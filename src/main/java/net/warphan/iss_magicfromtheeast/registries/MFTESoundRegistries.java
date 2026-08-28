@@ -17,7 +17,7 @@ public class MFTESoundRegistries{
 
     public static RegistryObject<SoundEvent> SYMMETRY_CAST = registerSoundEvent("cast.generic.symmetry");
     public static RegistryObject<SoundEvent> SPIRIT_CAST = registerSoundEvent("cast.generic.spirit");
-    public static RegistryObject<SoundEvent> DUNE_CAST = registerSoundEvent("cast.generic.dune");
+//    public static RegistryObject<SoundEvent> DUNE_CAST = registerSoundEvent("cast.generic.dune");
 
     public static RegistryObject<SoundEvent> LOONG_CAST = registerSoundEvent("cast.generic.loong");
     public static RegistryObject<SoundEvent> JADE_SWORD_IMPACT = registerSoundEvent("cast.generic.jade_sword_impact");
@@ -65,6 +65,6 @@ public class MFTESoundRegistries{
     public static RegistryObject<SoundEvent> SPIRIT_MOB_DEATH = registerSoundEvent("spiritmob.generic.spirit_dead");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return MFTESOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, name)));
+        return MFTESOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, name)));
     }
 }

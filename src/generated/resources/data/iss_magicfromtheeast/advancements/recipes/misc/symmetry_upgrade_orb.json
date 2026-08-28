@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "iss_magicfromtheeast:onmyoji_boots_crafting"
+        "recipe": "iss_magicfromtheeast:symmetry_upgrade_orb"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "unlocked": {
+    "orb": {
       "conditions": {
         "items": [
           {
-            "items": "#irons_spellbooks:wizard_base_boots"
+            "items": "irons_spellbooks:upgrade_orb"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "unlocked"
+      "orb"
     ]
   ],
   "rewards": {
     "recipes": [
-      "iss_magicfromtheeast:onmyoji_boots_crafting"
+      "iss_magicfromtheeast:symmetry_upgrade_orb"
     ]
   }
 }

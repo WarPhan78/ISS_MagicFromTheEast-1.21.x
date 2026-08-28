@@ -15,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import javax.annotation.Nullable;
 
 public class PhantomCavalryRenderer extends GeoEntityRenderer<PhantomCavalryVisualEntity> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/phantom_cavalry.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/phantom_cavalry.png");
 
     public PhantomCavalryRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new PhantomCavalryModel());

@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.warphan.iss_magicfromtheeast.ISS_MagicFromTheEast;
 
 public class OnmyojiModel extends AbstractSpellCastingMobModel {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/onmyoji.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/onmyoji.png");
 
     @Override
     public ResourceLocation getTextureResource(AbstractSpellCastingMob object) {

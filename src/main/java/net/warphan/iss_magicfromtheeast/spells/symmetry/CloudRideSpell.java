@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class CloudRideSpell extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "cloud_ride");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "cloud_ride");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {

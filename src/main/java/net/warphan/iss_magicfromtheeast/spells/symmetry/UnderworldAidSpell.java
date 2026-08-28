@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UnderworldAidSpell extends AbstractSpell {
-    private final ResourceLocation spellId = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "underworld_aid");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "underworld_aid");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {

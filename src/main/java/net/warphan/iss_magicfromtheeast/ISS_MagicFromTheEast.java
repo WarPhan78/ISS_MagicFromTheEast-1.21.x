@@ -2,7 +2,7 @@ package net.warphan.iss_magicfromtheeast;
 
 import net.minecraft.resources.ResourceLocation;
 import net.warphan.iss_magicfromtheeast.configs.MFTEServerConfigs;
-import net.warphan.iss_magicfromtheeast.datagen.MFTEBannerPatterns;
+import net.warphan.iss_magicfromtheeast.registries.MFTEBannerPatternsRegistries;
 import net.warphan.iss_magicfromtheeast.enchantment.MFTEEnchantments;
 import net.warphan.iss_magicfromtheeast.registries.*;
 import net.warphan.iss_magicfromtheeast.setup.ModSetup;
@@ -45,15 +45,13 @@ public class ISS_MagicFromTheEast {
         MFTEEntityRegistries.register(modEventBus);
         MFTEEffectRegistries.register(modEventBus);
         MFTEFluidRegistries.register(modEventBus);
-        // TODO PORT 1.20.1: MFTEArmorMaterialRegistries is now a plain ArmorMaterial enum (armor materials are not a registry on 1.20.1) - nothing to register.
+        // TODO PORT 1.20.1: MFTEExtendedArmorMaterial is now a plain ArmorMaterial enum (armor materials are not a registry on 1.20.1) - nothing to register.
         // TODO PORT 1.20.1: MFTEEnchantmentEffectRegistries emptied (enchantment effect components do not exist on 1.20.1);
         //  enchantments are classic Enchantment classes registered through MFTEEnchantments below.
         MFTEEnchantments.register(modEventBus);
-        // TODO PORT 1.20.1: MFTEDataComponentRegistries is now an NBT helper class (data components do not exist on 1.20.1) - nothing to register.
-        MFTELootRegistries.register(modEventBus);
         MFTEParticleRegistries.register(modEventBus);
         MFTEFeaturesRegistries.register(modEventBus);
-        MFTEBannerPatterns.register(modEventBus);
+        MFTEBannerPatternsRegistries.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MFTEServerConfigs.SPEC, String.format("%s-server.toml", ISS_MagicFromTheEast.MOD_ID));
     }
@@ -72,6 +70,6 @@ public class ISS_MagicFromTheEast {
     }
 
     public static ResourceLocation id(@NotNull String path) {
-        return new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, path);
     }
 }

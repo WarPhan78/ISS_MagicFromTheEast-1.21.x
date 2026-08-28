@@ -16,7 +16,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import javax.annotation.Nullable;
 
 public class JadeDrapesRenderer extends GeoEntityRenderer<JadeDrapesEntity> {
-    public static final ResourceLocation textureLocation = new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_drape.png");
+    public static final ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/entity/jade_drape.png");
 
     public JadeDrapesRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new JadeDrapesModel());

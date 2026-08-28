@@ -19,6 +19,6 @@ public class MFTEHeartTypes {
     public static ResourceLocation texture(String set, boolean half, boolean blinking, boolean hardcore) {
         String key = set + (hardcore ? "_hardcore" : "") + (half ? "_half" : "_full") + (blinking ? "_blinking" : "");
         return CACHE.computeIfAbsent(key, k ->
-                new ResourceLocation(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/hud/heart/" + k + ".png"));
+                ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "textures/gui/sprites/hud/heart/" + k + ".png"));
     }
 }

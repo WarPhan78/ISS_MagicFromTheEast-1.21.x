@@ -47,7 +47,7 @@ public class MFTECreativeTabRegistries {
                 entries.accept(MFTEItemRegistries.JADE.get());
                 entries.accept(MFTEItemRegistries.YIN_YANG_CORE.get());
                 entries.accept(MFTEItemRegistries.BOTTLE_OF_SOULS.get());
-                entries.accept(MFTEItemRegistries.ARCANE_RELICS.get());
+                //entries.accept(MFTEItemRegistries.ARCANE_RELICS.get());
                 entries.accept(MFTEItemRegistries.RED_STRING.get());
                 entries.accept(MFTEItemRegistries.COPPER_COINS.get());
 
@@ -79,7 +79,7 @@ public class MFTECreativeTabRegistries {
 
                 entries.accept(MFTEItemRegistries.SYMMETRY_RUNE.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_RUNE.get());
-                entries.accept(MFTEItemRegistries.DUNE_RUNE.get());
+                //entries.accept(MFTEItemRegistries.DUNE_RUNE.get());
                 entries.accept(MFTEItemRegistries.SYMMETRY_UPGRADE_ORB.get());
                 entries.accept(MFTEItemRegistries.SPIRIT_UPGRADE_ORB.get());
 
