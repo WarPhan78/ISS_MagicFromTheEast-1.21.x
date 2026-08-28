@@ -3,6 +3,7 @@ package net.warphan.iss_magicfromtheeast.spells.symmetry;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.Utils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +20,7 @@ public class JadeBulletSpell extends AbstractSpell {
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
-        return List.of(Component.translatable("ui.irons_spellbooks.damage", getDamage(spellLevel, caster)));
+        return List.of(Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation((getDamage(spellLevel, caster)), 1)));
     }
 
     private final DefaultConfig defaultConfig = new DefaultConfig()

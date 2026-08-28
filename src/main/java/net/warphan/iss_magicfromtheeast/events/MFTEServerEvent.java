@@ -92,7 +92,7 @@ public class MFTEServerEvent {
         if (!level.isClientSide && MFTEServerConfigs.ALLOW_BLOCK_PROVIDING_SOULBURN.get()) {
             if (entity.tickCount % 20 == 0) {
                 BlockPos pos = entity.blockPosition();
-                BlockState blockState = entity.level().getBlockState(pos);
+                BlockState blockState = entity.level.getBlockState(pos);
                 BlockState upState = entity.level.getBlockState(pos.above());
                 if (blockState.is(MFTETags.SOULBURN_PROVIDER)
                         || blockState.is(Blocks.SOUL_SAND) && upState.is(Blocks.SOUL_FIRE)) {
@@ -255,7 +255,7 @@ public class MFTEServerEvent {
         var projectile = event.getProjectile();
         Vec3 hitLocation = ray.getLocation();
         if (ray instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof ShieldPart shieldPart && shieldPart.parentEntity instanceof JadeDrapesEntity jadeDrapes) {
-            event.setCanceled(true);
+            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
             if (projectile.getOwner() != jadeDrapes.getSummoner()) {
                 Vec3 reflectionVec = projectile.getDeltaMovement().reverse();
 
