@@ -13,7 +13,7 @@
     "show_toast": true,
     "frame": "challenge"
   },
-  "parent": "irons_spellbooks:irons_spellbooks/spell_book_diamond",
+  "parent": "irons_spellbooks:irons_spellbooks/spell_book_equip",
   "criteria": {
     "requirement": {
       "conditions": {

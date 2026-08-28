@@ -6,37 +6,88 @@ import io.redspace.ironsspellbooks.capabilities.magic.SummonManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEffectRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTEEntityRegistries;
 import net.warphan.iss_magicfromtheeast.registries.MFTESpellRegistries;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class SummonedKitsune extends Fox implements IMagicSummon {
-    public SummonedKitsune(EntityType<? extends Fox> pEntityType, Level plevel) {
+public class SummonedKitsune extends PathfinderMob implements GeoEntity, IMagicSummon {
+    public SummonedKitsune(EntityType<? extends SummonedKitsune> pEntityType, Level plevel) {
         super(pEntityType, plevel);
+        this.createLookControl();
+        this.createMoveControl();
         xpReward = 0;
     }
 
     public SummonedKitsune(Level level, LivingEntity owner) {
         this(MFTEEntityRegistries.SUMMONED_KITSUNE.get(), level);
         setSummoner(owner);
+    }
+
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new BodyRotationControl(this);
+    }
+
+    protected LookControl createLookControl() {
+        return new LookControl(this) {
+            @Override
+            protected float rotateTowards(float pFrom, float pTo, float pMaxDelta) {
+                return super.rotateTowards(pFrom, pTo, pMaxDelta * 2.5f);
+            }
+        };
+    }
+
+    protected MoveControl createMoveControl() {
+        return new MoveControl(this) {
+            @Override
+            protected float rotlerp(float pSourceAngle, float pTargetAngle, float pMaximumChange) {
+                double d0 = this.wantedX - this.mob.getX();
+                double d1 = this.wantedZ - this.mob.getZ();
+                if (d0 * d0 + d1 * d1 < .5f) {
+                    return pSourceAngle;
+                } else {
+                    return super.rotlerp(pSourceAngle, pTargetAngle, pMaximumChange * .25f);
+                }
+            }
+        };
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.FOX_AMBIENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.FOX_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.FOX_DEATH;
     }
 
     //Summon Stuffs
@@ -103,6 +154,7 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
         this.targetSelector.addGoal(5, new GenericProtectOwnerTargetGoal(this, this::getSummoner));
     }
 
+
     class KitsuneMeleeAttack extends MeleeAttackGoal {
         public KitsuneMeleeAttack(double p_28720_, boolean p_28721_) {
             super(SummonedKitsune.this, p_28720_, p_28721_);
@@ -116,22 +168,14 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
                 SummonedKitsune.this.playSound(SoundEvents.FOX_BITE, 1.0F, 1.0F);
             }
         }
-
-        public void start() {
-            SummonedKitsune.this.setIsInterested(false);
-            super.start();
-        }
-
-        public boolean canUse() {
-            return !SummonedKitsune.this.isSitting() && !SummonedKitsune.this.isSleeping() && !SummonedKitsune.this.isCrouching() && !SummonedKitsune.this.isFaceplanted() && super.canUse();
-        }
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 15.0)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.5);
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1);
     }
 
     @Override
@@ -147,18 +191,61 @@ public class SummonedKitsune extends Fox implements IMagicSummon {
     }
 
     @Override
-    public boolean canHoldItem(ItemStack stack) {
-        return false;
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (this.tickCount % 80 == 0) {
+            heal(1);
+        }
     }
 
-    @Override
-    public boolean isFood(ItemStack p_28594_) {
-        return false;
-    }
-
-    // TODO PORT 1.20.1: canBeLeashed() (1.21, no-arg) -> canBeLeashed(Player) (1.20.1 signature)
     @Override
     public boolean canBeLeashed(Player pPlayer) {
         return false;
+    }
+
+    //ANIMATION
+    @Override
+     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "movementController", 2, this::movePredicate));
+    }
+
+    private final RawAnimation animationWalk = RawAnimation.begin().thenPlay("walk");
+    private final RawAnimation animationRun = RawAnimation.begin().thenPlay("chase");
+    private final RawAnimation animationIdle = RawAnimation.begin().thenPlay("idle");
+
+    @Override
+    public double getTick(Object entity) {
+        return this.tickCount;
+    }
+
+    private PlayState movePredicate(software.bernie.geckolib.core.animation.AnimationState event) {
+        Vec3 motion = this.getDeltaMovement();
+        float horizontalSpeed = (float) Math.sqrt(motion.x * motion.x + motion.z * motion.z);
+        float runSpeed = 0.12f;
+
+        if (horizontalSpeed > 0.001f && horizontalSpeed < runSpeed) {
+            event.getController().setAnimation(animationWalk);
+        } else if (horizontalSpeed >= runSpeed) {
+            event.getController().setAnimation(animationRun);
+            event.getController().setAnimationSpeed(1.8f);
+        } else {
+            event.getController().setAnimation(animationIdle);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    public boolean shouldBeExtraAnimated() {
+        return true;
+    }
+
+    public boolean shouldAlwaysAnimateHead() {
+        return true;
     }
 }

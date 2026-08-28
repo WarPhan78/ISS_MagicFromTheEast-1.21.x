@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "#iss_magicfromtheeast:symmetry_rune",
-    "#iss_magicfromtheeast:spirit_rune",
-    "#iss_magicfromtheeast:dune_rune"
+    "#iss_magicfromtheeast:spirit_rune"
   ]
 }

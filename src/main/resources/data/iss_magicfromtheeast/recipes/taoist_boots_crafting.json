@@ -1,19 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "C": {
-      "item": "irons_spellbooks:magic_cloth"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "irons_spellbooks:wizard_base_boots"
     },
-    "R": {
+    {
       "item": "iss_magicfromtheeast:symmetry_rune"
+    },
+    {
+      "item": "irons_spellbooks:arcane_essence"
     }
-  },
-  "pattern": [
-    "C C",
-    "CRC"
   ],
   "result": {
+    "count": 1,
     "item": "iss_magicfromtheeast:taoist_boots"
   }
 }

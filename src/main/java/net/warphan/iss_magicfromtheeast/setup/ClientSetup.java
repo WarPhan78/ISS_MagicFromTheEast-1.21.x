@@ -93,10 +93,6 @@ public class ClientSetup {
         event.registerLayerDefinition(JadeBulletRenderer.MODEL_LAYER_LOCATION, JadeBulletRenderer::createBodyLayer);
     }
 
-    // TODO PORT 1.20.1: RegisterClientExtensionsEvent does not exist on Forge 1.20.1.
-    //  The soul fluid client texture (formerly ISS SimpleClientFluidType registered here) is now
-    //  provided via FluidType#initializeClient inside MFTEFluidRegistries.SOUL_TYPE.
-
     @SubscribeEvent
     public static void registerClientTooltip(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ClientLoadableWeaponTooltip.LoadableWeaponTooltipComponent.class, ClientLoadableWeaponTooltip::new);

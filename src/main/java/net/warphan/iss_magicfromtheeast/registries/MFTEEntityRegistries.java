@@ -114,7 +114,7 @@ public class MFTEEntityRegistries {
                     .build(ResourceLocation.fromNamespaceAndPath(ISS_MagicFromTheEast.MOD_ID, "spirit_arrow").toString()));
     public static final RegistryObject<EntityType<SummonedKitsune>> SUMMONED_KITSUNE =
             MFTE_ENTITIES.register("summoned_kitsune", () -> EntityType.Builder.<SummonedKitsune>of(SummonedKitsune::new, MobCategory.MISC)
-                    .sized(.7f, .6f)
+                    .sized(.7f, .95f)
                     .immuneTo(Blocks.POWDER_SNOW)
                     .fireImmune()
                     .clientTrackingRange(64)

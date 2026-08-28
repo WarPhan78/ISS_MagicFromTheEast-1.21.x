@@ -4,7 +4,7 @@
   "spawners": [
     {
       "type": "iss_magicfromtheeast:jiangshi",
-      "weight": 26,
+      "weight": 12,
       "minCount": 1,
       "maxCount": 1
     }

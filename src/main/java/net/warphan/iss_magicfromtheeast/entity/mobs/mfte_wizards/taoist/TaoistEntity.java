@@ -208,6 +208,14 @@ public class TaoistEntity extends NeutralWizard implements IMerchantWizard {
                 this.offers.add(new AdditionalWanderingTrades.RandomScrollTrade(new SpellFilter(MFTESchoolRegistries.SYMMETRY.get()), .8f, 1f).getOffer(this, this.random));
             }
             this.offers.add(new AdditionalWanderingTrades.SimpleSell(1, new ItemStack(MFTEItemRegistries.BAGUA_MIRROR.get()), 56, 64).getOffer(this, this.random));
+            this.offers.add(new MerchantOffer(
+                    new ItemStack(MFTEItemRegistries.REFINED_JADE_INGOT.get(), 2),
+                    new ItemStack(Items.CROSSBOW, 1),
+                    new ItemStack(MFTEItemRegistries.REPEATING_CROSSBOW.get(), 1),
+                    1,
+                    1,
+                    5
+            ));
             this.offers.removeIf(Objects::isNull);
             numberOfRestocksToday++;
         }

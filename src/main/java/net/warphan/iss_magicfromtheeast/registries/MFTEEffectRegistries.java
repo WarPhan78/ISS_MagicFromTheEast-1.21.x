@@ -30,7 +30,6 @@ public class MFTEEffectRegistries{
 
     public static final RegistryObject<MobEffect> MIST_STEP = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("mist_step", () -> new MistStepEffect(MobEffectCategory.BENEFICIAL, 8356754)
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, "8f3f2d5a-2c40-4a41-a1b0-6f0a53c60201", 0.5f, AttributeModifier.Operation.MULTIPLY_BASE)
-            .addAttributeModifier(Attributes.JUMP_STRENGTH, "mist_step_jump", 0.5f, AttributeModifier.Operation.MULTIPLY_BASE)
             .addAttributeModifier(ForgeMod.STEP_HEIGHT_ADDITION.get(), "8f3f2d5a-2c40-4a41-a1b0-6f0a53c60202", 0.5f, AttributeModifier.Operation.ADDITION)
             .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "8f3f2d5a-2c40-4a41-a1b0-6f0a53c60203", 0.5f, AttributeModifier.Operation.MULTIPLY_BASE));
     public static final RegistryObject<MobEffect> ANCHORED_SOUL = MFTE_MOB_EFFECT_DEFERRED_REGISTER.register("anchored_soul", () -> new AnchoredSoulEffect(MobEffectCategory.HARMFUL, 0X00ffff));

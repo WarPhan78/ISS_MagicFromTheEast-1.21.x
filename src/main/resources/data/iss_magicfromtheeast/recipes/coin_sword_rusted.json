@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "BCB",
+    " B "
+  ],
+  "key": {
+    "R": {
+      "item": "irons_spellbooks:blood_rune"
+    },
+    "C": {
+      "item": "iss_magicfromtheeast:coins_sword"
+    },
+    "B": {
+      "item": "irons_spellbooks:blood_vial"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "iss_magicfromtheeast:rusted_coins_sword"
+  }
+}

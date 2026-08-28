@@ -1,15 +1,15 @@
 {
+  "rarity.iss_magicfromtheeast.jadelight.name": "Jadelight",
+  "rarity.iss_magicfromtheeast.bloodful.name": "Bloodful",
 
   "attribute.iss_magicfromtheeast.symmetry_spell_power": "Symmetry Spell Power",
   "attribute.iss_magicfromtheeast.spirit_spell_power": "Spirit Spell Power",
-  "attribute.iss_magicfromtheeast.dune_spell_power": "Dune Spell Power",
+
   "attribute.iss_magicfromtheeast.symmetry_magic_resist": "Symmetry Spell Resist",
   "attribute.iss_magicfromtheeast.spirit_magic_resist": "Spirit Spell Resist",
-  "attribute.iss_magicfromtheeast.dune_magic_resist": "Dune Spell Resist",
 
   "school.iss_magicfromtheeast.symmetry": "Symmetry",
   "school.iss_magicfromtheeast.spirit": "Spirit",
-  "school.iss_magicfromtheeast.dune": "Dune",
 
   "spell.iss_magicfromtheeast.sword_dance": "Sword Dance",
   "spell.iss_magicfromtheeast.sword_dance.guide": "Summoning magical swords around the caster. After a short delay, the swords will fly toward the last hurt target and stab them",
@@ -62,7 +62,6 @@
 
   "item.iss_magicfromtheeast.jade": "Jadestone Shard",
   "item.iss_magicfromtheeast.bottle_of_souls": "Bottle Of Souls",
-  "item.iss_magicfromtheeast.arcane_relics": "Arcane Relics",
   "item.iss_magicfromtheeast.red_string": "Red String",
   "item.iss_magicfromtheeast.copper_coins": "Line of Coins",
   "item.iss_magicfromtheeast.yin_yang_core": "Yin Yang Core",
@@ -132,7 +131,6 @@
 
   "item.iss_magicfromtheeast.symmetry_rune": "Symmetry Rune",
   "item.iss_magicfromtheeast.spirit_rune": "Spirit Rune",
-  "item.iss_magicfromtheeast.dune_rune": "Dune Rune",
   "item.iss_magicfromtheeast.symmetry_upgrade_orb": "Symmetry Upgrade Orb",
   "item.iss_magicfromtheeast.spirit_upgrade_orb": "Spirit Upgrade Orb",
 
@@ -224,7 +222,7 @@
   "effect.iss_magicfromtheeast.reversal_healing": "Reversal Healing",
   "effect.iss_magicfromtheeast.reversal_healing.description": "Bypass incoming damage while heal yourself instead. Also gain 5% knock back resistance for per level of effect",
   "effect.iss_magicfromtheeast.mist_step": "Mist Step",
-  "effect.iss_magicfromtheeast.mist_step.description": "Increase movement efficiency and safe fall distance",
+  "effect.iss_magicfromtheeast.mist_step.description": "Increase movement efficiency",
   "effect.iss_magicfromtheeast.anchored_soul": "Anchored Soul",
   "effect.iss_magicfromtheeast.anchored_soul.guide": "When an entity teleport while having this effect, leave a part of its soul at the place where it start teleporting for 10 second. The effect will be removed after that.",
 
@@ -263,7 +261,6 @@
 
   "death.attack.symmetry_magic": "%1$s was slain by %2$s's symmetry magic",
   "death.attack.spirit_magic": "%1$s's soul was burned by %2$s's spirit magic",
-  "death.attack.dune_magic": "%1$s was corroded by %2$s's dune magic",
   "death.attack.soul_damage": "%1$s now is a soulless corpse",
   "death.attack.spirit_arrow": "%1$s's soul was pierced by %2$s spirit arrows",
   "death.attack.pendant_reflect": "%1$s has tasted their own mean",
