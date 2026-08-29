@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "iss_magicfromtheeast:onmyoji_helmet_crafting"
+        "recipe": "iss_magicfromtheeast:onmyoji_boots_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#irons_spellbooks:wizard_base_helmet"
+            "tag": "irons_spellbooks:wizard_base_boots"
           }
         ]
       },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "iss_magicfromtheeast:onmyoji_helmet_crafting"
+      "iss_magicfromtheeast:onmyoji_boots_crafting"
     ]
   }
 }

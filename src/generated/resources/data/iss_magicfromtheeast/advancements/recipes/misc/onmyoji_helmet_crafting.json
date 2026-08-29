@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "iss_magicfromtheeast:taoist_chestplate_crafting"
+        "recipe": "iss_magicfromtheeast:onmyoji_helmet_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#irons_spellbooks:wizard_base_chestplate"
+            "tag": "irons_spellbooks:wizard_base_helmet"
           }
         ]
       },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "iss_magicfromtheeast:taoist_chestplate_crafting"
+      "iss_magicfromtheeast:onmyoji_helmet_crafting"
     ]
   }
 }
